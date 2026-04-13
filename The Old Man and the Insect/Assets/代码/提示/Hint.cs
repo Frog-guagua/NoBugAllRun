@@ -71,7 +71,10 @@ public class Hint : MonoBehaviour
         if (currentAnim != null) StopCoroutine(currentAnim);
         currentAnim = StartCoroutine(AnimateTo(hiddenPos, false));
     }
-
+    public IEnumerator WaitForClose()
+    {
+        while (gameObject.activeSelf) yield return null;
+    }
     IEnumerator AnimateTo(Vector2 targetPos, bool setShowingFlag)
     {
         isShowing = setShowingFlag; 

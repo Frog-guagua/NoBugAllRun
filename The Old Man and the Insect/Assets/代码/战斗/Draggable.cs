@@ -13,6 +13,7 @@ public class Draggable : MonoBehaviour
     public static E_BugType nowBugType; //呱： 储存目前被拖拽的虫虫的类型
     public static int nowGridIndex;//呱： 记录 虫子在哪个格子上被松开了 方便传值进行判定
     public static GameObject nowBug;
+    public static bool IsDragging = false;
 
     #endregion
     
@@ -28,8 +29,9 @@ public class Draggable : MonoBehaviour
     //呱：在这里获取游戏物体 是为了获取上面挂载的脚本
     [SerializeField]  GameObject cage; //呱：获取 CageZoom 脚本 
     [SerializeField]  GameObject gridManager;//呱： 获取 GridManager 脚本
-    private RoundManager fightManager;
+    private RoundManager roundManager;
     private FollowCage followCage;
+  
     #endregion
 
     #region 拖拽相关参数
@@ -47,7 +49,7 @@ public class Draggable : MonoBehaviour
         
         GetComponent<Collider2D>().enabled = true;
         followCage = GetComponent<FollowCage>();
-        fightManager = GetComponent<RoundManager>();
+        roundManager = GetComponent<RoundManager>();
     }
     
     void Update()
@@ -61,13 +63,13 @@ public class Draggable : MonoBehaviour
         // 呱：按住左键且正在拖拽中 跟随鼠标
         else if (Input.GetMouseButton(0) && isDragging)
         {
-         
+            
             FollowMouse();
         }
         // 呱：松开左键 结束拖拽
         else if (Input.GetMouseButtonUp(0) && isDragging)
         {
-            
+            IsDragging = false;
             #region 禁用碰撞体 （为了防止后面检测格子的时候干扰 / 短暂禁用了 虫子和笼子的 碰撞体）
 
             Collider2D bugCollider = GetComponent<Collider2D>();
@@ -90,8 +92,9 @@ public class Draggable : MonoBehaviour
             //呱：这个是为了记录 放置虫子的类型 
             nowBugType = GetComponent<BugInfomations>().bugType;
            
-            Debug.Log(nowBugType.ToString());
-            Debug.Log($"现在所在格子为{nowGridIndex+1}");
+            
+            if(FightFlowManager.onTeachingRound)roundManager.TeachingRound(nowBug);
+           
            
             StopDrag();
         }
@@ -117,6 +120,7 @@ public class Draggable : MonoBehaviour
         {
            
             nowBug = hit.collider.gameObject;
+            nowBugType = GetComponent<BugInfomations>().bugType;
             isDragging = true;
             followCage.enabled = false;
            
@@ -141,7 +145,7 @@ public class Draggable : MonoBehaviour
 
     void FollowMouse()
     {
-       
+        IsDragging = true;
         Vector3 mousePos = 
             Camera.main.ScreenToWorldPoint
                 (new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z));
@@ -153,6 +157,7 @@ public class Draggable : MonoBehaviour
       
         isDragging = false;
         if (followCage != null) followCage.enabled = true;
+     
        
     }
 

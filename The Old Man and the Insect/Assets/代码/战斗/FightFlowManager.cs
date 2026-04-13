@@ -12,6 +12,7 @@ public class FightFlowManager : MonoBehaviour
     [Tooltip("对话点击时候的音效")]
     [SerializeField] AudioClip speakEffect1;
     [SerializeField] AudioClip speakEffect2;
+    [SerializeField] AudioClip bugSing;
     [Tooltip("提示出现时候的音效")]
     [SerializeField] AudioClip hintEffect;
     
@@ -38,14 +39,16 @@ public class FightFlowManager : MonoBehaviour
     
     [Header("遮幕")]
     [SerializeField] GameObject Mask;
+    [SerializeField] GameObject FoucsMask;
     private Transition mask;
+    private SpriteRenderer foucaMask_SR;
 
     [Header("相机抖动")] 
     [SerializeField]  Camera mainCamera;
     private CamaraShake  cameraShake;
 
-    [Header("干扰物")] [SerializeField] GameObject button;
-    [SerializeField]  List<GameObject> bugs;
+    public static bool onTeachingRound = false;
+ 
 
     private float fadeTime = 1.5f;
     //呱：已经确认好 当堂的游戏类型   游戏流程 只单向执行一次 
@@ -54,7 +57,15 @@ public class FightFlowManager : MonoBehaviour
     
     void Start()
     {
+        
         mask = Mask.GetComponent<Transition>();
+        
+        
+        foucaMask_SR = FoucsMask.GetComponent<SpriteRenderer>();
+        Color color = foucaMask_SR.color;
+        color.a = 0f;
+        foucaMask_SR.color = color;
+        
         dialogue = DialogueManager.GetComponent<DialogueForFight>();
         hint = HintManager.GetComponent<Hint>();
         cameraShake = mainCamera.GetComponent<CamaraShake>();
@@ -67,21 +78,25 @@ public class FightFlowManager : MonoBehaviour
             
         //呱： 用来判断现在是 第几次游戏
         if (OnGame1)
-        {
+        { 
+            onTeachingRound = true;
            StartCoroutine(Game1Flow());
            haveCheckedFightType = true;
+           
         }
         else if (OnGame2)
         {
+            onTeachingRound = false;
             haveCheckedFightType = true;
         }
         else if (OnGame3)
         {
+            onTeachingRound = false;
             haveCheckedFightType = true;
         }
     }
 
-    
+
     
     void PrepareForFight()
     {
@@ -92,10 +107,7 @@ public class FightFlowManager : MonoBehaviour
         //   给我认真看啊！ 玩游戏的玩家 给我认真 看啊！
         BanCage();
 
-        foreach (var bug in bugs)
-        {
-            bug.SetActive(false);
-        }
+
 
         #endregion
         
@@ -117,14 +129,15 @@ public class FightFlowManager : MonoBehaviour
     //呱： 第一次战斗……！ 大爷强强！！！
     IEnumerator Game1Flow()
     {
+        
         PrepareForFight();
         //呱：好的，对手大爷准备对话 
         #region 对话 
 
         //呱：首先 等到遮幕渐隐完再说话
         yield return new WaitForSeconds(fadeTime);
-        /*yield return StartCoroutine(Speak(2,"怂了吗","快把你的蛐蛐放上来！"));
-        button.SetActive(false);
+        yield return StartCoroutine(Speak(2,"怂了吗","快把你的蛐蛐放上来！"));
+        
         #endregion
 
         #region 提示和引导
@@ -133,18 +146,15 @@ public class FightFlowManager : MonoBehaviour
         yield return StartCoroutine(ShowHint("看到左下角的笼子了吗，快点击它！"));
         
         ReleseCage();
-        foreach (var bug in bugs)
-        {
-            bug.SetActive(true);
-        }
-        yield return new WaitForSeconds(2);
+        AudioMgr.Instance.PlaySFX(bugSing);
+        yield return StartCoroutine(TransportMask());
         
-       */ 
-       
-        while (!RoundManager.finishDrag)
-        {
-            roundManager.GetComponent<RoundManager>().TeachingRound(Draggable.nowBug);
-        }
+        //呱： ②引导 把虫虫放到正确的地方
+        yield return new WaitUntil(() =>CageZoom.CageHasZoomed);
+        yield return StartCoroutine(ShowHint("长按左键拖动蛐蛐到象棋格中"));
+        
+        
+        
         #endregion
         
         
@@ -161,6 +171,18 @@ public class FightFlowManager : MonoBehaviour
         
     }
 
+    IEnumerator TransportMask()
+    {
+        Color color = foucaMask_SR.color;
+        color.a = 0.5f;
+        foucaMask_SR.color = color;
+        yield return StartCoroutine(Cage.GetComponent<ObjectShake>().Shake(1f,0.25f));
+        yield return new WaitForSeconds(1f);
+        color.a = 0f;
+        foucaMask_SR.color = color;
+        
+    }
+    
     IEnumerator Speak(int speacial, params string[] content)
     {
         
@@ -187,7 +209,7 @@ public class FightFlowManager : MonoBehaviour
     {
         AudioMgr.Instance.PlaySFX(hintEffect);
         hint.ShowHint(hintContent);
-        yield return null;
+        yield return hint.WaitForClose();
     }
     
     private void PlayFightBGM()
