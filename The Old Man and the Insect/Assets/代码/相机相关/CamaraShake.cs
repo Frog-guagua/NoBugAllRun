@@ -15,9 +15,12 @@ public class CamaraShake : MonoBehaviour
         //呱：这样就很通用了 hh!
         if (camaraDelayFollow != null)
         {
-            StopAllCoroutines();
-            StartCoroutine(Shake(duration, strength));
+            camaraDelayFollow.enabled = false;
+            
         }
+        StopAllCoroutines();
+        StartCoroutine(Shake(duration, strength));
+       
     }
     public static void ShakeCameraInDialogue(float duration,float strength)
     {
@@ -57,15 +60,9 @@ public class CamaraShake : MonoBehaviour
     IEnumerator Shake(float duration, float strength)
     {
        
-        //呱：有没有挂载美味跟随脚本？！ ！？
-        if (camaraDelayFollow != null)
-        {
-            camaraDelayFollow.enabled = false;
-        }
-        else
-        {
-            yield return null;
-        }
+        
+       
+     
         
         float timeCount = 0.0f;
         
@@ -81,6 +78,11 @@ public class CamaraShake : MonoBehaviour
         }
   
         transform.localPosition = originalPos;
+        
+        if (camaraDelayFollow != null)
+        {
+            camaraDelayFollow.enabled = true;
+        }
     }
 
     #endregion

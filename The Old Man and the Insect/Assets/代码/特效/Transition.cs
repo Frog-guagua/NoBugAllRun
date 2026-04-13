@@ -69,14 +69,16 @@ public class Transition : MonoBehaviour
         }
     }
 
-    public void FadeIn(Image image, float duration)
+    public IEnumerator FadeIn(Image image, float duration)
     {
         StartCoroutine(Fade(image, 0f, 1f, duration));
+        yield return null;
     }
 
-    public void FadeOut(Image image, float duration)
+    public IEnumerator FadeOut(Image image, float duration)
     {
         StartCoroutine(Fade(image, 1f, 0f, duration));
+        yield return null;
     }
 
     private IEnumerator Fade(float startAlpha, float endAlpha, float duration)

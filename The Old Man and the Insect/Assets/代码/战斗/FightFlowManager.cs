@@ -9,7 +9,8 @@ using UnityEngine;
 public class FightFlowManager : MonoBehaviour
 {
     [Header("音效")]
-    [SerializeField] AudioClip MovingSound;
+    [Tooltip("对话点击时候的音效")]
+    [SerializeField] AudioClip speakEffect;
     
     [Header("战斗背景bgm")]
     [Tooltip("就这个战斗爽")]
@@ -23,20 +24,34 @@ public class FightFlowManager : MonoBehaviour
     [Header("俺の笼子")]
     [SerializeField]  GameObject Cage;
     
-    [SerializeField]  GameObject RoundManager;
+    [Header("Manager!集合！")]
+
+    [SerializeField]  GameObject DialogueManager;
+    private DialogueForFight dialogue;
+    [SerializeField] GameObject HintManager;
+    private Hint hint;
     
+    [Header("遮幕")]
+    [SerializeField] GameObject Mask;
     private Transition mask;
-    void Awake()
-    {
-        mask = FindObjectOfType<Transition>(); 
-    }
+
+    [Header("相机抖动")] 
+    [SerializeField]  Camera mainCamera;
+    private CamaraShake  cameraShake;
     
-    
+    //private List<string> SpeakContent = new List<string>();
+
+    private float fadeTime = 1.5f;
     //呱：已经确认好 当堂的游戏类型   游戏流程 只单向执行一次 
     private bool haveCheckedFightType;
+    
+    
     void Start()
     {
-        
+        mask = Mask.GetComponent<Transition>();
+        dialogue = DialogueManager.GetComponent<DialogueForFight>();
+        hint = HintManager.GetComponent<Hint>();
+        cameraShake = mainCamera.GetComponent<CamaraShake>();
     }
 
     
@@ -60,8 +75,9 @@ public class FightFlowManager : MonoBehaviour
         }
     }
 
-    //呱： 第一次战斗……！ 大爷强强！！！
-    IEnumerator Game1Flow()
+    
+    
+    void PrepareForFight()
     {
         #region 禁用物体上的脚本
 
@@ -72,23 +88,45 @@ public class FightFlowManager : MonoBehaviour
 
         #endregion
         
-        #region 战前氛围准备
+       #region 战前氛围准备
+ 
+        
 
-        //呱： 首先是遮幕渐显
-        mask.FadeIn(1.5f);
+        
+        
+        #endregion
+
+    }
+    
+    //呱： 第一次战斗……！ 大爷强强！！！
+    IEnumerator Game1Flow()
+    {
+        //呱：赛前准备 
+        PrepareForFight();
+        //呱： 首先是遮幕渐隐
+        
+        mask.FadeOut(fadeTime);
         
         //呱： 然后是音乐播放
         PlayFightBGM();
-
-        #endregion
-
+        
+        //呱：好的，对手大爷准备对话 
         #region 对话
 
+        //呱：首先 等到遮幕渐隐完再说话
+        yield return new WaitForSeconds(fadeTime);
         
+        
+        
+        yield return StartCoroutine(Speak(2,"怂了吗","快把你的蛐蛐放上来！"));
+        hint.ShowHint("看到左下角的笼子了吗，快点击它！");
+        
+        
+        hint = HintManager.GetComponent<Hint>();
 
         #endregion
         
-        RoundManager.GetComponent<RoundManager>().TeachingRound(Draggable.nowBug);
+        //roundManager.GetComponent<RoundManager>().TeachingRound(Draggable.nowBug);
         
         yield return null;
     }
@@ -101,6 +139,19 @@ public class FightFlowManager : MonoBehaviour
     void Game3Flow()
     {
         
+    }
+
+    IEnumerator Speak(int speacial, params string[] content)
+    {
+        
+        for (int i = 0; i < content.Length; i++)
+        {
+            if (speacial != 0 && (speacial-1) == i)
+                cameraShake.ShakeStart(0.5f, 0.5f);
+
+            dialogue.Speak(content[i]);
+            yield return dialogue.WaitForClose(); 
+        }
     }
     
     private void PlayFightBGM()

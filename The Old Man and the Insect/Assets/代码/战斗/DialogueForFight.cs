@@ -22,13 +22,18 @@ public class DialogueForFight : MonoBehaviour
         backgrond.SetActive(false);
     }
 
-    public void Show(string msg, System.Action callback = null)
+    public void Speak(string dialogue, System.Action callback = null)
     {
-        text.text = msg;
+        text.text = dialogue;
         onEnd = callback;
         backgrond.SetActive(true);
     }
 
+
+    public IEnumerator WaitForClose()
+    {
+        while (backgrond.activeSelf) yield return null;
+    }
     public void OnClickDialogue()
     {
         backgrond.SetActive(false);
