@@ -10,7 +10,10 @@ public class FightFlowManager : MonoBehaviour
 {
     [Header("音效")]
     [Tooltip("对话点击时候的音效")]
-    [SerializeField] AudioClip speakEffect;
+    [SerializeField] AudioClip speakEffect1;
+    [SerializeField] AudioClip speakEffect2;
+    [Tooltip("提示出现时候的音效")]
+    [SerializeField] AudioClip hintEffect;
     
     [Header("战斗背景bgm")]
     [Tooltip("就这个战斗爽")]
@@ -30,6 +33,8 @@ public class FightFlowManager : MonoBehaviour
     private DialogueForFight dialogue;
     [SerializeField] GameObject HintManager;
     private Hint hint;
+    [SerializeField]RoundManager roundManager;
+    
     
     [Header("遮幕")]
     [SerializeField] GameObject Mask;
@@ -38,8 +43,9 @@ public class FightFlowManager : MonoBehaviour
     [Header("相机抖动")] 
     [SerializeField]  Camera mainCamera;
     private CamaraShake  cameraShake;
-    
-    //private List<string> SpeakContent = new List<string>();
+
+    [Header("干扰物")] [SerializeField] GameObject button;
+    [SerializeField]  List<GameObject> bugs;
 
     private float fadeTime = 1.5f;
     //呱：已经确认好 当堂的游戏类型   游戏流程 只单向执行一次 
@@ -86,11 +92,21 @@ public class FightFlowManager : MonoBehaviour
         //   给我认真看啊！ 玩游戏的玩家 给我认真 看啊！
         BanCage();
 
+        foreach (var bug in bugs)
+        {
+            bug.SetActive(false);
+        }
+
         #endregion
         
-       #region 战前氛围准备
+        #region 战前氛围准备
  
+        //呱： 首先是遮幕渐隐
         
+       mask.FadeOut(fadeTime);
+        
+       //呱： 然后是音乐播放
+       PlayFightBGM();
 
         
         
@@ -101,32 +117,36 @@ public class FightFlowManager : MonoBehaviour
     //呱： 第一次战斗……！ 大爷强强！！！
     IEnumerator Game1Flow()
     {
-        //呱：赛前准备 
         PrepareForFight();
-        //呱： 首先是遮幕渐隐
-        
-        mask.FadeOut(fadeTime);
-        
-        //呱： 然后是音乐播放
-        PlayFightBGM();
-        
         //呱：好的，对手大爷准备对话 
-        #region 对话
+        #region 对话 
 
         //呱：首先 等到遮幕渐隐完再说话
         yield return new WaitForSeconds(fadeTime);
-        
-        
-        
-        yield return StartCoroutine(Speak(2,"怂了吗","快把你的蛐蛐放上来！"));
-        hint.ShowHint("看到左下角的笼子了吗，快点击它！");
-        
-        
-        hint = HintManager.GetComponent<Hint>();
+        /*yield return StartCoroutine(Speak(2,"怂了吗","快把你的蛐蛐放上来！"));
+        button.SetActive(false);
+        #endregion
 
+        #region 提示和引导
+
+        //呱： ①引导点击笼子 这时候我们顺便开放笼子权限
+        yield return StartCoroutine(ShowHint("看到左下角的笼子了吗，快点击它！"));
+        
+        ReleseCage();
+        foreach (var bug in bugs)
+        {
+            bug.SetActive(true);
+        }
+        yield return new WaitForSeconds(2);
+        
+       */ 
+       
+        while (!RoundManager.finishDrag)
+        {
+            roundManager.GetComponent<RoundManager>().TeachingRound(Draggable.nowBug);
+        }
         #endregion
         
-        //roundManager.GetComponent<RoundManager>().TeachingRound(Draggable.nowBug);
         
         yield return null;
     }
@@ -146,12 +166,28 @@ public class FightFlowManager : MonoBehaviour
         
         for (int i = 0; i < content.Length; i++)
         {
+            if (i % 1 == 0)
+            {
+                AudioMgr.Instance.PlaySFX(speakEffect2);
+            }
+            else
+            {
+                AudioMgr.Instance.PlaySFX(speakEffect1);
+            }
+            
             if (speacial != 0 && (speacial-1) == i)
                 cameraShake.ShakeStart(0.5f, 0.5f);
 
             dialogue.Speak(content[i]);
             yield return dialogue.WaitForClose(); 
         }
+    }
+
+    IEnumerator ShowHint(string hintContent)
+    {
+        AudioMgr.Instance.PlaySFX(hintEffect);
+        hint.ShowHint(hintContent);
+        yield return null;
     }
     
     private void PlayFightBGM()
@@ -167,5 +203,9 @@ public class FightFlowManager : MonoBehaviour
     private void BanCage()
     {
         Cage.GetComponent<CageZoom>().enabled = false;
+    }
+    private void ReleseCage()
+    {
+        Cage.GetComponent<CageZoom>().enabled = true;
     }
 }
