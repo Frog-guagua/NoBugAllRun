@@ -79,8 +79,13 @@ public class LevelStateManager : MonoBehaviour
     private ObjectShake doorshake;
     private bool afterKnock = false;
     
+    private Hint hint;
+    
+    [Header("弹窗")]
+    public GameObject hintobj;
+    public string GetCageStr="getcage";
     void Start()
-    {
+    {  hint = hintobj.GetComponent<Hint>();
         doorshake = door.GetComponent<ObjectShake>();
         
         if (_instance != this && _instance != null)
@@ -121,7 +126,7 @@ public class LevelStateManager : MonoBehaviour
                    StartCoroutine(openAnim());
                    break;
                case LevelState.havingCage://此处逻辑待定，不知道美术资源是直接给个提笼子的老爷爷还是说给个笼子
-                   TaskWindow.Instance.Show(task1);
+                  hint.ShowHint(GetCageStr);
                    table.tableCanInteract = true;
                    //桌子逻辑，点击桌子放笼子
                    break;
