@@ -1,9 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-
+//呱神 强
+//呱神 强
+//呱神 强
+//呱神 强
+//呱神 强
+//呱神 强
+//呱神 强
+//呱神 强
+//呱神 强
 public class Hint : MonoBehaviour
 {
     //呱 ：  现在是数学time！！！！ 函数 曲线 都端上来吧
@@ -19,7 +28,8 @@ public class Hint : MonoBehaviour
     
     [Header("提示框位置")]
     //呱：对不住了我直接手打坐标 这个是左上角
-    private Vector2 hiddenPos = new Vector2(-501f,368f);
+    public Vector2 hiddenPos = new Vector2(-501f,368f);//不同画布会有差别
+    //我们直接手动填
 
     [SerializeField] private Vector2 shownPos;
 
@@ -87,5 +97,7 @@ public class Hint : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+   
   
 }
