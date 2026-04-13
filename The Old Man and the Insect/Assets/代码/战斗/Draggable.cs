@@ -90,7 +90,8 @@ public class Draggable : MonoBehaviour
             //呱：这个是为了记录 放置虫子的类型 
             nowBugType = GetComponent<BugInfomations>().bugType;
            
-        
+            Debug.Log(nowBugType.ToString());
+            Debug.Log($"现在所在格子为{nowGridIndex+1}");
            
             StopDrag();
         }
