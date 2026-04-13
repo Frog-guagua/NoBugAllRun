@@ -28,7 +28,7 @@ public class Hint : MonoBehaviour
     
     [Header("提示框位置")]
     //呱：对不住了我直接手打坐标 这个是左上角
-    public Vector2 hiddenPos = new Vector2(-501f,368f);//不同画布会有差别
+    public Vector2 hiddenPos = new Vector2(-501f,368f);//不同情况会有差别
     //我们直接手动填
 
     [SerializeField] private Vector2 shownPos;
