@@ -6,12 +6,13 @@ using UnityEngine.Events;
 public class DialogueData : ScriptableObject
 {
     [System.Serializable]
-    public struct DialogueSentence
+    public class DialogueSentence
     {
         public string speakerName;
         public Sprite speakerSprite;
         public string content;
         public bool Shake;
+        public bool canContinue=true;
     }
 
     public List<DialogueSentence> dialogueList = new List<DialogueSentence>();

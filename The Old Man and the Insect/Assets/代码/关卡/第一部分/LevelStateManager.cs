@@ -131,7 +131,7 @@ public class LevelStateManager : MonoBehaviour
                    //桌子逻辑，点击桌子放笼子
                    break;
                case LevelState.leavinghouse:
-                   TaskWindow.Instance.CompleteTask();
+                   
                    //离开房子
                    break;
                

@@ -10,16 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c83d79d798568942a08f4d3426d13ae, type: 3}
-  m_Name: Example
+  m_Name: event1
   m_EditorClassIdentifier: 
   dialogueList:
-  - speakerName: 
+  - speakerName: event!
     speakerSprite: {fileID: 0}
     content: 
     Shake: 0
     canContinue: 1
-  - speakerName: 
-    speakerSprite: {fileID: 0}
-    content: 
-    Shake: 0
-    canContinue: 0

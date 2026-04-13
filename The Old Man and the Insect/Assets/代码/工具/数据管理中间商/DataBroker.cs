@@ -12,7 +12,23 @@ public sealed class DataBroker
     {
     }
     
-   
+    
+    public static int reputation ;//声望
+    //严肃背诵单词
+    
+    
+    private static int _actionValue;
+    public static int actionValue
+    {   
+        get { return _actionValue; }
+        set{_actionValue = value;}
+        
+    }
+    //对不起我真不知道行动值怎么取
+    //主人可以在属性里写方法直接与自己那边的变量同步。
+    
+    
+    
     public static DataBroker Instance => _instance;
     public List<InsectData> datasFromCage = new List<InsectData>();//这个是鼠给呱呱的
     public  static int experience = 0;//malooooooooo！

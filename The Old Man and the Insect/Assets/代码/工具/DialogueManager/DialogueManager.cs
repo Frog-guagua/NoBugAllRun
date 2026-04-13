@@ -27,6 +27,8 @@ public class DialogueManager : MonoBehaviour
     private bool isDialoguePlaying;
     private int currentSentenceIndex;//这个变量记录当前说到第几句话了
     private Action currentact;
+    
+    public bool canContinue=true;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -72,17 +74,17 @@ public class DialogueManager : MonoBehaviour
         }
 
         isSentenceFinish = false;
-
+        
         if (typeWriterCoroutine != null) StopCoroutine(typeWriterCoroutine);
         contentText.text = "";
 
         var sentence = currentDialogueData.dialogueList[currentSentenceIndex];
         //取出记录在list里的结构体数据
        
-
+        
         speakerNameText.text = sentence.speakerName;
         speakerSpriteImg.sprite = sentence.speakerSprite;
-
+        canContinue=sentence.canContinue;
         if (sentence.Shake)
         {
             CamaraShake.ShakeCameraInDialogue(0.5f,0.5f);
@@ -103,7 +105,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        if (isDialoguePlaying && isSentenceFinish && Input.GetMouseButtonDown(0))
+        if (isDialoguePlaying && isSentenceFinish && Input.GetMouseButtonDown(0)&&canContinue)
         {
             NextSentence();//鼠标点击切换下一句
         }
