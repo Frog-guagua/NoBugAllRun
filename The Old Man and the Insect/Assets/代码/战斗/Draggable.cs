@@ -38,7 +38,7 @@ public class Draggable : MonoBehaviour
 
     private bool isDragging;
     private Vector3 dragOffset;
-
+    private Vector3 originalLocalPos; 
 
     #endregion
     
@@ -46,7 +46,7 @@ public class Draggable : MonoBehaviour
     
     void Start()
     {
-        
+        originalLocalPos = transform.localPosition;
         GetComponent<Collider2D>().enabled = true;
         followCage = GetComponent<FollowCage>();
         roundManager = GetComponent<RoundManager>();
@@ -160,7 +160,15 @@ public class Draggable : MonoBehaviour
      
        
     }
-
+    public void ForceStopDrag()
+    {
+        if (isDragging)
+        {
+            isDragging = false;
+            transform.localPosition = originalLocalPos;  // 复位
+            if (followCage != null) followCage.enabled = true;  // 重新启用跟随
+        }
+    }
     #endregion
    
     
