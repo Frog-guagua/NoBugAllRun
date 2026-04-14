@@ -84,6 +84,9 @@ public class LevelStateManager : MonoBehaviour
     [Header("弹窗")]
     public GameObject hintobj;
     public string GetCageStr="getcage";
+
+    public InsectDataSO a;
+    public InsectDataSO b;
     void Start()
     {  hint = hintobj.GetComponent<Hint>();
         doorshake = door.GetComponent<ObjectShake>();
@@ -128,6 +131,9 @@ public class LevelStateManager : MonoBehaviour
                case LevelState.havingCage://此处逻辑待定，不知道美术资源是直接给个提笼子的老爷爷还是说给个笼子
                   hint.ShowHint(GetCageStr);
                    table.tableCanInteract = true;
+                  CageManager.Instance.AddInsect(a);
+                  CageManager.Instance.AddInsect(b);
+                  CageManager.Instance.AddInsect(a);
                    //桌子逻辑，点击桌子放笼子
                    break;
                case LevelState.leavinghouse:
