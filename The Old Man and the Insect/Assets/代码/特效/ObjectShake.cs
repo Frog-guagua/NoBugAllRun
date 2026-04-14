@@ -49,7 +49,7 @@ public class ObjectShake : MonoBehaviour
         
     }
     
-    IEnumerator Shake(float duration, float strength)
+    public IEnumerator Shake(float duration, float strength)
     {
         float timeCount = 0.0f;
       

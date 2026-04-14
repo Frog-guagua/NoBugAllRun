@@ -8,7 +8,7 @@ using UnityEngine;
 public class RoundManager : MonoBehaviour
 {
 
-    public static bool finishDrag;
+    
 
     private BugMatch bugMatch;
     private int nowRound =1;
@@ -31,7 +31,7 @@ public class RoundManager : MonoBehaviour
     {
         if (nowBug == null) return;
        
-        Debug.Log( "进入函数！");
+    
        if(!FightFlowManager.OnGame1) return;
         
             if (nowRound == 1)
@@ -41,7 +41,7 @@ public class RoundManager : MonoBehaviour
                     //呱 ： 注意这里数组下标 需要减一 原本对应的是 第五格
                     if (Draggable.nowGridIndex == 4 )
                     {
-                       Debug.Log("成功放置");
+                    
                        bugMatch.StartFightBug();
                        nowBug.SetActive(false) ;
                       
@@ -55,8 +55,6 @@ public class RoundManager : MonoBehaviour
                         nowBug.SetActive(false) ;
                     }
                 }
-
-                finishDrag= true;
 
             }
             else if (nowRound == 2)
