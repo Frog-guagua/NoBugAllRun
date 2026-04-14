@@ -16,5 +16,8 @@ MonoBehaviour:
   insectName: 
   insectHP: 4
   insectAtk: 1
-  pointsComsumption: 1
+  insectLevel: 1
+  bugType: 5
   description: 
+  insectImage: {fileID: 0}
+  insectSound: {fileID: 8300000, guid: e506e6e228fe17442adb0160d2f9676f, type: 3}

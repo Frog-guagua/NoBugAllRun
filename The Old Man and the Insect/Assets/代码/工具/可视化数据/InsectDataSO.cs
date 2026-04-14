@@ -15,5 +15,5 @@ public class InsectDataSO : ScriptableObject
     public E_BugType bugType;
     public string description;
     public Sprite insectImage;
-    
+    public AudioClip insectSound;
 }

@@ -25,8 +25,10 @@ public class CageSlot : MonoBehaviour
     {
         CageManager.Instance.currentChosenData=CageManager.Instance.insectInCage[slotID];
         cageUI.slotOnClick();//在专门管理ui的代码里处理相关逻辑
-        
-        
+        if (Data.insectId != 0)
+        {
+            AudioMgr.Instance.PlaySFX(Id_To_Insect_Dic.IdToInsectDic[Data.insectId].insectSound);
+        }
        
     }
 

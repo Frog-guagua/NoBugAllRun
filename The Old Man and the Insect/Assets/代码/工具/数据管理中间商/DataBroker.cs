@@ -40,6 +40,7 @@ public sealed class DataBroker
     {   
         datasFromCage.Clear();
         datasFromCage = datas;
+        Debug.Log("同步");
     }
 
     public void give_datasFromFight(List<InsectData> datas)
