@@ -12,7 +12,8 @@ public class InsectDataSO : ScriptableObject
     public int insectHP = 0;
     public int insectAtk = 0;
     public int insectLevel=1; //呱：虫子的等级 
-
+    public E_BugType bugType;
     public string description;
-    public Image Image;
+    public Sprite insectImage;
+    
 }

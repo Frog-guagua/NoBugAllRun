@@ -55,6 +55,7 @@ public class PlayerMove : MonoBehaviour
         PosUpdate();
         Move();
         MovingSfx();
+        
     }
 
     void MovingSfx()

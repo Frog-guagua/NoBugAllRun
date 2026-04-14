@@ -22,7 +22,7 @@ public class CageUI : MonoBehaviour
     public Button atkUpbtn;
     // 私有构造函数，防止外部直接调用构造函数
     private CageUI() { }
-
+    private bool hasBeenActivated = false;
     // 提供一个公共的静态属性，以便其他类可以访问这个实例
     public static CageUI Instance
     {
@@ -70,12 +70,13 @@ public class CageUI : MonoBehaviour
             CageManager.Instance.slotList.Add(newslot);
             //生成背包格子
         }
+        hasBeenActivated = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.Escape))
         {
             setInactive();//非常神秘，我用escape退出不了，其他键就可以，先放着
             //unity你是对我的esc有什么意见吗
@@ -98,7 +99,15 @@ public class CageUI : MonoBehaviour
 
     public void setAct() { 
         this.gameObject.SetActive(true);
+        
         PlayerMove.canMove = false;
+        if (hasBeenActivated)
+        {
+            for (int i = 0; i < slotCount; i++)
+            {
+                CageManager.Instance.refreshSlot(i);
+            }
+        }
     }
     public void setInactive() { 
         this.gameObject.SetActive(false);

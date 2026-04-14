@@ -107,10 +107,10 @@ public sealed class CageManager : MonoBehaviour
         data.insectId = insectData.insectId;
         data.insectAtk = insectData.insectAtk;
         data.insectHP = insectData.insectHP;
-       
+       data.bugType = insectData.bugType;
         data.description = insectData.description;
-       
-        data.Image = insectData.Image;
+        
+        data.insectImage = insectData.insectImage;
        data.insectLevel = insectData.insectLevel;
         foreach (var kvp in insectInCage)
         {
@@ -157,8 +157,11 @@ public sealed class CageManager : MonoBehaviour
     }
 
     public void refreshSlot(int slotid) //更新格子ui
-    {
+    {   
+        
         CageSlot cageSlot = slotList[slotid].GetComponent<CageSlot>();
+        
+        
         cageSlot.refreshSlot();
     }
    
@@ -176,4 +179,5 @@ public sealed class CageManager : MonoBehaviour
             insectInCage.Add(i, newInsects[i]);
         }
     }
+    
 }

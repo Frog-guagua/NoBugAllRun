@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CageSlot : MonoBehaviour
 {
     public int slotID;
     private CageUI cageUI;
-
+    private Button btn;
     public InsectData Data;
     // Start is called before the first frame update
     void Start()
     {
         cageUI = GetComponentInParent<CageUI>();
+        btn = GetComponent<Button>();
     }
 
     // Update is called once per frame
@@ -23,6 +25,8 @@ public class CageSlot : MonoBehaviour
     {
         CageManager.Instance.currentChosenData=CageManager.Instance.insectInCage[slotID];
         cageUI.slotOnClick();//在专门管理ui的代码里处理相关逻辑
+        
+        
        
     }
 
@@ -30,5 +34,9 @@ public class CageSlot : MonoBehaviour
     {   
         Data=CageManager.Instance.insectInCage[slotID];
         //这里更新ui等
+        if(Data.insectImage!=null)
+        {
+            btn.image.sprite=Data.insectImage;
+        }
     }
 }
