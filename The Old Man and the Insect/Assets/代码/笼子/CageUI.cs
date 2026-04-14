@@ -80,7 +80,7 @@ public class CageUI : MonoBehaviour
             setInactive();//非常神秘，我用escape退出不了，其他键就可以，先放着
             //unity你是对我的esc有什么意见吗
             Debug.Log("esc");
-            DataBroker.Instance.datasFromCage = CageManager.Instance.insectDataList;
+            DataBroker.Instance.give_datasFromCage(CageManager.Instance.insectDataList);
             //在关闭培养界面时同步数据给中间商。
         }
         
