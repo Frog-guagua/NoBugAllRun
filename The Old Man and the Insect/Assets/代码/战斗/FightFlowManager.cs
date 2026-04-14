@@ -12,6 +12,7 @@ public class FightFlowManager : MonoBehaviour
     [Tooltip("对话点击时候的音效")]
     [SerializeField] AudioClip speakEffect1;
     [SerializeField] AudioClip speakEffect2;
+    [SerializeField] AudioClip FightEffect;
     [SerializeField] AudioClip bugSing;
     [Tooltip("提示出现时候的音效")]
     [SerializeField] AudioClip hintEffect;
@@ -31,6 +32,8 @@ public class FightFlowManager : MonoBehaviour
     [Header("Manager!集合！")]
 
     [SerializeField]  GameObject DialogueManager;
+    [SerializeField]  GameObject GridManager;
+    private GridManager gridManager;
     private DialogueForFight dialogue;
     [SerializeField] GameObject HintManager;
     private Hint hint;
@@ -46,10 +49,19 @@ public class FightFlowManager : MonoBehaviour
     [Header("相机抖动")] 
     [SerializeField]  Camera mainCamera;
     private CamaraShake  cameraShake;
+    private CameraFocus cameraFocus;
+        
+    [Header("虫虫们")]
+    [SerializeField]List<GameObject> bugs;
 
+    [Header("算盘")] 
+    [SerializeField] GameObject abacus;
+    
     public static bool onTeachingRound = false;
- 
-
+    public static bool StartFight = false;
+    public static int count = 0;
+    
+    
     private float fadeTime = 1.5f;
     //呱：已经确认好 当堂的游戏类型   游戏流程 只单向执行一次 
     private bool haveCheckedFightType;
@@ -57,10 +69,10 @@ public class FightFlowManager : MonoBehaviour
     
     void Start()
     {
-        
+        cameraFocus = mainCamera.GetComponent<CameraFocus>();
         mask = Mask.GetComponent<Transition>();
-        
-        
+        gridManager =  GridManager.GetComponent<GridManager>();
+       
         foucaMask_SR = FoucsMask.GetComponent<SpriteRenderer>();
         Color color = foucaMask_SR.color;
         color.a = 0f;
@@ -107,8 +119,10 @@ public class FightFlowManager : MonoBehaviour
         //   给我认真看啊！ 玩游戏的玩家 给我认真 看啊！
         BanCage();
 
-
-
+        abacus.GetComponent<Collider2D>().enabled = false;
+        mainCamera.GetComponent<CameraFocus>().enabled = false;
+        
+        
         #endregion
         
         #region 战前氛围准备
@@ -153,7 +167,41 @@ public class FightFlowManager : MonoBehaviour
         yield return new WaitUntil(() =>CageZoom.CageHasZoomed);
         yield return StartCoroutine(ShowHint("长按左键拖动蛐蛐到象棋格中"));
         
+        // 呱：等待玩家放置第一只虫子（count 从 0 变为 1）
+        yield return new WaitUntil(() => count > 0);
+        yield return StartCoroutine(ShowHint("很好，每回合放置一级蛐蛐都会消耗一点行动值\n现在尝试放置另外一只吧"));
+
         
+        //呱：为了放置两只A虫虫都被抓起来了 我们禁用一下
+        
+        if (bugs[0].activeSelf == false)  // 第一只放的是 bugs[0]
+        {
+            DisableOtherBugDrag(bugs[1]);
+        }
+        else if (bugs[1].activeSelf == false)
+        {
+            DisableOtherBugDrag(bugs[0]);
+        }
+      
+   
+        // 呱：等待玩家放置第二只虫子（count 从 1 变为 2）
+        yield return new WaitUntil(() => count > 1);
+        yield return StartCoroutine(ShowHint("拨动算盘，结束回合"));
+        
+        abacus.GetComponent<Collider2D>().enabled = true;
+        yield return new WaitUntil(()=> AbacusAnim.Finsihed==true);
+
+        mainCamera.GetComponent<CameraFocus>().enabled = true;
+        cameraFocus.LetCameraFocus();
+        yield return new WaitForSeconds(0.3f);
+        gridManager.GetComponent<GridManager>().
+            MoveHitObjectsWithReturn(new Vector3(0, 0.3f, 0), new Vector3(0, -0.3f, 0), 1f);
+        
+        AudioMgr.Instance.PlaySFX(FightEffect);
+        count = 0;
+        StartFight = true;
+        yield return  new WaitForSeconds(1.5f);
+      
         
         #endregion
         
@@ -171,6 +219,14 @@ public class FightFlowManager : MonoBehaviour
         
     }
 
+   
+    void DisableOtherBugDrag(GameObject otherBug)
+    {
+        var drag = otherBug.GetComponent<Draggable>();
+        drag.ForceStopDrag();           
+        drag.enabled = false;          
+     
+    }
     IEnumerator TransportMask()
     {
         Color color = foucaMask_SR.color;
@@ -205,7 +261,7 @@ public class FightFlowManager : MonoBehaviour
         }
     }
 
-    IEnumerator ShowHint(string hintContent)
+    public IEnumerator ShowHint(string hintContent)
     {
         AudioMgr.Instance.PlaySFX(hintEffect);
         hint.ShowHint(hintContent);

@@ -17,7 +17,7 @@ public sealed class DataBroker
     //严肃背诵单词
     
     
-    private static int _actionValue;
+    private static int _actionValue = 2;
     public static int actionValue
     {   
         get { return _actionValue; }
