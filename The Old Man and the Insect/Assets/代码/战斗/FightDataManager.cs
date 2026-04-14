@@ -11,6 +11,8 @@ public class FightDataManager : MonoBehaviour
     [SerializeField] List<TextMeshProUGUI> datas = new List<TextMeshProUGUI>();
     [SerializeField] List<InsectData> bugs = DataBroker.Instance.datasFromCage;
 
+    
+    
     /// <summary>
     /// 行动点
     /// </summary>
@@ -46,4 +48,7 @@ public class FightDataManager : MonoBehaviour
         
         
     }
+    
+    
+    
 }

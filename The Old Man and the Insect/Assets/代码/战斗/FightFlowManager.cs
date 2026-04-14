@@ -193,7 +193,8 @@ public class FightFlowManager : MonoBehaviour
 
         mainCamera.GetComponent<CameraFocus>().enabled = true;
         cameraFocus.LetCameraFocus();
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.5f);
+        cameraShake.ShakeStart(0.4f, 0.05f);
         gridManager.GetComponent<GridManager>().
             MoveHitObjectsWithReturn(new Vector3(0, 0.3f, 0), new Vector3(0, -0.3f, 0), 1f);
         

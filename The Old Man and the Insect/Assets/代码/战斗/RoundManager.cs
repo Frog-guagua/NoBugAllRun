@@ -69,6 +69,7 @@ public class RoundManager : MonoBehaviour
                        aPlaced = true;
                        FightDataManager.ActionPoints -= 1;
                         FightFlowManager.count++;
+                        AudioMgr.Instance.PlaySFX(Id_To_Insect_Dic.IdToInsectDic[1].insectSound);
                         actionPoint.UpdatePoints(FightDataManager.ActionPoints);
                         
                     }
@@ -82,6 +83,7 @@ public class RoundManager : MonoBehaviour
                         bPlaced = true;
                         FightDataManager.ActionPoints -= 1;
                         FightFlowManager.count++;
+                        AudioMgr.Instance.PlaySFX(Id_To_Insect_Dic.IdToInsectDic[2].insectSound);
                         actionPoint.UpdatePoints(FightDataManager.ActionPoints);
                     }
                     
