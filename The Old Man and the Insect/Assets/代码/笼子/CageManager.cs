@@ -107,7 +107,7 @@ public sealed class CageManager : MonoBehaviour
         data.insectId = insectData.insectId;
         data.insectAtk = insectData.insectAtk;
         data.insectHP = insectData.insectHP;
-        data.insectName = insectData.insectName;
+       
         data.description = insectData.description;
        
         data.Image = insectData.Image;
