@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,10 @@ public class CageSlot : MonoBehaviour
     private CageUI cageUI;
     private Button btn;
     public InsectData Data;
+
+    public GameObject tag;
+    public TextMeshProUGUI hp;
+    public TextMeshProUGUI atk;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +24,16 @@ public class CageSlot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Data.insectId != 0)
+        {
+            tag.SetActive(true);
+            hp.text ="hp:"+ Data.insectHP.ToString();
+            atk.text ="atk:"+ Data.insectAtk.ToString();
+        }
+        else
+        {
+            tag.SetActive(false);
+        }
         
     }
     public void onclick()

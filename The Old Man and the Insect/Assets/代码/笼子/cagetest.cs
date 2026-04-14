@@ -18,9 +18,9 @@ public class cagetest : MonoBehaviour
     }
     public void OnClick()
     {
-       // CageManager.Instance.AddInsect(insectData);
-        //print("test");
-        //DataBroker.experience++;
-        Transition.Instance.SwitchSceneWithFade("Event1");
+        CageManager.Instance.AddInsect(insectData);
+        print("test");
+        DataBroker.experience++;
+        
     }
 }
