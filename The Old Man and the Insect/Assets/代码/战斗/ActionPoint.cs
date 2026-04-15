@@ -11,6 +11,7 @@ public class ActionPoint : MonoBehaviour
         UpdatePoints(FightDataManager.ActionPoints);
     }
 
+   
 
     public void UpdatePoints(int currentPoints)
     {

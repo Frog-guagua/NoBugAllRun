@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 //呱： 哦我的天哪我终于决定写这个了……
@@ -38,6 +39,9 @@ public class FightFlowManager : MonoBehaviour
     [SerializeField] GameObject HintManager;
     private Hint hint;
     [SerializeField]RoundManager roundManager;
+    [SerializeField] GameObject WaitingBugs;
+    private WaitingBug waitingBug;
+    [SerializeField] FightDataManager fightDataManager;
     
     
     [Header("遮幕")]
@@ -56,7 +60,12 @@ public class FightFlowManager : MonoBehaviour
 
     [Header("算盘")] 
     [SerializeField] GameObject abacus;
+
+    [Header("大爷")] [SerializeField] 
+    GameObject rival;
     
+    [Header("特效")]
+    [SerializeField] ParticleSystem particle;
     public static bool onTeachingRound = false;
     public static bool StartFight = false;
     public static int count = 0;
@@ -69,6 +78,8 @@ public class FightFlowManager : MonoBehaviour
     
     void Start()
     {
+        
+        waitingBug = WaitingBugs.GetComponent<WaitingBug>();
         cameraFocus = mainCamera.GetComponent<CameraFocus>();
         mask = Mask.GetComponent<Transition>();
         gridManager =  GridManager.GetComponent<GridManager>();
@@ -144,7 +155,14 @@ public class FightFlowManager : MonoBehaviour
     IEnumerator Game1Flow()
     {
         
+        
+        #region 准备
+
         PrepareForFight();
+
+        #endregion
+        
+        //呱：————————————————Round1—————————————————————
         //呱：好的，对手大爷准备对话 
         #region 对话 
 
@@ -176,32 +194,31 @@ public class FightFlowManager : MonoBehaviour
 
         
         //呱：为了防止 两只A虫虫都被抓起来了 我们禁用一下
-        if (bugs[0].activeSelf == false)  
-        {
-            DisableOtherBugDrag(bugs[1]);
-        }
-        else if (bugs[1].activeSelf == false)
-        {
-            DisableOtherBugDrag(bugs[0]);
-        }
+       
       
    
         // 呱：等待玩家放置第二只虫子（count 从 1 变为 2）
         yield return new WaitUntil(() => count > 1);
         yield return StartCoroutine(ShowHint("拨动算盘，结束回合"));
+
+
+      
         
+        
+        #endregion
+        
+        #region 结算
+
+        //呱： 打开咱们的算盘
         abacus.GetComponent<Collider2D>().enabled = true;
         yield return new WaitUntil(()=> AbacusAnim.Finsihed==true);
-
+        yield return new WaitForSeconds(0.3f);
+        
+        //呱：放大相机 聚焦在战局上面
         mainCamera.GetComponent<CameraFocus>().enabled = true;
-        
         yield return new WaitForSeconds(0.5f);
-        cameraShake.ShakeStart(0.4f, 0.05f);
+        abacus.GetComponent<Collider2D>().enabled = false;
         
-        
-        
-        
-
         List<InsectData> enemyBugData = new List<InsectData>();
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("EnemyBug");
         foreach (var enemy in enemies)
@@ -218,17 +235,103 @@ public class FightFlowManager : MonoBehaviour
         yield return gridManager.
             ExecuteBattle(new Vector3(0, 0.3f, 0), new Vector3(0, -0.3f, 0), 1f);
 
-
         fdm.UpdateAllDisplay();
         
-        
+        bugs[1].GetComponent<SpriteRenderer>().color =
+            new Color(1, 1, 1, 1f);
         
         count = 0;
         StartFight = true;
-        yield return  new WaitForSeconds(1.5f);
-      
+        
+
+
+        #endregion
+        
+        //呱：————————————————Round2—————————————————————
+        //呱：好的，对手大爷准备  红温+对话
+
+        RoundManager.nowRound = 2;
+        #region 对话
+        yield return  new WaitForSeconds(0.3f);
+        
+        StartCoroutine(EffectHelper.AngryEffect(rival, 2f, 1f));
+        yield return StartCoroutine(Speak(0,"可恶，再来！"));
         
         #endregion
+
+        #region 大爷放虫
+
+         waitingBug.BugUp(0);
+        yield return new WaitForSeconds(0.3f);
+        ActionPoint actionPoint = FindObjectOfType<ActionPoint>();
+        FightDataManager.ActionPoints = 2;
+        actionPoint.UpdatePoints(FightDataManager.ActionPoints);;
+        #endregion
+
+        #region 提示和引导
+
+        yield return StartCoroutine(ShowHint("再次点击笼子"));
+        yield return new WaitUntil(() =>CageZoom.CageHasZoomed);
+        
+        yield return StartCoroutine(ShowHint("这次拖动蛐蛐放置在同一品种的后方"));
+        bugs[1].GetComponent<Collider2D>().enabled = true;
+        
+    
+        
+      
+        ParticleSystem ps = particle.GetComponent<ParticleSystem>();
+        ps.Play(true);
+        yield return StartCoroutine(ShowHint("同一种类的蛐蛐可以在战斗中融合，以获得更强的效果"));
+        yield return StartCoroutine(ShowHint("拨动算盘，结束回合"));
+        
+        
+       
+        
+        #endregion
+        
+        #region 结算
+
+        //呱： 打开咱们的算盘
+        abacus.GetComponent<Collider2D>().enabled = true;
+        yield return new WaitUntil(()=> AbacusAnim.Finsihed==true);
+        yield return new WaitForSeconds(0.3f);
+        
+        //呱：放大相机 聚焦在战局上面
+        mainCamera.GetComponent<CameraFocus>().enabled = true;
+        yield return new WaitForSeconds(0.5f);
+        abacus.GetComponent<Collider2D>().enabled = false;
+        
+        enemyBugData = new List<InsectData>();
+        enemies = GameObject.FindGameObjectsWithTag("EnemyBug");
+        foreach (var enemy in enemies)
+        {
+            InsectData data = enemy.GetComponent<InsectData>();
+            if (data != null) enemyBugData.Add(data);
+        }
+
+        fdm = FindObjectOfType<FightDataManager>();
+        fdm.SetEnemyBugs(enemyBugData);
+        cameraFocus.LetCameraFocus();
+        yield return  new WaitForSeconds(0.5f);
+        AudioMgr.Instance.PlaySFX(FightEffect);
+        yield return gridManager.
+            ExecuteBattle(new Vector3(0, 0.3f, 0), new Vector3(0, -0.3f, 0), 1f);
+
+        fdm.UpdateAllDisplay();
+        
+        count = 0;
+        StartFight = true;
+        
+
+
+        #endregion
+        
+        yield return new WaitForSeconds(0.3f);
+        cameraFocus.LetCameraFocus();
+        
+        yield return new WaitForSeconds(0.5f);
+        Transition.Instance.SwitchSceneWithFade("BeforeCatch");
+        SceneManager.LoadScene("BeforeCatch");
         
         
         yield return null;
@@ -245,13 +348,7 @@ public class FightFlowManager : MonoBehaviour
     }
 
    
-    void DisableOtherBugDrag(GameObject otherBug)
-    {
-        var drag = otherBug.GetComponent<Draggable>();
-        drag.ForceStopDrag();           
-        drag.enabled = false;          
-     
-    }
+  
     IEnumerator TransportMask()
     {
         Color color = foucaMask_SR.color;
@@ -310,5 +407,49 @@ public class FightFlowManager : MonoBehaviour
     private void ReleseCage()
     {
         Cage.GetComponent<CageZoom>().enabled = true;
+    }
+    
+}
+
+public static class EffectHelper
+{
+    public static IEnumerator AngryEffect(GameObject obj, float duration = 0.5f, float shakeStrength = 0.1f)
+    {
+        SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
+        if (sr == null) yield break;
+
+        Color originalColor = sr.color;
+        Vector3 originalPos = obj.transform.position;
+
+        float elapsed = 0f;
+        float shakeInterval = 0.05f; // 每次抖动间隔
+        float nextShake = 0f;
+
+        while (elapsed < duration)
+        {
+            // 颜色逐渐变红（红色分量线性增加到1，绿色和蓝色减少）
+            float t = elapsed / duration;
+            Color targetColor = Color.Lerp(originalColor, Color.red, t);
+            sr.color = targetColor;
+
+            // 抖动：每隔一小段时间偏移一次位置（模拟一次抖动）
+            if (Time.time >= nextShake)
+            {
+                nextShake = Time.time + shakeInterval;
+                float offsetX = Random.Range(-shakeStrength, shakeStrength);
+                float offsetY = Random.Range(-shakeStrength, shakeStrength);
+                obj.transform.position = originalPos + new Vector3(offsetX, offsetY, 0);
+                // 可以立即复位（或者延迟复位产生多次抖动）
+                // 这里让每次抖动后立即复位，但会连续多次
+                obj.transform.position = originalPos;
+            }
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        // 恢复原始颜色和位置
+        sr.color = originalColor;
+        obj.transform.position = originalPos;
     }
 }
