@@ -23,4 +23,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HuTong1.unity
     guid: 08be4db39b88a234e8161becbb72e16a
+  - enabled: 1
+    path: Assets/Scenes/CatchBugSence.unity
+    guid: 3acfd57047636d44a80a721831f81bcd
+  - enabled: 1
+    path: Assets/Scenes/BeforeCatch.unity
+    guid: fb833e21b4137f74598ed90f75f49998
   m_configObjects: {}

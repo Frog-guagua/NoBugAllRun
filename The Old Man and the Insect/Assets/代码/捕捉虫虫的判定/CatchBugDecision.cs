@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using Random = UnityEngine.Random;
+//由于这里需要多次进入
+//于是给它改动了一点点
 public class CatchBugDecision : MonoBehaviour
-{
+{   
     #region 移动区域
 
     //[移动区域] ：用来获取人和虫子移动的 限定长度 
@@ -35,10 +38,11 @@ public class CatchBugDecision : MonoBehaviour
     #region 虫虫本身
     [Header("Bug")]
     //[虫虫本身]： 获取其挂载的虫虫图片 做出动效 挂载为虫虫判定区域的子物体
-    [SerializeField] GameObject Bug;
+    [SerializeField]public GameObject Bug;
+    public GameObject BugToCatch;
     private SpriteRenderer Bug_SR;
     [SerializeField] AnimationCurve BugAnimationCurve; 
-
+    
     #endregion
 
     #region 手判定区域 
@@ -68,69 +72,113 @@ public class CatchBugDecision : MonoBehaviour
     [SerializeField]  float ReduceSpeed = 0;
     [SerializeField] float StandardCatchTime;
     SpriteRenderer progressBar_SR;
+    private Vector3 _progressBarOriginalScale;
+    private bool _progressBarScaleCached;
     private float ProgressBarOriginLength;
     private float ProgressBarNowLength;
     private float NowCatchTime;
     private float fullScaleX;
     
     #endregion
-  
-  
-    void Start()
-    {
-        #region 获取必要数据
 
+    public  bool StartCatch=false;
+    public GameObject father;
+    public  bool canCatchBug = true;
+
+    private void Awake()
+    {
+        CacheProgressBarOriginalScaleIfNeeded();
+    }
+
+    private void CacheProgressBarOriginalScaleIfNeeded()
+    {
+        if (_progressBarScaleCached) return;
+        if (progressBar == null) return;
+
+        _progressBarOriginalScale = progressBar.transform.localScale;
+        _progressBarScaleCached = true;
+    }
+
+    public void StartCatchBug()
+    {   
+        StartCatch = true;
+        enabled = true;
+        canCatchBug = true;
+        Bug = Instantiate(BugToCatch, BugZone.transform);
+        Bug.transform.SetParent(BugZone.transform);
+        Bug.transform.position = BugZonePos;
+    
+        #region 获取必要数据
         //呱：一开始先 获得左右端点的x坐标
         MovingZone_SR = MovingZone.GetComponent<SpriteRenderer>();
         limitedLength = MovingZone_SR.bounds.size.x;
-        MovingZoneLeftPosX = MovingZone_SR.bounds.center.x - limitedLength/2 + 3;
-        MovingZoneRightPosX = MovingZone_SR.bounds.center.x + limitedLength/2-1;
-       
+        MovingZoneLeftPosX = MovingZone_SR.bounds.center.x - limitedLength / 2 + 3;
+        MovingZoneRightPosX = MovingZone_SR.bounds.center.x + limitedLength / 2 - 1;
+    
         //呱：获取虫虫判定区域的长度 和刚体 初始坐标
         BugZone_SR = BugZone.GetComponent<SpriteRenderer>();
         BugZoneLength = BugZone_SR.bounds.size.x;
-        
+    
         //呱：获取虫虫的图片 方便后期做动效
         Bug_SR = Bug.GetComponent<SpriteRenderer>();
-        
+    
         //呱：获取手判定区域的长度 和刚体 初始坐标
         HandZone_SR = HandZone.GetComponent<SpriteRenderer>();
         HandZoneLength = HandZone_SR.bounds.size.x;
         HandZone_RB = HandZone.GetComponent<Rigidbody2D>();
         HandZonePos = HandZone_RB.transform.position;
-        
+    
         //呱：初始化 进度条的图片 获取初始进度条长度
         progressBar_SR = progressBar.GetComponent<SpriteRenderer>();
         ProgressBarOriginLength = progressBar_SR.bounds.size.x;
-        fullScaleX = progressBar.transform.localScale.x;
+        CacheProgressBarOriginalScaleIfNeeded();
+        fullScaleX = _progressBarScaleCached ? _progressBarOriginalScale.x : progressBar.transform.localScale.x;
         #endregion
-        
+    
         #region 设定初始位置
-
         //呱：设定虫虫初始位置 随机
         Y = BugZonePos.y;
         BugZonePos =
             new Vector2
-                (Random.Range(MovingZoneLeftPosX+BugZoneLength,MovingZoneRightPosX-BugZoneLength),Y);
+                (Random.Range(MovingZoneLeftPosX + BugZoneLength, MovingZoneRightPosX - BugZoneLength), Y);
  
         //呱：设定手初始位置 固定
         HandZonePos = 
             new Vector2
-                (MovingZone_SR.bounds.center.x,HandZonePos.y);
-        
+                (MovingZone_SR.bounds.center.x, HandZonePos.y);
+    
         #endregion
-        
+
+        NowCatchTime = 0.5f;
+        CatchingManager.Instance.startCount = true;
+        NowCatchTime = 0;
+
+        if (_progressBarScaleCached)
+        {
+            progressBar.transform.localScale = new Vector3(0f, _progressBarOriginalScale.y, _progressBarOriginalScale.z);
+        }
+        else
+        {
+            progressBar.transform.localScale = new Vector3(0f, 1f, 1f);
+        }
+        CatchingManager.Instance.startCount = true;
     }
 
     
+
     void Update()
     {
-        GetPosition();
-        BugMove();
-        HandMove();
-        CatchTimeManage();
-        ProgressBarManage();
-        BugAnimation();
+        
+       if (StartCatch )
+        {   
+            GetPosition();
+            BugMove();
+            HandMove();
+            CatchTimeManage();
+            ProgressBarManage();
+            BugAnimation();
+        }
+        
     }
 
     //呱： 虫虫の等待
@@ -227,17 +275,25 @@ public class CatchBugDecision : MonoBehaviour
     
     //呱：累计时间的函数 用来判定是否抓捕成功
     void CatchTimeManage()
-    {
+    {   
         if (BugIsCaught())
         {
             NowCatchTime += Time.deltaTime * IncreaseSpeed;
-            if (NowCatchTime >= StandardCatchTime)
+            if (NowCatchTime >= StandardCatchTime&&canCatchBug)
             {
                 Vector3 scale = progressBar.transform.localScale;
                 scale.x = fullScaleX;
                 progressBar.transform.localScale = scale;
-                //呱：这样就结束了
                 enabled = false;
+                //呱：这样就结束了
+                giveData();//存入虫虫数据
+                
+                CatchingManager.Instance.success();
+                Debug.Log("虫虫到手");
+                
+                StartCoroutine(waitToClose(1f));
+
+
             }
         }
         else
@@ -269,6 +325,7 @@ public class CatchBugDecision : MonoBehaviour
     //呱：给虫虫做动效的函数
     void BugAnimation()
     {
+        
         float time = Time.time * 5f;   
         float curveValue = BugAnimationCurve.Evaluate(time % 1f);
 
@@ -282,5 +339,30 @@ public class CatchBugDecision : MonoBehaviour
         Bug.transform.localRotation = Quaternion.Euler(0, 0, angle);
         
       
+    }
+
+    public void giveData()
+    {
+      
+        BugToCatch bugToCatch = Bug.GetComponent<BugToCatch>();
+        DataBroker.Instance.give_dataFromCatch(bugToCatch);
+    }
+
+    public IEnumerator waitToClose(float time)
+    {
+        yield return new WaitForSeconds(time);
+        if (Bug!= null)
+        {
+            Destroy(Bug);
+            Bug = null;
+        }
+        StartCatch = false;
+        isMoving = false;
+        NowCatchTime = 0;
+       
+        
+        this.enabled = true;
+        father.SetActive(false);
+        
     }
 }
