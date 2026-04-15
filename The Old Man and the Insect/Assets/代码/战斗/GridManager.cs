@@ -117,81 +117,217 @@ public class GridManager : MonoBehaviour
     }
     
 
-public void MoveHitObjectsWithReturn(Vector3 forwardOffset, Vector3 backwardOffset, float duration)
-{
-    StartCoroutine(MoveHitObjectsWithReturnCoroutine(forwardOffset, backwardOffset, duration));
-}
-
-private IEnumerator MoveHitObjectsWithReturnCoroutine(Vector3 forwardOffset, Vector3 backwardOffset, float duration)
-{
-    List<GameObject> forwardObjects = new List<GameObject>(); // 我方击中的物体（向前）
-    List<GameObject> backwardObjects = new List<GameObject>(); // 敌方击中的物体（向后）
-
-    // 1. 从 MyFrontGrids 发射射线，收集向前移动的物体
-    foreach (var grid in MyFrontGrids)
+    // ========== 新增：往返移动 + 战斗结算 ==========
+    /// <summary>
+    /// 执行完整的战斗流程（移动、伤害、死亡、重置行动点）
+    /// </summary>
+    public IEnumerator ExecuteBattle(Vector3 forwardOffset, Vector3 backwardOffset, float moveDuration)
     {
-        if (grid == null) continue;
-        Vector2 origin = grid.transform.position;
-        RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.up, rayDistance, targetLayer);
-        if (hit.collider != null && !forwardObjects.Contains(hit.collider.gameObject))
-            forwardObjects.Add(hit.collider.gameObject);
+        // 1. 执行往返移动，并等待完成
+        yield return StartCoroutine(MoveHitObjectsWithReturnCoroutine(forwardOffset, backwardOffset, moveDuration));
+
+        // 2. 移动完成后，进行伤害结算（按格子索引对应）
+        yield return StartCoroutine(ApplyDamageByIndex());
+
+        // 3. 重置行动点为 2（通过 DataBroker）
+        DataBroker.actionValue = 2;
+       
+        
+
+        
     }
 
-    // 2. 从 RivalFrontGrids 发射射线，收集向后移动的物体
-    foreach (var grid in RivalFrontGrids)
+    /// <summary>
+    /// 移动协程（收集射线击中的物体并往返移动，返回后继续）
+    /// </summary>
+    private IEnumerator MoveHitObjectsWithReturnCoroutine(Vector3 forwardOffset, Vector3 backwardOffset, float duration)
     {
-        if (grid == null) continue;
-        Vector2 origin = grid.transform.position;
-        RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.up, rayDistance, targetLayer);
-        if (hit.collider != null && !backwardObjects.Contains(hit.collider.gameObject))
-            backwardObjects.Add(hit.collider.gameObject);
+        List<GameObject> forwardObjects = new List<GameObject>(); // 被 MyFrontGrids 击中的物体（敌方）
+        List<GameObject> backwardObjects = new List<GameObject>(); // 被 RivalFrontGrids 击中的物体（我方）
+
+        // 从 MyFrontGrids 发射射线，收集敌方物体
+        foreach (var grid in MyFrontGrids)
+        {
+            if (grid == null) continue;
+            Vector2 origin = grid.transform.position;
+            RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.up, rayDistance, targetLayer);
+            if (hit.collider != null && !forwardObjects.Contains(hit.collider.gameObject))
+                forwardObjects.Add(hit.collider.gameObject);
+        }
+
+        // 从 RivalFrontGrids 发射射线，收集我方物体
+        foreach (var grid in RivalFrontGrids)
+        {
+            if (grid == null) continue;
+            Vector2 origin = grid.transform.position;
+            RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.up, rayDistance, targetLayer);
+            if (hit.collider != null && !backwardObjects.Contains(hit.collider.gameObject))
+                backwardObjects.Add(hit.collider.gameObject);
+        }
+
+        // 同时移动所有物体（往返移动）
+        List<Coroutine> routines = new List<Coroutine>();
+        foreach (var obj in forwardObjects)
+        {
+            if (obj == null) continue;
+            routines.Add(StartCoroutine(MoveRoundTrip(obj, obj.transform.position + forwardOffset, duration)));
+        }
+        foreach (var obj in backwardObjects)
+        {
+            if (obj == null) continue;
+            routines.Add(StartCoroutine(MoveRoundTrip(obj, obj.transform.position + backwardOffset, duration)));
+        }
+
+        // 等待所有移动完成
+        foreach (var routine in routines) yield return routine;
     }
 
-    // 3. 同时启动所有物体的往返移动
-    List<Coroutine> routines = new List<Coroutine>();
-    foreach (var obj in forwardObjects)
+    /// <summary>
+    /// 让物体移动到目标点再返回原点，使用曲线（0→1→0）
+    /// </summary>
+    private IEnumerator MoveRoundTrip(GameObject obj, Vector3 target, float duration)
     {
-        if (obj == null) continue;
-        routines.Add(StartCoroutine(MoveRoundTrip(obj, obj.transform.position + forwardOffset, duration)));
-    }
-    foreach (var obj in backwardObjects)
-    {
-        if (obj == null) continue;
-        routines.Add(StartCoroutine(MoveRoundTrip(obj, obj.transform.position + backwardOffset, duration)));
+        Vector3 start = obj.transform.position;
+        float elapsed = 0f;
+        float halfDuration = duration / 2f;
+
+        // 前半段：移动到目标点
+        while (elapsed < halfDuration)
+        {
+            float t = moveCurve.Evaluate(elapsed / halfDuration);
+            obj.transform.position = Vector3.Lerp(start, target, t);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        obj.transform.position = target;
+
+        // 后半段：移回原点
+        elapsed = 0f;
+        while (elapsed < halfDuration)
+        {
+            float t = moveCurve.Evaluate(elapsed / halfDuration);
+            obj.transform.position = Vector3.Lerp(target, start, t);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        obj.transform.position = start;
     }
 
-    // 等待所有移动完成
-    foreach (var routine in routines) yield return routine;
-}
-
-/// <summary>
-/// 让物体移动到目标点再返回原点，使用曲线（0→1→0）
-/// </summary>
-private IEnumerator MoveRoundTrip(GameObject obj, Vector3 target, float duration)
-{
-    Vector3 start = obj.transform.position;
-    float elapsed = 0f;
-    float halfDuration = duration / 2f;
-
-    // 前半段：移动到目标点
-    while (elapsed < halfDuration)
+    /// <summary>
+    /// 根据格子索引对应进行伤害结算（假设 MyFrontGrids 和 RivalFrontGrids 顺序一一对应）
+    /// </summary>
+    private IEnumerator ApplyDamageByIndex()
     {
-        float t = moveCurve.Evaluate(elapsed / halfDuration);
-        obj.transform.position = Vector3.Lerp(start, target, t);
-        elapsed += Time.deltaTime;
-        yield return null;
-    }
-    obj.transform.position = target;
+        int count = Mathf.Min(MyFrontGrids.Count, RivalFrontGrids.Count);
+        List<InsectData> myBugs = new List<InsectData>();   // 我方虫子（从 RivalFrontGrids 射线击中）
+        List<InsectData> enemyBugs = new List<InsectData>(); // 敌方虫子（从 MyFrontGrids 射线击中）
 
-    // 后半段：移回原点
-    elapsed = 0f;
-    while (elapsed < halfDuration)
-    {
-        float t = moveCurve.Evaluate(elapsed / halfDuration);
-        obj.transform.position = Vector3.Lerp(target, start, t);
-        elapsed += Time.deltaTime;
-        yield return null;
+        // 重新获取一次射线击中的物体（确保与移动前一致）
+        for (int i = 0; i < count; i++)
+        {
+            // 我方格子发射射线，获取我方虫子
+            Vector2 myOrigin = RivalFrontGrids[i].transform.position;
+            RaycastHit2D myHit = Physics2D.Raycast(myOrigin, Vector2.up, rayDistance, targetLayer);
+            if (myHit.collider != null)
+            {
+                InsectData bug = myHit.collider.GetComponent<InsectData>();
+                if (bug != null) myBugs.Add(bug);
+            }
+
+            // 敌方格子发射射线，获取敌方虫子
+            Vector2 enemyOrigin = MyFrontGrids[i].transform.position;
+            RaycastHit2D enemyHit = Physics2D.Raycast(enemyOrigin, Vector2.up, rayDistance, targetLayer);
+            if (enemyHit.collider != null)
+            {
+                InsectData bug = enemyHit.collider.GetComponent<InsectData>();
+                if (bug != null) enemyBugs.Add(bug);
+            }
+        }
+
+        // 同时计算伤害并扣血（避免先手秒杀导致对方无法攻击）
+        Dictionary<InsectData, int> damageMap = new Dictionary<InsectData, int>();
+
+        // 我方攻击敌方：每个我方虫子攻击对应的敌方虫子（按索引）
+        for (int i = 0; i < Mathf.Min(myBugs.Count, enemyBugs.Count); i++)
+        {
+            InsectData myBug = myBugs[i];
+            InsectData enemyBug = enemyBugs[i];
+            if (myBug != null && enemyBug != null)
+            {
+                int dmg = myBug.insectAtk;
+                if (!damageMap.ContainsKey(enemyBug)) damageMap[enemyBug] = 0;
+                damageMap[enemyBug] += dmg;
+            }
+        }
+
+        // 敌方攻击我方：每个敌方虫子攻击对应的我方虫子
+        for (int i = 0; i < Mathf.Min(enemyBugs.Count, myBugs.Count); i++)
+        {
+            InsectData enemyBug = enemyBugs[i];
+            InsectData myBug = myBugs[i];
+            if (enemyBug != null && myBug != null)
+            {
+                int dmg = enemyBug.insectAtk;
+                if (!damageMap.ContainsKey(myBug)) damageMap[myBug] = 0;
+                damageMap[myBug] += dmg;
+            }
+        }
+
+        // 统一扣血
+        foreach (var kvp in damageMap)
+        {
+            kvp.Key.insectHP -= kvp.Value;
+            Debug.Log($"{kvp.Key.name} 受到 {kvp.Value} 点伤害，剩余 HP：{kvp.Key.insectHP}");
+        }
+
+        // 处理死亡：摇晃消失
+        List<Coroutine> deathRoutines = new List<Coroutine>();
+        foreach (var bug in myBugs)
+        {
+            if (bug != null && bug.insectHP <= 0)
+                deathRoutines.Add(StartCoroutine(ShakeAndFade(bug.gameObject)));
+        }
+        foreach (var bug in enemyBugs)
+        {
+            if (bug != null && bug.insectHP <= 0)
+                deathRoutines.Add(StartCoroutine(ShakeAndFade(bug.gameObject)));
+        }
+        // 等待所有死亡动画完成
+        foreach (var routine in deathRoutines) yield return routine;
     }
-    obj.transform.position = start;
-}
+
+    /// <summary>
+    /// 摇晃后渐隐消失
+    /// </summary>
+    private IEnumerator ShakeAndFade(GameObject obj)
+    {
+        SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
+        if (sr == null) yield break;
+
+        Vector3 originalPos = obj.transform.position;
+        float shakeDuration = 0.3f;
+        float elapsed = 0f;
+        while (elapsed < shakeDuration)
+        {
+            float offsetX = Random.Range(-0.1f, 0.1f);
+            float offsetY = Random.Range(-0.1f, 0.1f);
+            obj.transform.position = originalPos + new Vector3(offsetX, offsetY, 0);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        obj.transform.position = originalPos;
+
+        float fadeDuration = 0.5f;
+        Color color = sr.color;
+        elapsed = 0f;
+        while (elapsed < fadeDuration)
+        {
+            float alpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
+            color.a = alpha;
+            sr.color = color;
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        obj.SetActive(false);
+    }
 }

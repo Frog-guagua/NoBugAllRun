@@ -165,16 +165,18 @@ public class FightFlowManager : MonoBehaviour
         
         //呱： ②引导 把虫虫放到正确的地方
         yield return new WaitUntil(() =>CageZoom.CageHasZoomed);
+        bugs[1].GetComponent<SpriteRenderer>().color =
+            new Color(89/255f, 116/255f, 77/255f, 1f);
         yield return StartCoroutine(ShowHint("长按左键拖动蛐蛐到象棋格中"));
+
         
         // 呱：等待玩家放置第一只虫子（count 从 0 变为 1）
         yield return new WaitUntil(() => count > 0);
         yield return StartCoroutine(ShowHint("很好，每回合放置一级蛐蛐都会消耗一点行动值\n现在尝试放置另外一只吧"));
 
         
-        //呱：为了放置两只A虫虫都被抓起来了 我们禁用一下
-        
-        if (bugs[0].activeSelf == false)  // 第一只放的是 bugs[0]
+        //呱：为了防止 两只A虫虫都被抓起来了 我们禁用一下
+        if (bugs[0].activeSelf == false)  
         {
             DisableOtherBugDrag(bugs[1]);
         }
@@ -192,13 +194,35 @@ public class FightFlowManager : MonoBehaviour
         yield return new WaitUntil(()=> AbacusAnim.Finsihed==true);
 
         mainCamera.GetComponent<CameraFocus>().enabled = true;
-        cameraFocus.LetCameraFocus();
+        
         yield return new WaitForSeconds(0.5f);
         cameraShake.ShakeStart(0.4f, 0.05f);
-        gridManager.GetComponent<GridManager>().
-            MoveHitObjectsWithReturn(new Vector3(0, 0.3f, 0), new Vector3(0, -0.3f, 0), 1f);
         
+        
+        
+        
+
+        List<InsectData> enemyBugData = new List<InsectData>();
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("EnemyBug");
+        foreach (var enemy in enemies)
+        {
+            InsectData data = enemy.GetComponent<InsectData>();
+            if (data != null) enemyBugData.Add(data);
+        }
+
+        FightDataManager fdm = FindObjectOfType<FightDataManager>();
+        fdm.SetEnemyBugs(enemyBugData);
+        cameraFocus.LetCameraFocus();
+        yield return  new WaitForSeconds(0.5f);
         AudioMgr.Instance.PlaySFX(FightEffect);
+        yield return gridManager.
+            ExecuteBattle(new Vector3(0, 0.3f, 0), new Vector3(0, -0.3f, 0), 1f);
+
+
+        fdm.UpdateAllDisplay();
+        
+        
+        
         count = 0;
         StartFight = true;
         yield return  new WaitForSeconds(1.5f);
@@ -231,10 +255,10 @@ public class FightFlowManager : MonoBehaviour
     IEnumerator TransportMask()
     {
         Color color = foucaMask_SR.color;
-        color.a = 0.5f;
+        color.a = 0.75f;
         foucaMask_SR.color = color;
         yield return StartCoroutine(Cage.GetComponent<ObjectShake>().Shake(1f,0.25f));
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.7f);
         color.a = 0f;
         foucaMask_SR.color = color;
         
