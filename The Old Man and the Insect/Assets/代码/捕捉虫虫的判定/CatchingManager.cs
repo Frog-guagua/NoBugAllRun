@@ -70,6 +70,7 @@ public class CatchingManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Bag.canOpenBag = true;
         hint = hintobj.GetComponent<Hint>();
         catchBugDecision=bugCatcher.GetComponent<CatchBugDecision>();
     }
@@ -144,6 +145,7 @@ public class CatchingManager : MonoBehaviour
     public void switchscene()
     {
         Transition.Instance.SwitchSceneWithFade("HuTong1");
+        Bag.canOpenBag = false;
     }
 
     IEnumerator givebug()

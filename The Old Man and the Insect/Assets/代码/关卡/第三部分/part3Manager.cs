@@ -40,6 +40,7 @@ public class part3Manager : MonoBehaviour
     {
         FightFlowManager.OnGame1 = true;
         Transition.Instance.SwitchSceneWithFade("Fight1Scene");
+        Bag.canOpenBag = false;
     }
     
 }

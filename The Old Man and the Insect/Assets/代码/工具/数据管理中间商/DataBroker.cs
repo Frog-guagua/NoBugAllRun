@@ -58,9 +58,9 @@ public sealed class DataBroker
 
     public void give_dataFromCatch(InsectData data)
     {
-        datasFromFight.Add(data);//抓虫专用
-        CageManager.Instance.ReplaceInsects(datasFromFight);
-        give_datasFromCage(CageManager.Instance.insectDataList);
+            CageManager.Instance.AddInsect(data);
+            give_datasFromCage(CageManager.Instance.insectDataList);//抓虫专用
+       
        
     }
 

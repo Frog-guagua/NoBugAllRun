@@ -8,8 +8,8 @@ public class CageSlot : MonoBehaviour
 {
     public int slotID;
     private CageUI cageUI;
-    private Button btn;
-    public InsectData Data;
+    public Button btn;
+    public InsectData Data=new InsectData();
 
     public GameObject tag;
     public TextMeshProUGUI hp;

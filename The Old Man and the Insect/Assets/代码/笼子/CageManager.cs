@@ -77,7 +77,7 @@ public sealed class CageManager : MonoBehaviour
     {
         for (int i = 0; i < slotCount; i++)
         {
-            insectInCage.Add(i, null);
+            insectInCage.Add(i, new InsectData());
         }
     }
 
@@ -171,7 +171,7 @@ public sealed class CageManager : MonoBehaviour
         insectInCage.Clear();
         for (int i = 0; i < slotCount; i++)
         {
-            insectInCage.Add(i, null);
+            insectInCage.Add(i, new InsectData());
         }
         // 重新填充昆虫数据
         for (int i = 0; i < newInsects.Count; i++)

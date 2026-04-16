@@ -183,6 +183,7 @@ public class LevelStateManager : MonoBehaviour
                     && player.transform.position.y < rightAndUp_DoorRange.y
                     && afterKnock)
                 {
+                    Bag.canOpenBag = true;
                     Transition.Instance.SwitchSceneWithFade("HuTong1");
                 }
                 break;
