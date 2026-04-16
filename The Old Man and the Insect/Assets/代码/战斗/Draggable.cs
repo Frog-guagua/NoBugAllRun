@@ -91,9 +91,13 @@ public class Draggable : MonoBehaviour
 
             //呱：这个是为了记录 放置虫子的类型 
             nowBugType = GetComponent<BugInfomations>().bugType;
-           
-            
-            if(FightFlowManager.onTeachingRound)roundManager.TeachingRound(nowBug);
+
+
+            if (FightFlowManager.onTeachingRound)
+            {
+                Debug.Log("我还在教学关！");
+                roundManager.TeachingRound(nowBug);
+            }
            
            
             StopDrag();

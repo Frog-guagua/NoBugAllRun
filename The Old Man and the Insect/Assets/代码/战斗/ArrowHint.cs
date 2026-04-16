@@ -4,7 +4,9 @@ public class ArrowHint : MonoBehaviour
 {
     [SerializeField] Vector2 pos1;
     [SerializeField] Vector2 pos2;
-    [SerializeField] GameObject bugA;
+    [SerializeField] Vector2 pos3;
+    [SerializeField] GameObject bugA1;
+    [SerializeField] GameObject bugA2;
     [SerializeField] GameObject bugB;
     private SpriteRenderer SR;
     private bool bugsPlaced = false;  
@@ -18,15 +20,17 @@ public class ArrowHint : MonoBehaviour
     void Update()
     {
         
-        if (!bugA.activeSelf && !bugB.activeSelf)
+        if (!bugA1.activeSelf && !bugB.activeSelf)
             bugsPlaced = true;
 
         
         if (Draggable.IsDragging && !bugsPlaced)
         {
             
-            if (Draggable.nowBugType == E_BugType.A)
+            if (Draggable.nowBug == bugA1)
                 transform.position = pos1;
+            else if (Draggable.nowBug == bugA2)
+                transform.position = pos3;
             else if (Draggable.nowBugType == E_BugType.B)
                 transform.position = pos2;
             else
