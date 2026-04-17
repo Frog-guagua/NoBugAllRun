@@ -20,6 +20,24 @@ public class FightDataManager : MonoBehaviour
 
     public static int ActionPoints = DataBroker.actionValue;
 
+    /// <summary>
+    /// 用来传战斗完以后的虫虫数据
+    /// </summary>
+    public static void DeliverData(params InsectData[] BugsToDeliver)
+    {
+        List<InsectData> PostFightBugs = new List<InsectData>();
+        for (int i = 0; i < BugsToDeliver.Length; i++)
+        {
+            //呱 ： 把传进来的虫虫 放在 List容器里面
+            PostFightBugs[i] = BugsToDeliver[i];
+            
+        }
+        
+        //呱：给小鼠老大传虫虫
+        DataBroker.Instance.give_datasFromFight(PostFightBugs);
+    }
+    
+    
     void Awake()
     {
         // 原 Awake 中遍历 enemyBugs 显示敌方，但敌方数据通常后设置，可保留
@@ -45,6 +63,18 @@ public class FightDataManager : MonoBehaviour
             index = 0;
             bugs[index].insectHP = 3;
             bugs[index].insectAtk = 2;
+            bugs[index].insectLevel = 2;
+            bugs[index].isCompound = true;
+            
+            myFightBugs[index].insectHP = 3;
+            myFightBugs[index].insectAtk = 2;
+            myFightBugs[index].insectLevel = 2;
+            myFightBugs[index].isCompound = true;
+            
+            myFightBugs[index].insectHP = 2;
+            myFightBugs[index].insectAtk = 2;
+            myFightBugs[index].insectLevel = 1;
+            myFightBugs[index].isCompound = false;
             fightBugDatas[index].text = $"3\n\n\n2";
             return;
             
@@ -78,10 +108,7 @@ public class FightDataManager : MonoBehaviour
             enemyDatas[index].text = $"{ enemyBugs[index].insectHP}\n\n\n{ enemyBugs[index].insectAtk}";
             Debug.Log($"更新 fightBugDatas[{index}] 成功");
         }
-        else
-        {
-            
-        }
+      
     }
     
     void Start()
@@ -112,9 +139,8 @@ public class FightDataManager : MonoBehaviour
     {
         myFightBugs.Clear();
         myFightBugs.AddRange(newMyBugs);
-        Debug.Log($"=== UpdateMyFightBugs 开始 ===");
-        Debug.Log($"收到 {myFightBugs.Count} 只虫子，fightBugDatas 数量 = {fightBugDatas.Count}");
-    
+
+
         for (int i = 0; i < myFightBugs.Count && i < fightBugDatas.Count; i++)
         {
             if (fightBugDatas[i] != null)
@@ -123,14 +149,11 @@ public class FightDataManager : MonoBehaviour
                 fightBugDatas[i].text = newText;
                 Debug.Log($"✅ 更新 fightBugDatas[{i}] 成功，新文本：{newText}");
                 // 额外输出该 UI 组件的 GameObject 名称，方便确认绑定对象
-                Debug.Log($"   -> UI 物体名称：{fightBugDatas[i].gameObject.name}");
-            }
-            else
-            {
-                Debug.LogError($"❌ fightBugDatas[{i}] 为 null！请检查 Inspector 中 FightDataManager 的 fightBugDatas 列表是否已正确拖拽 UI 组件。");
+
+
             }
         }
-    
+
         // 额外输出当前 myFightBugs 中每只虫子的实际 HP 和 ATK，确认数据修改是否成功
         for (int i = 0; i < myFightBugs.Count; i++)
         {

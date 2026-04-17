@@ -211,7 +211,7 @@ public class FightFlowManager : MonoBehaviour
 
         //呱： 打开咱们的算盘
         abacus.GetComponent<Collider2D>().enabled = true;
-        yield return new WaitUntil(()=> AbacusAnim.Finsihed==true);
+        yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
         yield return new WaitForSeconds(0.3f);
         
         //呱：放大相机 聚焦在战局上面
@@ -293,7 +293,7 @@ public class FightFlowManager : MonoBehaviour
 
         //呱： 打开咱们的算盘
         abacus.GetComponent<Collider2D>().enabled = true;
-        yield return new WaitUntil(()=> AbacusAnim.Finsihed==true);
+        yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
         yield return new WaitForSeconds(0.3f);
         
         //呱：放大相机 聚焦在战局上面
@@ -328,10 +328,24 @@ public class FightFlowManager : MonoBehaviour
         
         yield return new WaitForSeconds(0.3f);
         cameraFocus.LetCameraFocus();
+
+        #region 传值
+
+        //呱：给小鼠老大传入 战斗后虫虫数据
+        FightDataManager.DeliverData(bugs[3].GetComponent<InsectData>(),bugs[5].GetComponent<InsectData>());
+        
+        //呱：给小鼠老大传入 战斗后经验值
+        DataBroker.experience += 4;
+
+        #endregion
+      
+        
         
         yield return new WaitForSeconds(0.5f);
         Transition.Instance.SwitchSceneWithFade("BeforeCatch");
         SceneManager.LoadScene("BeforeCatch");
+        
+        
         
         
         yield return null;
