@@ -251,7 +251,7 @@ public class RoundManager : MonoBehaviour
             else
             {
         
-                Grid frontGrid = GridManager.Grids[realIndex];
+                Grid frontGrid = GridManager.Grids[realIndex+4];
                 GameObject frontBug =frontGrid.bugOnGrid;
 
                 if (NeedCompound(nowBug, frontBug))
@@ -299,6 +299,7 @@ public class RoundManager : MonoBehaviour
     //呱：用来判断是否需要合成升级
     private bool NeedCompound(GameObject nowBug,GameObject frontBug)
     {
+        Debug.Log($"调用 NeedCompound 前，frontBug = {(frontBug ? frontBug.name : "NULL")}, InstanceID = {(frontBug ? frontBug.GetInstanceID().ToString() : "无")}");
         if (nowBug == null)
         {
             Debug.LogError("NeedCompound: nowBug 为空！");
