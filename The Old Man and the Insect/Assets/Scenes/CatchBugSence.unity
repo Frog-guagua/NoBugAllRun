@@ -2781,6 +2781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 136b036e483d4f04ca149d5188b51d6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audio: {fileID: 8300000, guid: 39f47617cf3369c4ca7e488b7b2998f9, type: 3}
   bugCatcher: {fileID: 11140907}
   catchFather: {fileID: 216899817}
   successful: success

@@ -40,8 +40,8 @@ public class table : MonoBehaviour
     IEnumerator AddInsectAfterDelay()
     {
         // 等一帧 + 一小段延迟，确保 CageUI 的格子已经生成
-        yield return new WaitForEndOfFrame();
-        yield return new WaitForSeconds(0.2f);
+      
+        yield return new WaitForSeconds(0.8f);
 
         CageManager.Instance.AddInsect(a);
         CageManager.Instance.AddInsect(b);

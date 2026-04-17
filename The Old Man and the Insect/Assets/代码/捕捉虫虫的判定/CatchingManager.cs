@@ -5,7 +5,8 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 public class CatchingManager : MonoBehaviour
-{   
+{
+    public AudioClip audio;
     // 静态实例变量，用于存储单例
     private static CatchingManager _instance;
     public GameObject bugCatcher;
@@ -69,7 +70,9 @@ public class CatchingManager : MonoBehaviour
     
     // Start is called before the first frame update
     void Start()
-    {
+    {   
+        AudioMgr.Instance.PlayBGM(audio);
+        Bag.canOpenBag = true;
         hint = hintobj.GetComponent<Hint>();
         catchBugDecision=bugCatcher.GetComponent<CatchBugDecision>();
     }
@@ -144,6 +147,7 @@ public class CatchingManager : MonoBehaviour
     public void switchscene()
     {
         Transition.Instance.SwitchSceneWithFade("HuTong1");
+        Bag.canOpenBag = false;
     }
 
     IEnumerator givebug()
