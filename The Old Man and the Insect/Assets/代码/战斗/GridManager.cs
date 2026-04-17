@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+
+
 //呱： 写在最前面 这个脚本挂在 空物体“格子管理器”上面
 public class GridManager : MonoBehaviour
 {
-    public GameObject[] grids = new GameObject[16];
+    
     [Header("移动参数")]
     public AnimationCurve moveCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
     
@@ -18,27 +20,76 @@ public class GridManager : MonoBehaviour
     public float rayDistance = 5f;
     public LayerMask targetLayer;
 
-    void Start() { }
+    
+    //呱：格子物体和 格子压缩包数组
+    public GameObject[] grids = new GameObject[16];
+    public static Grid[] Grids = new Grid[16];
+    [SerializeField]  Vector3 offset;
+ 
+    void Start()
+    {
+        //呱 ： 为格子数组赋固有属性的值
+        for (int i = 0; i < grids.Length; i++)
+        {
+            Grids[i].gridObject = grids[i];
+            Grids[i].index = i;
+            Grids[i].matchedPos = grids[i].transform.position + offset;
+            
+            //呱：格子 初始默认为 没有虫虫在上面
+            Grids[i].isOccupied = false;
+            Grids[i].bugOnGrid = null;
+            
+            
+            //呱：利用int舍弃精度转换 除以4 来确定行数 
+            switch ((i + 1) / 4)
+            {
+                case 0:
+                    Grids[i].gridType = E_GridType.MyBack;
+                    break;
+                case 1 :
+                    Grids[i].gridType = E_GridType.MyFront;
+                    break;
+                case 2:
+                    Grids[i].gridType = E_GridType.EnemyFront;
+                    break;
+                case 3 :
+                    Grids[i].gridType = E_GridType.EnemyBack;
+                    break;
+
+            }
+
+        }
+    }
 
     void Update() { }
 
     //呱：用来判断 放置虫子时  虫子在哪个格子上空
-    public int OnWhichGrid()
+    public Grid? OnWhichGrid()
     {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, grids[0].transform.position.z));
+        #region 点击逻辑处理
+
+        Vector3 mousePos = 
+            Camera.main.ScreenToWorldPoint
+                (new Vector3(Input.mousePosition.x, Input.mousePosition.y, grids[0].transform.position.z));
         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
-        for (int i = 0; i < grids.Length; i++)
+
+        #endregion
+        
+        for (int i = 0; i < Grids.Length; i++)
         {
-            if (hit.collider == grids[i].GetComponent<Collider2D>())
+            if (hit.collider == Grids[i].gridObject.GetComponent<Collider2D>())
             {
+                //呱： 在格子上 
                 isOnGrid[i] = true;
+                
+                //呱：索引
                 nowGridIndex = i;
-                Debug.Log("nowGridIndex: " + nowGridIndex);
-                return nowGridIndex;
+                
+                return Grids[i];
             }
         }
         CageZoom.CageHasZoomed = false;
-        return -1;
+        return null;
     }
 
     public IEnumerator ExecuteBattle(Vector3 forwardOffset, Vector3 backwardOffset, float moveDuration)

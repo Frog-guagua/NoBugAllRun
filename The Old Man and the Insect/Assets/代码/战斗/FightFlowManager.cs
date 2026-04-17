@@ -97,6 +97,7 @@ public class FightFlowManager : MonoBehaviour
     
     void Update()
     {
+        //呱：节省性能
         if(haveCheckedFightType) return;
             
         //呱： 用来判断现在是 第几次游戏
@@ -338,8 +339,8 @@ public class FightFlowManager : MonoBehaviour
         DataBroker.experience += 4;
 
         #endregion
-      
-        
+
+        OnGame1 = false;
         
         yield return new WaitForSeconds(0.5f);
         Transition.Instance.SwitchSceneWithFade("BeforeCatch");
@@ -351,9 +352,10 @@ public class FightFlowManager : MonoBehaviour
         yield return null;
     }
 
-    void Game2Flow()
+    IEnumerator Game2Flow()
     {
         
+        yield return null;
     }
 
     void Game3Flow()

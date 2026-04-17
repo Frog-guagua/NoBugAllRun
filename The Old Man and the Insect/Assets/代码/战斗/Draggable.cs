@@ -80,7 +80,14 @@ public class Draggable : MonoBehaviour
             #endregion
             
             //呱：调用这个函数的作用 是用来获取 放置虫子的格子 是哪个
-            nowGridIndex = gridManager.GetComponent<GridManager>().OnWhichGrid();
+            Grid? grid = gridManager.GetComponent<GridManager>().OnWhichGrid();
+            if (grid.HasValue == true)
+            {
+                nowGridIndex = grid.Value.index;
+            }
+                
+            
+            
             
             #region 恢复碰撞体  ： 在检测格子完毕以后就 恢复碰撞体
 
@@ -92,12 +99,12 @@ public class Draggable : MonoBehaviour
             //呱：这个是为了记录 放置虫子的类型 
             nowBugType = GetComponent<BugInfomations>().bugType;
 
-
-            if (FightFlowManager.onTeachingRound)
-            {
-                Debug.Log("我还在教学关！");
-                roundManager.TeachingRound(nowBug);
-            }
+            //呱： 调用教学关卡的逻辑
+            if (FightFlowManager.onTeachingRound) roundManager.TeachingRound(nowBug);
+            
+            //呱：调用正式对局的逻辑
+            if(FightFlowManager.OnGame2)roundManager.FormolRound(nowBug);
+            
            
            
             StopDrag();
