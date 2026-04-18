@@ -41,7 +41,7 @@ public class GridManager : MonoBehaviour
             
             
             //呱：利用int舍弃精度转换 除以4 来确定行数 
-            switch ((i + 1) / 4)
+            switch (i/ 4)
             {
                 case 0:
                     Grids[i].gridType = E_GridType.MyBack;
@@ -57,6 +57,9 @@ public class GridManager : MonoBehaviour
                     break;
 
             }
+
+            //呱：判断是否是右边区域的虫子
+            Grids[i].isRight = (i % 4 == 2 || i % 4 == 3);
 
         }
     }

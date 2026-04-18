@@ -35,6 +35,8 @@ public struct Grid
     //呱：该格子目前是否被占领
     public bool isOccupied;
 
+    public bool isRight;
+
     public GameObject bugOnGrid;
 
 }
@@ -58,10 +60,19 @@ public class RoundManager : MonoBehaviour
     private FightFlowManager fightFlowManager;
     private Hint hint;
 
-    [SerializeField]AnimationCurve moveCurve;
+    [Header("虫虫上前排")]
+    [SerializeField]AnimationCurve moveCurveToFront;
     private float moveDuration = 1.5f;
     
+    [Header("虫虫升级")]
+    [SerializeField]AnimationCurve moveCurveForLevelUp;
+
+    [Header("升级特效")]
+    [SerializeField] ParticleSystem levelUpParticles;
+    [SerializeField] AudioClip levelUpSound;
+    private bool needCompound;
     
+
     
     void Start()
     {
@@ -70,6 +81,8 @@ public class RoundManager : MonoBehaviour
         fightFlowManager = FindObjectOfType<FightFlowManager>();
         fightDataManager = FindObjectOfType<FightDataManager>();
         hint = FindObjectOfType<Hint>();
+
+     
     }
 
     
@@ -146,23 +159,19 @@ public class RoundManager : MonoBehaviour
        }
        else if (nowRound == 2)
        {
-           Debug.Log("进入第二回合了！");
+       
            if (Draggable.nowBugType == E_BugType.A && Draggable.nowGridIndex == 0)
            {
-               Debug.Log("放对拉！");
+            
                bugMatch.StartFightBug();
                
                Transform parentTransform = Draggable.nowBug.transform.parent;
-               if (parentTransform == null)
-               {
-                   Debug.LogWarning("nowBug 没有父物体");
-                   return;
-               }
+              
 
               
-              InsectData bugA = nowBug.GetComponent<InsectData>();
+                InsectData bugA = nowBug.GetComponent<InsectData>();
                      
-              fightDataManager.UpdateFightBugAtIndex(10,bugA);
+               fightDataManager.UpdateFightBugAtIndex(10,bugA);
                        
                    
                  
@@ -189,12 +198,15 @@ public class RoundManager : MonoBehaviour
         Grid nowGrid = GridManager.Grids[Draggable.nowGridIndex];
         //呱：如果 该格子上面已经有虫虫了 那么就不进判断
         if (nowGrid.isOccupied) return;
-            
+
+        needCompound = false;
+        
         //呱：获取待机虫的父物体 再迂回的利用父物体获取战斗虫
         GameObject temp = nowBug.transform.parent.gameObject;
         
         //呱：获取战斗虫
         GameObject fightBug = temp.transform.GetChild(0).gameObject;
+
         
         //呱： 首先判断 当前虫子在 哪种格子的 上空
         //呱： 我方前排
@@ -209,6 +221,7 @@ public class RoundManager : MonoBehaviour
             fightBug.transform.position = nowGrid.matchedPos;
             
             bugMatch.StartFightBug();
+            FightDataManager.ActionPoints -= 1;
             
             //呱：献祭虫虫……
             nowBug.SetActive(false) ;
@@ -239,11 +252,12 @@ public class RoundManager : MonoBehaviour
                 fightBug.transform.position = GridManager.Grids[Draggable.nowGridIndex].matchedPos;
               
                 bugMatch.StartFightBug();
+                FightDataManager.ActionPoints -= 1;
                 Transparent(nowBug);
                 GameObject Tag = nowBug.transform.GetChild(0).gameObject;
                 Transparent(Tag);
                 
-                StartCoroutine(MoveAndDisable(targetPos, fightBug, nowBug));
+                StartCoroutine(MoveAndDisable(targetPos, fightBug, nowBug,moveCurveToFront));
                 
                 
             }
@@ -258,8 +272,21 @@ public class RoundManager : MonoBehaviour
                 {
                   
                     //呱：残忍的杀死这个虫虫！！！！（成为我的养分吧！！！）
-                    Destroy(fightBug);
-                    nowBug.SetActive(false);
+                    FightDataManager.ActionPoints -= 1;
+                    fightBug.transform.position = GridManager.Grids[realIndex].matchedPos;
+                    levelUpParticles.transform.position= GridManager.Grids[realIndex+4].matchedPos;
+                    needCompound = true;
+                    Transparent(nowBug);
+                    GameObject Tag = nowBug.transform.GetChild(0).gameObject;
+                    Transparent(Tag);
+                    bugMatch.StartFightBug();
+                    
+                    Vector3 targetPos;
+                    targetPos = GridManager.Grids[realIndex + 4].matchedPos;
+                    
+                    StartCoroutine(MoveAndDisable(targetPos, fightBug, nowBug,moveCurveForLevelUp));
+                    
+                   
                 }
                 else
                 {
@@ -273,7 +300,7 @@ public class RoundManager : MonoBehaviour
                     fightBug.transform.position = GridManager.Grids[realIndex].matchedPos;
                 
                     bugMatch.StartFightBug();
-                    
+                    FightDataManager.ActionPoints -= 1;
                     nowBug.SetActive(false);
                 }
                 
@@ -283,6 +310,8 @@ public class RoundManager : MonoBehaviour
       
         
     }
+    
+    
 
     //呱：用来检测前面格子 有没有虫子 没有就自动前移
     private bool NoFrontBug(Grid nowGrid , out int index)
@@ -299,17 +328,6 @@ public class RoundManager : MonoBehaviour
     //呱：用来判断是否需要合成升级
     private bool NeedCompound(GameObject nowBug,GameObject frontBug)
     {
-        Debug.Log($"调用 NeedCompound 前，frontBug = {(frontBug ? frontBug.name : "NULL")}, InstanceID = {(frontBug ? frontBug.GetInstanceID().ToString() : "无")}");
-        if (nowBug == null)
-        {
-            Debug.LogError("NeedCompound: nowBug 为空！");
-            return false;
-        }
-        if (frontBug == null)
-        {
-            Debug.LogError("NeedCompound: frontBug 为空！");
-            return false;
-        }
 
         InsectData nowBugData = nowBug.GetComponent<InsectData>();
         InsectData frontBugData = frontBug.GetComponent<InsectData>();
@@ -327,14 +345,33 @@ public class RoundManager : MonoBehaviour
         return false;
     }
 
-    IEnumerator MoveAndDisable(Vector3 endPos, GameObject fightBug, GameObject nowBug)
+    IEnumerator MoveAndDisable(Vector3 endPos, GameObject fightBug, GameObject nowBug,AnimationCurve curve)
     {
-        yield return Move(endPos, fightBug);
+        
+        yield return Move(endPos, fightBug,curve);
+        
+        if (needCompound)
+        {
+            
+            AudioMgr.Instance.PlaySFX(levelUpSound);
+            levelUpParticles.Play();
+            Destroy(fightBug);
+            
+           // GridManager.Grids[Draggable.nowGridIndex+4].bugOnGrid.GetComponent<ObjectShake>().ShakeStart(0.3f,0.1f);
+           
+           Camera.main.GetComponent<CamaraShake>().ShakeStart(0.5f,0.3f);
+            
+            yield return new WaitForSeconds(levelUpSound.length+0.5f);
+            levelUpParticles.Stop();
+            
+        }
+        
         nowBug.SetActive(false);
+        
     }
 
 
-    IEnumerator Move(Vector3 endPos, GameObject fightBug)
+    IEnumerator Move(Vector3 endPos, GameObject fightBug,AnimationCurve curve)
     {
         
         Vector3 startPos = fightBug.transform.position;
@@ -342,7 +379,8 @@ public class RoundManager : MonoBehaviour
         while (time < moveDuration)
         {
             time += Time.deltaTime;
-            fightBug.transform.position = Vector3.Lerp(startPos, endPos, moveCurve.Evaluate(time / moveDuration));
+            fightBug.transform.position = 
+                Vector3.Lerp(startPos, endPos, curve.Evaluate(time / moveDuration));
             yield return null;
         }
         fightBug.transform.position =  endPos;
@@ -356,4 +394,6 @@ public class RoundManager : MonoBehaviour
                 Object.GetComponent<SpriteRenderer>().color.g,
                 Object.GetComponent<SpriteRenderer>().color.b, 0);
     }
+    
+    
 }
