@@ -79,6 +79,7 @@ public class FightFlowManager : MonoBehaviour
     void Start()
     {
         
+        
         waitingBug = WaitingBugs.GetComponent<WaitingBug>();
         cameraFocus = mainCamera.GetComponent<CameraFocus>();
         mask = Mask.GetComponent<Transition>();
@@ -155,9 +156,8 @@ public class FightFlowManager : MonoBehaviour
     //呱： 第一次战斗……！ 大爷强强！！！
     IEnumerator Game1Flow()
     {
-        
-        
-        #region 准备
+
+        #region 战前准备
 
         PrepareForFight();
 
@@ -176,7 +176,7 @@ public class FightFlowManager : MonoBehaviour
         #region 提示和引导
 
         //呱： ①引导点击笼子 这时候我们顺便开放笼子权限
-        yield return StartCoroutine(ShowHint("看到左下角的笼子了吗，快点击它！"));
+        yield return StartCoroutine(ShowHint("看到左下角的<b><color=#167494>笼子</color></b>了吗，快点击它！"));
         
         ReleseCage();
         AudioMgr.Instance.PlaySFX(bugSing);
@@ -186,12 +186,14 @@ public class FightFlowManager : MonoBehaviour
         yield return new WaitUntil(() =>CageZoom.CageHasZoomed);
         bugs[1].GetComponent<SpriteRenderer>().color =
             new Color(89/255f, 116/255f, 77/255f, 1f);
-        yield return StartCoroutine(ShowHint("长按左键拖动蛐蛐到象棋格中"));
+        yield return StartCoroutine(ShowHint("<b><color=#167494>长按左键拖动</color></b>蛐蛐到象棋格中"));
 
         
         // 呱：等待玩家放置第一只虫子（count 从 0 变为 1）
         yield return new WaitUntil(() => count > 0);
-        yield return StartCoroutine(ShowHint("很好，每回合放置一级蛐蛐都会消耗一点行动值\n现在尝试放置另外一只吧"));
+        yield return 
+            StartCoroutine(ShowHint("很好，每回合放置<b><color=#167494>一级</color></b>蛐蛐都会消耗<b><color=#167494>一点</color></b>行动值" +
+                                    "\n现在尝试放置另外一只吧"));
 
         
         //呱：为了防止 两只A虫虫都被抓起来了 我们禁用一下
@@ -200,7 +202,7 @@ public class FightFlowManager : MonoBehaviour
    
         // 呱：等待玩家放置第二只虫子（count 从 1 变为 2）
         yield return new WaitUntil(() => count > 1);
-        yield return StartCoroutine(ShowHint("拨动算盘，结束回合"));
+        yield return StartCoroutine(ShowHint("拨动<b><color=#167494>算盘</color></b>，结束回合"));
 
 
       
@@ -252,21 +254,28 @@ public class FightFlowManager : MonoBehaviour
         //呱：好的，对手大爷准备  红温+对话
 
         RoundManager.nowRound = 2;
+        
+        //呱： 防止玩家误触而跳过流程
         BanCage();
+        
         #region 对话
         yield return  new WaitForSeconds(0.3f);
         
         StartCoroutine(EffectHelper.AngryEffect(rival, 2f, 1f));
         yield return StartCoroutine(Speak(0,"可恶，再来！"));
         
+        //呱： 在大爷说了再来以后 就可以刷新为下一局了
+        ActionPoint actionPoint = FindObjectOfType<ActionPoint>();
+        FightDataManager.ActionPoints = 2;
+        
         #endregion
 
         #region 大爷放虫
 
-         waitingBug.BugUp(0);
+         
+        waitingBug.BugUp(0);
         yield return new WaitForSeconds(0.3f);
-        ActionPoint actionPoint = FindObjectOfType<ActionPoint>();
-        FightDataManager.ActionPoints = 2;
+        
         actionPoint.UpdatePoints(FightDataManager.ActionPoints);;
         
         
@@ -286,8 +295,14 @@ public class FightFlowManager : MonoBehaviour
         yield return new  WaitUntil(() => FightDataManager.ActionPoints == 1);
         
         ParticleSystem ps = particle.GetComponent<ParticleSystem>();
-        ps.Play(true);
+        ps.Play();
+        mainCamera.GetComponent<CameraFocus>().enabled = true;
+        cameraFocus.LetCameraFocus();
+        abacus.GetComponent<Collider2D>().enabled = false;
         yield return StartCoroutine(ShowHint("同一种类的蛐蛐可以在战斗中融合，以获得更强的效果"));
+        yield return new WaitForSeconds(0.3f);
+        ps.Stop();
+        
         yield return StartCoroutine(ShowHint("拨动算盘，结束回合"));
         
         
@@ -351,7 +366,7 @@ public class FightFlowManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         Transition.Instance.SwitchSceneWithFade("BeforeCatch");
-        SceneManager.LoadScene("BeforeCatch");
+     
 
         #endregion
 
@@ -449,12 +464,12 @@ public static class EffectHelper
 
         while (elapsed < duration)
         {
-            // 颜色逐渐变红（红色分量线性增加到1，绿色和蓝色减少）
+           
             float t = elapsed / duration;
             Color targetColor = Color.Lerp(originalColor, Color.red, t);
             sr.color = targetColor;
 
-            // 抖动：每隔一小段时间偏移一次位置（模拟一次抖动）
+            
             if (Time.time >= nextShake)
             {
                 nextShake = Time.time + shakeInterval;
@@ -470,8 +485,15 @@ public static class EffectHelper
             yield return null;
         }
 
-        // 恢复原始颜色和位置
-        sr.color = originalColor;
-        obj.transform.position = originalPos;
+        elapsed = 0f;
+        while (elapsed < duration)
+        {
+            float t = elapsed / duration;
+            Color targetColor = Color.Lerp(originalColor, Color.white, t);
+            sr.color = targetColor;
+
+        }
+
+       
     }
 }

@@ -46,6 +46,7 @@ public class Hint : MonoBehaviour
         gameObject.SetActive(false); 
         
         hiddenPos = rectTransform.anchoredPosition;
+        text.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 150f);
     }
 
     void Update()
@@ -56,27 +57,39 @@ public class Hint : MonoBehaviour
         }
     }
 
-    // 呱：显示提示框  里面可以自定义文字（ds老师教我的）
     public void ShowHint(string content)
     {
         if (text != null) text.text = content;
         gameObject.SetActive(true);
-        StartCoroutine(RefreshAndAnimate());
-    }
-
-    IEnumerator RefreshAndAnimate()
-    {
-        // 先让文字更新
-        yield return null;
-        // 强制刷新所有 Canvas 布局
-        Canvas.ForceUpdateCanvases();
-        // 再强制重建背景框的布局
-        LayoutRebuilder.ForceRebuildLayoutImmediate(backgrond.GetComponent<RectTransform>());
-        // 再等一帧，确保布局稳定
-        yield return null;
+    
+        SetBackgroundSizeByText();
     
         if (currentAnim != null) StopCoroutine(currentAnim);
         currentAnim = StartCoroutine(AnimateTo(shownPos, true));
+    }
+
+    private void SetBackgroundSizeByText()
+    {
+        text.ForceMeshUpdate();
+        Vector2 textSize = new Vector2(text.preferredWidth, text.preferredHeight);
+    
+        float maxWidth = 300f;
+        if (textSize.x > maxWidth)
+        {
+            text.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, maxWidth);
+            text.ForceMeshUpdate();
+            textSize = new Vector2(maxWidth, text.preferredHeight);
+        }
+        else
+        {
+            text.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, textSize.x);
+        }
+    
+        RectTransform bgRect = backgrond.GetComponent<RectTransform>();
+        float paddingX = 20f;
+        float paddingY = 20f;
+        bgRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, textSize.x + paddingX);
+        bgRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, textSize.y + paddingY);
     }
     // 呱：隐藏提示框
     public void HideHint()
