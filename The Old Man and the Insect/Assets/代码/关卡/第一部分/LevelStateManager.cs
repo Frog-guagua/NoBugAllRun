@@ -112,7 +112,7 @@ public class LevelStateManager : MonoBehaviour
         currentState = LevelState.OnEnterGame;
         lastState = LevelState.OnEnterGame;
 
-        StartCoroutine(DelayToSwitchState(LevelState.KnockingDoor, 4f));
+        StartCoroutine(DelayToSwitchState(LevelState.KnockingDoor, 2.5f));
     }
 
     void Update()
