@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: event1_last
   m_EditorClassIdentifier: 
   dialogueList:
-  - speakerName: choose!
+  - speakerName: "\u795E\u79D8\u5C9B\u8001\u4EBA"
     speakerSprite: {fileID: 0}
-    content: 
+    content: "\u4E0D\u8FC7\u8FD9\u672C\u79D8\u7C4D\u8BB0\u5F55\u7684\u6B63\u662F\u4ED6\u6BD5\u751F\u6240\u5B66\uFF0C\u6211\u770B\u8DDF\u4F60\u633A\u6709\u7F18\u5206\uFF0C\u8FD9\u6837\u5427\uFF0C\u5C31\u5356\u4F6088\u5757\u5982\u4F55"
     Shake: 0
     canContinue: 0

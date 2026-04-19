@@ -12,14 +12,52 @@ public class table : MonoBehaviour
     public InsectDataSO b;
     public float dis = 2f;
     public bool active=false;
-
-    private void OnMouseDown()
-    {
-        if (tableCanInteract && Vector2.Distance(player.position, transform.position) <= dis)
+    public Hint hint;
+    public string str;
+    private bool cageOn = false;
+    private bool isset = false;
+    
+    void Update()
+    {   
+       
+        if (Vector2.Distance(player.position, transform.position) <= dis)
         {
+            if (cageOn==false)
+            {
+                PlayerMove.canMove = false;
+                hint.ShowHint(str);
+                Debug.Log("放笼子");
+                cageOn = true;
+            }
+            
+            tableCanInteract = true;
+            
+        }
+        else
+        {
+            tableCanInteract = false;
+        }
+    }
+    private void OnMouseDown()
+    {   
+        
+        
+        if (tableCanInteract && Vector2.Distance(player.position, transform.position) <= dis)
+        {   
+            PlayerMove.canMove = false;
             Debug.Log("你点到了神秘小桌子");
-            SetCage();
-            LevelStateManager.Instance.SwitchState(LevelState.guide1);
+            if (isset==false)
+            {   
+                
+                isset = true;
+                SetCage();
+               
+            }
+            else
+            {
+                CageUI.Instance.setAct();
+            }
+           
             tableCanInteract = false;
             active = true;
         }
@@ -41,11 +79,12 @@ public class table : MonoBehaviour
     {
         // 等一帧 + 一小段延迟，确保 CageUI 的格子已经生成
       
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.6f);
 
         CageManager.Instance.AddInsect(a);
         CageManager.Instance.AddInsect(b);
         CageManager.Instance.AddInsect(a);
+        LevelStateManager.Instance.SwitchState(LevelState.guide1);
     }
 
     

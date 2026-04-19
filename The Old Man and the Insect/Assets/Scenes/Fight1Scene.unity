@@ -7240,6 +7240,7 @@ MonoBehaviour:
   - {fileID: 1630980442}
   - {fileID: 1132148812}
   - {fileID: 1040422291}
+  offset: {x: 0, y: 0, z: 0}
 --- !u!4 &1177911836
 Transform:
   m_ObjectHideFlags: 0
@@ -9462,7 +9463,7 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.4957925, y: 0.51312405}
     oldSize: {x: 1.71, y: 1.04}
     newSize: {x: 1.71, y: 1.04}
     adaptiveTilingThreshold: 0.5
@@ -10018,6 +10019,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7bac3f31e6d6341bab7983cd6c3c85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveCurveToFront:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  moveCurveForLevelUp:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  levelUpParticles: {fileID: 0}
+  levelUpSound: {fileID: 0}
 --- !u!4 &1833460378
 Transform:
   m_ObjectHideFlags: 0

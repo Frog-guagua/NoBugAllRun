@@ -158,8 +158,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 595, y: 79}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 437.8, y: -31.77}
+  m_SizeDelta: {x: 453.474, y: 63.5398}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &162279467
 MonoBehaviour:
@@ -291,8 +291,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 595, y: 29}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 439.9, y: 66.7}
+  m_SizeDelta: {x: 449.2815, y: 60.3955}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &219466296
 MonoBehaviour:
@@ -508,8 +508,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 595, y: -29}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 439.4, y: 159.2}
+  m_SizeDelta: {x: 449.28, y: 64.5881}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &347270261
 MonoBehaviour:
@@ -662,10 +662,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: guaguagua
+  m_text: "C\u5168\u6B3E\u62FF\u4E0B   \u4F60\u5927\u624B\u4E00\u6325\u5168\u6B3E\u62FF\u4E0B\uFF0C\u4E0D\u4E45\u5DF7\u5B50\u91CC\u4FBF\u6D41\u4F20\u5F00\u4F60\u8D22\u5927\u6C14\u7C97\u7684\u7F8E\u540D"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f856ccfc7b8bb7e46aac0202747f8984, type: 2}
+  m_sharedMaterial: {fileID: 2066497894600714001, guid: f856ccfc7b8bb7e46aac0202747f8984, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -696,7 +696,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -913,10 +913,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: guagua
+  m_text: " A.\u626D\u5934\u5C31\u8D70   \u5728\u8FD9\u9A97\u5B50\u53CD\u5E94\u8FC7\u6765\u4E4B\u524D\uFF0C\u4F60\u8F6C\u5934\u5C31\u8D70"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f856ccfc7b8bb7e46aac0202747f8984, type: 2}
+  m_sharedMaterial: {fileID: 2066497894600714001, guid: f856ccfc7b8bb7e46aac0202747f8984, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -947,7 +947,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1253,8 +1253,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f856ccfc7b8bb7e46aac0202747f8984, type: 2}
+  m_sharedMaterial: {fileID: 2066497894600714001, guid: f856ccfc7b8bb7e46aac0202747f8984, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1278,8 +1278,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1480,7 +1480,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1694985745
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1560,10 +1560,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: gua
+  m_text: " B.\u8BA8\u4EF7\u8FD8\u4EF7   \u6700\u7EC8\u4F60\u4EE587.99\u7684\u4EF7\u683C\u62FF\u4E0B\u4E86\u8FD9\u672C\u79D8\u7C4D\uFF0C\u771F\u662F\u53EF\u559C\u53EF\u8D3A"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f856ccfc7b8bb7e46aac0202747f8984, type: 2}
+  m_sharedMaterial: {fileID: 2066497894600714001, guid: f856ccfc7b8bb7e46aac0202747f8984, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1594,7 +1594,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1685,9 +1685,9 @@ MonoBehaviour:
   diadata_lastsentence: {fileID: 11400000, guid: 9aef1bef698dfb648a3ba0b2bf547ea9, type: 2}
   btnFather: {fileID: 1694985744}
   hintobj: {fileID: 422766078}
-  desciption1: 1
-  desciption2: 2
-  desciption3: 3
+  desciption1: "\u3010\u884C\u52A8\u4E0A\u9650+1\u3011\u3010\u7ECF\u9A8C\u503C+2\u3011"
+  desciption2: "\u3010\u884C\u52A8\u4E0A\u9650+1\u3011\u3010\u7ECF\u9A8C\u503C+4\u3011"
+  desciption3: "\u3010\u884C\u52A8\u4E0A\u9650+1\u3011\u3010\u58F0\u671B\u503C+6\u3011"
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

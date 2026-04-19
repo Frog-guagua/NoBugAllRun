@@ -13,13 +13,18 @@ MonoBehaviour:
   m_Name: "\u5173\u53611"
   m_EditorClassIdentifier: 
   dialogueList:
-  - speakerName: "fight\uFF01"
+  - speakerName: "\u5C0F\u5B69\u9E3D"
     speakerSprite: {fileID: 21300000, guid: 79b32a9afe9010d4a9bdfd0431866566, type: 3}
-    content: fight
+    content: "\u545C\u545C\u545C\uFF0C\u6211\u7684\u86D0\u86D0\u2026\u2026\u545C\u545C\u545C\u545C\u2026\u2026."
     Shake: 0
     canContinue: 1
-  - speakerName: "fight\uFF01"
+  - speakerName: "\u5F20\u4E09\u7237"
     speakerSprite: {fileID: 21300000, guid: 79b32a9afe9010d4a9bdfd0431866566, type: 3}
-    content: 2
+    content: "\u83DC\u5C31\u591A\u7EC3\uFF0C\u62FF\u6765\u5427\u4F60\u54C8\u54C8\u54C8\u54C8\u54C8\u2026\u2026.\uFF01\uFF01\uFF01"
+    Shake: 0
+    canContinue: 1
+  - speakerName: "\u5F20\u4E09\u7237"
+    speakerSprite: {fileID: 21300000, guid: 79b32a9afe9010d4a9bdfd0431866566, type: 3}
+    content: "\u55EF\uFF1F\u90A3\u8FB9\u7684\u8001\u5934\u513F\uFF0C\u770B\u4EC0\u4E48\u770B\uFF1F"
     Shake: 0
     canContinue: 1

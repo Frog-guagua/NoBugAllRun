@@ -82,6 +82,8 @@ public class CageUI : MonoBehaviour
             //unity你是对我的esc有什么意见吗
             Debug.Log("esc");
             DataBroker.Instance.give_datasFromCage(CageManager.Instance.insectDataList);
+            PlayerMove.canMove = true;
+            levelUpUI.gameObject.SetActive(false);
             //在关闭培养界面时同步数据给中间商。
         }
         

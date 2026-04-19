@@ -137,7 +137,7 @@ public class Transition : MonoBehaviour
     public void SwitchSceneWithFade
         (string targetSceneName, float fadeInDuration = 0.6f, float fadeOutDuration = 0.6f)
     {
-        StartCoroutine(SwitchSceneWithFadeRoutine(targetSceneName, fadeInDuration, fadeOutDuration));
+       StartCoroutine(SwitchSceneWithFadeRoutine(targetSceneName, fadeInDuration, fadeOutDuration));
     }
 
     private IEnumerator SwitchSceneWithFadeRoutine

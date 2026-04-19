@@ -184,7 +184,7 @@ public class LevelStateManager : MonoBehaviour
                     && afterKnock)
                 {
                     Bag.canOpenBag = true;
-                    Transition.Instance.SwitchSceneWithFade("HuTong1");
+                    Transition.Instance.SwitchSceneWithFade("HuTong0");
                 }
                 break;
 
