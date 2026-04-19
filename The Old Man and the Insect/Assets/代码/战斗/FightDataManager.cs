@@ -43,14 +43,14 @@ public class FightDataManager : MonoBehaviour
         foreach (InsectData enemyBug in enemyBugs)
         {
             if (j < tagDatas.Count)
-                tagDatas[j].text = $"{enemyBug.insectHP}   {enemyBug.insectAtk}";
+                tagDatas[j].text = $"{enemyBug.insectHP} {enemyBug.insectAtk}";
             // 敌方数据不用 fightBugDatas 显示
             j++;
         }
 
         enemyBugs[2].insectHP = 2;
         enemyBugs[2].insectAtk = 2;
-        enemyDatas[2].text = $"2    2";
+        enemyDatas[2].text = $"2 2";
         UpdateEnenmyBugAtIndex(2,enemyBugs[2]);
     }
     
@@ -191,7 +191,7 @@ public class FightDataManager : MonoBehaviour
                 bug.gameObject.SetActive(false);
             }
             if (i < tagDatas.Count)
-                tagDatas[i].text = $"{bug.insectHP}    {bug.insectAtk}";
+                tagDatas[i].text = $"{bug.insectHP}  {bug.insectAtk}";
             i++;
         }
         for (; i < tagDatas.Count; i++)
@@ -215,7 +215,7 @@ public class FightDataManager : MonoBehaviour
 
             if (i < enemyDatas.Count)
             {
-                enemyDatas[i].text = $"{bug.insectHP}\n\n\n{bug.insectAtk}"; 
+                enemyDatas[i].text = $"{bug.insectHP}\n\n{bug.insectAtk}"; 
                 enemyBugs[i].insectHP = bug.insectHP;
                 enemyBugs[i].insectAtk = bug.insectAtk;
             }
