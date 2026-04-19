@@ -19,9 +19,11 @@ using UnityEngine.UI;
 public class Transition : MonoBehaviour
 {
     public static Transition Instance { get; private set; }
+    [SerializeField] private string persistentSceneNameOverride;
     private string persistentSceneName;
     private SpriteRenderer SR;
     private Image Img;
+    private Coroutine switchRoutine;
 
 
     void Awake()
@@ -35,7 +37,18 @@ public class Transition : MonoBehaviour
         Instance = this;
         SR = GetComponent<SpriteRenderer>();
         Img = GetComponent<Image>();
-        persistentSceneName = gameObject.scene.name;
+        if (!string.IsNullOrEmpty(persistentSceneNameOverride))
+        {
+            persistentSceneName = persistentSceneNameOverride;
+        }
+        else if (Application.CanStreamedLevelBeLoaded("PersistantScene"))
+        {
+            persistentSceneName = "PersistantScene";
+        }
+        else
+        {
+            persistentSceneName = gameObject.scene.name;
+        }
         DontDestroyOnLoad(gameObject);
     }
 
@@ -137,18 +150,22 @@ public class Transition : MonoBehaviour
     public void SwitchSceneWithFade
         (string targetSceneName, float fadeInDuration = 0.6f, float fadeOutDuration = 0.6f)
     {
-       StartCoroutine(SwitchSceneWithFadeRoutine(targetSceneName, fadeInDuration, fadeOutDuration));
+        if (switchRoutine != null)
+        {
+            StopCoroutine(switchRoutine);
+            switchRoutine = null;
+        }
+        switchRoutine = StartCoroutine(SwitchSceneWithFadeRoutine(targetSceneName, fadeInDuration, fadeOutDuration));
     }
 
     private IEnumerator SwitchSceneWithFadeRoutine
         (string targetSceneName, float fadeInDuration, float fadeOutDuration)
     {
-        Scene oldScene = SceneManager.GetSceneAt(0);
-        if (oldScene.name == persistentSceneName && SceneManager.sceneCount > 1)
+        if (string.IsNullOrEmpty(targetSceneName))
         {
-            oldScene = SceneManager.GetSceneAt(1);
-        }//d老师真厉害轻而易举就帮我拿到了要卸载的场景
-        //默认场上只有两个场景
+            switchRoutine = null;
+            yield break;
+        }
 
         yield return StartCoroutine(FadeTo(1f, fadeInDuration));
 
@@ -162,11 +179,22 @@ public class Transition : MonoBehaviour
         SceneManager.SetActiveScene(loadedScene);//它的意思就是： 目标场景加载完后，把“当前主场景”切到目标场景 ，这样后续逻辑（生成物体、运行关卡等）都以目标场景为准
         //老师太强了
         //严肃学习
-        if (oldScene.isLoaded && oldScene.name != persistentSceneName && oldScene.name != targetSceneName)
+        var scenesToUnload = new List<Scene>();
+        for (int i = 0; i < SceneManager.sceneCount; i++)
         {
-            yield return SceneManager.UnloadSceneAsync(oldScene);
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (!scene.isLoaded) continue;
+            if (scene.name == persistentSceneName) continue;
+            if (scene.name == targetSceneName) continue;
+            scenesToUnload.Add(scene);
+        }
+
+        for (int i = 0; i < scenesToUnload.Count; i++)
+        {
+            yield return SceneManager.UnloadSceneAsync(scenesToUnload[i]);
         }
 
         yield return StartCoroutine(FadeTo(0f, fadeOutDuration));
+        switchRoutine = null;
     }
 }

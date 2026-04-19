@@ -635,7 +635,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   text: {fileID: 583284985}
-  backgrond: {fileID: 0}
+  backgrond: {fileID: 292628559}
   hiddenPos: {x: -1046.7, y: 147.1}
   shownPos: {x: -640.8, y: 147.1}
 --- !u!1 &399648778
@@ -1138,7 +1138,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   text: {fileID: 1916013082}
-  backgrond: {fileID: 0}
+  backgrond: {fileID: 942762745}
   hiddenPos: {x: -13.0608, y: 431}
   shownPos: {x: -13.0608, y: 298}
 --- !u!114 &942762748

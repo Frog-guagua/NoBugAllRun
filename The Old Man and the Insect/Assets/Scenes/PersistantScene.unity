@@ -475,6 +475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc2967bc2b7a3d74cac901bf81fe096e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  persistentSceneNameOverride: PersistantScene
 --- !u!114 &151259001
 MonoBehaviour:
   m_ObjectHideFlags: 0
