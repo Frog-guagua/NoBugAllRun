@@ -28,9 +28,7 @@ public class FightDataManager : MonoBehaviour
         List<InsectData> PostFightBugs = new List<InsectData>();
         for (int i = 0; i < BugsToDeliver.Length; i++)
         {
-            //呱 ： 把传进来的虫虫 放在 List容器里面
-            PostFightBugs[i] = BugsToDeliver[i];
-            
+            PostFightBugs.Add(BugsToDeliver[i]);
         }
         
         //呱：给小鼠老大传虫虫
@@ -45,7 +43,7 @@ public class FightDataManager : MonoBehaviour
         foreach (InsectData enemyBug in enemyBugs)
         {
             if (j < tagDatas.Count)
-                tagDatas[j].text = $"{enemyBug.insectHP}    {enemyBug.insectAtk}";
+                tagDatas[j].text = $"{enemyBug.insectHP}   {enemyBug.insectAtk}";
             // 敌方数据不用 fightBugDatas 显示
             j++;
         }
