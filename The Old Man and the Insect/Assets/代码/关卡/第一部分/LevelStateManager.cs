@@ -90,9 +90,10 @@ public class LevelStateManager : MonoBehaviour
     
     
     private Hint hint2;
-
+    public GameObject liu;
     void Start()
     {
+        door.transform.localScale = Vector2.one;
         hint = hintobj.GetComponent<Hint>();
         doorshake = door.GetComponent<ObjectShake>();
         hint2 = hintobj2.GetComponent<Hint>();
@@ -136,7 +137,7 @@ public class LevelStateManager : MonoBehaviour
 
                 case LevelState.havingCage:
                     hint.ShowHint(GetCageStr);
-                    table.tableCanInteract = true;
+                    table.tableact = true;
                     break;
 
                 case LevelState.guide1:
@@ -184,6 +185,7 @@ public class LevelStateManager : MonoBehaviour
                     && afterKnock)
                 {
                     Bag.canOpenBag = true;
+                    door.transform.localScale = new Vector2(0.2f,1);
                     Transition.Instance.SwitchSceneWithFade("HuTong0");
                 }
                 break;
@@ -255,7 +257,8 @@ public class LevelStateManager : MonoBehaviour
 
     IEnumerator openAnim()
     {
-        print("放开门动画");
+        yield return new WaitForSeconds(0.3f);
+        door.transform.localScale = new Vector2(0.2f,1);
         yield return new WaitForSeconds(Delay_Before_dia);
         SwitchState(LevelState.dialogue);
     }
@@ -264,5 +267,7 @@ public class LevelStateManager : MonoBehaviour
     {
         print("获得笼子");
         SwitchState(LevelState.havingCage);
+        door.transform.localScale = Vector2.one;
+        liu.SetActive(false);
     }
 }
