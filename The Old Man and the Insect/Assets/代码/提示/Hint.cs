@@ -33,7 +33,7 @@ public class Hint : MonoBehaviour
 
     [SerializeField] private Vector2 shownPos;
 
-    private float duration = 1.5f;
+    private float duration = 1f;
     private RectTransform rectTransform;
     private bool isShowing = false;
     private Coroutine currentAnim = null;
@@ -61,10 +61,23 @@ public class Hint : MonoBehaviour
     {
         if (text != null) text.text = content;
         gameObject.SetActive(true);
+        StartCoroutine(RefreshAndAnimate());
+    }
+
+    IEnumerator RefreshAndAnimate()
+    {
+        // 先让文字更新
+        yield return null;
+        // 强制刷新所有 Canvas 布局
+        Canvas.ForceUpdateCanvases();
+        // 再强制重建背景框的布局
+        LayoutRebuilder.ForceRebuildLayoutImmediate(backgrond.GetComponent<RectTransform>());
+        // 再等一帧，确保布局稳定
+        yield return null;
+    
         if (currentAnim != null) StopCoroutine(currentAnim);
         currentAnim = StartCoroutine(AnimateTo(shownPos, true));
     }
-
     // 呱：隐藏提示框
     public void HideHint()
     {

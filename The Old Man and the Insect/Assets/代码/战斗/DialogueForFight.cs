@@ -27,6 +27,7 @@ public class DialogueForFight : MonoBehaviour
         text.text = dialogue;
         onEnd = callback;
         backgrond.SetActive(true);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(backgrond.GetComponent<RectTransform>());
     }
 
 

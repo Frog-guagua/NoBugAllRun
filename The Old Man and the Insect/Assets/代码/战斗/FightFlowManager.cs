@@ -252,6 +252,7 @@ public class FightFlowManager : MonoBehaviour
         //呱：好的，对手大爷准备  红温+对话
 
         RoundManager.nowRound = 2;
+        BanCage();
         #region 对话
         yield return  new WaitForSeconds(0.3f);
         
@@ -267,19 +268,23 @@ public class FightFlowManager : MonoBehaviour
         ActionPoint actionPoint = FindObjectOfType<ActionPoint>();
         FightDataManager.ActionPoints = 2;
         actionPoint.UpdatePoints(FightDataManager.ActionPoints);;
+        
+        
         #endregion
 
         #region 提示和引导
 
         yield return StartCoroutine(ShowHint("再次点击笼子"));
+        ReleseCage();
         yield return new WaitUntil(() =>CageZoom.CageHasZoomed);
         
         yield return StartCoroutine(ShowHint("这次拖动蛐蛐放置在同一品种的后方"));
         bugs[1].GetComponent<Collider2D>().enabled = true;
+
+
+
+        yield return new  WaitUntil(() => FightDataManager.ActionPoints == 1);
         
-    
-        
-      
         ParticleSystem ps = particle.GetComponent<ParticleSystem>();
         ps.Play(true);
         yield return StartCoroutine(ShowHint("同一种类的蛐蛐可以在战斗中融合，以获得更强的效果"));
@@ -341,14 +346,15 @@ public class FightFlowManager : MonoBehaviour
         #endregion
 
         OnGame1 = false;
-        
+
+        #region 切换场景
+
         yield return new WaitForSeconds(0.5f);
         Transition.Instance.SwitchSceneWithFade("BeforeCatch");
         SceneManager.LoadScene("BeforeCatch");
-        
-        
-        
-        
+
+        #endregion
+
         yield return null;
     }
 
