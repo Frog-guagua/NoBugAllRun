@@ -8,8 +8,11 @@ using UnityEngine.UI;
 public class FightDataManager : MonoBehaviour
 {
     [Header("己方UI")]
-    [SerializeField] List<TextMeshProUGUI> tagDatas = new List<TextMeshProUGUI>();   
-   
+    
+    [Tooltip("这个是用来显示在虫虫标签上面的数值")]
+    [SerializeField] List<TextMeshProUGUI> tagDatas = new List<TextMeshProUGUI>();
+    
+    [Tooltip("这个是用于显示战斗")]
     [SerializeField] List<TextMeshProUGUI> fightBugDatas = new List<TextMeshProUGUI>();  
     [SerializeField] List<InsectData> bugs = DataBroker.Instance.datasFromCage;
     [SerializeField]  List<InsectData> myFightBugs;
