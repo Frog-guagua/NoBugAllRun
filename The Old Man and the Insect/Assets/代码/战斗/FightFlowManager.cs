@@ -491,9 +491,10 @@ public static class EffectHelper
             float t = elapsed / duration;
             Color targetColor = Color.Lerp(originalColor, Color.white, t);
             sr.color = targetColor;
-
+            elapsed += Time.deltaTime;
+            yield return null;
         }
-
+        sr.color = Color.white;
        
     }
 }
