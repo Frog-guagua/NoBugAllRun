@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: "\u6765\u4E86"
   m_EditorClassIdentifier: 
   dialogueList:
-  - speakerName: guagua
+  - speakerName: "\u9A6C\u8001\u95F2"
     speakerSprite: {fileID: 21300000, guid: cce03b08336ffc74389c9f8e3a72d7db, type: 3}
-    content: i an coming!
+    content: "\u6765\u4E86\uFF01"
     Shake: 0
+    canContinue: 1

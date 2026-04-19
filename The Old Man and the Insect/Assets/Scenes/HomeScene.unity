@@ -758,7 +758,7 @@ MonoBehaviour:
   task1: {fileID: 11400000, guid: 32d123601f2768d4b94a7ab78575ba3f, type: 2}
   door: {fileID: 78415049}
   hintobj: {fileID: 292628559}
-  GetCageStr: getcage
+  GetCageStr: "\u83B7\u5F97\"\u7B3C\u5B50\"\uFF08\u70B9\u51FB\u5173\u95ED\uFF09"
   hintobj2: {fileID: 942762745}
   guide1: 1
   guide2: 2
@@ -838,8 +838,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: dec01bf7c64375f4d9500a643af32d9e, type: 2}
+  m_sharedMaterial: {fileID: 8117269803019531157, guid: dec01bf7c64375f4d9500a643af32d9e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1628,8 +1628,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: dec01bf7c64375f4d9500a643af32d9e, type: 2}
+  m_sharedMaterial: {fileID: 8117269803019531157, guid: dec01bf7c64375f4d9500a643af32d9e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
