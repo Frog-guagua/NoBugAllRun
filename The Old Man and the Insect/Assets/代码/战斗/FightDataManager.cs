@@ -28,9 +28,7 @@ public class FightDataManager : MonoBehaviour
         List<InsectData> PostFightBugs = new List<InsectData>();
         for (int i = 0; i < BugsToDeliver.Length; i++)
         {
-            //呱 ： 把传进来的虫虫 放在 List容器里面
-            PostFightBugs[i] = BugsToDeliver[i];
-            
+            PostFightBugs.Add(BugsToDeliver[i]);
         }
         
         //呱：给小鼠老大传虫虫
@@ -99,16 +97,16 @@ public class FightDataManager : MonoBehaviour
     
     public void UpdateEnenmyBugAtIndex(int index, InsectData enemyBug)
     {
-        if (index < 0 || index >= enemyBugs.Count)
+        if (enemyDatas == null || index < 0 || index >= enemyDatas.Count)
         {
-           
+            Debug.LogError($"索引 {index} 超出 enemyDatas 范围");
+            return;
         }
-        if (fightBugDatas[index] != null)
+        if (enemyDatas[index] != null)
         {
-            enemyDatas[index].text = $"{ enemyBugs[index].insectHP}\n\n\n{ enemyBugs[index].insectAtk}";
-            Debug.Log($"更新 fightBugDatas[{index}] 成功");
+            enemyDatas[index].text = $"{enemyBug.insectHP}\n\n\n{enemyBug.insectAtk}";
+            Debug.Log($"更新 enemyDatas[{index}] 成功");
         }
-      
     }
     
     void Start()

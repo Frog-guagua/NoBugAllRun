@@ -475,7 +475,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc2967bc2b7a3d74cac901bf81fe096e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  persistentSceneNameOverride: PersistantScene
 --- !u!114 &151259001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2340,7 +2339,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -6.7018433, y: -7.9310913}
+  m_AnchoredPosition: {x: -6.7018433, y: -7.931122}
   m_SizeDelta: {x: -260.7212, y: -64.5525}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1721885579
