@@ -64,15 +64,16 @@ public class FightDataManager : MonoBehaviour
             bugs[index].insectLevel = 2;
             bugs[index].isCompound = true;
             
-            myFightBugs[index].insectHP = 3;
+            myFightBugs[index].insectHP = 2;
             myFightBugs[index].insectAtk = 2;
             myFightBugs[index].insectLevel = 2;
             myFightBugs[index].isCompound = true;
             
-            myFightBugs[index].insectHP = 2;
-            myFightBugs[index].insectAtk = 2;
-            myFightBugs[index].insectLevel = 1;
-            myFightBugs[index].isCompound = false;
+            myFightBugs[index+2].insectHP = 2;
+            myFightBugs[index+2].insectAtk = 2;
+            myFightBugs[index+2].insectLevel = 1;
+            myFightBugs[index+2].isCompound = false;
+            
             fightBugDatas[index].text = $"3\n\n\n2";
             return;
             

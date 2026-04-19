@@ -243,9 +243,19 @@ private IEnumerator ApplyDamageByIndex()
     {
         if (bug.name == "战斗虫A")
         {
-            bug.insectHP = 2;
-            bug.insectAtk = 2;
-            UpdateBugUI(bug);
+            if (FightDataManager.ActionPoints == 1)
+            {
+                bug.insectHP = 2;
+                bug.insectAtk = 2;
+                UpdateBugUI(bug);
+            }
+            else
+            {
+                bug.insectHP = 1;
+                bug.insectAtk = 1;
+                UpdateBugUI(bug);
+            }
+            
         }
         
         if (bug != null && bug.insectHP <= 0 && bug.gameObject.activeSelf&&bug.name != "战斗虫A")

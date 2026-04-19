@@ -496,7 +496,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 3d40d3e9982d04c429d2ca53bc243a18, type: 3}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -504,7 +504,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 4
 --- !u!222 &147952375
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6783,6 +6783,17 @@ MonoBehaviour:
   description: 
   AtkUpConsumpution: 1
   HpUpConsumption: 1
+--- !u!114 &1086681026 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1779663723305546530, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
+  m_PrefabInstance: {fileID: 6145874818908804830}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a38ef98215cca8a40a3eaefdb91f9187, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1117266355
 GameObject:
   m_ObjectHideFlags: 0
@@ -6812,14 +6823,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a71d990f5b62724ea57e8b019c7557e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tagDatasText:
+  tagDatas:
   - {fileID: 1937734922}
   - {fileID: 1172994470}
   - {fileID: 1697700438}
-  fightBugDatasText:
+  fightBugDatas:
   - {fileID: 1175793371}
   - {fileID: 1759840582}
   - {fileID: 350617676}
+  bugs:
+  - {fileID: 1086681026}
+  - {fileID: 711391704}
+  - {fileID: 513593843}
   myFightBugs:
   - {fileID: 568594074}
   - {fileID: 565655148}
@@ -7171,17 +7186,17 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.57572067
-      value: 0.13335884
-      inSlope: 1.2063735
-      outSlope: 1.2063735
+      time: 0.10378611
+      value: 0.85442597
+      inSlope: 0.542428
+      outSlope: 0.542428
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 1.0015717
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -7816,7 +7831,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1353225901}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c706442155abe946a21f5081082324f, type: 3}
   m_Name: 
@@ -10449,7 +10464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!60 &2030453509
 PolygonCollider2D:
   m_ObjectHideFlags: 0

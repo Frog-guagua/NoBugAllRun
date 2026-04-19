@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 
 //呱： 哦我的天哪我终于决定写这个了……
@@ -176,7 +178,7 @@ public class FightFlowManager : MonoBehaviour
         #region 提示和引导
 
         //呱： ①引导点击笼子 这时候我们顺便开放笼子权限
-        yield return StartCoroutine(ShowHint("看到左下角的<b><color=#FF5733>笼子</color></b>了吗，快点击它！"));
+        yield return StartCoroutine(ShowHint("看到左下角的<b><color=#335EA4>笼子</color></b>了吗，快点击它！"));
         
         ReleseCage();
         AudioMgr.Instance.PlaySFX(bugSing);
@@ -186,12 +188,12 @@ public class FightFlowManager : MonoBehaviour
         yield return new WaitUntil(() =>CageZoom.CageHasZoomed);
         bugs[1].GetComponent<SpriteRenderer>().color =
             new Color(89/255f, 116/255f, 77/255f, 1f);
-        yield return StartCoroutine(ShowHint("<b><color=#FF5733>长按左键</color></b>拖动蛐蛐到象棋格中"));
+        yield return StartCoroutine(ShowHint("<b><color=#335EA4>长按左键</color></b>拖动蛐蛐到象棋格中"));
 
         
         // 呱：等待玩家放置第一只虫子（count 从 0 变为 1）
         yield return new WaitUntil(() => count > 0);
-        yield return StartCoroutine(ShowHint("很好，每回合放置<b><color=#FF5733>一级</color></b>蛐蛐都会消耗<b><color=#FF5733>一点</color></b>行动值\n现在尝试放置另外一只吧"));
+        yield return StartCoroutine(ShowHint("很好，每回合放置<b><color=#335EA4>一级</color></b>蛐蛐都会消耗<b><color=#335EA4>一点</color></b>行动值\n现在尝试放置另外一只吧"));
 
         
         //呱：为了防止 两只A虫虫都被抓起来了 我们禁用一下
@@ -200,7 +202,7 @@ public class FightFlowManager : MonoBehaviour
    
         // 呱：等待玩家放置第二只虫子（count 从 1 变为 2）
         yield return new WaitUntil(() => count > 1);
-        yield return StartCoroutine(ShowHint("拨动<b><color=#FF5733>算盘</color></b>，结束回合"));
+        yield return StartCoroutine(ShowHint("拨动<b><color=#335EA4>算盘</color></b>，结束回合"));
 
 
       
@@ -278,16 +280,19 @@ public class FightFlowManager : MonoBehaviour
         ReleseCage();
         yield return new WaitUntil(() =>CageZoom.CageHasZoomed);
         
-        yield return StartCoroutine(ShowHint("这次拖动蛐蛐放置在同一品种的<b><color=#FF5733>后方</color></b>"));
+        yield return StartCoroutine(ShowHint("这次拖动蛐蛐放置在同一品种的<b><color=#335EA4>后方</color></b>"));
         bugs[1].GetComponent<Collider2D>().enabled = true;
 
 
 
         yield return new  WaitUntil(() => FightDataManager.ActionPoints == 1);
-        
+       
+        cameraFocus.LetCameraFocus();
         ParticleSystem ps = particle.GetComponent<ParticleSystem>();
         ps.Play(true);
-        yield return StartCoroutine(ShowHint("同一种类的蛐蛐可以在战斗中<b><color=#FF5733>融合</color></b>，以获得更强的效果"));
+        yield return StartCoroutine(ShowHint("同一种类的蛐蛐可以在战斗中<b><color=#335EA4>融合</color></b>，以获得更强的效果"));
+        yield return new WaitForSeconds(0.1f);
+        AbacusAnim.Finsined=false;
         yield return StartCoroutine(ShowHint("拨动算盘，结束回合"));
         
         
@@ -300,6 +305,7 @@ public class FightFlowManager : MonoBehaviour
         //呱： 打开咱们的算盘
         yield return new WaitForSeconds(0.5f);
         abacus.GetComponent<Collider2D>().enabled = true;
+        
         yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
         yield return new WaitForSeconds(0.3f);
         
@@ -325,7 +331,7 @@ public class FightFlowManager : MonoBehaviour
             ExecuteBattle(new Vector3(0, 0.3f, 0), new Vector3(0, -0.3f, 0), 1f);
 
         fdm.UpdateAllDisplay();
-        yield return StartCoroutine(ShowHint("别担心，战斗下场的蛐蛐会<b><color=#FF5733>重置属性</color></b>回到你的笼子里，\n在下一场战斗中还会见到它的"));
+        yield return StartCoroutine(ShowHint("别担心，战斗下场的蛐蛐会<b><color=#335EA4>重置属性</color></b>回到你的笼子里，\n在下一场战斗中还会见到它的"));
         yield return  new WaitForSeconds(0.5f);
         count = 0;
         StartFight = true;
@@ -352,8 +358,9 @@ public class FightFlowManager : MonoBehaviour
         #region 切换场景
 
         yield return new WaitForSeconds(0.5f);
+        AudioMgr.Instance.StopBGM();
         Transition.Instance.SwitchSceneWithFade("BeforeCatch");
-      
+       
 
         #endregion
 
