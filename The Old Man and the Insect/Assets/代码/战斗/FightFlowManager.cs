@@ -313,6 +313,7 @@ public class FightFlowManager : MonoBehaviour
         #region 结算
 
         //呱： 打开咱们的算盘
+        yield return new WaitForSeconds(0.5f);
         abacus.GetComponent<Collider2D>().enabled = true;
         yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
         yield return new WaitForSeconds(0.3f);

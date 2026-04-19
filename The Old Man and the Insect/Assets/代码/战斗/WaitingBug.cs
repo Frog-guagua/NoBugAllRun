@@ -8,7 +8,14 @@ public class WaitingBug : MonoBehaviour
     
     void Start()
     {
-        
+        foreach (var waitbug in  WaitingBugs)
+        {
+            
+            waitbug.GetComponent<Collider2D>().enabled = false;
+            waitbug.GetComponent<SpriteRenderer>().enabled = false;
+            waitbug.transform.GetChild(0).gameObject.SetActive(false);
+            
+        }
     }
 
     
@@ -19,6 +26,8 @@ public class WaitingBug : MonoBehaviour
 
     public void BugUp(int index)
     {
-        WaitingBugs[index].SetActive(true);
+        WaitingBugs[index].GetComponent<Collider2D>().enabled = true;
+        WaitingBugs[index].GetComponent<SpriteRenderer>().enabled = true;
+        WaitingBugs[index].transform.GetChild(0).gameObject.SetActive(true);
     }
 }

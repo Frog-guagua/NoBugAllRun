@@ -8,11 +8,8 @@ using UnityEngine.UI;
 public class FightDataManager : MonoBehaviour
 {
     [Header("己方UI")]
-    
-    [Tooltip("这个是用来显示在虫虫标签上面的数值")]
-    [SerializeField] List<TextMeshProUGUI> tagDatas = new List<TextMeshProUGUI>();
-    
-    [Tooltip("这个是用于显示战斗")]
+    [SerializeField] List<TextMeshProUGUI> tagDatas = new List<TextMeshProUGUI>();   
+   
     [SerializeField] List<TextMeshProUGUI> fightBugDatas = new List<TextMeshProUGUI>();  
     [SerializeField] List<InsectData> bugs = DataBroker.Instance.datasFromCage;
     [SerializeField]  List<InsectData> myFightBugs;
@@ -31,7 +28,9 @@ public class FightDataManager : MonoBehaviour
         List<InsectData> PostFightBugs = new List<InsectData>();
         for (int i = 0; i < BugsToDeliver.Length; i++)
         {
-            PostFightBugs.Add(BugsToDeliver[i]);
+            //呱 ： 把传进来的虫虫 放在 List容器里面
+            PostFightBugs[i] = BugsToDeliver[i];
+            
         }
         
         //呱：给小鼠老大传虫虫
@@ -46,14 +45,14 @@ public class FightDataManager : MonoBehaviour
         foreach (InsectData enemyBug in enemyBugs)
         {
             if (j < tagDatas.Count)
-                tagDatas[j].text = $"{enemyBug.insectHP} {enemyBug.insectAtk}";
+                tagDatas[j].text = $"{enemyBug.insectHP}   {enemyBug.insectAtk}";
             // 敌方数据不用 fightBugDatas 显示
             j++;
         }
 
         enemyBugs[2].insectHP = 2;
         enemyBugs[2].insectAtk = 2;
-        enemyDatas[2].text = $"2 2";
+        enemyDatas[2].text = $"2    2";
         UpdateEnenmyBugAtIndex(2,enemyBugs[2]);
     }
     
@@ -194,7 +193,7 @@ public class FightDataManager : MonoBehaviour
                 bug.gameObject.SetActive(false);
             }
             if (i < tagDatas.Count)
-                tagDatas[i].text = $"{bug.insectHP}  {bug.insectAtk}";
+                tagDatas[i].text = $"{bug.insectHP}    {bug.insectAtk}";
             i++;
         }
         for (; i < tagDatas.Count; i++)
@@ -218,7 +217,7 @@ public class FightDataManager : MonoBehaviour
 
             if (i < enemyDatas.Count)
             {
-                enemyDatas[i].text = $"{bug.insectHP}\n\n{bug.insectAtk}"; 
+                enemyDatas[i].text = $"{bug.insectHP}\n\n\n{bug.insectAtk}"; 
                 enemyBugs[i].insectHP = bug.insectHP;
                 enemyBugs[i].insectAtk = bug.insectAtk;
             }
