@@ -121,7 +121,7 @@ public class FightDataManager : MonoBehaviour
         foreach (InsectData bug in bugs)
         {
             if (i < tagDatas.Count)
-                tagDatas[i].text = $"{bug.insectHP}    {bug.insectAtk}";
+                tagDatas[i].text = $"{bug.insectHP}  {bug.insectAtk}";
             myFightBugs[i] = bugs[i];   
             // 改用 fightBugDatas 显示战斗数据
             if (i < fightBugDatas.Count)
@@ -191,7 +191,7 @@ public class FightDataManager : MonoBehaviour
                 bug.gameObject.SetActive(false);
             }
             if (i < tagDatas.Count)
-                tagDatas[i].text = $"{bug.insectHP}    {bug.insectAtk}";
+                tagDatas[i].text = $"{bug.insectHP}  {bug.insectAtk}";
             i++;
         }
         for (; i < tagDatas.Count; i++)
