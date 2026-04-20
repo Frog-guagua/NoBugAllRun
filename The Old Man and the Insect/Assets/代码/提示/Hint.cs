@@ -28,10 +28,15 @@ public class Hint : MonoBehaviour
     
     [Header("提示框位置")]
     //呱：对不住了我直接手打坐标 这个是左上角
-    public Vector2 hiddenPos = new Vector2(-501f,368f);//不同情况会有差别
+   public Vector2 hiddenPos ;//不同情况会有差别
     //我们直接手动填
 
-    [SerializeField] private Vector2 shownPos;
+   
+   public Vector2 shownPos;
+
+    [Header("位置参考(可选)")]
+    [SerializeField] RectTransform hiddenPosTarget;
+    [SerializeField] RectTransform shownPosTarget;
 
     private float duration = 1f;
     private RectTransform rectTransform;
@@ -41,11 +46,10 @@ public class Hint : MonoBehaviour
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
-        
+
+        UpdatePositionsFromTargets();
         rectTransform.anchoredPosition = hiddenPos;
         gameObject.SetActive(false); 
-        
-        hiddenPos = rectTransform.anchoredPosition;
     }
 
     void Update()
@@ -59,6 +63,7 @@ public class Hint : MonoBehaviour
     // 呱：显示提示框  里面可以自定义文字（ds老师教我的）
     public void ShowHint(string content)
     {
+        UpdatePositionsFromTargets();
         if (text != null) text.text = content;
         gameObject.SetActive(true);
         StartCoroutine(RefreshAndAnimate());
@@ -114,6 +119,43 @@ public class Hint : MonoBehaviour
         }
     }
 
+    private void UpdatePositionsFromTargets()
+    {
+        if (rectTransform == null) rectTransform = GetComponent<RectTransform>();
+        var parentRect = rectTransform.parent as RectTransform;
+        if (parentRect == null) return;
+
+        var canvas = GetComponentInParent<Canvas>();
+        Camera cam = null;
+        if (canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay) cam = canvas.worldCamera;
+
+        var hiddenPosIsExternal = hiddenPos.sqrMagnitude > 0.0001f;
+        var shownPosIsExternal = shownPos.sqrMagnitude > 0.0001f;
+
+        if (!hiddenPosIsExternal && hiddenPosTarget != null && TryGetAnchoredPositionInParent(parentRect, cam, hiddenPosTarget.position, out var hp))
+            hiddenPos = hp;
+
+        if (!shownPosIsExternal && shownPosTarget != null && TryGetAnchoredPositionInParent(parentRect, cam, shownPosTarget.position, out var sp))
+            shownPos = sp;
+    }
+
+    private bool TryGetAnchoredPositionInParent(RectTransform parentRect, Camera cam, Vector3 worldPos, out Vector2 anchoredPos)
+    {
+        anchoredPos = default;
+        var screenPos = RectTransformUtility.WorldToScreenPoint(cam, worldPos);
+        if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRect, screenPos, cam, out var localPoint)) return false;
+
+        var anchorRef = (rectTransform.anchorMin + rectTransform.anchorMax) * 0.5f;
+        var parentSize = parentRect.rect.size;
+        var parentPivot = parentRect.pivot;
+        var anchorPosInParent = new Vector2(
+            (anchorRef.x - parentPivot.x) * parentSize.x,
+            (anchorRef.y - parentPivot.y) * parentSize.y
+        );
+
+        anchoredPos = localPoint - anchorPosInParent;
+        return true;
+    }
    
   
 }
