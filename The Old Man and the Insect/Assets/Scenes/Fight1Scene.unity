@@ -849,6 +849,17 @@ MonoBehaviour:
   abacus: {fileID: 848258700}
   rival: {fileID: 368136072}
   particle: {fileID: 631547317}
+--- !u!114 &307825033 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1452448055264044453, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
+  m_PrefabInstance: {fileID: 6145874818908804830}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &310112833
 GameObject:
   m_ObjectHideFlags: 0
@@ -6814,9 +6825,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a71d990f5b62724ea57e8b019c7557e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tagDatas: []
-  fightBugDatas: []
-  bugs: []
+  tagDatas:
+  - {fileID: 307825033}
+  - {fileID: 1172994470}
+  - {fileID: 1697700438}
+  fightBugDatas:
+  - {fileID: 1668238090}
+  - {fileID: 1759840582}
+  - {fileID: 350617676}
+  bugs:
+  - {fileID: 1894635695}
+  - {fileID: 711391704}
+  - {fileID: 513593843}
   myFightBugs:
   - {fileID: 568594074}
   - {fileID: 565655148}
@@ -7157,17 +7177,17 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.57572067
-      value: 0.13335884
-      inSlope: 1.2063735
-      outSlope: 1.2063735
+      time: 0.5682887
+      value: 0.480339
+      inSlope: 4.3339753
+      outSlope: 4.3339753
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0.17567626
     - serializedVersion: 3
       time: 1
-      value: 1.0015717
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -7183,12 +7203,12 @@ MonoBehaviour:
   - {fileID: 869787135}
   - {fileID: 703857109}
   MyFrontGrids:
-  - {fileID: 310112833}
-  - {fileID: 664747845}
-  - {fileID: 668288991}
-  - {fileID: 723629913}
+  - {fileID: 717171966}
+  - {fileID: 1729831846}
+  - {fileID: 966809280}
+  - {fileID: 877003816}
   fightManager: {fileID: 1833460376}
-  rayDistance: 15
+  rayDistance: 5
   targetLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -8688,6 +8708,17 @@ PolygonCollider2D:
       - {x: 0.61, y: -0.14999999}
       - {x: 0.61, y: 0.29}
   m_UseDelaunayMesh: 0
+--- !u!114 &1668238090 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 829456307811504774, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
+  m_PrefabInstance: {fileID: 6145874818908804830}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1685886662
 GameObject:
   m_ObjectHideFlags: 0
@@ -10395,6 +10426,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7112050767746094102, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
   m_PrefabInstance: {fileID: 6145874818908804830}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1894635695 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1779663723305546530, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
+  m_PrefabInstance: {fileID: 6145874818908804830}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a38ef98215cca8a40a3eaefdb91f9187, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1905987475 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1721728218424037631, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}

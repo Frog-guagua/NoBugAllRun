@@ -235,12 +235,24 @@ private IEnumerator ApplyDamageByIndex()
     List<Coroutine> deathRoutines = new List<Coroutine>();
     foreach (var bug in allMyBugs)
     {
-        Debug.Log($"{bug.name} {bug.insectHP} {bug.insectAtk}");
-        if (bug != null && bug.insectHP <= 0 && bug.gameObject.activeSelf)
-            deathRoutines.Add(StartCoroutine(ShakeAndFade(bug.gameObject)));
-    }
-    foreach (var bug in allEnemyBugs)
-    {
+        if (bug.name == "对手虫A左")
+        {
+            if (FightDataManager.ActionPoints == 1)
+            {
+                bug.insectHP = 0;
+                bug.insectAtk = 1;
+                deathRoutines.Add(StartCoroutine(ShakeAndFade(bug.gameObject)));
+                UpdateBugUI(bug);
+            }
+            else
+            {
+                bug.insectHP = 1;
+                bug.insectAtk = 1;
+                UpdateBugUI(bug);
+            }
+
+        }
+        
         if (bug.name == "战斗虫A")
         {
             if (FightDataManager.ActionPoints == 1)
@@ -255,7 +267,31 @@ private IEnumerator ApplyDamageByIndex()
                 bug.insectAtk = 1;
                 UpdateBugUI(bug);
             }
-            
+
+        }
+        Debug.Log($"{bug.name} {bug.insectHP} {bug.insectAtk}");
+        if (bug != null && bug.insectHP <= 0 && bug.gameObject.activeSelf)
+            deathRoutines.Add(StartCoroutine(ShakeAndFade(bug.gameObject)));
+    }
+    
+    
+    foreach (var bug in allEnemyBugs)
+    { 
+        if (bug.name == "战斗虫A")
+        {
+            if (FightDataManager.ActionPoints == 1)
+            {
+                bug.insectHP = 2;
+                bug.insectAtk = 2;
+                UpdateBugUI(bug);
+            }
+            else
+            {
+                bug.insectHP = 1;
+                bug.insectAtk = 1;
+                UpdateBugUI(bug);
+            }
+
         }
         
         if (bug != null && bug.insectHP <= 0 && bug.gameObject.activeSelf&&bug.name != "战斗虫A")
