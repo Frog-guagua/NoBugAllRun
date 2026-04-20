@@ -7,7 +7,7 @@ using UnityEngine.PlayerLoop;
 public class table : MonoBehaviour
 {
     public Transform player;
-    public static bool tableCanInteract = false;
+    public  bool tableCanInteract = false;
     public InsectDataSO a;
     public InsectDataSO b;
     public float dis = 2f;
@@ -16,17 +16,19 @@ public class table : MonoBehaviour
     public string str;
     private bool cageOn = false;
     private bool isset = false;
-    
+    public static bool tableact=false;
+    public GameObject cage;
     void Update()
     {   
        
         if (Vector2.Distance(player.position, transform.position) <= dis)
         {
-            if (cageOn==false)
+            if (cageOn==false&&tableact)
             {
                 PlayerMove.canMove = false;
                 hint.ShowHint(str);
                 Debug.Log("放笼子");
+                cage.SetActive(true);
                 cageOn = true;
             }
             
@@ -42,7 +44,7 @@ public class table : MonoBehaviour
     {   
         
         
-        if (tableCanInteract && Vector2.Distance(player.position, transform.position) <= dis)
+        if (tableCanInteract && Vector2.Distance(player.position, transform.position) <= dis&&cageOn)
         {   
             PlayerMove.canMove = false;
             Debug.Log("你点到了神秘小桌子");

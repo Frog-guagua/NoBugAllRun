@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueList:
   - speakerName: "\u9A6C\u8001\u95F2"
-    speakerSprite: {fileID: 21300000, guid: cce03b08336ffc74389c9f8e3a72d7db, type: 3}
+    speakerSprite: {fileID: 21300000, guid: 98b7e90339efaa14abbc84aa9cb5fb01, type: 3}
     content: "\u6765\u4E86\uFF01"
     Shake: 0
     canContinue: 1
