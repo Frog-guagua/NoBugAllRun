@@ -4,18 +4,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-
-//呱： 写在最前面 ——> 这个脚本挂载在遮幕上
+// 呱： 写在最前面 ——> 这个脚本挂载在遮幕上
 //    哈基蛙你这家伙……又在执着于写 妙妙画面效果了吗
 //    这个适用于想要实现 渐显/渐隐 取决你调用这其中的哪个函数咯hiahia
 
+// 元神真好玩
+// 我要玩洛克王国
+// 怎么样能同时玩洛克王国和元神
 
-
-//元神真好玩
-//我要玩洛克王国
-//怎么样能同时玩洛克王国和元神
-
-//考虑到遮罩ui时常使用image，这里加了一些重载，同时写了一个方法,切换场景直接调用即可。
+// 考虑到遮罩ui时常使用image，这里加了一些重载，同时写了一个方法,切换场景直接调用即可。
 public class Transition : MonoBehaviour
 {
     public static Transition Instance { get; private set; }
@@ -24,7 +21,6 @@ public class Transition : MonoBehaviour
     private SpriteRenderer SR;
     private Image Img;
     private Coroutine switchRoutine;
-
 
     void Awake()
     {
@@ -37,79 +33,63 @@ public class Transition : MonoBehaviour
         Instance = this;
         SR = GetComponent<SpriteRenderer>();
         Img = GetComponent<Image>();
-        if (!string.IsNullOrEmpty(persistentSceneNameOverride))
-        {
-            persistentSceneName = persistentSceneNameOverride;
-        }
-        else if (Application.CanStreamedLevelBeLoaded("PersistantScene"))
-        {
-            persistentSceneName = "PersistantScene";
-        }
-        else
-        {
-            persistentSceneName = gameObject.scene.name;
-        }
+        persistentSceneName = !string.IsNullOrEmpty(persistentSceneNameOverride) ? persistentSceneNameOverride : 
+            (Application.CanStreamedLevelBeLoaded("PersistantScene") ? "PersistantScene" : gameObject.scene.name);
         DontDestroyOnLoad(gameObject);
     }
 
-   //呱：这是渐显
+    // 呱：这是渐显
     public void FadeIn(float duration)
     {
-        if (SR != null)
-        {
-            StartCoroutine(Fade(0f, 1f, duration));
-            return;
-        }
-
-        if (Img != null)
-        {
-            StartCoroutine(Fade(Img, 0f, 1f, duration));
-        }
+        StartCoroutine(Fade(0f, 1f, duration));
     }
-    
-    //呱：这是渐隐
+
+    // 呱：这是渐隐
     public void FadeOut(float duration)
     {
-        if (SR != null)
-        {
-            StartCoroutine(Fade(1f, 0f, duration));
-            return;
-        }
-
-        if (Img != null)
-        {
-            StartCoroutine(Fade(Img, 1f, 0f, duration));
-        }
+        StartCoroutine(Fade(1f, 0f, duration));
     }
 
     public IEnumerator FadeIn(Image image, float duration)
     {
-        StartCoroutine(Fade(image, 0f, 1f, duration));
-        yield return null;
+        yield return StartCoroutine(Fade(image, 0f, 1f, duration));
     }
 
     public IEnumerator FadeOut(Image image, float duration)
     {
-        StartCoroutine(Fade(image, 1f, 0f, duration));
-        yield return null;
+        yield return StartCoroutine(Fade(image, 1f, 0f, duration));
     }
 
     private IEnumerator Fade(float startAlpha, float endAlpha, float duration)
     {
         float time = 0f;
-        Color color = SR.color;
+        Color color = SR?.color ?? Img.color;
 
         while (time < duration)
         {
             time += Time.deltaTime;
             float alpha = Mathf.Lerp(startAlpha, endAlpha, time / duration);
             color.a = alpha;
-            SR.color = color;
+            if (SR != null)
+            {
+                SR.color = color;
+            }
+            else if (Img != null)
+            {
+                Img.color = color;
+            }
             yield return null;
         }
 
         color.a = endAlpha;
-        SR.color = color;
+        if (SR != null)
+        {
+            SR.color = color;
+        }
+        else if (Img != null)
+        {
+            Img.color = color;
+        }
     }
 
     private IEnumerator Fade(Image image, float startAlpha, float endAlpha, float duration)
@@ -130,40 +110,25 @@ public class Transition : MonoBehaviour
         image.color = color;
     }
 
-    private IEnumerator FadeTo(float endAlpha, float duration)
-    {
-        if (SR != null)
-        {
-            yield return StartCoroutine(Fade(SR.color.a, endAlpha, duration));
-        }
-        else if (Img != null)
-        {
-            yield return StartCoroutine(Fade(Img, Img.color.a, endAlpha, duration));
-        }
-    }
-/// <summary>
-/// 切换场景调用这个。传入目标场景的名字。这里默认场上只存在两个场景
-/// </summary>
-/// <param name="targetSceneName"></param>
-/// <param name="fadeInDuration"></param>
-/// <param name="fadeOutDuration"></param>
-    public void SwitchSceneWithFade
-        (string targetSceneName, float fadeInDuration = 0.6f, float fadeOutDuration = 0.6f)
+    /// <summary>
+    /// 切换场景调用这个。传入目标场景的名字。这里默认场上只存在两个场景
+    /// </summary>
+    /// <param name="targetSceneName"></param>
+    /// <param name="fadeInDuration"></param>
+    /// <param name="fadeOutDuration"></param>
+    public void SwitchSceneWithFade(string targetSceneName, float fadeInDuration = 0.6f, float fadeOutDuration = 0.6f)
     {
         if (switchRoutine != null)
         {
             StopCoroutine(switchRoutine);
-            switchRoutine = null;
         }
         switchRoutine = StartCoroutine(SwitchSceneWithFadeRoutine(targetSceneName, fadeInDuration, fadeOutDuration));
     }
 
-    private IEnumerator SwitchSceneWithFadeRoutine
-        (string targetSceneName, float fadeInDuration, float fadeOutDuration)
+    private IEnumerator SwitchSceneWithFadeRoutine(string targetSceneName, float fadeInDuration, float fadeOutDuration)
     {
         if (string.IsNullOrEmpty(targetSceneName))
         {
-            switchRoutine = null;
             yield break;
         }
 
@@ -176,25 +141,36 @@ public class Transition : MonoBehaviour
         }
 
         var loadedScene = SceneManager.GetSceneByName(targetSceneName);
-        SceneManager.SetActiveScene(loadedScene);//它的意思就是： 目标场景加载完后，把“当前主场景”切到目标场景 ，这样后续逻辑（生成物体、运行关卡等）都以目标场景为准
-        //老师太强了
-        //严肃学习
+        SceneManager.SetActiveScene(loadedScene);
+
         var scenesToUnload = new List<Scene>();
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
             Scene scene = SceneManager.GetSceneAt(i);
-            if (!scene.isLoaded) continue;
-            if (scene.name == persistentSceneName) continue;
-            if (scene.name == targetSceneName) continue;
-            scenesToUnload.Add(scene);
+            if (scene.isLoaded && scene.name != persistentSceneName && scene.name != targetSceneName)
+            {
+                scenesToUnload.Add(scene);
+            }
         }
 
-        for (int i = 0; i < scenesToUnload.Count; i++)
+        foreach (var scene in scenesToUnload)
         {
-            yield return SceneManager.UnloadSceneAsync(scenesToUnload[i]);
+            yield return SceneManager.UnloadSceneAsync(scene);
         }
 
         yield return StartCoroutine(FadeTo(0f, fadeOutDuration));
         switchRoutine = null;
+    }
+
+    private IEnumerator FadeTo(float endAlpha, float duration)
+    {
+        if (SR != null)
+        {
+            yield return StartCoroutine(Fade(SR.color.a, endAlpha, duration));
+        }
+        else if (Img != null)
+        {
+            yield return StartCoroutine(Fade(Img, Img.color.a, endAlpha, duration));
+        }
     }
 }

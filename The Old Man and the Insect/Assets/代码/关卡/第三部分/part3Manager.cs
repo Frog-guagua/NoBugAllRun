@@ -28,7 +28,7 @@ public class part3Manager : MonoBehaviour
             && player.transform.position.x < rightAndUp_DoorRange.x
             && player.transform.position.y > leftAndDown_DoorRange.y
             && player.transform.position.y < rightAndUp_DoorRange.y
-            && canleave)
+            )
         {
             Transition.Instance.SwitchSceneWithFade("Choose");
         }
@@ -54,9 +54,11 @@ public class part3Manager : MonoBehaviour
     {
         FightFlowManager.OnGame1 = true;
         btn.gameObject.SetActive(false);
+        Bag.canOpenBag = false;
+        canleave = true;
         Transition.Instance.SwitchSceneWithFade("Fight1Scene");
         
-        Bag.canOpenBag = false;
+      
     }
     
 }
