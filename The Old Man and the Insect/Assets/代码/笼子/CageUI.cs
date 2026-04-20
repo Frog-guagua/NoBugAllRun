@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,14 +9,14 @@ public class CageUI : MonoBehaviour
     private static CageUI _instance; // 静态变量，用于保存唯一实例
     
     public Button slot;
-    public List<GameObject> listToCreate = new List<GameObject>();
+
     public int slotCount = 20;
 
     public GameObject levelUpUI;
 
-    public TextMeshProUGUI atk;
-    public TextMeshProUGUI experience;
-    public TextMeshProUGUI hp;
+    public Text atk;
+    public Text experience;
+    public Text hp;
 
     public Button hpUpbtn;
     public Button atkUpbtn;
@@ -56,35 +55,21 @@ public class CageUI : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
-        Image image = this.GetComponent<Image>();
+    {    Image image=this.GetComponent<Image>();
         Color color = image.color;
         color.a = 1f;
         image.color = color;
-
-        // 生成背包格子 —— 修复版
         for (int i = 0; i < slotCount; i++)
         {
-            // 1. 实例化格子（不要直接传父物体）
-            Button newslot = Instantiate(slot);
-
-            // 2. 设置父物体 + 保持世界坐标不变 = UI 正确位置
-            newslot.transform.SetParent(listToCreate[i].transform, false);
-
-            // 3. 强制重置本地坐标、旋转、缩放（关键！防止错位）
-            newslot.transform.localPosition = Vector3.zero;
-            newslot.transform.localRotation = Quaternion.identity;
-            newslot.transform.localScale = Vector3.one;
-
-            // 4. 赋值格子数据
+            Button newslot = Instantiate(slot, this.transform);
+            newslot.transform.SetParent(this.transform);
             CageSlot cageSlot = newslot.GetComponent<CageSlot>();
             cageSlot.slotID = i;
             cageSlot.Data = new InsectData();
             cageSlot.Data.insectId = 0; // 0代表空
-
             CageManager.Instance.slotList.Add(newslot);
+            //生成背包格子
         }
-
         hasBeenActivated = true;
     }
 

@@ -553,8 +553,6 @@ MonoBehaviour:
   backgrond: {fileID: 147952369}
   hiddenPos: {x: -337, y: 276}
   shownPos: {x: -337, y: 143}
-  hiddenPosTarget: {fileID: 0}
-  shownPosTarget: {fileID: 0}
 --- !u!1 &200913460
 GameObject:
   m_ObjectHideFlags: 0
@@ -6814,9 +6812,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a71d990f5b62724ea57e8b019c7557e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tagDatas: []
-  fightBugDatas: []
-  bugs: []
+  tagDatasText:
+  - {fileID: 1937734922}
+  - {fileID: 1172994470}
+  - {fileID: 1697700438}
+  fightBugDatasText:
+  - {fileID: 1175793371}
+  - {fileID: 1759840582}
+  - {fileID: 350617676}
   myFightBugs:
   - {fileID: 568594074}
   - {fileID: 565655148}
@@ -7115,6 +7118,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1172994468}
   m_CullTransparentMesh: 1
+--- !u!114 &1175793371 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 829456307811504774, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
+  m_PrefabInstance: {fileID: 6145874818908804830}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1177911834
 GameObject:
   m_ObjectHideFlags: 0
@@ -10519,6 +10533,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b9f149cbe136a8499a0a382523c933b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1937734922 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1452448055264044453, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
+  m_PrefabInstance: {fileID: 6145874818908804830}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2030453508
