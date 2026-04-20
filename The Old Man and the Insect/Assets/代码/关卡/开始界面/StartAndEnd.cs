@@ -5,11 +5,17 @@ public class StartAndEnd : MonoBehaviour
 {
      private string targetSceneName="HomeScene";
      public GameObject settingMenu;
-    
+
+     [SerializeField] AudioClip beginBGM;
+
+     void Start()
+     {
+         AudioMgr.Instance.PlayBGM(beginBGM);
+     }
 
     public void SwitchToScene()
     {
-        
+        AudioMgr.Instance.StopBGM();
        Transition.Instance.SwitchSceneWithFade(targetSceneName);
       
     }

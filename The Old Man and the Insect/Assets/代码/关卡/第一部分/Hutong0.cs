@@ -9,6 +9,7 @@ public class Hutong0 : MonoBehaviour
     public string str;
     public GameObject player;
     public Vector2 leftAndDown_DoorRange, rightAndUp_DoorRange;
+    private bool isswitch=false;
 
     public Hint hint;
     // Start is called before the first frame update
@@ -24,9 +25,10 @@ public class Hutong0 : MonoBehaviour
                && player.transform.position.x < rightAndUp_DoorRange.x
                && player.transform.position.y > leftAndDown_DoorRange.y
                && player.transform.position.y < rightAndUp_DoorRange.y
-              )
+              &&isswitch==false)
         {
             Transition.Instance.SwitchSceneWithFade("HuTong1");
+            isswitch = true;
         }
     }
 

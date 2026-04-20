@@ -508,6 +508,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settingMenu: {fileID: 1366417191}
+  beginBGM: {fileID: 0}
 --- !u!114 &384295381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -824,6 +825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settingMenu: {fileID: 1366417191}
+  beginBGM: {fileID: 0}
 --- !u!1 &733395870
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,6 +1130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settingMenu: {fileID: 0}
+  beginBGM: {fileID: 0}
 --- !u!114 &780326565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2075,6 +2078,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settingMenu: {fileID: 0}
+  beginBGM: {fileID: 8300000, guid: 052d206c991c168499210044db9142d5, type: 3}
 --- !u!114 &1826883641
 MonoBehaviour:
   m_ObjectHideFlags: 0

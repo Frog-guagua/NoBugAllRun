@@ -15,6 +15,7 @@ public class part3Manager : MonoBehaviour
 
     public Vector2 leftAndDown_DoorRange;
     public Vector2 rightAndUp_DoorRange;
+    private bool isswitch=false;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,9 +29,10 @@ public class part3Manager : MonoBehaviour
             && player.transform.position.x < rightAndUp_DoorRange.x
             && player.transform.position.y > leftAndDown_DoorRange.y
             && player.transform.position.y < rightAndUp_DoorRange.y
-            )
+            &&isswitch==false)
         {
             Transition.Instance.SwitchSceneWithFade("Choose");
+            isswitch = true;
         }
     }
 

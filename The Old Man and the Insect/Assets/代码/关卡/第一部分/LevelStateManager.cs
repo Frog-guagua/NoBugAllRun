@@ -14,7 +14,8 @@ public enum LevelState
     guide1,
     guide2,
     guide3,
-    leavinghouse
+    leavinghouse,
+    switchscene
 }
 
 public class LevelStateManager : MonoBehaviour
@@ -159,6 +160,9 @@ public class LevelStateManager : MonoBehaviour
 
                 case LevelState.leavinghouse:
                     break;
+                case LevelState.switchscene :
+                    Transition.Instance.SwitchSceneWithFade("HuTong0");
+                    break;
             }
 
             lastState = currentState;
@@ -174,6 +178,7 @@ public class LevelStateManager : MonoBehaviour
                     && afterKnock)
                 {
                     PlayerMove.canMove = false;
+                  
                     SwitchState(LevelState.openDoorAnm);
                 }
                 break;
@@ -186,7 +191,8 @@ public class LevelStateManager : MonoBehaviour
                 {
                     Bag.canOpenBag = true;
                     door.transform.rotation = Quaternion.Euler(0, 80, 0);
-                    Transition.Instance.SwitchSceneWithFade("HuTong0");
+                    SwitchState(LevelState.switchscene);
+                    Debug.Log("leave");
                 }
                 break;
 

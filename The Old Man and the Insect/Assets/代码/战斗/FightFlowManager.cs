@@ -101,6 +101,11 @@ public class FightFlowManager : MonoBehaviour
     {
         //呱：节省性能
         if(haveCheckedFightType) return;
+        else if (OnGame2)
+        {
+            onTeachingRound = false;
+            haveCheckedFightType = true;
+        }
             
         //呱： 用来判断现在是 第几次游戏
         if (OnGame1)
@@ -109,11 +114,6 @@ public class FightFlowManager : MonoBehaviour
            StartCoroutine(Game1Flow());
            haveCheckedFightType = true;
            
-        }
-        else if (OnGame2)
-        {
-            onTeachingRound = false;
-            haveCheckedFightType = true;
         }
         else if (OnGame3)
         {
@@ -143,7 +143,7 @@ public class FightFlowManager : MonoBehaviour
  
         //呱： 首先是遮幕渐隐
         
-       mask.FadeOut(fadeTime);
+       //mask.FadeOut(fadeTime);
         
        //呱： 然后是音乐播放
        PlayFightBGM();
