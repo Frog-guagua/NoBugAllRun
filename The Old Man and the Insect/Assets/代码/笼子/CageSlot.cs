@@ -28,8 +28,8 @@ public class CageSlot : MonoBehaviour
         if (Data.insectId != 0)
         {
             tag.SetActive(true);
-            hp.text ="hp:"+ Data.insectHP.ToString();
-            atk.text ="atk:"+ Data.insectAtk.ToString();
+            hp.text ="hp"+ Data.insectHP.ToString();
+            atk.text ="atk"+ Data.insectAtk.ToString();
             img.color = new Color(img.color.r, img.color.g, img.color.b, 1f);
             
         }

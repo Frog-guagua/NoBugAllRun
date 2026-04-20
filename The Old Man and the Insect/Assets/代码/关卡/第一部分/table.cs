@@ -72,7 +72,7 @@ public class table : MonoBehaviour
 
     public void SetCage()
     {
-        CageUI.Instance.setAct();
+        
         // 延迟添加，等格子生成完毕
         StartCoroutine(AddInsectAfterDelay());
     }
@@ -82,7 +82,7 @@ public class table : MonoBehaviour
         // 等一帧 + 一小段延迟，确保 CageUI 的格子已经生成
       
         yield return new WaitForSeconds(0.6f);
-
+        CageUI.Instance.setAct();
         CageManager.Instance.AddInsect(a);
         CageManager.Instance.AddInsect(b);
         CageManager.Instance.AddInsect(a);

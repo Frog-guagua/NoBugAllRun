@@ -258,7 +258,7 @@ public class LevelStateManager : MonoBehaviour
     IEnumerator openAnim()
     {
         yield return new WaitForSeconds(0.3f);
-        door.transform.localScale = new Vector2(0.2f,1);
+        door.transform.rotation = Quaternion.Euler(0, 80, 0);
         yield return new WaitForSeconds(Delay_Before_dia);
         SwitchState(LevelState.dialogue);
     }

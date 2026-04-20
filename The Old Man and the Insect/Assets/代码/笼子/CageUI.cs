@@ -18,7 +18,9 @@ public class CageUI : MonoBehaviour
     public TextMeshProUGUI atk;
     public TextMeshProUGUI experience;
     public TextMeshProUGUI hp;
-
+    public Image im1;
+    public Image im2;
+    public Image im3;
     public Button hpUpbtn;
     public Button atkUpbtn;
     // 私有构造函数，防止外部直接调用构造函数
@@ -56,11 +58,11 @@ public class CageUI : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
-        Image image = this.GetComponent<Image>();
-        Color color = image.color;
-        color.a = 1f;
-        image.color = color;
+    {   
+        im1.color = new Color(255,255,255,255);
+        im2.color=new Color(255,255,255,255);
+        im3.color=new Color(255,255,255,255);
+       
 
         // 生成背包格子 —— 修复版
         for (int i = 0; i < slotCount; i++)

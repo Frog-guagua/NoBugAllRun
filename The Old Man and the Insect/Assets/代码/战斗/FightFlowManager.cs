@@ -359,7 +359,7 @@ public class FightFlowManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         AudioMgr.Instance.StopBGM();
-        Transition.Instance.SwitchSceneWithFade("BeforeCatch");
+        Transition.Instance.SwitchSceneWithFade("HuTong1");
        
 
         #endregion
