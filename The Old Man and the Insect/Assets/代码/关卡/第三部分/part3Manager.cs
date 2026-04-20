@@ -58,6 +58,7 @@ public class part3Manager : MonoBehaviour
         btn.gameObject.SetActive(false);
         Bag.canOpenBag = false;
         canleave = true;
+        AudioMgr.Instance.StopBGM();
         Transition.Instance.SwitchSceneWithFade("Fight1Scene");
         
       

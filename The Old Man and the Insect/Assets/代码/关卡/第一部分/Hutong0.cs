@@ -5,7 +5,7 @@ using UnityEngine;
 public class Hutong0 : MonoBehaviour
 {
 
-
+    public AudioClip clip;
     public string str;
     public GameObject player;
     public Vector2 leftAndDown_DoorRange, rightAndUp_DoorRange;
@@ -16,6 +16,7 @@ public class Hutong0 : MonoBehaviour
     void Start()
     {
         StartCoroutine(gethint());
+        AudioMgr.Instance.PlayBGM(clip);
     }
 
     // Update is called once per frame

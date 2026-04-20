@@ -273,6 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6ebf5e5c7dd4b488d20bc77f02ae7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 8969b73b07d2b324eaa9c349d2cd7daf, type: 3}
   str: "\u975E\u6218\u6597\u573A\u666F\u6309B\u53EF\u67E5\u770B\u5DF2\u6709\u866B\u866B"
   player: {fileID: 1051296640}
   leftAndDown_DoorRange: {x: 4.54, y: 2.14}
