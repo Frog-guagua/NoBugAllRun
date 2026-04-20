@@ -7157,8 +7157,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-<<<<<<< HEAD
-HEAD
+
       time: 0.07577294
       value: 0.94369155
       inSlope: 1.4749129
@@ -7272,16 +7271,16 @@ HEAD
       inSlope: 0.23079936
       outSlope: 0.23079936
 
-=======
->>>>>>> a16380cc8ac59d5caed0b003fe5dd96d61dd1209
+a16380cc8ac59d5caed0b003fe5dd96d61dd1209
+ a16380cc8ac59d5caed0b003fe5dd96d61dd1209
       time: 0.57572067
       value: 0.13335884
       inSlope: 1.2063735
       outSlope: 1.2063735
-<<<<<<< HEAD
+
 a1b61865cb7d6a091a5a6c0cded2beba0db30eb9
-=======
->>>>>>> a16380cc8ac59d5caed0b003fe5dd96d61dd1209
+a16380cc8ac59d5caed0b003fe5dd96d61dd1209
+a16380cc8ac59d5caed0b003fe5dd96d61dd1209
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
