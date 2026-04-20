@@ -836,7 +836,6 @@ MonoBehaviour:
   roundManager: {fileID: 1833460377}
   WaitingBugs: {fileID: 898175936}
   fightDataManager: {fileID: 1117266356}
-  Mask: {fileID: 1536896791}
   FoucsMask: {fileID: 372536727}
   mainCamera: {fileID: 1353225903}
   bugs:
@@ -6849,6 +6848,8 @@ MonoBehaviour:
   - {fileID: 1064222799}
   - {fileID: 1882288310}
   - {fileID: 2030453510}
+  BugPrefab: {fileID: 0}
+  BugPos: []
 --- !u!4 &1117266357
 Transform:
   m_ObjectHideFlags: 0

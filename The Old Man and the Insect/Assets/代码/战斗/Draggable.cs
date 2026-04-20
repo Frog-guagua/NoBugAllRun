@@ -46,9 +46,12 @@ public class Draggable : MonoBehaviour
     
     void Start()
     {
+        followCage = GetComponent<FollowCage>();
+        
         originalLocalPos = transform.localPosition;
         GetComponent<Collider2D>().enabled = true;
-        followCage = GetComponent<FollowCage>();
+        if(cage != null)followCage = GetComponent<FollowCage>();
+    
         roundManager = GetComponent<RoundManager>();
     }
     

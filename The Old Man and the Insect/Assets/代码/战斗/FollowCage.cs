@@ -12,6 +12,14 @@ public class FollowCage : MonoBehaviour
 
     void Start()
     {
+        if (Cage == null)
+        {
+            GameObject cageObj = GameObject.Find("笼子外部");
+            if (cageObj != null)
+                Cage = cageObj.transform;
+            else
+                Debug.LogError("FollowCage: 未找到名为 'Cage' 的物体，请检查场景中的笼子物体名称。");
+        }
             Tag.SetActive(false);
             localPositionOffset = transform.position - Cage.position;
             
