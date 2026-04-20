@@ -36,23 +36,7 @@ public class FightDataManager : MonoBehaviour
     }
     
     
-    void Awake()
-    {
-        // 原 Awake 中遍历 enemyBugs 显示敌方，但敌方数据通常后设置，可保留
-        int j = 0;
-        foreach (InsectData enemyBug in enemyBugs)
-        {
-            if (j < tagDatas.Count)
-                tagDatas[j].text = $"{enemyBug.insectHP}   {enemyBug.insectAtk}";
-            // 敌方数据不用 fightBugDatas 显示
-            j++;
-        }
 
-        enemyBugs[2].insectHP = 2;
-        enemyBugs[2].insectAtk = 2;
-        enemyDatas[2].text = $"2    2";
-        UpdateEnenmyBugAtIndex(2,enemyBugs[2]);
-    }
     
     public void UpdateFightBugAtIndex(int index, InsectData bug)
     {
