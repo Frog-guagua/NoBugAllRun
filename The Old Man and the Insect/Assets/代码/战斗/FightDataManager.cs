@@ -64,16 +64,15 @@ public class FightDataManager : MonoBehaviour
             bugs[index].insectLevel = 2;
             bugs[index].isCompound = true;
             
-            myFightBugs[index].insectHP = 2;
+            myFightBugs[index].insectHP = 3;
             myFightBugs[index].insectAtk = 2;
             myFightBugs[index].insectLevel = 2;
             myFightBugs[index].isCompound = true;
             
-            myFightBugs[index+2].insectHP = 2;
-            myFightBugs[index+2].insectAtk = 2;
-            myFightBugs[index+2].insectLevel = 1;
-            myFightBugs[index+2].isCompound = false;
-            
+            myFightBugs[index].insectHP = 2;
+            myFightBugs[index].insectAtk = 2;
+            myFightBugs[index].insectLevel = 1;
+            myFightBugs[index].isCompound = false;
             fightBugDatas[index].text = $"3\n\n\n2";
             return;
             
@@ -122,7 +121,7 @@ public class FightDataManager : MonoBehaviour
         foreach (InsectData bug in bugs)
         {
             if (i < tagDatas.Count)
-                tagDatas[i].text = $"{bug.insectHP}  {bug.insectAtk}";
+                tagDatas[i].text = $"{bug.insectHP}    {bug.insectAtk}";
             myFightBugs[i] = bugs[i];   
             // 改用 fightBugDatas 显示战斗数据
             if (i < fightBugDatas.Count)
@@ -192,7 +191,7 @@ public class FightDataManager : MonoBehaviour
                 bug.gameObject.SetActive(false);
             }
             if (i < tagDatas.Count)
-                tagDatas[i].text = $"{bug.insectHP}  {bug.insectAtk}";
+                tagDatas[i].text = $"{bug.insectHP}    {bug.insectAtk}";
             i++;
         }
         for (; i < tagDatas.Count; i++)
