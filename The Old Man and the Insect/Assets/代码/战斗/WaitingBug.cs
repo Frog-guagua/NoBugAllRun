@@ -12,6 +12,8 @@ public class WaitingBug : MonoBehaviour
 
     [Header("升级特效")]
     [SerializeField] ParticleSystem levelUpParticles;
+    
+    [SerializeField] AnimationCurve moveCurve;
     [SerializeField] AudioClip levelUpSound;
     public LayerMask targetLayer;
     [SerializeField] Vector3 offset;
@@ -104,30 +106,98 @@ public class WaitingBug : MonoBehaviour
     }
 
     //呱 ：这是敌方索敌
-    public void FindRival(int GridIndex)
+    //呱 ：这是敌方索敌（寻找可攻击的目标，并移动到对应位置）
+//呱 ：这是敌方索敌（动态移动）
+public IEnumerator FindRival(int GridIndex)
+{
+    // 1. 边界检查
+    if (GridIndex < 0 || GridIndex >= GridManager.Grids.Length)
     {
-        int targetRivalIndex = 0;
-        Vector2 origin = GridManager.Grids[GridIndex].bugOnGrid.transform.position;
-        RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, 5, targetLayer);
-        if(hit.collider == null)
-        {
-            for(int i =4; i<8; i++)
-            {
-                Vector2 start = GridManager.Grids[i].bugOnGrid.transform.position;
-                RaycastHit2D hit2 = Physics2D.Raycast(origin, Vector2.up, 5, targetLayer);
-                if (hit2.collider == null)
-                {
-                    targetRivalIndex = i;
-                    break;
-                }
-            }
+        Debug.LogError($"FindRival: 无效的 GridIndex {GridIndex}");
+        yield break;
+    }
 
-            GridManager.Grids[GridIndex].isOccupied = false;
-            GridManager.Grids[GridIndex].bugOnGrid.transform.position = GridManager.Grids[targetRivalIndex+4].matchedPos+offset;
-            GridManager.Grids[targetRivalIndex+4].isOccupied = true;
+    // 2. 获取当前虫子
+    GameObject currentBug = GridManager.Grids[GridIndex].bugOnGrid;
+    if (currentBug == null)
+    {
+        Debug.LogError($"FindRival: GridIndex {GridIndex} 的 bugOnGrid 为空");
+        yield break;
+    }
+
+    // 3. 临时禁用 FollowCage（如果有），避免干扰移动
+    FollowCage follow = currentBug.GetComponent<FollowCage>();
+    if (follow != null) follow.enabled = false;
+
+    // 4. 确定当前虫子所在的行和列（4列 x 4行）
+    int column = GridIndex % 4;
+    int row = GridIndex / 4;
+
+    // 5. 优先攻击正前方（同一列）
+    int targetRow = row - 1;
+    if (targetRow >= 0)
+    {
+        int targetIndex = targetRow * 4 + column;
+        if (targetIndex >= 0 && targetIndex < GridManager.Grids.Length)
+        {
+            GameObject targetBug = GridManager.Grids[targetIndex].bugOnGrid;
+            if (targetBug != null)
+            {
+                // 正前方有敌人，直接攻击（这里先恢复 FollowCage 并退出）
+                if (follow != null) follow.enabled = true;
+                Debug.Log($"FindRival: 找到正前方敌人，格子 {targetIndex}");
+                yield break;
+            }
         }
     }
-    
+
+    // 6. 没有正前方敌人，寻找可移动的空位（我方前排）
+    int targetGridIndex = -1;
+    for (int i = 0; i < GridManager.Grids.Length; i++)
+    {
+        int r = i / 4;
+        if (r != 2 && r != 3) continue; // 假设我方前排行索引 2,3
+        if (GridManager.Grids[i].isOccupied) continue;
+        targetGridIndex = i;
+        break;
+    }
+
+    if (targetGridIndex == -1)
+    {
+        Debug.LogWarning("FindRival: 未找到可移动的空位");
+        if (follow != null) follow.enabled = true;
+        yield break;
+    }
+
+    // 7. 执行平滑移动
+    Vector3 startPos = currentBug.transform.position;
+    Vector3 targetPos = GridManager.Grids[targetGridIndex].matchedPos + offset;
+    float moveDuration = 0.5f; // 移动耗时，可调
+    float elapsed = 0f;
+    while (elapsed < moveDuration)
+    {
+        elapsed += Time.deltaTime;
+        float t = Mathf.Clamp01(elapsed / moveDuration);
+        // 使用 AnimationCurve 使移动更生动（你已有 moveCurve 变量，可在此传入）
+        float curveValue = moveCurve.Evaluate(t); // 假设你有一个 AnimationCurve 类型的曲线
+        currentBug.transform.position = Vector3.Lerp(startPos, targetPos, curveValue);
+        yield return null;
+    }
+    currentBug.transform.position = targetPos;
+
+    // 8. 更新格子占用信息
+    GridManager.Grids[GridIndex].isOccupied = false;
+    GridManager.Grids[GridIndex].bugOnGrid = null;
+
+    GridManager.Grids[targetGridIndex].isOccupied = true;
+    GridManager.Grids[targetGridIndex].bugOnGrid = currentBug;
+
+    // 9. 恢复 FollowCage
+    if (follow != null) follow.enabled = true;
+
+    Debug.Log($"FindRival: 虫子从格子 {GridIndex} 平滑移动到格子 {targetGridIndex}");
+    yield return null;
+}
     
     IEnumerator MoveAndDisable(Vector3 endPos, GameObject fightBug,AnimationCurve curve)
     {
@@ -197,4 +267,26 @@ public class WaitingBug : MonoBehaviour
         }
         return false;
     }
+    
+    public IEnumerator Shake(float duration, float strength,int bugIndex)
+    {
+        float timeCount = 0.0f;
+      Vector3 originalPos = WaitingBugs[bugIndex].transform.position;
+        while (timeCount < duration)
+        {
+
+            
+            //呱：古法抖动 还得是随机数
+            float x = Random.Range(-1f, 1f) * strength;
+            float y = Random.Range(-1f, 1f) * strength;
+            WaitingBugs[bugIndex].transform.localPosition = originalPos + new Vector3(x, y, 0);
+            timeCount += Time.deltaTime;
+            yield return null;
+        }
+  
+        WaitingBugs[bugIndex].transform.localPosition = originalPos;
+       
+       
+    }
+
 }

@@ -8,10 +8,15 @@ public class ActionPoint : MonoBehaviour
 
     void Start()
     {
+        // 初始刷新一次
         UpdatePoints(FightDataManager.ActionPoints);
     }
 
-   
+    void Update()
+    {
+        // 每帧刷新行动点显示
+        UpdatePoints(FightDataManager.ActionPoints);
+    }
 
     public void UpdatePoints(int currentPoints)
     {

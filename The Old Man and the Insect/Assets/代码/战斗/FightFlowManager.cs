@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Object = System.Object;
 using Random = UnityEngine.Random;
 
 
@@ -379,6 +380,9 @@ public class FightFlowManager : MonoBehaviour
     IEnumerator Game2Flow()
     {
         PrepareForFight();
+        dialogue.background.SetActive(false);
+
+        #region 上虫
 
         //呱：把C虫虫放在 第10格
         waitingBug.BugUp(0,9);
@@ -387,15 +391,47 @@ public class FightFlowManager : MonoBehaviour
         
         //呱：实验用 这是用来测试 敌方虫子升级逻辑的
         // waitingBug.BugUp(2,12);
+
+        #endregion
         
         #region 对话
 
         yield return new WaitForSeconds(fadeTime);
-        yield return StartCoroutine(Speak(2,"怂了吗","快把你的蛐蛐放上来！"));
-
+        dialogue.background.SetActive(true);
+        yield return Speak(0,"听我一句劝","现在认个栽","这事儿就算过去了");
+        ReleseCage();
+        
+        yield return new WaitUntil(() =>CageZoom.CageHasZoomed);
+        yield return new WaitForSeconds(0.5f);
+        yield return Speak(0,"哼","<b>有种</b>");
+        StartCoroutine(waitingBug.Shake(1, 0.1f, 0));
+        StartCoroutine(waitingBug.Shake(1, 0.1f, 1));
+        
         #endregion
        
        
+        yield return new WaitUntil(() =>FightDataManager.ActionPoints == 0);
+        BanCage();
+        
+        yield return new WaitForSeconds(1.5f);
+        abacus.GetComponent<ObjectShake>().ShakeStart(1,0.3f);
+        
+        yield return new WaitForSeconds(0.5f);
+        abacus.GetComponent<Collider2D>().enabled = true;
+        
+        yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
+        yield return new WaitForSeconds(0.3f);
+        yield return waitingBug.FindRival(9);
+        yield return waitingBug.FindRival(8);
+        //呱：放大相机 聚焦在战局上面
+        mainCamera.GetComponent<CameraFocus>().enabled = true;
+        yield return new WaitForSeconds(0.5f);
+        abacus.GetComponent<Collider2D>().enabled = false;
+  
+        cameraFocus.LetCameraFocus();
+        AudioMgr.Instance.PlaySFX(FightEffect);
+        
+        
        
         yield return null;
     }

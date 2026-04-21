@@ -5992,6 +5992,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WaitingBugs:
   - {fileID: 2030453508}
+  moveCurveForLevelUp:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  levelUpParticles: {fileID: 0}
+  levelUpSound: {fileID: 0}
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  offset: {x: 0, y: 0, z: 0}
 --- !u!4 &898175938
 Transform:
   m_ObjectHideFlags: 0
@@ -8225,7 +8237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 956b2781a25af7b47aa79c7c9d383907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgrond: {fileID: 798465798}
+  background: {fileID: 0}
   text: {fileID: 2053171825}
 --- !u!4 &1593573191
 Transform:

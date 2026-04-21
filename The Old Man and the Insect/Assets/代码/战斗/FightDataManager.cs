@@ -10,8 +10,8 @@ public class FightDataManager : MonoBehaviour
 {
     [Header("己方UI")]
     [SerializeField] List<TextMeshProUGUI> tagDatas = new List<TextMeshProUGUI>();   
-   
-    [SerializeField] List<TextMeshProUGUI> fightBugDatas = new List<TextMeshProUGUI>(); 
+    [SerializeField]  List<GameObject>  myBugs = new List<GameObject>();
+    [SerializeField]public List<TextMeshProUGUI> fightBugDatas = new List<TextMeshProUGUI>(); 
     
     //呱： 这是鼠鼠主人给的 虫虫数据
     /// <summary>
@@ -29,11 +29,12 @@ public class FightDataManager : MonoBehaviour
     [SerializeField] List<TextMeshProUGUI> enemyDatas = new List<TextMeshProUGUI>();
     [SerializeField]List<InsectData> enemyBugs = new List<InsectData>();   
 
-    [Header("虫虫预制体")]
-    [SerializeField] GameObject BugPrefab;
 
-    [Header("坐标")] 
-    [SerializeField] List<Transform> BugPos;
+    [Header("待机虫图片")]
+    [SerializeField] Sprite[] IdleBugSprites= new Sprite[6];
+    
+    [Header("战斗虫图片")] 
+    [SerializeField] Sprite[] FightBugSprites = new Sprite[6];
     
     public static int ActionPoints = DataBroker.actionValue;
 
@@ -41,29 +42,55 @@ public class FightDataManager : MonoBehaviour
     
     
     //呱： 这个用来 根据传入的虫虫数据 来自动生成虫虫
-    public void CreateBug()
+    public void TestBug()
     {
         List<InsectData> tempBugs = new List<InsectData>(7); 
         Random random = new Random();
 
-        for (int i = 0; i < 7; i++)
+        for (int i = 2; i < 7; i++)
         {
             InsectData newBug = new InsectData(); 
-            newBug.insectAtk = 2;
-            newBug.insectHP = 1;
+            newBug.insectAtk = random.Next(1, 3);
+            newBug.insectHP = 2;
             newBug.insectLevel = 1;
             newBug.bugType = random.Next(0, 2) == 0 ? E_BugType.A : E_BugType.B;
             tempBugs.Add(newBug);
         }
 
         DataBroker.Instance.give_datasFromCage(tempBugs);
-
-      
+        InitMyBugsFromData(tempBugs);
     }
-    
-    
-    
-    
+
+    public void InitMyBugsFromData(List<InsectData> experimentData)
+    {
+
+        for (int i = 0; i < myBugs.Count && i < experimentData.Count; i++)
+        {
+            GameObject bug = myBugs[i];
+            InsectData bugData = bug.GetComponent<InsectData>();
+
+
+            bugData.insectHP = experimentData[i].insectHP;
+            bugData.insectAtk = experimentData[i].insectAtk;
+            bugData.insectLevel = experimentData[i].insectLevel;
+            bugData.bugType = experimentData[i].bugType;
+
+            // 根据品种设置图片
+            SpriteRenderer sr = bug.GetComponent<SpriteRenderer>();
+            if (sr != null)
+            {
+               // sr.sprite = GetSpriteByBugType(bugData.bugType);
+            }
+
+            // 刷新对应的 UI（fightBugDatas）
+            if (i < fightBugDatas.Count && fightBugDatas[i] != null)
+            {
+                fightBugDatas[i].text = $"{bugData.insectHP}\n\n\n{bugData.insectAtk}";
+            }
+        }
+    }
+
+
     
     
     
@@ -157,26 +184,60 @@ public class FightDataManager : MonoBehaviour
     
     void Start()
     {
-        // 确保 myFightBugs 有足够容量
-        while (myFightBugs.Count < bugs.Count)
+        
+        if (FightFlowManager.OnGame1)
         {
-            myFightBugs.Add(null);
+            // 确保 myFightBugs 有足够容量
+            while (myFightBugs.Count < bugs.Count)
+            {
+                myFightBugs.Add(null);
+            }
+
+            int i = 0;
+            foreach (InsectData bug in bugs)
+            {
+                if (i < tagDatas.Count)
+                    tagDatas[i].text = $"{bug.insectHP}  {bug.insectAtk}";
+                myFightBugs[i] = bugs[i];   
+                // 改用 fightBugDatas 显示战斗数据
+                if (i < fightBugDatas.Count)
+                    fightBugDatas[i].text = $"{bug.insectHP}\n\n\n{bug.insectAtk}";
+                i++;
+            }
         }
 
-        int i = 0;
-        foreach (InsectData bug in bugs)
+        if (FightFlowManager.OnGame2)
         {
-            if (i < tagDatas.Count)
-                tagDatas[i].text = $"{bug.insectHP}  {bug.insectAtk}";
-            myFightBugs[i] = bugs[i];   
-            // 改用 fightBugDatas 显示战斗数据
-            if (i < fightBugDatas.Count)
-                fightBugDatas[i].text = $"{bug.insectHP}\n\n\n{bug.insectAtk}";
-            i++;
+            List<InsectData> copy = new List<InsectData>(enemyBugs);
+            SetEnemyBugs(copy);
+            TestBug();
         }
+        
     }
-
-   
+    
+    //呱：战斗2用的
+    public void UpdateBugUI(GameObject bugObj)
+    {
+        for (int i = 0; i < myBugs.Count; i++)
+        {
+            Transform parent = myBugs[i].transform;
+            
+            foreach (Transform child in parent)
+            {
+                if (child.gameObject == bugObj)
+                {
+                    InsectData data = bugObj.GetComponent<InsectData>();
+                    if (data != null && i < fightBugDatas.Count)
+                    {
+                        fightBugDatas[i].text = $"{data.insectHP}\n\n\n{data.insectAtk}";
+                        
+                    }
+                    return;
+                }
+            }
+        }
+        
+    }
   
 
     public void UpdateMyFightBugs(List<InsectData> newMyBugs)
@@ -191,9 +252,7 @@ public class FightDataManager : MonoBehaviour
             {
                 string newText = $"{myFightBugs[i].insectHP}\n\n\n{myFightBugs[i].insectAtk}";
                 fightBugDatas[i].text = newText;
-                Debug.Log($"✅ 更新 fightBugDatas[{i}] 成功，新文本：{newText}");
-                // 额外输出该 UI 组件的 GameObject 名称，方便确认绑定对象
-
+            
 
             }
         }

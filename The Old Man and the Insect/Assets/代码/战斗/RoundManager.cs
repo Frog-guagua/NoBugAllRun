@@ -39,6 +39,7 @@ public struct Grid
 
     public GameObject bugOnGrid;
 
+    
 }
 
 
@@ -71,8 +72,8 @@ public class RoundManager : MonoBehaviour
     [SerializeField] ParticleSystem levelUpParticles;
     [SerializeField] AudioClip levelUpSound;
     private bool needCompound;
-    
-
+    private ActionPoint actionPoint;
+    private GameObject frontBug;
     
     void Start()
     {
@@ -84,7 +85,7 @@ public class RoundManager : MonoBehaviour
         fightDataManager = FindObjectOfType<FightDataManager>();
         hint = FindObjectOfType<Hint>();
 
-     
+        actionPoint = FindObjectOfType<ActionPoint>();
     }
 
     
@@ -223,7 +224,8 @@ public class RoundManager : MonoBehaviour
             fightBug.transform.position = nowGrid.matchedPos;
             
             bugMatch.StartFightBug();
-            FightDataManager.ActionPoints -= 1;
+            FightDataManager.ActionPoints -= nowBug.transform.GetComponentInParent<InsectData>().insectLevel;
+            actionPoint.UpdatePoints(FightDataManager.ActionPoints);
             
             //呱：献祭虫虫……
             nowBug.SetActive(false) ;
@@ -254,7 +256,7 @@ public class RoundManager : MonoBehaviour
                 fightBug.transform.position = GridManager.Grids[Draggable.nowGridIndex].matchedPos;
               
                 bugMatch.StartFightBug();
-                FightDataManager.ActionPoints -= 1;
+                FightDataManager.ActionPoints -= nowBug.GetComponent<InsectData>().insectLevel;
                 Transparent(nowBug);
                 GameObject Tag = nowBug.transform.GetChild(0).gameObject;
                 Transparent(Tag);
@@ -267,16 +269,18 @@ public class RoundManager : MonoBehaviour
             else
             {
         
-                Grid frontGrid = GridManager.Grids[realIndex+4];
-                GameObject frontBug =frontGrid.bugOnGrid;
+                Grid frontGrid = GridManager.Grids[realIndex+4]; 
+                frontBug =frontGrid.bugOnGrid;
 
                 if (NeedCompound(nowBug, frontBug))
                 {
                   
                     //呱：残忍的杀死这个虫虫！！！！（成为我的养分吧！！！）
-                    FightDataManager.ActionPoints -= 1;
+                   
                     fightBug.transform.position = GridManager.Grids[realIndex].matchedPos;
                     levelUpParticles.transform.position= GridManager.Grids[realIndex+4].matchedPos;
+                    FightDataManager.ActionPoints -= nowBug.transform.GetComponentInParent<InsectData>().insectLevel;
+                    actionPoint.UpdatePoints(FightDataManager.ActionPoints);
                     needCompound = true;
                     Transparent(nowBug);
                     GameObject Tag = nowBug.transform.GetChild(0).gameObject;
@@ -302,7 +306,8 @@ public class RoundManager : MonoBehaviour
                     fightBug.transform.position = GridManager.Grids[realIndex].matchedPos;
                 
                     bugMatch.StartFightBug();
-                    FightDataManager.ActionPoints -= 1;
+                    FightDataManager.ActionPoints -= nowBug.transform.GetComponentInParent<InsectData>().insectLevel;
+                    actionPoint.UpdatePoints(FightDataManager.ActionPoints);
                     nowBug.SetActive(false);
                 }
                 
@@ -356,18 +361,19 @@ public class RoundManager : MonoBehaviour
         {
             
             AudioMgr.Instance.PlaySFX(levelUpSound);
+            fightDataManager.UpdateBugUI(frontBug);
             levelUpParticles.Play();
             Destroy(fightBug);
             
            // GridManager.Grids[Draggable.nowGridIndex+4].bugOnGrid.GetComponent<ObjectShake>().ShakeStart(0.3f,0.1f);
            
            Camera.main.GetComponent<CamaraShake>().ShakeStart(0.5f,0.3f);
-            
+           
             yield return new WaitForSeconds(levelUpSound.length+0.5f);
             levelUpParticles.Stop();
             
         }
-        
+      
         nowBug.SetActive(false);
         
     }
