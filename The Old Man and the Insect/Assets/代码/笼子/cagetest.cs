@@ -17,7 +17,8 @@ public class cagetest : MonoBehaviour
         
     }
     public void OnClick()
-    {
+    {   
+        CageUI.Instance.setAct();
         CageManager.Instance.AddInsect(insectData);
         print("test");
         DataBroker.experience++;

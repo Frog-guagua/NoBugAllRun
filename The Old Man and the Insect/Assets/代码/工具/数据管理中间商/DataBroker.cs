@@ -18,7 +18,7 @@ public sealed class DataBroker
     
     public static int reputation ;//声望
     //严肃背诵单词
-    
+    public List<InsectData> datasToCatch1 = new List<InsectData>();
     
     private static int _actionValue = 2;
     public static int actionValue

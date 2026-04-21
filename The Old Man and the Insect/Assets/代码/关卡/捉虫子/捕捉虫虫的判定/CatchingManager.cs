@@ -53,14 +53,19 @@ public class CatchingManager : MonoBehaviour
     public List<TextMeshProUGUI> atk = new List<TextMeshProUGUI>();
     private List<GameObject> currentBugs;
 
+    public List<GameObject> pos = new List<GameObject>();
+    public List<GameObject> data1 = new List<GameObject>();
+    public List<GameObject> data2 = new List<GameObject>();
     public Button switchcase;
+
+    private static int time = 1;
     // 确保场景中只有一个 CatchingManager 实例
     private void Awake()
     {
         if (_instance == null)
         {
             _instance = this;
-            DontDestroyOnLoad(gameObject);
+            
         }
         else
         {
@@ -75,6 +80,45 @@ public class CatchingManager : MonoBehaviour
         Bag.canOpenBag = true;
         hint = hintobj.GetComponent<Hint>();
         catchBugDecision=bugCatcher.GetComponent<CatchBugDecision>();
+        SuccessCount = 0;
+        failureCount = 0;
+        doUpdate = true;
+
+        // 根据 time 值决定生成 data1 还是 data2
+        List<GameObject> dataList = time == 1 ? data1 : data2;
+
+        // 确保 pos 有足够的位置来放置数据
+        int count = Mathf.Min(dataList.Count, pos.Count);
+
+        for (int i = 0; i < count; i++)
+        {
+            // 生成在当前场景 + 正确位置 + 不切换场景带走
+            GameObject dataInstance = Instantiate(
+                dataList[i], 
+                pos[i].transform.position, 
+                Quaternion.identity,
+               pos[i].transform
+            );
+
+            
+            BugToCatch bugToCatch = dataInstance.GetComponent<BugToCatch>();
+            if (bugToCatch == null)
+            {
+                bugToCatch = dataInstance.GetComponentInChildren<BugToCatch>();
+            }
+
+            if (bugToCatch == null)
+            {
+                Debug.LogError($"在生成的对象 {dataInstance.name} 上找不到 {nameof(BugToCatch)} 组件，无法初始化。", dataInstance);
+            }
+            else
+            {
+                bugToCatch.Init();
+            }
+            
+        }
+
+        time++;
     }
 
     // Update is called once per frame
@@ -103,7 +147,13 @@ public class CatchingManager : MonoBehaviour
             }
         }
 
-        if (SuccessCount >= 3)
+        if (SuccessCount >= 3&&time==1)
+        {
+            switchcase.gameObject.SetActive(true);
+            cancontinue=false;
+        }
+
+        if (SuccessCount >= 4 && time > 1)
         {
             switchcase.gameObject.SetActive(true);
             cancontinue=false;
@@ -146,7 +196,7 @@ public class CatchingManager : MonoBehaviour
 
     public void switchscene()
     {
-        Transition.Instance.SwitchSceneWithFade("HuTong1");
+        Transition.Instance.SwitchSceneWithFade("Choose");
         Bag.canOpenBag = false;
     }
 
