@@ -14,7 +14,7 @@ public class CageUI : MonoBehaviour
     public int slotCount = 20;
 
     public GameObject levelUpUI;
-
+    public GameObject confirmPanel;
     public TextMeshProUGUI atk;
     public TextMeshProUGUI experience;
     public TextMeshProUGUI hp;
@@ -26,6 +26,14 @@ public class CageUI : MonoBehaviour
     // 私有构造函数，防止外部直接调用构造函数
     private CageUI() { }
     private bool hasBeenActivated = false;
+
+    public bool thisIsActive
+    {
+        get
+        {
+            return this.gameObject.activeSelf;
+        }
+    }
     // 提供一个公共的静态属性，以便其他类可以访问这个实例
     public static CageUI Instance
     {
@@ -93,15 +101,20 @@ public class CageUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Escape))
+        
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            setInactive();//非常神秘，我用escape退出不了，其他键就可以，先放着
-            //unity你是对我的esc有什么意见吗
-            Debug.Log("esc");
-            DataBroker.Instance.give_datasFromCage(CageManager.Instance.insectDataList);
-            PlayerMove.canMove = true;
-            levelUpUI.gameObject.SetActive(false);
-            //在关闭培养界面时同步数据给中间商。
+            if (DataBroker.experience > 0)
+            {
+                confirmPanel.SetActive(true);
+            }
+
+            else
+            {
+                
+            QuitCage();
+           
+            }
         }
         
     }
@@ -138,7 +151,7 @@ public class CageUI : MonoBehaviour
        
         this.hp.text=CageManager.Instance.currentChosenData.LetHPUp().ToString();
         Debug.Log( CageManager.Instance.currentChosenData.HpUpConsumption);
-        CheckExpAndLevel();
+        CheckExpAndLevel(); 
         experience.text ="exp:"+DataBroker.experience.ToString();
         
     }
@@ -147,12 +160,14 @@ public class CageUI : MonoBehaviour
        
         this.atk.text=CageManager.Instance.currentChosenData.LetAtkUp().ToString();
         Debug.Log( CageManager.Instance.currentChosenData.AtkUpConsumpution);
-        CheckExpAndLevel();
+        CheckExpAndLevel(); 
         experience.text ="exp:"+DataBroker.experience.ToString();
     }
 
     public void CheckExpAndLevel()
     {
+        
+        // 攻击按钮判断（你的原逻辑）
         if (CageManager.Instance.currentChosenData.insectLevel>DataBroker.experience)
         {
             atkUpbtn.gameObject.SetActive(false);
@@ -162,6 +177,7 @@ public class CageUI : MonoBehaviour
             atkUpbtn.gameObject.SetActive(true);
         }
 
+        // 血量按钮判断（你的原逻辑，单独写，不被攻击按钮影响）
         if (CageManager.Instance.currentChosenData.insectLevel>DataBroker.experience)
         {
             hpUpbtn.gameObject.SetActive(false);
@@ -171,4 +187,15 @@ public class CageUI : MonoBehaviour
             hpUpbtn.gameObject.SetActive(true);
         }
     }//经验不够就不给升级按钮
+
+    public void QuitCage()
+    {
+        setInactive();//非常神秘，我用escape退出不了，其他键就可以，先放着
+        //unity你是对我的esc有什么意见吗
+        Debug.Log("esc");
+        DataBroker.Instance.give_datasFromCage(CageManager.Instance.insectDataList);
+        PlayerMove.canMove = true;
+        levelUpUI.gameObject.SetActive(false);
+        //在关闭培养界面时同步数据给中间商。
+    }
 }
