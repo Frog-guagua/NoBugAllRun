@@ -34,6 +34,7 @@ public class Event1Mgr : MonoBehaviour
         if (canChange && Input.GetMouseButton(0))
         {
             Debug.Log("切换下一关");
+            canChange=false;
         }
     }
 
