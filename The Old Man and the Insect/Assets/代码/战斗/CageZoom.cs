@@ -14,7 +14,7 @@ public class CageZoom : MonoBehaviour
     public static bool CageHasZoomed;
     
     
-    [SerializeField]  List<Draggable> draggableList;
+     public List<Draggable> draggableList;
   
     void Start()
     {

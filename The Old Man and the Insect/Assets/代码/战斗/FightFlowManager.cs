@@ -46,8 +46,8 @@ public class FightFlowManager : MonoBehaviour
     [SerializeField] FightDataManager fightDataManager;
     
     
-    [Header("遮幕")]
-    [SerializeField] GameObject Mask;
+    
+    private GameObject Mask;
     [SerializeField] GameObject FoucsMask;
     private Transition mask;
     private SpriteRenderer foucaMask_SR;
@@ -83,7 +83,7 @@ public class FightFlowManager : MonoBehaviour
         
         waitingBug = WaitingBugs.GetComponent<WaitingBug>();
         cameraFocus = mainCamera.GetComponent<CameraFocus>();
-        mask = Mask.GetComponent<Transition>();
+      
         gridManager =  GridManager.GetComponent<GridManager>();
        
         foucaMask_SR = FoucsMask.GetComponent<SpriteRenderer>();
@@ -101,11 +101,8 @@ public class FightFlowManager : MonoBehaviour
     {
         //呱：节省性能
         if(haveCheckedFightType) return;
-        else if (OnGame2)
-        {
-            onTeachingRound = false;
-            haveCheckedFightType = true;
-        }
+        
+        
             
         //呱： 用来判断现在是 第几次游戏
         if (OnGame1)
@@ -115,9 +112,16 @@ public class FightFlowManager : MonoBehaviour
            haveCheckedFightType = true;
            
         }
+        else  if (OnGame2)
+        {
+            onTeachingRound = false;
+            StartCoroutine(Game2Flow());
+            haveCheckedFightType = true;
+        }
         else if (OnGame3)
         {
             onTeachingRound = false;
+            StartCoroutine(Game3Flow());
             haveCheckedFightType = true;
         }
     }
@@ -135,7 +139,8 @@ public class FightFlowManager : MonoBehaviour
 
         abacus.GetComponent<Collider2D>().enabled = false;
         mainCamera.GetComponent<CameraFocus>().enabled = false;
-        
+
+       
         
         #endregion
         
@@ -146,13 +151,14 @@ public class FightFlowManager : MonoBehaviour
        //mask.FadeOut(fadeTime);
         
        //呱： 然后是音乐播放
-       PlayFightBGM();
+        PlayFightBGM();
 
         
         
         #endregion
 
     }
+
     
     //呱： 第一次战斗……！ 大爷强强！！！
     IEnumerator Game1Flow()
@@ -265,7 +271,7 @@ public class FightFlowManager : MonoBehaviour
 
         #region 大爷放虫
 
-         waitingBug.BugUp(0);
+         waitingBug.BugUp(0,0);
         yield return new WaitForSeconds(0.3f);
         ActionPoint actionPoint = FindObjectOfType<ActionPoint>();
         FightDataManager.ActionPoints = 2;
@@ -357,25 +363,46 @@ public class FightFlowManager : MonoBehaviour
 
         #region 切换场景
 
-        yield return new WaitForSeconds(0.5f);
-        AudioMgr.Instance.StopBGM();
-        Transition.Instance.SwitchSceneWithFade("HuTong1");
+         yield return new WaitForSeconds(0.5f);
+         AudioMgr.Instance.StopBGM();
+         Transition.Instance.SwitchSceneWithFade("HuTong1");
        
 
         #endregion
 
         yield return null;
     }
+    
+ 
 
+    //呱：大爷战斗
     IEnumerator Game2Flow()
     {
+        PrepareForFight();
+
+        //呱：把C虫虫放在 第10格
+        waitingBug.BugUp(0,9);
+        //呱：把D虫虫放在 第9格
+        waitingBug.BugUp(1,8);
         
+        //呱：实验用 这是用来测试 敌方虫子升级逻辑的
+        // waitingBug.BugUp(2,12);
+        
+        #region 对话
+
+        yield return new WaitForSeconds(fadeTime);
+        yield return StartCoroutine(Speak(2,"怂了吗","快把你的蛐蛐放上来！"));
+
+        #endregion
+       
+       
+       
         yield return null;
     }
 
-    void Game3Flow()
+    IEnumerator Game3Flow()
     {
-        
+        yield return null;
     }
 
    

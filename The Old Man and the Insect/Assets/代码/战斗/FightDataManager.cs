@@ -4,22 +4,77 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = System.Random;
 
 public class FightDataManager : MonoBehaviour
 {
     [Header("己方UI")]
     [SerializeField] List<TextMeshProUGUI> tagDatas = new List<TextMeshProUGUI>();   
    
-    [SerializeField] List<TextMeshProUGUI> fightBugDatas = new List<TextMeshProUGUI>();  
+    [SerializeField] List<TextMeshProUGUI> fightBugDatas = new List<TextMeshProUGUI>(); 
+    
+    //呱： 这是鼠鼠主人给的 虫虫数据
+    /// <summary>
+    /// 传入的虫虫数据
+    /// </summary>
     [SerializeField] List<InsectData> bugs = DataBroker.Instance.datasFromCage;
+    
+    //呱： 这是用来装 自动生成的虫虫 的列表
+    public static List<GameObject> newBugsPrefab = new List<GameObject>();
+    
+
     [SerializeField]  List<InsectData> myFightBugs;
 
     [Header("敌方UI")]
     [SerializeField] List<TextMeshProUGUI> enemyDatas = new List<TextMeshProUGUI>();
     [SerializeField]List<InsectData> enemyBugs = new List<InsectData>();   
 
+    [Header("虫虫预制体")]
+    [SerializeField] GameObject BugPrefab;
+
+    [Header("坐标")] 
+    [SerializeField] List<Transform> BugPos;
+    
     public static int ActionPoints = DataBroker.actionValue;
 
+
+    
+    
+    //呱： 这个用来 根据传入的虫虫数据 来自动生成虫虫
+    public void CreateBug()
+    {
+        List<InsectData> tempBugs = new List<InsectData>(7); 
+        Random random = new Random();
+
+        for (int i = 0; i < 7; i++)
+        {
+            InsectData newBug = new InsectData(); 
+            newBug.insectAtk = 2;
+            newBug.insectHP = 1;
+            newBug.insectLevel = 1;
+            newBug.bugType = random.Next(0, 2) == 0 ? E_BugType.A : E_BugType.B;
+            tempBugs.Add(newBug);
+        }
+
+        DataBroker.Instance.give_datasFromCage(tempBugs);
+
+      
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /// <summary>
     /// 用来传战斗完以后的虫虫数据
     /// </summary>
@@ -40,6 +95,9 @@ public class FightDataManager : MonoBehaviour
     
     public void UpdateFightBugAtIndex(int index, InsectData bug)
     {
+        //呱： 里面是战斗一的尊严
+        #region 给战斗一写的屎山
+
         if (index == 10)
         {
             index = 0;
@@ -62,6 +120,9 @@ public class FightDataManager : MonoBehaviour
             return;
             
         }
+
+        #endregion
+       
         
         
         if (index < 0 || index >= fightBugDatas.Count)

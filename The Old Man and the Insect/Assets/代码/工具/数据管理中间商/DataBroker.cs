@@ -11,7 +11,10 @@ public sealed class DataBroker
     private DataBroker()
     {
     }
-    
+
+    //呱 ： 注意 默认值 是输掉战斗拉
+    public static bool WinGame2;
+    public static bool WinGame3;
     
     public static int reputation ;//声望
     //严肃背诵单词
