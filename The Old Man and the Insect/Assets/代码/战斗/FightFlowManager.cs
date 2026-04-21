@@ -271,7 +271,7 @@ public class FightFlowManager : MonoBehaviour
 
         #region 大爷放虫
 
-         waitingBug.BugUp(0);
+         waitingBug.BugUp(0,0);
         yield return new WaitForSeconds(0.3f);
         ActionPoint actionPoint = FindObjectOfType<ActionPoint>();
         FightDataManager.ActionPoints = 2;
@@ -378,9 +378,23 @@ public class FightFlowManager : MonoBehaviour
     //呱：大爷战斗
     IEnumerator Game2Flow()
     {
-        Debug.Log("FormolRound 被调用");
         PrepareForFight();
-        ReleseCage();
+
+        //呱：把C虫虫放在 第10格
+        waitingBug.BugUp(0,9);
+        //呱：把D虫虫放在 第9格
+        waitingBug.BugUp(1,8);
+        
+        //呱：实验用 这是用来测试 敌方虫子升级逻辑的
+        // waitingBug.BugUp(2,12);
+        
+        #region 对话
+
+        yield return new WaitForSeconds(fadeTime);
+        yield return StartCoroutine(Speak(2,"怂了吗","快把你的蛐蛐放上来！"));
+
+        #endregion
+       
        
        
         yield return null;
