@@ -13,7 +13,7 @@ public class WaitingBug : MonoBehaviour
     [Header("升级特效")]
     [SerializeField] ParticleSystem levelUpParticles;
     [SerializeField] AudioClip levelUpSound;
-
+    public LayerMask targetLayer;
     [SerializeField] Vector3 offset;
     private bool needCompound;
     private float moveDuration = 1f;
@@ -36,6 +36,7 @@ public class WaitingBug : MonoBehaviour
         
     }
 
+    //呱 ：敌方虫子上场
     public void BugUp(int BugIndex,int GridIndex)
     {
         gridIndex = GridIndex;
@@ -70,8 +71,7 @@ public class WaitingBug : MonoBehaviour
                         WaitingBugs[BugIndex].GetComponent<SpriteRenderer>().enabled = true;
                         WaitingBugs[BugIndex].transform.GetChild(0).gameObject.SetActive(true);
                         
-                        Debug.Log($"起点位置{WaitingBugs[BugIndex].transform.position}，终点位置{targetPos}");
-                        
+                 
                         StartCoroutine(MoveAndDisable(targetPos, WaitingBugs[BugIndex], moveCurveForLevelUp));
                         //if (!needCompound) return;
 
@@ -102,10 +102,36 @@ public class WaitingBug : MonoBehaviour
 
         
     }
+
+    //呱 ：这是敌方索敌
+    public void FindRival(int GridIndex)
+    {
+        int targetRivalIndex = 0;
+        Vector2 origin = GridManager.Grids[GridIndex].bugOnGrid.transform.position;
+        RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, 5, targetLayer);
+        if(hit.collider == null)
+        {
+            for(int i =4; i<8; i++)
+            {
+                Vector2 start = GridManager.Grids[i].bugOnGrid.transform.position;
+                RaycastHit2D hit2 = Physics2D.Raycast(origin, Vector2.up, 5, targetLayer);
+                if (hit2.collider == null)
+                {
+                    targetRivalIndex = i;
+                    break;
+                }
+            }
+
+            GridManager.Grids[GridIndex].isOccupied = false;
+            GridManager.Grids[GridIndex].bugOnGrid.transform.position = GridManager.Grids[targetRivalIndex+4].matchedPos+offset;
+            GridManager.Grids[targetRivalIndex+4].isOccupied = true;
+        }
+    }
+    
     
     IEnumerator MoveAndDisable(Vector3 endPos, GameObject fightBug,AnimationCurve curve)
     {
-        Debug.Log("进入MoveAndDisable");
+   
         yield return Move(endPos, fightBug,curve);
         
         if (needCompound)
@@ -128,12 +154,12 @@ public class WaitingBug : MonoBehaviour
 
     IEnumerator Move(Vector3 endPos, GameObject fightBug,AnimationCurve curve)
     {
-        Debug.Log("进入Move");
+     
         Vector3 startPos = fightBug.transform.position;
         float time = 0;
         while (time < moveDuration)
         {
-            Debug.Log("严肃移动中");
+           
             time += Time.deltaTime;
             fightBug.transform.position = 
                 Vector3.Lerp(startPos, endPos, curve.Evaluate(time / moveDuration));
