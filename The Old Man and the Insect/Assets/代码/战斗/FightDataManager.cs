@@ -41,35 +41,15 @@ public class FightDataManager : MonoBehaviour
 
     
     
-  
+    //呱： 这个用来 根据传入的虫虫数据 来自动生成虫虫
     public void TestBug()
     {
         List<InsectData> tempBugs = new List<InsectData>(7); 
         Random random = new Random();
 
-        
-        for (int i = 0; i < 7; i++)
-        { 
+        for (int i = 2; i < 7; i++)
+        {
             InsectData newBug = new InsectData(); 
-            if (i == 0 )
-            {
-                newBug.insectAtk = 2;
-                newBug.insectHP = 2;
-                newBug.insectLevel = 2;
-                newBug.bugType = E_BugType.A;
-                tempBugs.Add(newBug);
-                continue;
-            }
-            else if(i ==1)
-            {
-                newBug.insectAtk = 2;
-                newBug.insectHP = 2;
-                newBug.insectLevel = 1;
-                newBug.bugType = E_BugType.B;
-                tempBugs.Add(newBug);
-                continue;
-            }
-           
             newBug.insectAtk = random.Next(1, 3);
             newBug.insectHP = 2;
             newBug.insectLevel = 1;
@@ -77,7 +57,7 @@ public class FightDataManager : MonoBehaviour
             tempBugs.Add(newBug);
         }
 
-         // DataBroker.Instance.give_datasFromCage(tempBugs);
+        DataBroker.Instance.give_datasFromCage(tempBugs);
         InitMyBugsFromData(tempBugs);
     }
 

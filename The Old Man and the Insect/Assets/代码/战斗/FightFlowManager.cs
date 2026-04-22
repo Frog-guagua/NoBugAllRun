@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = System.Object;
@@ -37,7 +36,7 @@ public class FightFlowManager : MonoBehaviour
     [Header("Manager!集合！")]
 
     [SerializeField]  GameObject DialogueManager;
-    [SerializeField]  GameObject GridManagerObj;
+    [SerializeField]  GameObject GridManager;
     private GridManager gridManager;
     private DialogueForFight dialogue;
     [SerializeField] GameObject HintManager;
@@ -86,7 +85,7 @@ public class FightFlowManager : MonoBehaviour
         waitingBug = WaitingBugs.GetComponent<WaitingBug>();
         cameraFocus = mainCamera.GetComponent<CameraFocus>();
       
-        gridManager =  GridManagerObj.GetComponent<GridManager>();
+        gridManager =  GridManager.GetComponent<GridManager>();
        
         foucaMask_SR = FoucsMask.GetComponent<SpriteRenderer>();
         Color color = foucaMask_SR.color;
@@ -383,7 +382,6 @@ public class FightFlowManager : MonoBehaviour
         PrepareForFight();
         dialogue.background.SetActive(false);
 
-        //呱：————————————————Round1—————————————————————
         #region 上虫
 
         //呱：把C虫虫放在 第10格
@@ -392,7 +390,7 @@ public class FightFlowManager : MonoBehaviour
         waitingBug.BugUp(1,8);
         
         //呱：实验用 这是用来测试 敌方虫子升级逻辑的
-       
+        // waitingBug.BugUp(2,12);
 
         #endregion
         
@@ -410,9 +408,8 @@ public class FightFlowManager : MonoBehaviour
         StartCoroutine(waitingBug.Shake(1, 0.1f, 1));
         
         #endregion
-
-        #region 结算
-
+       
+       
         yield return new WaitUntil(() =>FightDataManager.ActionPoints == 0);
         BanCage();
         
@@ -432,23 +429,10 @@ public class FightFlowManager : MonoBehaviour
         abacus.GetComponent<Collider2D>().enabled = false;
   
         cameraFocus.LetCameraFocus();
-        yield return GetComponent<BattleResover>().BattleResolve();
+        StartCoroutine(GetComponent<BattleResover>().BattleResolve());
         AudioMgr.Instance.PlaySFX(FightEffect);
-
-
-            #endregion
-       
-        //呱：————————————————Round2————————————————————
-
-        #region 上虫
         
-        yield return Speak(3,"哟呵","我就不信了","<b>再来！</b>");
         
-        ActionPoint actionPoint = FindObjectOfType<ActionPoint>();
-        FightDataManager.ActionPoints = 2;
-        actionPoint.UpdatePoints(FightDataManager.ActionPoints);;
-
-        #endregion
        
         yield return null;
     }
