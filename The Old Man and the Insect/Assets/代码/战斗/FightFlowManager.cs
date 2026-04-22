@@ -429,6 +429,7 @@ public class FightFlowManager : MonoBehaviour
         abacus.GetComponent<Collider2D>().enabled = false;
   
         cameraFocus.LetCameraFocus();
+        StartCoroutine(GetComponent<BattleResover>().BattleResolve());
         AudioMgr.Instance.PlaySFX(FightEffect);
         
         
