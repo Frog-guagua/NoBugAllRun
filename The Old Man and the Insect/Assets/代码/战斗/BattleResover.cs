@@ -33,7 +33,13 @@ public class BattleResover : MonoBehaviour
             if (GridManager.Grids[i].bugOnGrid != null)
                 enemyFrontBugs.Add(GridManager.Grids[i].bugOnGrid.GetComponent<InsectData>());
         }
-
+        
+        List<Coroutine> animRoutines = new List<Coroutine>();
+foreach (var bug in myFrontBugs)
+    if (bug != null) animRoutines.Add(StartCoroutine(AttackAnimation(bug.gameObject, new Vector3(0, 0.5f, 0), 0.2f)));
+foreach (var bug in enemyFrontBugs)
+    if (bug != null) animRoutines.Add(StartCoroutine(AttackAnimation(bug.gameObject, new Vector3(0, -0.5f, 0), 0.2f)));
+foreach (var routine in animRoutines) yield return routine;
         // 2. 计算伤害（只考虑前排对前排，按索引对应）
         Dictionary<InsectData, int> damageMap = new Dictionary<InsectData, int>();
         int count = Mathf.Min(myFrontBugs.Count, enemyFrontBugs.Count);
@@ -192,5 +198,45 @@ public class BattleResover : MonoBehaviour
         TextMeshProUGUI tmp = bug.GetComponentInChildren<TextMeshProUGUI>();
         if (tmp != null)
             tmp.text = $"{bug.insectHP}\n\n\n{bug.insectAtk}";
+    }
+    
+    /// <summary>
+    /// 让虫子向前冲一下再回来（攻击动画）
+    /// </summary>
+    /// <param name="bug">虫子物体</param>
+    /// <param name="forwardOffset">向前移动的偏移量（例如 new Vector3(0, 0.5f, 0)）</param>
+    /// <param name="duration">单程时间（总时间 = 2 * duration）</param>
+    private IEnumerator AttackAnimation(GameObject bug, Vector3 forwardOffset, float duration)
+    {
+        // 临时禁用 FollowCage 避免干扰
+        FollowCage follow = bug.GetComponent<FollowCage>();
+        if (follow != null) follow.enabled = false;
+
+        Vector3 startPos = bug.transform.position;
+        Vector3 targetPos = startPos + forwardOffset;
+
+        // 向前移动
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = moveCurve.Evaluate(elapsed / duration);
+            bug.transform.position = Vector3.Lerp(startPos, targetPos, t);
+            yield return null;
+        }
+        bug.transform.position = targetPos;
+
+        // 向后返回
+        elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = moveCurve.Evaluate(elapsed / duration);
+            bug.transform.position = Vector3.Lerp(targetPos, startPos, t);
+            yield return null;
+        }
+        bug.transform.position = startPos;
+
+        if (follow != null) follow.enabled = true;
     }
 }
