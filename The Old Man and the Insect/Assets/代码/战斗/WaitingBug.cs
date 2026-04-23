@@ -20,6 +20,9 @@ public class WaitingBug : MonoBehaviour
     private bool needCompound;
     private float moveDuration = 1f;
     private int gridIndex;
+    public int lastMovedGridIndex = -1;
+
+    
     void Start()
     {
         foreach (var waitbug in  WaitingBugs)
@@ -83,7 +86,7 @@ public class WaitingBug : MonoBehaviour
                     {
                         WaitingBugs[BugIndex].transform.position = GridManager.Grids[realIndex].matchedPos+offset;
                         GridManager.Grids[realIndex].isOccupied = true;
-                        GridManager.Grids[realIndex].bugOnGrid = WaitingBugs[realIndex];
+                        GridManager.Grids[realIndex].bugOnGrid = WaitingBugs[BugIndex];
                     }
                 
                 }
@@ -113,6 +116,7 @@ public IEnumerator FindRival(int GridIndex)
     if (GridIndex < 0 || GridIndex >= GridManager.Grids.Length)
     {
         Debug.LogError($"FindRival: 无效的 GridIndex {GridIndex}");
+        lastMovedGridIndex = GridIndex; // 设置当前索引（虽然无效，但避免残留）
         yield break;
     }
 
@@ -120,8 +124,12 @@ public IEnumerator FindRival(int GridIndex)
     if (currentBug == null)
     {
         Debug.LogError($"FindRival: GridIndex {GridIndex} 的 bugOnGrid 为空");
+        lastMovedGridIndex = GridIndex;
         yield break;
     }
+
+    // 默认不移动时，最后位置就是当前格子
+    lastMovedGridIndex = GridIndex;
 
     // 临时禁用 FollowCage
     FollowCage follow = currentBug.GetComponent<FollowCage>();
@@ -141,19 +149,14 @@ public IEnumerator FindRival(int GridIndex)
         }
     }
 
-    // 2. 没有正前方敌人，遍历我方前排（索引 0~3 或 4~7？根据你的布局）
-    //    我方前排格子是 0~3（假设），敌方前排是 8~11（假设），我方后排是 4~7？需要明确。
-    //    这里根据你之前说的“我方格子是0~7”，假设我方前排是 4~7，敌方前排是 8~11。
-    //    敌人应该移动到“我方前排虫子的正前方格子”，即敌方前排对应位置。
+    // 2. 没有正前方敌人，遍历我方前排（索引 4-7）
     int targetGridIndex = -1;
-    for (int i = 4; i <= 7; i++) // 我方前排格子索引（根据实际修改）
+    for (int i = 4; i <= 7; i++)
     {
-        if (GridManager.Grids[i].bugOnGrid == null) continue; // 空位跳过
-        // 检查该我方虫子的正前方（+4）是否有敌方虫子保护
+        if (GridManager.Grids[i].bugOnGrid == null) continue;
         int frontIndex = i + 4;
         if (frontIndex < GridManager.Grids.Length && GridManager.Grids[frontIndex].bugOnGrid == null)
         {
-            // 该我方虫子前方无保护，敌人移动到它的正前方（敌方区域）
             targetGridIndex = frontIndex;
             break;
         }
@@ -166,9 +169,9 @@ public IEnumerator FindRival(int GridIndex)
         yield break;
     }
 
-    // 3. 平滑移动（移动到目标格子，目标格子属于敌方区域）
+    // 3. 平滑移动
     Vector3 startPos = currentBug.transform.position;
-    Vector3 targetPos = GridManager.Grids[targetGridIndex].matchedPos + offset; // offset 需定义
+    Vector3 targetPos = GridManager.Grids[targetGridIndex].matchedPos + offset;
     float moveDuration = 0.5f;
     float elapsed = 0f;
     while (elapsed < moveDuration)
@@ -180,6 +183,7 @@ public IEnumerator FindRival(int GridIndex)
         yield return null;
     }
     currentBug.transform.position = targetPos;
+    lastMovedGridIndex = targetGridIndex; // 更新为移动后的位置
 
     // 4. 更新格子占用
     GridManager.Grids[GridIndex].isOccupied = false;
@@ -192,8 +196,7 @@ public IEnumerator FindRival(int GridIndex)
 
     Debug.Log($"FindRival: 虫子从格子 {GridIndex} 移动到格子 {targetGridIndex}");
     yield return null;
-}
-    
+}    
     IEnumerator MoveAndDisable(Vector3 endPos, GameObject fightBug,AnimationCurve curve)
     {
    

@@ -13,7 +13,7 @@ public class BattleResover : MonoBehaviour
     public float moveDuration = 0.5f;
 
     private Vector3 offset = Vector3.zero; // 如果你的格子位置有偏移，在这里设置
-
+    public bool Nobug=false;
     /// <summary>
     /// 战斗结算主协程（攻击 + 死亡 + 胜负 + 后排前移）
     /// </summary>
@@ -142,12 +142,15 @@ public class BattleResover : MonoBehaviour
         if (!hasMyBug)
         {
             Debug.Log("玩家失败！");
-            // 这里可以触发失败 UI、场景切换等
+            Nobug = true;
+            DataBroker.WinGame2 = false;
             yield break;
         }
         if (!hasEnemyBug)
         {
             Debug.Log("玩家胜利！");
+            Nobug = true;
+            DataBroker.WinGame2 = true;
             yield break;
         }
 

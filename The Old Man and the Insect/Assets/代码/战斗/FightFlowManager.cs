@@ -77,8 +77,9 @@ public class FightFlowManager : MonoBehaviour
     private float fadeTime = 1.5f;
     //呱：已经确认好 当堂的游戏类型   游戏流程 只单向执行一次 
     private bool haveCheckedFightType;
+    private Grid[] Mygrids;
     
-    
+
     void Start()
     {
         
@@ -100,6 +101,8 @@ public class FightFlowManager : MonoBehaviour
     
     void Update()
     {
+
+        
         //呱：节省性能
         if(haveCheckedFightType) return;
         
@@ -381,7 +384,10 @@ public class FightFlowManager : MonoBehaviour
     {
         PrepareForFight();
         dialogue.background.SetActive(false);
-
+        ActionPoint actionPoint = FindObjectOfType<ActionPoint>();
+        FightDataManager.ActionPoints = DataBroker.actionValue;
+        actionPoint.UpdatePoints(FightDataManager.ActionPoints);;
+        //呱：————————————————Round1—————————————————————
         #region 上虫
 
         //呱：把C虫虫放在 第10格
@@ -408,31 +414,91 @@ public class FightFlowManager : MonoBehaviour
         StartCoroutine(waitingBug.Shake(1, 0.1f, 1));
         
         #endregion
+
+        #region 结算
+
+        int gridC = 9;
+        int gridD = 8;
+        
+        
        
-       
-        yield return new WaitUntil(() =>FightDataManager.ActionPoints == 0);
-        BanCage();
         
         yield return new WaitForSeconds(1.5f);
-        abacus.GetComponent<ObjectShake>().ShakeStart(1,0.3f);
-        
-        yield return new WaitForSeconds(0.5f);
+
         abacus.GetComponent<Collider2D>().enabled = true;
         
         yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
         yield return new WaitForSeconds(0.3f);
         yield return waitingBug.FindRival(9);
+        int movedIndex1 = waitingBug.lastMovedGridIndex;
         yield return waitingBug.FindRival(8);
+        int movedIndex2 = waitingBug.lastMovedGridIndex;
         //呱：放大相机 聚焦在战局上面
         mainCamera.GetComponent<CameraFocus>().enabled = true;
         yield return new WaitForSeconds(0.5f);
         abacus.GetComponent<Collider2D>().enabled = false;
   
         cameraFocus.LetCameraFocus();
-        StartCoroutine(GetComponent<BattleResover>().BattleResolve());
+        
         AudioMgr.Instance.PlaySFX(FightEffect);
+        yield return GetComponent<BattleResover>().BattleResolve();
+
+        if (!DataBroker.WinGame2&&GetComponent<BattleResover>().Nobug)
+        {
+            GetComponent<BattleResover>().Nobug = false;
+            Transition.Instance.SwitchSceneWithFade("HuTong1");
+        }
+
+        #endregion
+            
+        //呱：————————————————Round2—————————————————————
+
+        #region 上虫
+        yield return Speak(3,"哟呵","我就不信了","再来！");
+        waitingBug.BugUp(2,movedIndex2+4);
+        actionPoint = FindObjectOfType<ActionPoint>();
+        FightDataManager.ActionPoints = DataBroker.actionValue;
+        actionPoint.UpdatePoints(FightDataManager.ActionPoints);;
+
+        #endregion
+
+        #region 
+
+        ReleseCage();
         
+        abacus.GetComponent<Collider2D>().enabled = true;
         
+        yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
+        BanCage();
+        yield return new WaitForSeconds(0.3f);
+        
+        yield return waitingBug.FindRival(movedIndex1);
+        movedIndex1 = waitingBug.lastMovedGridIndex;
+        yield return waitingBug.FindRival(movedIndex2);
+        movedIndex2 = waitingBug.lastMovedGridIndex;
+        //呱：放大相机 聚焦在战局上面
+        mainCamera.GetComponent<CameraFocus>().enabled = true;
+        yield return new WaitForSeconds(0.5f);
+        abacus.GetComponent<Collider2D>().enabled = false;
+  
+        cameraFocus.LetCameraFocus();
+        
+        AudioMgr.Instance.PlaySFX(FightEffect);
+        yield return GetComponent<BattleResover>().BattleResolve();
+
+        if (!DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
+        {
+            GetComponent<BattleResover>().Nobug = false;
+            Transition.Instance.SwitchSceneWithFade("HuTong1");
+        }
+        else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
+        {
+            GetComponent<BattleResover>().Nobug = false;
+            Transition.Instance.SwitchSceneWithFade("StartMenu");
+        }
+
+
+        #endregion
        
         yield return null;
     }
