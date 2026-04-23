@@ -429,10 +429,20 @@ public class FightFlowManager : MonoBehaviour
         
         yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
         yield return new WaitForSeconds(0.3f);
+        waitingBug.CountMyBugs();
+        yield return new WaitForSeconds(0.1f);
+        
         yield return waitingBug.FindRival(9);
         int movedIndex1 = waitingBug.lastMovedGridIndex;
+        Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
+        
         yield return waitingBug.FindRival(8);
+        Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
+        waitingBug.GetComponent<WaitingBug>().myBugCount = 0;
+        
         int movedIndex2 = waitingBug.lastMovedGridIndex;
+        
+        
         //呱：放大相机 聚焦在战局上面
         mainCamera.GetComponent<CameraFocus>().enabled = true;
         yield return new WaitForSeconds(0.5f);
@@ -456,6 +466,9 @@ public class FightFlowManager : MonoBehaviour
         #region 上虫
         yield return Speak(3,"哟呵","我就不信了","再来！");
         waitingBug.BugUp(2,movedIndex2+4);
+        yield return new WaitUntil(() => waitingBug.GetComponent<WaitingBug>().finishComposed == true);
+        yield return new WaitForSeconds(2f);
+        waitingBug.GetComponent<WaitingBug>().finishComposed=false;
         actionPoint = FindObjectOfType<ActionPoint>();
         FightDataManager.ActionPoints = DataBroker.actionValue;
         actionPoint.UpdatePoints(FightDataManager.ActionPoints);;
@@ -471,12 +484,26 @@ public class FightFlowManager : MonoBehaviour
         yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
         BanCage();
         yield return new WaitForSeconds(0.3f);
+        waitingBug.CountMyBugs();
+        yield return new WaitForSeconds(0.1f);
+        Debug.Log(movedIndex1);
+
+            yield return waitingBug.FindRival(movedIndex1);
+            
+            movedIndex1 = waitingBug.lastMovedGridIndex;
+            Debug.Log(movedIndex1);
         
-        Debug.Log(movedIndex1);
-        yield return waitingBug.FindRival(movedIndex1);
-        Debug.Log(movedIndex1);
-        movedIndex1 = waitingBug.lastMovedGridIndex;
-        yield return waitingBug.FindRival(movedIndex2);
+       
+        
+        
+        Debug.Log(movedIndex2);
+       
+   
+            yield return waitingBug.FindRival(movedIndex2);
+            
+            movedIndex2 = waitingBug.lastMovedGridIndex;
+            Debug.Log(movedIndex2);
+        
         //movedIndex2 = waitingBug.lastMovedGridIndex;
         //呱：放大相机 聚焦在战局上面
         mainCamera.GetComponent<CameraFocus>().enabled = true;
@@ -484,7 +511,7 @@ public class FightFlowManager : MonoBehaviour
         abacus.GetComponent<Collider2D>().enabled = false;
   
         cameraFocus.LetCameraFocus();
-        
+        yield return new WaitForSeconds(10f);
         AudioMgr.Instance.PlaySFX(FightEffect);
         yield return GetComponent<BattleResover>().BattleResolve();
 

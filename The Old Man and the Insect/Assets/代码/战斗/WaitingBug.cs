@@ -18,10 +18,12 @@ public class WaitingBug : MonoBehaviour
     public LayerMask targetLayer;
     [SerializeField] Vector3 offset;
     private bool needCompound;
+
+    public  int myBugCount = 0;
     private float moveDuration = 1f;
     private int gridIndex;
     public int lastMovedGridIndex = -1;
-
+    public bool finishComposed;
     
     void Start()
     {
@@ -111,14 +113,33 @@ public class WaitingBug : MonoBehaviour
 
     //呱 ：这是敌方索敌
 
+    public void CountMyBugs()
+    {
+        for (int i = 4; i < 8; i++)
+        {
+            if (GridManager.Grids[i].bugOnGrid != null)
+            {
+                myBugCount++;
+            }
+        }
+    }
+    
+    
+    
 public IEnumerator FindRival(int GridIndex)
 {
+    if (myBugCount == 0)
+    {
+        lastMovedGridIndex = GridIndex;
+        yield break;
+    }
+    
     
     GameObject currentBug = GridManager.Grids[GridIndex].bugOnGrid;
-    
+    if (currentBug == null) yield break;
     
     // 默认不移动时，最后位置就是当前格子
-    lastMovedGridIndex = GridIndex;
+    
 
 
 
@@ -129,7 +150,8 @@ public IEnumerator FindRival(int GridIndex)
         GameObject targetBug = GridManager.Grids[forwardIndex].bugOnGrid;
         if (targetBug != null)
         {
-         
+            myBugCount--;
+            lastMovedGridIndex = GridIndex;
             Debug.Log($"FindRival: 找到正前方敌人，格子 {forwardIndex}");
             yield break;
         }
@@ -137,13 +159,14 @@ public IEnumerator FindRival(int GridIndex)
 
     // 2. 没有正前方敌人，遍历我方前排（索引 4-7）
     int targetGridIndex = -1;
-    for (int i = 4; i <= 8; i++)
+    for (int i = 4; i < 8; i++)
     {
         if (GridManager.Grids[i].bugOnGrid == null) continue;
         int frontIndex = i + 4;
         if (frontIndex < GridManager.Grids.Length && GridManager.Grids[frontIndex].bugOnGrid == null)
         {
-            
+            myBugCount--;
+            lastMovedGridIndex = frontIndex+4;
             targetGridIndex = frontIndex;
             break;
         }
@@ -170,7 +193,7 @@ public IEnumerator FindRival(int GridIndex)
         yield return null;
     }
     currentBug.transform.position = targetPos;
-    lastMovedGridIndex = targetGridIndex; // 更新为移动后的位置
+
 
     // 4. 更新格子占用
     GridManager.Grids[GridIndex].isOccupied = false;
@@ -246,7 +269,7 @@ public IEnumerator FindRival(int GridIndex)
             frontBugData.insectAtk += nowBugData.insectAtk;
             frontBugData.insectHP += nowBugData.insectHP;
             frontBugData.isCompound = true;
-            
+            finishComposed = true;
             return true;
         }
         return false;

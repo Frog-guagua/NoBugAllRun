@@ -93,6 +93,8 @@ public class RoundManager : MonoBehaviour
     {
         draggable = GetComponent<Draggable>();
         bugMatch = GetComponent<BugMatch>();
+        
+        
     }
 
     //呱： 给第一关教学关卡 写的函数
@@ -226,7 +228,7 @@ public class RoundManager : MonoBehaviour
             bugMatch.StartFightBug();
             FightDataManager.ActionPoints -= nowBug.transform.GetComponentInParent<InsectData>().insectLevel;
             actionPoint.UpdatePoints(FightDataManager.ActionPoints);
-            Debug.Log($"{nowBug.name}被放在了{nowGrid}号格子上");
+            Debug.Log($"{nowBug.name}被放在了{nowGrid.index}号格子上");
             //呱：献祭虫虫……
             nowBug.SetActive(false) ;
             
