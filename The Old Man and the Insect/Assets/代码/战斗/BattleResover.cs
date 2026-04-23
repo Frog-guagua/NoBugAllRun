@@ -110,9 +110,15 @@ public class BattleResover : MonoBehaviour
             GameObject bugObj = GridManager.Grids[i].bugOnGrid;
             if (bugObj != null)
             {
+                
                 InsectData bug = bugObj.GetComponent<InsectData>();
                 if (bug != null && bug.insectHP <= 0)
+                {
                     deathRoutines.Add(StartCoroutine(ShakeAndFade(bugObj)));
+                    GridManager.Grids[i].bugOnGrid = null;
+                    GridManager.Grids[i].isOccupied = false;
+                }
+                    
             }
         }
         for (int i = 8; i <= 11; i++)
@@ -122,7 +128,12 @@ public class BattleResover : MonoBehaviour
             {
                 InsectData bug = bugObj.GetComponent<InsectData>();
                 if (bug != null && bug.insectHP <= 0)
+                {
                     deathRoutines.Add(StartCoroutine(ShakeAndFade(bugObj)));
+                    GridManager.Grids[i].bugOnGrid = null;
+                    GridManager.Grids[i].isOccupied = false;
+                }
+                  
             }
         }
         foreach (var routine in deathRoutines) yield return routine;

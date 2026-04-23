@@ -437,7 +437,7 @@ public class FightFlowManager : MonoBehaviour
         mainCamera.GetComponent<CameraFocus>().enabled = true;
         yield return new WaitForSeconds(0.5f);
         abacus.GetComponent<Collider2D>().enabled = false;
-  
+        
         cameraFocus.LetCameraFocus();
         
         AudioMgr.Instance.PlaySFX(FightEffect);
@@ -472,10 +472,12 @@ public class FightFlowManager : MonoBehaviour
         BanCage();
         yield return new WaitForSeconds(0.3f);
         
+        Debug.Log(movedIndex1);
         yield return waitingBug.FindRival(movedIndex1);
+        Debug.Log(movedIndex1);
         movedIndex1 = waitingBug.lastMovedGridIndex;
         yield return waitingBug.FindRival(movedIndex2);
-        movedIndex2 = waitingBug.lastMovedGridIndex;
+        //movedIndex2 = waitingBug.lastMovedGridIndex;
         //呱：放大相机 聚焦在战局上面
         mainCamera.GetComponent<CameraFocus>().enabled = true;
         yield return new WaitForSeconds(0.5f);
@@ -486,7 +488,7 @@ public class FightFlowManager : MonoBehaviour
         AudioMgr.Instance.PlaySFX(FightEffect);
         yield return GetComponent<BattleResover>().BattleResolve();
 
-        if (!DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
+        if ((!DataBroker.WinGame2 )&& GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
             Transition.Instance.SwitchSceneWithFade("HuTong1");

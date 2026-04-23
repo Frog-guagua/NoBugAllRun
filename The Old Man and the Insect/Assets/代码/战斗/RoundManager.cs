@@ -226,7 +226,7 @@ public class RoundManager : MonoBehaviour
             bugMatch.StartFightBug();
             FightDataManager.ActionPoints -= nowBug.transform.GetComponentInParent<InsectData>().insectLevel;
             actionPoint.UpdatePoints(FightDataManager.ActionPoints);
-            
+            Debug.Log($"{nowBug.name}被放在了{nowGrid}号格子上");
             //呱：献祭虫虫……
             nowBug.SetActive(false) ;
             
@@ -260,7 +260,7 @@ public class RoundManager : MonoBehaviour
                 Transparent(nowBug);
                 GameObject Tag = nowBug.transform.GetChild(0).gameObject;
                 Transparent(Tag);
-                
+                Debug.Log($"{nowBug.name}被放在了{realIndex}号格子上");
                 StartCoroutine(MoveAndDisable(targetPos, fightBug, nowBug,moveCurveToFront));
                 
                 
@@ -289,7 +289,7 @@ public class RoundManager : MonoBehaviour
                     
                     Vector3 targetPos;
                     targetPos = GridManager.Grids[realIndex + 4].matchedPos;
-                    
+                    Debug.Log($"{nowBug.name}被放在了{realIndex}号格子上");
                     StartCoroutine(MoveAndDisable(targetPos, fightBug, nowBug,moveCurveForLevelUp));
                     
                    
@@ -308,6 +308,7 @@ public class RoundManager : MonoBehaviour
                     bugMatch.StartFightBug();
                     FightDataManager.ActionPoints -= nowBug.transform.GetComponentInParent<InsectData>().insectLevel;
                     actionPoint.UpdatePoints(FightDataManager.ActionPoints);
+                    Debug.Log($"{nowBug.name}被放在了{realIndex}号格子上");
                     nowBug.SetActive(false);
                 }
                 

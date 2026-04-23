@@ -58,6 +58,7 @@ public class WaitingBug : MonoBehaviour
                     WaitingBugs[BugIndex].transform.position = GridManager.Grids[realIndex].matchedPos+offset;
                     GridManager.Grids[realIndex].isOccupied = true;
                     GridManager.Grids[GridIndex].bugOnGrid = WaitingBugs[BugIndex];
+                    Debug.Log($"把{WaitingBugs[BugIndex].name}放在了{realIndex}上");
                 }
                 //呱：如果前方有虫 
                 else
@@ -112,38 +113,23 @@ public class WaitingBug : MonoBehaviour
 
 public IEnumerator FindRival(int GridIndex)
 {
-    // 边界检查
-    if (GridIndex < 0 || GridIndex >= GridManager.Grids.Length)
-    {
-        Debug.LogError($"FindRival: 无效的 GridIndex {GridIndex}");
-        lastMovedGridIndex = GridIndex; // 设置当前索引（虽然无效，但避免残留）
-        yield break;
-    }
-
+    
     GameObject currentBug = GridManager.Grids[GridIndex].bugOnGrid;
-    if (currentBug == null)
-    {
-        Debug.LogError($"FindRival: GridIndex {GridIndex} 的 bugOnGrid 为空");
-        lastMovedGridIndex = GridIndex;
-        yield break;
-    }
-
+    
+    
     // 默认不移动时，最后位置就是当前格子
     lastMovedGridIndex = GridIndex;
 
-    // 临时禁用 FollowCage
-    FollowCage follow = currentBug.GetComponent<FollowCage>();
-    if (follow != null) follow.enabled = false;
+
 
     // 1. 检查正前方（同一列，向下 +4）是否有我方虫子
-    int forwardIndex = GridIndex + 4;
+    int forwardIndex = GridIndex - 4;
     if (forwardIndex < GridManager.Grids.Length)
     {
         GameObject targetBug = GridManager.Grids[forwardIndex].bugOnGrid;
         if (targetBug != null)
         {
-            // 正前方有敌人，直接攻击（恢复并退出）
-            if (follow != null) follow.enabled = true;
+         
             Debug.Log($"FindRival: 找到正前方敌人，格子 {forwardIndex}");
             yield break;
         }
@@ -151,12 +137,13 @@ public IEnumerator FindRival(int GridIndex)
 
     // 2. 没有正前方敌人，遍历我方前排（索引 4-7）
     int targetGridIndex = -1;
-    for (int i = 4; i <= 7; i++)
+    for (int i = 4; i <= 8; i++)
     {
         if (GridManager.Grids[i].bugOnGrid == null) continue;
         int frontIndex = i + 4;
         if (frontIndex < GridManager.Grids.Length && GridManager.Grids[frontIndex].bugOnGrid == null)
         {
+            
             targetGridIndex = frontIndex;
             break;
         }
@@ -165,7 +152,7 @@ public IEnumerator FindRival(int GridIndex)
     if (targetGridIndex == -1)
     {
         Debug.LogWarning("FindRival: 未找到可攻击的目标");
-        if (follow != null) follow.enabled = true;
+       
         yield break;
     }
 
@@ -191,8 +178,7 @@ public IEnumerator FindRival(int GridIndex)
     GridManager.Grids[targetGridIndex].isOccupied = true;
     GridManager.Grids[targetGridIndex].bugOnGrid = currentBug;
 
-    // 5. 恢复 FollowCage
-    if (follow != null) follow.enabled = true;
+
 
     Debug.Log($"FindRival: 虫子从格子 {GridIndex} 移动到格子 {targetGridIndex}");
     yield return null;
