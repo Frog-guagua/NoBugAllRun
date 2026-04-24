@@ -47,13 +47,71 @@ public class FightDataManager : MonoBehaviour
         List<InsectData> tempBugs = new List<InsectData>(7); 
         Random random = new Random();
 
-        for (int i = 2; i < 7; i++)
+        for (int i = 0; i < 8; i++)
         {
-            InsectData newBug = new InsectData(); 
-            newBug.insectAtk = random.Next(1, 3);
-            newBug.insectHP = 2;
-            newBug.insectLevel = 1;
-            newBug.bugType = random.Next(0, 2) == 0 ? E_BugType.A : E_BugType.B;
+            InsectData newBug = new InsectData();
+            if (i == 0)
+            {
+                newBug.bugType = E_BugType.A;
+                newBug.insectHP = 2;
+                newBug.insectAtk = 2;
+                newBug.insectLevel = 2;
+                newBug.isCompound = true;
+            }
+            else if (i == 1)
+            {
+                newBug.bugType = E_BugType.B;
+                newBug.insectHP = 2;
+                newBug.insectAtk = 2;
+                newBug.insectLevel = 1;
+                newBug.isCompound = false;
+            }
+            else
+            {
+                switch (random.Next(1, 7))
+                {
+                    case 1:
+                        newBug.insectAtk = 1;
+                        newBug.insectHP = 2;
+                        newBug.insectLevel = 1;
+                        newBug.bugType = E_BugType.A;
+                        break;
+                    case 2:
+                        newBug.insectAtk = 2;
+                        newBug.insectHP = 2;
+                        newBug.insectLevel = 1;
+                        newBug.bugType = E_BugType.B;
+                        break;
+                    
+                    case 3:
+                        newBug.insectAtk = 3;
+                        newBug.insectHP = 1;
+                        newBug.insectLevel = 1;
+                        newBug.bugType = E_BugType.C;
+                        break;
+                    case 4:
+                        newBug.insectAtk = 1;
+                        newBug.insectHP = 4;
+                        newBug.insectLevel = 1;
+                        newBug.bugType = E_BugType.D;
+                        break;
+                    case 5:
+                        newBug.insectAtk = 2;
+                        newBug.insectHP = 3;
+                        newBug.insectLevel = 1;
+                        newBug.bugType = E_BugType.E;
+                        break;
+                    case 6:
+                        newBug.insectAtk = 4;
+                        newBug.insectHP = 1;
+                        newBug.insectLevel = 1;
+                        newBug.bugType = E_BugType.F;
+                        break;
+                        
+                    
+                }
+            }
+       
             tempBugs.Add(newBug);
         }
 
@@ -76,11 +134,42 @@ public class FightDataManager : MonoBehaviour
             bugData.bugType = experimentData[i].bugType;
 
             // 根据品种设置图片
-            SpriteRenderer sr = bug.GetComponent<SpriteRenderer>();
-            if (sr != null)
-            {
-               // sr.sprite = GetSpriteByBugType(bugData.bugType);
-            }
+            SpriteRenderer Idle_SR = bug.transform.GetChild(1).GetComponent<SpriteRenderer>();
+            SpriteRenderer Fight_SR = bug.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        
+                switch (bugData.bugType)
+                {
+                    case  E_BugType.A:
+                        Idle_SR.sprite = IdleBugSprites[0];
+                        Fight_SR.sprite = FightBugSprites[0];
+                        break;
+                    
+                    case  E_BugType.B:
+                        Idle_SR.sprite = IdleBugSprites[1];
+                        Fight_SR.sprite = FightBugSprites[1];
+                        break;
+                    
+                    case  E_BugType.C:
+                        Idle_SR.sprite = IdleBugSprites[2];
+                        Fight_SR.sprite = FightBugSprites[2];
+                        break;
+                    
+                    case  E_BugType.D:
+                        Idle_SR.sprite = IdleBugSprites[3];
+                        Fight_SR.sprite = FightBugSprites[3];
+                        break;
+                    
+                    case  E_BugType.E:
+                        Idle_SR.sprite = IdleBugSprites[4];
+                        Fight_SR.sprite = FightBugSprites[4];
+                        break;
+                    
+                    case  E_BugType.F:
+                        Idle_SR.sprite = IdleBugSprites[5];
+                        Fight_SR.sprite = FightBugSprites[5];
+                        break;
+                }
+            
 
             // 刷新对应的 UI（fightBugDatas）
             if (i < fightBugDatas.Count && fightBugDatas[i] != null)
