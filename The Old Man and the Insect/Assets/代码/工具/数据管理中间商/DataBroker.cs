@@ -48,14 +48,11 @@ public sealed class DataBroker
     {   
         datasFromCage.Clear();
 
-
+       
         datasFromCage = new List<InsectData>(datas);
-
-        if (datas != null && datas.Count > 0)
-        {
-            datasFromCage.AddRange(datas);
-        }
-
+        
+     
+        
 
 
         Debug.Log("同步");
