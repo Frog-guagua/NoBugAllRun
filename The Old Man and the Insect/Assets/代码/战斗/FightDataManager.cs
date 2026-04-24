@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 using Random = System.Random;
 
 public class FightDataManager : MonoBehaviour
@@ -121,9 +123,23 @@ public class FightDataManager : MonoBehaviour
 
     public void InitMyBugsFromData(List<InsectData> experimentData)
     {
-
+       //临时版
+        for (int i = experimentData.Count - 1; i >= 0; i--)
+        {
+            if (experimentData[i].insectId == 0)
+            {
+                experimentData.RemoveAt(i);
+                Debug.Log(experimentData.Count);
+                
+            }
+            else
+            {
+                Debug.Log(experimentData[i].bugType);
+            }
+        }
         Debug.Log("——准备初始化虫虫——");
         Debug.Log(experimentData.Count);
+        
         for (int i = 0; i < experimentData.Count; i++)
         {
             GameObject bug = myBugs[i];
@@ -317,7 +333,7 @@ public class FightDataManager : MonoBehaviour
             List<InsectData> copy = new List<InsectData>(enemyBugs);
             SetEnemyBugs(copy);
            
-            InitMyBugsFromData(DataBroker.Instance.datasFromCage);
+            InitMyBugsFromData(CageManager.Instance.insectDataList);
         }
         
     }
