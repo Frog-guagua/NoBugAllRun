@@ -47,7 +47,10 @@ public sealed class DataBroker
     public void give_datasFromCage(List<InsectData> datas)
     {   
         datasFromCage.Clear();
-        datasFromCage = new List<InsectData>(datas);
+        if (datas != null && datas.Count > 0)
+        {
+            datasFromCage.AddRange(datas);
+        }
         Debug.Log("同步");
 
         for (int i = datasFromCage.Count - 1; i >= 0; i--)
@@ -72,7 +75,10 @@ public sealed class DataBroker
     public void give_datasFromFight(List<InsectData> datas)
     {
         datasFromFight.Clear();
-        datasFromFight = new List<InsectData>(datas);
+        if (datas != null && datas.Count > 0)
+        {
+            datasFromFight.AddRange(datas);
+        }
         CageManager.Instance.ReplaceInsects(datas);//在呱呱结束战斗之后把数据传给鼠时，会更新笼子里的数据
     }
 
