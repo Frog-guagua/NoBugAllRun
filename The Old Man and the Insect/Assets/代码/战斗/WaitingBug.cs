@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class WaitingBug : MonoBehaviour
 {
@@ -65,8 +66,9 @@ public class WaitingBug : MonoBehaviour
                 //呱：如果前方有虫 
                 else
                 {
+                    NeedCompound(WaitingBugs[BugIndex], GridManager.Grids[GridIndex - 4].bugOnGrid);
                     //呱 ：需要合成
-                    if (NeedCompound(WaitingBugs[BugIndex], GridManager.Grids[GridIndex-4].bugOnGrid))
+                    if (needCompound)
                     {
                         Debug.Log("需要合成");
                         needCompound = true;
@@ -166,7 +168,7 @@ public IEnumerator FindRival(int GridIndex)
         if (frontIndex < GridManager.Grids.Length && GridManager.Grids[frontIndex].bugOnGrid == null)
         {
             myBugCount--;
-            lastMovedGridIndex = frontIndex+4;
+            lastMovedGridIndex = frontIndex;
             targetGridIndex = frontIndex;
             break;
         }
@@ -256,23 +258,28 @@ public IEnumerator FindRival(int GridIndex)
         return !frontGrid.isOccupied;
     }
     
-    private bool NeedCompound(GameObject nowBug,GameObject frontBug)
+    private void NeedCompound(GameObject nowBug,GameObject frontBug)
     {
-
+        if (nowBug == null) return;
         InsectData nowBugData = nowBug.GetComponent<InsectData>();
         InsectData frontBugData = frontBug.GetComponent<InsectData>();
 
         if (frontBugData.insectLevel == nowBugData.insectLevel && frontBugData.bugType == nowBugData.bugType)
         {
+            needCompound = true;
             //呱： 直接在这里面处理升级数据处理的问题
             frontBugData.insectLevel += 1;
             frontBugData.insectAtk += nowBugData.insectAtk;
             frontBugData.insectHP += nowBugData.insectHP;
             frontBugData.isCompound = true;
             finishComposed = true;
-            return true;
+            
+            UpdateBugUI(frontBugData);
+            return ;
         }
-        return false;
+
+        needCompound = false;
+        return ;
     }
     
     public IEnumerator Shake(float duration, float strength,int bugIndex)
@@ -295,5 +302,11 @@ public IEnumerator FindRival(int GridIndex)
        
        
     }
-
+    private void UpdateBugUI(InsectData bug)
+    {
+        if (bug == null) return;
+        TextMeshProUGUI tmp = bug.GetComponentInChildren<TextMeshProUGUI>();
+        if (tmp != null)
+            tmp.text = $"{bug.insectHP}\n\n\n{bug.insectAtk}";
+    }
 }

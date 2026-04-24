@@ -417,15 +417,20 @@ public class FightFlowManager : MonoBehaviour
 
         #region 结算
 
-        int gridC = 9;
-        int gridD = 8;
-        
-        
-       
-        
-        yield return new WaitForSeconds(1.5f);
+   
 
-        abacus.GetComponent<Collider2D>().enabled = true;
+        abacus.GetComponent<Collider2D>().enabled = true;  
+        while (!AbacusAnim.Finsined)
+        {
+            if (FightDataManager.ActionPoints == 0)
+            {
+                BanCage();
+            }
+        
+            yield return new WaitForSeconds(1.5f);
+            
+        }
+        
         
         yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
         yield return new WaitForSeconds(0.3f);
@@ -436,23 +441,24 @@ public class FightFlowManager : MonoBehaviour
         int movedIndex1 = waitingBug.lastMovedGridIndex;
         Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
         
+        
         yield return waitingBug.FindRival(8);
         Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
         waitingBug.GetComponent<WaitingBug>().myBugCount = 0;
         
         int movedIndex2 = waitingBug.lastMovedGridIndex;
-        
+        Debug.Log( movedIndex2);
         
         //呱：放大相机 聚焦在战局上面
         mainCamera.GetComponent<CameraFocus>().enabled = true;
-        yield return new WaitForSeconds(0.5f);
+     
         abacus.GetComponent<Collider2D>().enabled = false;
         
         cameraFocus.LetCameraFocus();
         
         AudioMgr.Instance.PlaySFX(FightEffect);
         yield return GetComponent<BattleResover>().BattleResolve();
-
+        AbacusAnim.Finsined = false;
         if (!DataBroker.WinGame2&&GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
@@ -475,11 +481,22 @@ public class FightFlowManager : MonoBehaviour
 
         #endregion
 
-        #region 
+        #region 结算
 
         ReleseCage();
         
         abacus.GetComponent<Collider2D>().enabled = true;
+        while (!AbacusAnim.Finsined)
+        {
+            if (FightDataManager.ActionPoints == 0)
+            {
+                BanCage();
+            }
+        
+            yield return new WaitForSeconds(1.5f);
+            
+        }
+
         
         yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
         BanCage();
@@ -511,7 +528,7 @@ public class FightFlowManager : MonoBehaviour
         abacus.GetComponent<Collider2D>().enabled = false;
   
         cameraFocus.LetCameraFocus();
-        yield return new WaitForSeconds(10f);
+     
         AudioMgr.Instance.PlaySFX(FightEffect);
         yield return GetComponent<BattleResover>().BattleResolve();
 
@@ -528,6 +545,166 @@ public class FightFlowManager : MonoBehaviour
 
 
         #endregion
+        
+        //呱：————————————————Round3—————————————————————
+     
+        #region 上虫
+        
+        yield return Speak(3,"哟呵","我就不信了","再来蛙！");
+        
+        actionPoint = FindObjectOfType<ActionPoint>();
+        FightDataManager.ActionPoints = DataBroker.actionValue;
+        actionPoint.UpdatePoints(FightDataManager.ActionPoints);;
+
+        #endregion
+
+        #region 结算
+
+        ReleseCage();
+        AbacusAnim.Finsined = false;
+        
+        abacus.GetComponent<Collider2D>().enabled = true;
+        while (!AbacusAnim.Finsined)
+        {
+            if (FightDataManager.ActionPoints == 0)
+            {
+                BanCage();
+            }
+        
+            yield return new WaitForSeconds(1.5f);
+            
+        }
+
+        
+        yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
+        BanCage();
+        yield return new WaitForSeconds(0.3f);
+        waitingBug.CountMyBugs();
+        yield return new WaitForSeconds(0.1f);
+        Debug.Log(movedIndex1);
+
+            yield return waitingBug.FindRival(movedIndex1);
+            
+            movedIndex1 = waitingBug.lastMovedGridIndex;
+            Debug.Log(movedIndex1);
+        
+       
+        
+        
+        Debug.Log(movedIndex2);
+       
+   
+            yield return waitingBug.FindRival(movedIndex2);
+            
+            movedIndex2 = waitingBug.lastMovedGridIndex;
+            Debug.Log(movedIndex2);
+        
+        //movedIndex2 = waitingBug.lastMovedGridIndex;
+        //呱：放大相机 聚焦在战局上面
+        mainCamera.GetComponent<CameraFocus>().enabled = true;
+        yield return new WaitForSeconds(0.5f);
+        abacus.GetComponent<Collider2D>().enabled = false;
+  
+        cameraFocus.LetCameraFocus();
+     
+        AudioMgr.Instance.PlaySFX(FightEffect);
+        yield return GetComponent<BattleResover>().BattleResolve();
+
+        if ((!DataBroker.WinGame2 )&& GetComponent<BattleResover>().Nobug)
+        {
+            GetComponent<BattleResover>().Nobug = false;
+            Transition.Instance.SwitchSceneWithFade("HuTong1");
+        }
+        else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
+        {
+            GetComponent<BattleResover>().Nobug = false;
+            Transition.Instance.SwitchSceneWithFade("StartMenu");
+        }
+
+
+        #endregion
+
+        while (true)
+        {
+            
+            #region 上虫
+        
+        yield return Speak(3,"哟呵","我就不信了","再来蛙！");
+        
+        actionPoint = FindObjectOfType<ActionPoint>();
+        FightDataManager.ActionPoints = DataBroker.actionValue;
+        actionPoint.UpdatePoints(FightDataManager.ActionPoints);;
+
+        #endregion
+
+        #region 结算
+
+        ReleseCage();
+        AbacusAnim.Finsined = false;
+        
+        abacus.GetComponent<Collider2D>().enabled = true;
+        while (!AbacusAnim.Finsined)
+        {
+            if (FightDataManager.ActionPoints == 0)
+            {
+                BanCage();
+            }
+        
+            yield return new WaitForSeconds(1.5f);
+            
+        }
+
+        
+        yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
+        BanCage();
+        yield return new WaitForSeconds(0.3f);
+        waitingBug.CountMyBugs();
+        yield return new WaitForSeconds(0.1f);
+        Debug.Log(movedIndex1);
+
+            yield return waitingBug.FindRival(movedIndex1);
+            
+            movedIndex1 = waitingBug.lastMovedGridIndex;
+            Debug.Log(movedIndex1);
+        
+       
+        
+        
+        Debug.Log(movedIndex2);
+       
+   
+            yield return waitingBug.FindRival(movedIndex2);
+            
+            movedIndex2 = waitingBug.lastMovedGridIndex;
+            Debug.Log(movedIndex2);
+        
+        //movedIndex2 = waitingBug.lastMovedGridIndex;
+        //呱：放大相机 聚焦在战局上面
+        mainCamera.GetComponent<CameraFocus>().enabled = true;
+        yield return new WaitForSeconds(0.5f);
+        abacus.GetComponent<Collider2D>().enabled = false;
+  
+        cameraFocus.LetCameraFocus();
+     
+        AudioMgr.Instance.PlaySFX(FightEffect);
+        yield return GetComponent<BattleResover>().BattleResolve();
+
+        if ((!DataBroker.WinGame2 )&& GetComponent<BattleResover>().Nobug)
+        {
+            GetComponent<BattleResover>().Nobug = false;
+            Transition.Instance.SwitchSceneWithFade("HuTong1");
+        }
+        else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
+        {
+            GetComponent<BattleResover>().Nobug = false;
+            Transition.Instance.SwitchSceneWithFade("StartMenu");
+        }
+
+
+        #endregion
+       
+        }
+     
        
         yield return null;
     }
