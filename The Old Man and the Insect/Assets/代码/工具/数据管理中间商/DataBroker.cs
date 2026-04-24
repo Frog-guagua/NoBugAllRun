@@ -49,7 +49,7 @@ public sealed class DataBroker
         datasFromCage.Clear();
 
         datasFromCage = new List<InsectData>(datas);
-f37da0fd28faa50364bf4791951a2d05a2698f23
+
         Debug.Log("同步");
 
         for (int i = datasFromCage.Count - 1; i >= 0; i--)
