@@ -47,7 +47,7 @@ public sealed class DataBroker
     public void give_datasFromCage(List<InsectData> datas)
     {   
         datasFromCage.Clear();
-        datasFromCage = datas;
+        datasFromCage =new List<InsectData>(datas) ;
         Debug.Log("同步");
 
         for (int i = datasFromCage.Count - 1; i >= 0; i--)

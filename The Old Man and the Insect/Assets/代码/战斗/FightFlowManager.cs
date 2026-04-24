@@ -462,6 +462,8 @@ public class FightFlowManager : MonoBehaviour
         if (!DataBroker.WinGame2&&GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
+            DataBroker.WinGame2 = false;
+            DataBroker.reputation -= 6;
             Transition.Instance.SwitchSceneWithFade("HuTong1");
         }
 
@@ -535,11 +537,13 @@ public class FightFlowManager : MonoBehaviour
         if ((!DataBroker.WinGame2 )&& GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
+            DataBroker.reputation -= 6;
             Transition.Instance.SwitchSceneWithFade("HuTong1");
         }
         else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
+            DataBroker.experience += 6;
             Transition.Instance.SwitchSceneWithFade("StartMenu");
         }
 
@@ -613,11 +617,13 @@ public class FightFlowManager : MonoBehaviour
         if ((!DataBroker.WinGame2 )&& GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
+            DataBroker.reputation -= 6;
             Transition.Instance.SwitchSceneWithFade("HuTong1");
         }
         else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
+            DataBroker.experience += 6;
             Transition.Instance.SwitchSceneWithFade("StartMenu");
         }
 
@@ -692,11 +698,13 @@ public class FightFlowManager : MonoBehaviour
         if ((!DataBroker.WinGame2 )&& GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
+            DataBroker.reputation -= 6;
             Transition.Instance.SwitchSceneWithFade("HuTong1");
         }
         else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
+            DataBroker.experience += 6;
             Transition.Instance.SwitchSceneWithFade("StartMenu");
         }
 
