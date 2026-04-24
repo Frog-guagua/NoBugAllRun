@@ -24,7 +24,9 @@ public class leavearea : MonoBehaviour
             FlowerManager.Instance.canstartflow=true;
             FlowerManager.Instance.SecondIn = true;
             FlowerManager.Instance.canleave = false;
-            //Transition.Instance.SwitchSceneWithFade();
+            //临时
+            Transition.Instance.SwitchSceneWithFade("FightScene2");
+            FightFlowManager.OnGame2 = true;
         }
     }
 }

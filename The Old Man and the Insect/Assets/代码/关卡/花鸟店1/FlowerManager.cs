@@ -18,6 +18,12 @@ public class FlowerManager : MonoBehaviour
     public DialogueData flowerData2;
     public bool canstartflow=true;
     public bool canleave=false;
+    
+    [Header("临时")]
+    public InsectDataSO insect1;
+    public InsectDataSO insect2;
+    public InsectDataSO insect3;
+    public InsectDataSO insect4;
     // 提供一个公共的静态属性，以便其他类可以访问这个实例
     public static FlowerManager Instance
     {
@@ -51,7 +57,28 @@ public class FlowerManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    {   
+        //临时
+
+
+        StartCoroutine(test());
+
+
+
+        //临时
+    }
+
+    IEnumerator test()
+    {   
+        
+        DataBroker.experience = 99;
+        CageUI.Instance.setAct();
+        yield return new WaitForSeconds(0.4f);
+        CageUI.Instance.setInactive();
+        CageManager.Instance.AddInsect(insect1);
+        CageManager.Instance.AddInsect(insect2);
+        CageManager.Instance.AddInsect(insect3);
+        CageManager.Instance.AddInsect(insect4);
         
     }
 

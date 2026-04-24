@@ -112,7 +112,7 @@ public class CageUI : MonoBehaviour
             else
             {
                 
-            QuitCage();
+                QuitCage();
            
             }
         }

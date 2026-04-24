@@ -49,8 +49,25 @@ public sealed class DataBroker
         datasFromCage.Clear();
         datasFromCage = datas;
         Debug.Log("同步");
+
+        for (int i = datasFromCage.Count - 1; i >= 0; i--)
+        {
+            if (datasFromCage[i].insectId == 0)
+            {
+                datasFromCage.RemoveAt(i);
+                Debug.Log(datasFromCage.Count);
+            }
+        }
+        
+      
+        for (int i = 0; i < datasFromCage.Count; i++)
+        {
+            Debug.Log(datasFromCage[i].insectId);
+        }
+        
     }
 
+    
     public void give_datasFromFight(List<InsectData> datas)
     {
         datasFromFight.Clear();

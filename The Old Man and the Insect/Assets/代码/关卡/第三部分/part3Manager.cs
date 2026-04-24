@@ -9,17 +9,23 @@ public class part3Manager : MonoBehaviour
     public float distance=3;
     public Transform player;
     public DialogueData dialogue;
-    private bool canContinue=true;
+    private static bool canContinue=true;
     public Button btn;
     public static bool canleave=false;
 
     public Vector2 leftAndDown_DoorRange;
     public Vector2 rightAndUp_DoorRange;
     private bool isswitch=false;
+
+   private static int getInHutong1Count = 1;
     // Start is called before the first frame update
     void Start()
     {
         Bag.canOpenBag = true;
+        if (getInHutong1Count > 1)
+        {
+            Debug.Log("对话与动画");
+        }
     }
 
     // Update is called once per frame
@@ -29,9 +35,10 @@ public class part3Manager : MonoBehaviour
             && player.transform.position.x < rightAndUp_DoorRange.x
             && player.transform.position.y > leftAndDown_DoorRange.y
             && player.transform.position.y < rightAndUp_DoorRange.y
-            &&isswitch==false)
+            &&isswitch==false&&canleave==true)
         {
             Transition.Instance.SwitchSceneWithFade("Choose");
+           
             isswitch = true;
         }
     }
@@ -40,7 +47,8 @@ public class part3Manager : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (Vector2.Distance(player.position, transform.position) <= distance&&canContinue&&canleave==false)
+        if (Vector2.Distance(player.position, transform.position) <= 
+            distance&&canContinue&&canleave==false)
         {
             DialogueManager.Instance.StartDialogue(dialogue,setbtn); 
             canContinue = false;
@@ -59,7 +67,8 @@ public class part3Manager : MonoBehaviour
         Bag.canOpenBag = false;
         canleave = true;
         AudioMgr.Instance.StopBGM();
-        Transition.Instance.SwitchSceneWithFade("Fight1Scene");
+        Transition.Instance.SwitchSceneWithFade("HuTong0");
+        getInHutong1Count++;
         
       
     }

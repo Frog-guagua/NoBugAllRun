@@ -5999,11 +5999,20 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   levelUpParticles: {fileID: 0}
+  moveCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   levelUpSound: {fileID: 0}
   targetLayer:
     serializedVersion: 2
     m_Bits: 0
   offset: {x: 0, y: 0, z: 0}
+  myBugCount: 0
+  lastMovedGridIndex: -1
+  finishComposed: 0
 --- !u!4 &898175938
 Transform:
   m_ObjectHideFlags: 0
@@ -6713,6 +6722,7 @@ MonoBehaviour:
   - {fileID: 307825033}
   - {fileID: 1172994470}
   - {fileID: 1697700438}
+  myBugs: []
   fightBugDatas:
   - {fileID: 1668238090}
   - {fileID: 1759840582}
@@ -6733,8 +6743,20 @@ MonoBehaviour:
   - {fileID: 1064222799}
   - {fileID: 1882288310}
   - {fileID: 2030453510}
-  BugPrefab: {fileID: 0}
-  BugPos: []
+  IdleBugSprites:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  FightBugSprites:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &1117266357
 Transform:
   m_ObjectHideFlags: 0

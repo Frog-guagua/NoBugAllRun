@@ -115,8 +115,8 @@ public class FightDataManager : MonoBehaviour
             tempBugs.Add(newBug);
         }
 
-        DataBroker.Instance.give_datasFromCage(tempBugs);
-        InitMyBugsFromData(tempBugs);
+        //DataBroker.Instance.give_datasFromCage(tempBugs);
+        InitMyBugsFromData(DataBroker.Instance.datasFromCage);
     }
 
     public void InitMyBugsFromData(List<InsectData> experimentData)
@@ -299,7 +299,8 @@ public class FightDataManager : MonoBehaviour
         {
             List<InsectData> copy = new List<InsectData>(enemyBugs);
             SetEnemyBugs(copy);
-            TestBug();
+            //TestBug();
+            InitMyBugsFromData(DataBroker.Instance.datasFromCage);
         }
         
     }
