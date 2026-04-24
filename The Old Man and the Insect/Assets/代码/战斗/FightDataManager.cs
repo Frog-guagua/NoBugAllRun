@@ -194,7 +194,7 @@ public class FightDataManager : MonoBehaviour
                     for (int j = 0; j < temp; j++)
                     {
                         //呱：卧槽好牛逼 结尾索引式
-                       Destroy(myBugs[^j]);
+                       Destroy(myBugs[myBugs.Count-1-j]);
                     }
                 }
 
