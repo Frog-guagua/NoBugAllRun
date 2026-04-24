@@ -122,7 +122,9 @@ public class FightDataManager : MonoBehaviour
     public void InitMyBugsFromData(List<InsectData> experimentData)
     {
 
-        for (int i = 0; i < myBugs.Count && i < experimentData.Count; i++)
+        Debug.Log("——准备初始化虫虫——");
+        Debug.Log(experimentData.Count);
+        for (int i = 0; i < experimentData.Count; i++)
         {
             GameObject bug = myBugs[i];
             InsectData bugData = bug.GetComponent<InsectData>();
@@ -169,12 +171,27 @@ public class FightDataManager : MonoBehaviour
                         Fight_SR.sprite = FightBugSprites[5];
                         break;
                 }
-            
+
+                if (experimentData.Count < 8)
+                {
+                    int temp = myBugs.Count - experimentData.Count;
+                    for (int j = 0; j < temp; j++)
+                    {
+                        //呱：卧槽好牛逼 结尾索引式
+                       Destroy(myBugs[^j]);
+                    }
+                }
 
             // 刷新对应的 UI（fightBugDatas）
             if (i < fightBugDatas.Count && fightBugDatas[i] != null)
             {
                 fightBugDatas[i].text = $"{bugData.insectHP}\n\n\n{bugData.insectAtk}";
+            }
+
+            //呱：刷新标签ui
+            if (i<tagDatas.Count&&tagDatas[i]!=null)
+            {
+                tagDatas[i].text = $"{bugData.insectHP}  {bugData.insectAtk}";
             }
         }
     }
@@ -299,7 +316,7 @@ public class FightDataManager : MonoBehaviour
         {
             List<InsectData> copy = new List<InsectData>(enemyBugs);
             SetEnemyBugs(copy);
-            //TestBug();
+           
             InitMyBugsFromData(DataBroker.Instance.datasFromCage);
         }
         
