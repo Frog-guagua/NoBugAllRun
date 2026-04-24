@@ -129,20 +129,29 @@ public class FightDataManager : MonoBehaviour
         Debug.Log(experimentData[2].bugType);
         for (int i = 0; i < experimentData.Count; i++)
         {
-            GameObject bug = myBugs[i];
-            InsectData bugData = bug.GetComponent<InsectData>();
+            GameObject FightBug = myBugs[i].transform.GetChild(0).gameObject;
+            InsectData FightBugData = FightBug.GetComponent<InsectData>();
+            
+            GameObject IdleBug = myBugs[i].transform.GetChild(1).gameObject;
+            InsectData IdleBugData = IdleBug.GetComponent<InsectData>();
 
 
-            bugData.insectHP = experimentData[i].insectHP;
-            bugData.insectAtk = experimentData[i].insectAtk;
-            bugData.insectLevel = experimentData[i].insectLevel;
-            bugData.bugType = experimentData[i].bugType;
+            FightBugData.insectHP = experimentData[i].insectHP;
+            FightBugData.insectAtk = experimentData[i].insectAtk;
+            FightBugData.insectLevel = experimentData[i].insectLevel;
+            FightBugData.bugType = experimentData[i].bugType;
+            
+            
+            IdleBugData.insectHP = experimentData[i].insectHP;
+            IdleBugData.insectAtk = experimentData[i].insectAtk;
+            IdleBugData.insectLevel = experimentData[i].insectLevel;
+            IdleBugData.bugType = experimentData[i].bugType;
 
             // 根据品种设置图片
-            SpriteRenderer Idle_SR = bug.transform.GetChild(1).GetComponent<SpriteRenderer>();
-            SpriteRenderer Fight_SR = bug.transform.GetChild(0).GetComponent<SpriteRenderer>();
+            SpriteRenderer Idle_SR = IdleBug.GetComponent<SpriteRenderer>();
+            SpriteRenderer Fight_SR = FightBug.GetComponent<SpriteRenderer>();
         
-                switch (bugData.bugType)
+                switch (FightBugData.bugType)
                 {
                     case  E_BugType.A:
                         Idle_SR.sprite = IdleBugSprites[0];
@@ -188,13 +197,13 @@ public class FightDataManager : MonoBehaviour
             // 刷新对应的 UI（fightBugDatas）
             if (i < fightBugDatas.Count && fightBugDatas[i] != null)
             {
-                fightBugDatas[i].text = $"{bugData.insectHP}\n\n\n{bugData.insectAtk}";
+                fightBugDatas[i].text = $"{FightBugData.insectHP}\n\n\n{FightBugData.insectAtk}";
             }
 
             //呱：刷新标签ui
             if (i<tagDatas.Count&&tagDatas[i]!=null)
             {
-                tagDatas[i].text = $"{bugData.insectHP}  {bugData.insectAtk}";
+                tagDatas[i].text = $"{FightBugData.insectHP}  {FightBugData.insectAtk}";
             }
         }
     }

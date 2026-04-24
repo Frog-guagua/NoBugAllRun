@@ -130,15 +130,21 @@ public class WaitingBug : MonoBehaviour
     
 public IEnumerator FindRival(int GridIndex)
 {
+    Debug.Log("________________");
+    Debug.Log(GridManager.Grids[4].bugOnGrid.GetComponent<InsectData>().insectHP);
     if (myBugCount == 0)
     {
         lastMovedGridIndex = GridIndex;
         yield break;
     }
     
-    
+    Debug.Log(GridIndex);
     GameObject currentBug = GridManager.Grids[GridIndex].bugOnGrid;
-    if (currentBug == null) yield break;
+    if (currentBug == null)
+    {
+        Debug.Log($" 是空哒！！");
+        yield break;
+    }
     
     // 默认不移动时，最后位置就是当前格子
     
@@ -174,7 +180,7 @@ public IEnumerator FindRival(int GridIndex)
         }
     }
 
-    if (targetGridIndex == -1)
+    if (targetGridIndex == GridIndex)
     {
         Debug.LogWarning("FindRival: 未找到可攻击的目标");
        

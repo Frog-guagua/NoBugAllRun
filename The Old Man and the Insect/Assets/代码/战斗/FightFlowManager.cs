@@ -101,8 +101,15 @@ public class FightFlowManager : MonoBehaviour
     
     void Update()
     {
+        if (global::GridManager.Grids[4].bugOnGrid != null)
+        {
+            Debug.Log(global::GridManager.Grids[4].bugOnGrid.name);
+        }
+        else
+        {
+            Debug.Log("注意了注意了这是没有虫虫！！");
+        }
 
-        
         //呱：节省性能
         if(haveCheckedFightType) return;
         
@@ -436,7 +443,8 @@ public class FightFlowManager : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         waitingBug.CountMyBugs();
         yield return new WaitForSeconds(0.1f);
-        
+        waitingBug.myBugCount = 0;              // 重置计数器
+        waitingBug.CountMyBugs();  
         yield return waitingBug.FindRival(9);
         int movedIndex1 = waitingBug.lastMovedGridIndex;
         Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
@@ -465,6 +473,12 @@ public class FightFlowManager : MonoBehaviour
             DataBroker.WinGame2 = false;
             DataBroker.reputation -= 6;
             Transition.Instance.SwitchSceneWithFade("HuTong1");
+        }
+        else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
+        {
+            GetComponent<BattleResover>().Nobug = false;
+            DataBroker.experience += 6;
+            Transition.Instance.SwitchSceneWithFade("StartMenu");
         }
 
         #endregion
@@ -505,6 +519,8 @@ public class FightFlowManager : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         waitingBug.CountMyBugs();
         yield return new WaitForSeconds(0.1f);
+        waitingBug.myBugCount = 0;              // 重置计数器
+        waitingBug.CountMyBugs();  
         Debug.Log(movedIndex1);
 
             yield return waitingBug.FindRival(movedIndex1);
@@ -512,7 +528,7 @@ public class FightFlowManager : MonoBehaviour
             movedIndex1 = waitingBug.lastMovedGridIndex;
             Debug.Log(movedIndex1);
         
-       
+      
         
         
         Debug.Log(movedIndex2);
@@ -586,7 +602,8 @@ public class FightFlowManager : MonoBehaviour
         waitingBug.CountMyBugs();
         yield return new WaitForSeconds(0.1f);
         Debug.Log(movedIndex1);
-
+        waitingBug.myBugCount = 0;              // 重置计数器
+        waitingBug.CountMyBugs();  
             yield return waitingBug.FindRival(movedIndex1);
             
             movedIndex1 = waitingBug.lastMovedGridIndex;
@@ -668,6 +685,8 @@ public class FightFlowManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         Debug.Log(movedIndex1);
 
+        waitingBug.myBugCount = 0;           
+        waitingBug.CountMyBugs();  
             yield return waitingBug.FindRival(movedIndex1);
             
             movedIndex1 = waitingBug.lastMovedGridIndex;

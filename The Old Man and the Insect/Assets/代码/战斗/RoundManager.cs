@@ -274,7 +274,7 @@ public class RoundManager : MonoBehaviour
                 Grid frontGrid = GridManager.Grids[realIndex+4]; 
                 frontBug =frontGrid.bugOnGrid;
 
-                if (NeedCompound(nowBug, frontBug))
+                if (NeedCompound(fightBug, frontBug))
                 {
                   
                     //呱：残忍的杀死这个虫虫！！！！（成为我的养分吧！！！）
@@ -339,6 +339,7 @@ public class RoundManager : MonoBehaviour
     private bool NeedCompound(GameObject nowBug,GameObject frontBug)
     {
 
+        
         InsectData nowBugData = nowBug.GetComponent<InsectData>();
         InsectData frontBugData = frontBug.GetComponent<InsectData>();
 

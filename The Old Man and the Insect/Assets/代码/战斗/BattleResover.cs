@@ -49,19 +49,21 @@ public class BattleResover : MonoBehaviour
         float rayDistance = 10f;
         LayerMask targetLayer = LayerMask.GetMask("Bug");
 
-// 我方攻击敌方（向上射线，起点偏移避免自碰）
+
+        // 我方攻击敌方（向上射线，起点偏移避免自碰）
         foreach (var myBug in myFrontBugs)
         {
             if (myBug == null) continue;
             Vector2 origin = (Vector2)myBug.transform.position + Vector2.up * 0.8f;
             RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.up, rayDistance, targetLayer);
-            Debug.DrawRay(origin, Vector2.up * rayDistance, Color.red, 1f);
+
             if (hit.collider != null && hit.collider.gameObject != myBug.gameObject)
             {
                 InsectData enemy = hit.collider.GetComponent<InsectData>();
                 if (enemy != null)
                 {
                     damageMap[enemy] = damageMap.GetValueOrDefault(enemy) + myBug.insectAtk;
+                    UpdateBugUI(enemy);
                     Debug.Log($"{myBug.name} 击中 {enemy.name}");
                 }
             }
