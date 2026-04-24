@@ -20,7 +20,8 @@ public class part3Manager : MonoBehaviour
    private static int getInHutong1Count = 1;
     // Start is called before the first frame update
     void Start()
-    {
+    {   
+        Debug.Log(DataBroker.Instance.datasFromCage.Count);
         Bag.canOpenBag = true;
         if (getInHutong1Count > 1)
         {

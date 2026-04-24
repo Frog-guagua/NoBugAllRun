@@ -19,7 +19,7 @@ public class FightDataManager : MonoBehaviour
     /// <summary>
     /// 传入的虫虫数据
     /// </summary>
-    [SerializeField] List<InsectData> bugs = DataBroker.Instance.datasFromCage;
+    [SerializeField] List<InsectData> bugs =new List<InsectData>(DataBroker.Instance.datasFromCage) ;
     
     //呱： 这是用来装 自动生成的虫虫 的列表
     public static List<GameObject> newBugsPrefab = new List<GameObject>();
@@ -123,23 +123,10 @@ public class FightDataManager : MonoBehaviour
 
     public void InitMyBugsFromData(List<InsectData> experimentData)
     {
-       //临时版
-        for (int i = experimentData.Count - 1; i >= 0; i--)
-        {
-            if (experimentData[i].insectId == 0)
-            {
-                experimentData.RemoveAt(i);
-                Debug.Log(experimentData.Count);
-                
-            }
-            else
-            {
-                Debug.Log(experimentData[i].bugType);
-            }
-        }
+       
         Debug.Log("——准备初始化虫虫——");
         Debug.Log(experimentData.Count);
-        
+        Debug.Log(experimentData[2].bugType);
         for (int i = 0; i < experimentData.Count; i++)
         {
             GameObject bug = myBugs[i];
@@ -333,7 +320,7 @@ public class FightDataManager : MonoBehaviour
             List<InsectData> copy = new List<InsectData>(enemyBugs);
             SetEnemyBugs(copy);
            
-            InitMyBugsFromData(CageManager.Instance.insectDataList);
+            InitMyBugsFromData(DataBroker.Instance.datasFromCage);
         }
         
     }
