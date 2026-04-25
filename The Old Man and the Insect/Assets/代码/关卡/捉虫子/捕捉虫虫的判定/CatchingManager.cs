@@ -31,7 +31,7 @@ public class CatchingManager : MonoBehaviour
         }
     }
     private CatchBugDecision catchBugDecision;
-
+    public static bool canCatch = true;
     private bool cancontinue=true;
     
     public string successful = "success";
@@ -143,6 +143,7 @@ public class CatchingManager : MonoBehaviour
                 StartCoroutine(catchBugDecision.waitToClose(1f));
                 counting.gameObject.SetActive(false);
                 hint.ShowHint(failure);
+                StartCoroutine(cancatching());
                 failureCount++;
             }
         }
@@ -174,6 +175,7 @@ public class CatchingManager : MonoBehaviour
             catchBugDecision.StartCatchBug();
             counting.gameObject.SetActive(true);
             currentBug = bug;
+            canCatch = false;
         }
         else
         {
@@ -189,11 +191,18 @@ public class CatchingManager : MonoBehaviour
        _count = count;
        counting.gameObject.SetActive(false);
        SuccessCount++;
+
+       StartCoroutine(cancatching());
        panel.SetActive(true);
        hp[0].text = "HP: " + bugToCatch.insectHP;
        atk[0].text = "atk:" + bugToCatch.insectAtk;
     }
 
+    IEnumerator cancatching()
+    {
+        yield return new WaitForSeconds(0.6f);
+        canCatch = true;
+    }
     public void switchscene()
     {
         Transition.Instance.SwitchSceneWithFade("FlowerShop");

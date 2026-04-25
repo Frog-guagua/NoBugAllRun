@@ -50,8 +50,13 @@ public class BugToCatch : InsectData
     }
 
     public void OnMouseDown()
-    {   
-        CatchingManager.Instance.startCatch(this.gameObject);
-        this.gameObject.SetActive(false);
+    {
+        if (CatchingManager.canCatch)
+        {
+
+
+            CatchingManager.Instance.startCatch(this.gameObject);
+            this.gameObject.SetActive(false);
+        }
     }
 }
