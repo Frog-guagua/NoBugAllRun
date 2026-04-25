@@ -125,8 +125,7 @@ public class FightDataManager : MonoBehaviour
     {
        
         Debug.Log("——准备初始化虫虫——");
-        Debug.Log(experimentData.Count);
-        Debug.Log(experimentData[2].bugType);
+ 
         for (int i = 0; i < experimentData.Count; i++)
         {
             GameObject FightBug = myBugs[i].transform.GetChild(0).gameObject;

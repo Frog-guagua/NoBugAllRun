@@ -420,6 +420,7 @@ public class FightFlowManager : MonoBehaviour
         StartCoroutine(waitingBug.Shake(1, 0.1f, 0));
         StartCoroutine(waitingBug.Shake(1, 0.1f, 1));
         
+        yield return new WaitUntil(() =>FightDataManager.ActionPoints==0);
         #endregion
 
         #region 结算
