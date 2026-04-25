@@ -474,12 +474,20 @@ public class FightFlowManager : MonoBehaviour
             GetComponent<BattleResover>().Nobug = false;
             DataBroker.WinGame2 = false;
             DataBroker.reputation -= 6;
+            yield return ShowHint("战斗失败");
+            yield return ShowHint("声誉值减少<b><color=#335EA4>6</color></b>点");
+            cameraFocus.LetCameraFocus();
+            yield return new WaitForSeconds(1.5f);
             Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
         else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
             DataBroker.experience += 6;
+            yield return ShowHint("战斗胜利");
+            yield return ShowHint("经验值增加<b><color=#335EA4>6</color></b>点");
+            cameraFocus.LetCameraFocus();
+            yield return new WaitForSeconds(1.5f);
             Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
 
@@ -556,12 +564,20 @@ public class FightFlowManager : MonoBehaviour
         {
             GetComponent<BattleResover>().Nobug = false;
             DataBroker.reputation -= 6;
+            yield return ShowHint("战斗失败");
+            yield return ShowHint("声誉值减少<b><color=#335EA4>6</color></b>点");
+            cameraFocus.LetCameraFocus();
+            yield return new WaitForSeconds(1.5f);
             Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
         else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
             DataBroker.experience += 6;
+            yield return ShowHint("战斗胜利");
+            yield return ShowHint("经验值增加<b><color=#335EA4>6</color></b>点");
+            cameraFocus.LetCameraFocus();
+            yield return new WaitForSeconds(1.5f);
             Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
 
@@ -637,12 +653,20 @@ public class FightFlowManager : MonoBehaviour
         {
             GetComponent<BattleResover>().Nobug = false;
             DataBroker.reputation -= 6;
+            yield return ShowHint("战斗失败");
+            yield return ShowHint("声誉值减少<b><color=#335EA4>6</color></b>点");
+            cameraFocus.LetCameraFocus();
+            yield return new WaitForSeconds(1.5f);
             Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
         else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
             DataBroker.experience += 6;
+            yield return ShowHint("战斗胜利");
+            yield return ShowHint("经验值增加<b><color=#335EA4>6</color></b>点");
+            cameraFocus.LetCameraFocus();
+            yield return new WaitForSeconds(1.5f);
             Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
 
@@ -720,12 +744,21 @@ public class FightFlowManager : MonoBehaviour
         {
             GetComponent<BattleResover>().Nobug = false;
             DataBroker.reputation -= 6;
+            DataBroker.reputation -= 6;
+            yield return ShowHint("战斗失败");
+            yield return ShowHint("声誉值减少<b><color=#335EA4>6</color></b>点");
+            cameraFocus.LetCameraFocus();
+            yield return new WaitForSeconds(1.5f);
             Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
         else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
             DataBroker.experience += 6;
+            yield return ShowHint("战斗胜利");
+            yield return ShowHint("经验值增加<b><color=#335EA4>6</color></b>点");
+            cameraFocus.LetCameraFocus();
+            yield return new WaitForSeconds(1.5f);
             Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
 

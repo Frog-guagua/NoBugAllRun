@@ -178,10 +178,10 @@ public IEnumerator FindRival(int GridIndex)
             break;
         }
     }
-
-    if (targetGridIndex == GridIndex)
+  
+    if (targetGridIndex == -1)
     {
-        Debug.LogWarning("FindRival: 未找到可攻击的目标");
+        targetGridIndex = GridIndex;
        
         yield break;
     }

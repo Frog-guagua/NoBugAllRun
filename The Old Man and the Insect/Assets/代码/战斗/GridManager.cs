@@ -259,6 +259,7 @@ private IEnumerator ApplyDamageByIndex()
             {
                 bug.insectHP = 2;
                 bug.insectAtk = 2;
+                bug.insectLevel = 2;
                 UpdateBugUI(bug);
             }
             else
