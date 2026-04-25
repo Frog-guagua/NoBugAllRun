@@ -8255,7 +8255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 956b2781a25af7b47aa79c7c9d383907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  background: {fileID: 0}
+  background: {fileID: 798465798}
   text: {fileID: 2053171825}
 --- !u!4 &1593573191
 Transform:
@@ -9754,18 +9754,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveCurveToFront:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   moveCurveForLevelUp:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  levelUpParticles: {fileID: 0}
-  levelUpSound: {fileID: 0}
+  levelUpParticles: {fileID: 631547317}
+  levelUpSound: {fileID: 8300000, guid: b529b011cb7a1ef41b1285d904c69f4c, type: 3}
 --- !u!4 &1833460378
 Transform:
   m_ObjectHideFlags: 0
