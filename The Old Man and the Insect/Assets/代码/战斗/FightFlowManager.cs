@@ -363,6 +363,7 @@ public class FightFlowManager : MonoBehaviour
         #region 传值
 
         //呱：给小鼠老大传入 战斗后虫虫数据
+        bugs[3].GetComponent<InsectData>().insectLevel = 2;
         FightDataManager.DeliverData(bugs[3].GetComponent<InsectData>(),bugs[5].GetComponent<InsectData>());
         
         //呱：给小鼠老大传入 战斗后经验值
