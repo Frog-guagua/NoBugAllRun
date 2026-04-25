@@ -125,15 +125,27 @@ public class FightDataManager : MonoBehaviour
     {
        
         Debug.Log("——准备初始化虫虫——");
- 
+        Debug.Log(experimentData.Count);
+        if (experimentData.Count < 8)
+        {
+            int temp = myBugs.Count - experimentData.Count;
+            for (int j = 0; j < temp; j++)
+            {
+                //呱：卧槽好牛逼 结尾索引式
+                Destroy(myBugs[myBugs.Count-1-j]);
+            }
+        }
         for (int i = 0; i < experimentData.Count; i++)
         {
+            Debug.Log(i);
             GameObject FightBug = myBugs[i].transform.GetChild(0).gameObject;
             InsectData FightBugData = FightBug.GetComponent<InsectData>();
             
+            Debug.Log(FightBug.name);
+           
             GameObject IdleBug = myBugs[i].transform.GetChild(1).gameObject;
             InsectData IdleBugData = IdleBug.GetComponent<InsectData>();
-
+            Debug.Log(IdleBug.name);
 
             FightBugData.insectHP = experimentData[i].insectHP;
             FightBugData.insectAtk = experimentData[i].insectAtk;
@@ -150,48 +162,47 @@ public class FightDataManager : MonoBehaviour
             SpriteRenderer Idle_SR = IdleBug.GetComponent<SpriteRenderer>();
             SpriteRenderer Fight_SR = FightBug.GetComponent<SpriteRenderer>();
         
+            Debug.Log(FightBugData.bugType.ToString());
                 switch (FightBugData.bugType)
                 {
                     case  E_BugType.A:
+                        Debug.Log("A虫虫图片准备中");
                         Idle_SR.sprite = IdleBugSprites[0];
                         Fight_SR.sprite = FightBugSprites[0];
                         break;
                     
                     case  E_BugType.B:
+                        Debug.Log("B虫虫图片准备中");
                         Idle_SR.sprite = IdleBugSprites[1];
                         Fight_SR.sprite = FightBugSprites[1];
                         break;
                     
                     case  E_BugType.C:
+                        Debug.Log("C虫虫图片准备中");
                         Idle_SR.sprite = IdleBugSprites[2];
                         Fight_SR.sprite = FightBugSprites[2];
                         break;
                     
                     case  E_BugType.D:
+                        Debug.Log("D虫虫图片准备中");
                         Idle_SR.sprite = IdleBugSprites[3];
                         Fight_SR.sprite = FightBugSprites[3];
                         break;
                     
                     case  E_BugType.E:
+                        Debug.Log("E虫虫图片准备中");
                         Idle_SR.sprite = IdleBugSprites[4];
                         Fight_SR.sprite = FightBugSprites[4];
                         break;
                     
                     case  E_BugType.F:
+                        Debug.Log("F虫虫图片准备中");
                         Idle_SR.sprite = IdleBugSprites[5];
                         Fight_SR.sprite = FightBugSprites[5];
                         break;
                 }
 
-                if (experimentData.Count < 8)
-                {
-                    int temp = myBugs.Count - experimentData.Count;
-                    for (int j = 0; j < temp; j++)
-                    {
-                        //呱：卧槽好牛逼 结尾索引式
-                       Destroy(myBugs[myBugs.Count-1-j]);
-                    }
-                }
+             
 
             // 刷新对应的 UI（fightBugDatas）
             if (i < fightBugDatas.Count && fightBugDatas[i] != null)
@@ -205,6 +216,8 @@ public class FightDataManager : MonoBehaviour
                 tagDatas[i].text = $"{FightBugData.insectHP}   {FightBugData.insectAtk}";
             }
         }
+        
+      
     }
 
 
