@@ -140,7 +140,7 @@ public class CageUI : MonoBehaviour
             {
                 CageManager.Instance.refreshSlot(i);
             }
-        }
+        } 
     }
     public void setInactive() { 
         this.gameObject.SetActive(false);

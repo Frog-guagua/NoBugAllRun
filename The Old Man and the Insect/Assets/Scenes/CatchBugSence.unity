@@ -2821,7 +2821,7 @@ MonoBehaviour:
   hintobj: {fileID: 1178278383}
   hint: {fileID: 1348283894}
   startCount: 0
-  count: 8
+  count: 30
   currentBug: {fileID: 0}
   panel: {fileID: 1643825566}
   SuccessCount: 0

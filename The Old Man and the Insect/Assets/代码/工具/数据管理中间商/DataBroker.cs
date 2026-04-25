@@ -71,7 +71,7 @@ public sealed class DataBroker
       
         for (int i = 0; i < datasFromCage.Count; i++)
         {
-            Debug.Log(datasFromCage[i].bugType);
+            Debug.Log("当前来自笼子的数据种类为"+datasFromCage[i].bugType);
         }
         
     }
@@ -117,7 +117,7 @@ public sealed class DataBroker
                 }
             }
         }
-
+        Debug.Log("战斗后虫虫数量为"+datasFromFight.Count);
         CageManager.Instance.ReplaceInsects(datasFromFight);
     }
 
@@ -130,7 +130,7 @@ public sealed class DataBroker
     public void give_dataFromCatch(InsectData data)
     {
             CageManager.Instance.AddInsect(data);
-            Debug.Log(data.insectId);
+            Debug.Log("抓住的id为"+data.insectId);
             give_datasFromCage(CageManager.Instance.insectDataList);//抓虫专用
             
        

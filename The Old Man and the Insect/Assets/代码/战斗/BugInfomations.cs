@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum E_BugType
-{
+{   
+    
     /// <summary>
     /// A品种虫虫 初始生命为2 攻击力为1
     /// </summary>
@@ -32,7 +33,8 @@ public enum E_BugType
     /// <summary>
     /// F品种虫虫 初始生命为1 攻击力为4
     /// </summary>
-    F
+    F,
+    Default
 }
 
 

@@ -367,6 +367,7 @@ public class FightFlowManager : MonoBehaviour
 
         //呱：给小鼠老大传入 战斗后虫虫数据
         bugs[3].GetComponent<InsectData>().insectLevel = 2;
+        bugs[3].GetComponent<InsectData>().insectId = 1;
         bugs[5].GetComponent<InsectData>().bugType = E_BugType.B; 
         FightDataManager.DeliverData(bugs[3].GetComponent<InsectData>(),bugs[5].GetComponent<InsectData>());
         

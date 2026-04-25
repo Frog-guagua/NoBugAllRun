@@ -175,7 +175,8 @@ public sealed class CageManager : MonoBehaviour
         }
         // 重新填充昆虫数据
         for (int i = 0; i < newInsects.Count; i++)
-        {
+        {   
+            Debug.Log("更新数据"+newInsects[i].insectId);
            insectInCage[i] = newInsects[i];
         }
     }

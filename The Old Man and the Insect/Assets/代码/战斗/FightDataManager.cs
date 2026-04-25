@@ -127,7 +127,7 @@ public class FightDataManager : MonoBehaviour
         Debug.Log("——准备初始化虫虫——");
         for (int i = 0; i < experimentData.Count; i++)
         {
-            Debug.Log(experimentData[i].bugType);
+            Debug.Log("当前虫虫种类为"+experimentData[i].bugType);
         }
         if (experimentData.Count < 8)
         {
@@ -245,8 +245,9 @@ public class FightDataManager : MonoBehaviour
         for (int i = 0; i < BugsToDeliver.Length; i++)
         {
             PostFightBugs.Add(BugsToDeliver[i]);
+            Debug.Log("给出虫虫种类为"+BugsToDeliver[i].bugType);
         }
-        
+       
         //呱：给小鼠老大传虫虫
         DataBroker.Instance.give_datasFromFight(PostFightBugs);
     }
