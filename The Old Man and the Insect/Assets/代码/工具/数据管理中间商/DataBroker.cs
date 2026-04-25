@@ -88,7 +88,7 @@ public sealed class DataBroker
         for (int i = datasFromFight.Count - 1; i >= 0; i--)
         {
             InsectData bug = datasFromFight[i];
-
+            
             // 只处理死掉的虫子
             if (bug.insectHP <= 0)
             {
@@ -96,6 +96,7 @@ public sealed class DataBroker
                 if (bug.insectLevel == 1)
                 {
                     bug.GetSoData(Id_To_Insect_Dic.IdToInsectDic[bug.insectId]);
+                    Debug.Log(bug.insectId);
                 }
                
                 else if (bug.insectLevel == 2)

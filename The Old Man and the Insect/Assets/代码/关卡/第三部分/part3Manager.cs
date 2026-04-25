@@ -29,7 +29,7 @@ public class part3Manager : MonoBehaviour
             Debug.Log(DataBroker.Instance.datasFromFight.Count);
             for (int i = 0; i < DataBroker.Instance.datasFromFight.Count; i++)
             {
-                Debug.Log("当前等级"+DataBroker.Instance.datasFromFight[i].insectLevel);
+                Debug.Log("当前等级"+DataBroker.Instance.datasFromFight[i].bugType);
             }
         }
     }

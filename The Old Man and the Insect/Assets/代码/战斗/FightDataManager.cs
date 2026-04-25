@@ -236,7 +236,8 @@ public class FightDataManager : MonoBehaviour
     /// 用来传战斗完以后的虫虫数据
     /// </summary>
     public static void DeliverData(params InsectData[] BugsToDeliver)
-    {
+    {   
+       
         List<InsectData> PostFightBugs = new List<InsectData>();
         for (int i = 0; i < BugsToDeliver.Length; i++)
         {
