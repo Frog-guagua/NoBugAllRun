@@ -130,8 +130,7 @@ public class WaitingBug : MonoBehaviour
     
 public IEnumerator FindRival(int GridIndex)
 {
-    Debug.Log("________________");
-    Debug.Log(GridManager.Grids[4].bugOnGrid.GetComponent<InsectData>().insectHP);
+   
     if (myBugCount == 0)
     {
         lastMovedGridIndex = GridIndex;
