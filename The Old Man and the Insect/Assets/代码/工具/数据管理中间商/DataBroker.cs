@@ -129,6 +129,7 @@ public sealed class DataBroker
     public void give_dataFromCatch(InsectData data)
     {
             CageManager.Instance.AddInsect(data);
+            Debug.Log(data.bugType);
             give_datasFromCage(CageManager.Instance.insectDataList);//抓虫专用
        
        

@@ -114,6 +114,7 @@ public class CatchingManager : MonoBehaviour
             else
             {
                 bugToCatch.Init();
+                
             }
             
         }

@@ -3754,7 +3754,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c4c35b6464209846bcb508068a7c5f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  insectData: {fileID: 11400000, guid: db33e0c01e491bd43a2708924ae7736e, type: 2}
+  insectData: {fileID: 11400000, guid: 6457660e7e17ac34489738fd6bc8f57b, type: 2}
 --- !u!114 &1735431191
 MonoBehaviour:
   m_ObjectHideFlags: 0

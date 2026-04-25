@@ -125,7 +125,10 @@ public class FightDataManager : MonoBehaviour
     {
        
         Debug.Log("——准备初始化虫虫——");
-        Debug.Log(experimentData.Count);
+        for (int i = 0; i < experimentData.Count; i++)
+        {
+            Debug.Log(experimentData[i].bugType);
+        }
         if (experimentData.Count < 8)
         {
             int temp = myBugs.Count - experimentData.Count;
