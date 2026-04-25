@@ -79,7 +79,7 @@ public class RoundManager : MonoBehaviour
     {
         
         //呱：在小鼠老大没有写好这个逻辑前 先用这个强制启动 方便我做实验
-        FightFlowManager.OnGame2 = true;
+       // FightFlowManager.OnGame2 = true;
         //FightFlowManager.OnGame1 = true;
         fightFlowManager = FindObjectOfType<FightFlowManager>();
         fightDataManager = FindObjectOfType<FightDataManager>();

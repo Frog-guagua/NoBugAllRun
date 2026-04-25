@@ -1,9 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class leavearea : MonoBehaviour
+public class Tofight2 : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -16,16 +15,12 @@ public class leavearea : MonoBehaviour
     {
         
     }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (FlowerManager.Instance.canleave)
+        if (Before2Mgr.canleave==true)
         {   
-            FlowerManager.Instance.canstartflow=true;
-            FlowerManager.Instance.SecondIn = true;
-            FlowerManager.Instance.canleave = false;
-            //临时
-            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
+            Debug.Log("下一关");
+           // Transition.Instance.SwitchSceneWithFade("");
           
         }
     }

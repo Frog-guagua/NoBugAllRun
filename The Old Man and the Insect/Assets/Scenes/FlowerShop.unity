@@ -366,8 +366,8 @@ MonoBehaviour:
   canleave: 0
   insect1: {fileID: 11400000, guid: db33e0c01e491bd43a2708924ae7736e, type: 2}
   insect2: {fileID: 11400000, guid: 6457660e7e17ac34489738fd6bc8f57b, type: 2}
-  insect3: {fileID: 11400000, guid: 141bd367c4c826840867167743a7f8a2, type: 2}
-  insect4: {fileID: 11400000, guid: d3cad8202d391514d9e8aeee12b484c9, type: 2}
+  insect3: {fileID: 11400000, guid: 6457660e7e17ac34489738fd6bc8f57b, type: 2}
+  insect4: {fileID: 11400000, guid: db33e0c01e491bd43a2708924ae7736e, type: 2}
 --- !u!4 &646293056
 Transform:
   m_ObjectHideFlags: 0

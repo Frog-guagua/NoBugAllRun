@@ -196,7 +196,7 @@ public class CatchingManager : MonoBehaviour
 
     public void switchscene()
     {
-        Transition.Instance.SwitchSceneWithFade("Choose");
+        Transition.Instance.SwitchSceneWithFade("FlowerShop");
         Bag.canOpenBag = false;
     }
 
@@ -212,6 +212,7 @@ public class CatchingManager : MonoBehaviour
             data.gameObject.SetActive(false);
             hp[i].text = "hp:" + data.insectHP;
             atk[i].text = "atk:" + data.insectAtk;
+            DataBroker.Instance.give_dataFromCatch(data);
         }
         switchcase.gameObject.SetActive(true);
         cancontinue=false;

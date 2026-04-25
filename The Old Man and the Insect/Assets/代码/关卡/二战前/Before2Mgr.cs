@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
-public class part3Manager : MonoBehaviour
+public class Before2Mgr: MonoBehaviour
 {   
     public float distance=3;
     public Transform player;
@@ -13,23 +13,25 @@ public class part3Manager : MonoBehaviour
     public Button btn;
     public static bool canleave=false;
 
-    public Vector2 leftAndDown_DoorRange;
-    public Vector2 rightAndUp_DoorRange;
-    private bool isswitch=false;
+   
+    
 
-   private static int getInHutong1Count = 1;
+   private static int getInCount = 1;
     // Start is called before the first frame update
     void Start()
     {   
         Debug.Log(DataBroker.Instance.datasFromCage.Count);
         Bag.canOpenBag = true;
-        if (getInHutong1Count > 1)
-        {
+        if (getInCount > 1)
+        {   
             Debug.Log("对话与动画");
-            Debug.Log(DataBroker.Instance.datasFromFight.Count);
-            for (int i = 0; i < DataBroker.Instance.datasFromFight.Count; i++)
+            if (DataBroker.WinGame2)
             {
-                Debug.Log("当前等级"+DataBroker.Instance.datasFromFight[i].insectLevel);
+                Debug.Log("你赢了");
+            }
+            else
+            {
+                Debug.Log("菜就多练");
             }
         }
     }
@@ -37,16 +39,7 @@ public class part3Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.transform.position.x > leftAndDown_DoorRange.x
-            && player.transform.position.x < rightAndUp_DoorRange.x
-            && player.transform.position.y > leftAndDown_DoorRange.y
-            && player.transform.position.y < rightAndUp_DoorRange.y
-            &&isswitch==false&&canleave==true)
-        {
-            Transition.Instance.SwitchSceneWithFade("Choose");
-           
-            isswitch = true;
-        }
+       
     }
 
   
@@ -68,13 +61,13 @@ public class part3Manager : MonoBehaviour
 
     public void btnonclick()
     {
-        FightFlowManager.OnGame1 = true;
+        FightFlowManager.OnGame2 = true;
         btn.gameObject.SetActive(false);
         Bag.canOpenBag = false;
         canleave = true;
         AudioMgr.Instance.StopBGM();
-        Transition.Instance.SwitchSceneWithFade("Fight1Scene");
-        getInHutong1Count++;
+        Transition.Instance.SwitchSceneWithFade("FightScene2");
+        getInCount++;
         
       
     }

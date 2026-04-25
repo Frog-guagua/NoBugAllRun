@@ -472,13 +472,13 @@ public class FightFlowManager : MonoBehaviour
             GetComponent<BattleResover>().Nobug = false;
             DataBroker.WinGame2 = false;
             DataBroker.reputation -= 6;
-            Transition.Instance.SwitchSceneWithFade("HuTong1");
+            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
         else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
             DataBroker.experience += 6;
-            Transition.Instance.SwitchSceneWithFade("StartMenu");
+            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
 
         #endregion
@@ -554,13 +554,13 @@ public class FightFlowManager : MonoBehaviour
         {
             GetComponent<BattleResover>().Nobug = false;
             DataBroker.reputation -= 6;
-            Transition.Instance.SwitchSceneWithFade("HuTong1");
+            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
         else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
             DataBroker.experience += 6;
-            Transition.Instance.SwitchSceneWithFade("StartMenu");
+            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
 
 
@@ -635,13 +635,13 @@ public class FightFlowManager : MonoBehaviour
         {
             GetComponent<BattleResover>().Nobug = false;
             DataBroker.reputation -= 6;
-            Transition.Instance.SwitchSceneWithFade("HuTong1");
+            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
         else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
             DataBroker.experience += 6;
-            Transition.Instance.SwitchSceneWithFade("StartMenu");
+            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
 
 
@@ -718,13 +718,13 @@ public class FightFlowManager : MonoBehaviour
         {
             GetComponent<BattleResover>().Nobug = false;
             DataBroker.reputation -= 6;
-            Transition.Instance.SwitchSceneWithFade("HuTong1");
+            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
         else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
             DataBroker.experience += 6;
-            Transition.Instance.SwitchSceneWithFade("StartMenu");
+            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
 
 

@@ -39,6 +39,9 @@ EditorBuildSettings:
     path: Assets/Scenes/FlowerShop.unity
     guid: ffaf4b2d76c09e34a80de15961c8d338
   - enabled: 1
+    path: Assets/Scenes/BeforeFight2.unity
+    guid: aab1aedd1118efb448bdb0f439cec889
+  - enabled: 1
     path: Assets/Scenes/Event2.unity
     guid: af8fccef159b57f41b54491b8b047151
   - enabled: 1

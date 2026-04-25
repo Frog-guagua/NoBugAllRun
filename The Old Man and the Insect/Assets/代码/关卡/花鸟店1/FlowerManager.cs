@@ -61,7 +61,7 @@ public class FlowerManager : MonoBehaviour
         //临时
 
 
-        StartCoroutine(test());
+       // StartCoroutine(test());
 
 
 

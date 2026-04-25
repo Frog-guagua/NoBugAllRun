@@ -62,7 +62,7 @@ public sealed class DataBroker
             if (datasFromCage[i].insectId == 0)
             {
                 datasFromCage.RemoveAt(i);
-                Debug.Log(datasFromCage.Count);
+              
                 
             }
         }
@@ -81,9 +81,42 @@ public sealed class DataBroker
         datasFromFight.Clear();
         if (datas != null && datas.Count > 0)
         {
-            datasFromFight.AddRange(datas);
+            datasFromFight = new List<InsectData>(datas);
         }
-        CageManager.Instance.ReplaceInsects(datas);//在呱呱结束战斗之后把数据传给鼠时，会更新笼子里的数据
+
+        // 必须倒序遍历！！！遍历中添加元素不会卡死
+        for (int i = datasFromFight.Count - 1; i >= 0; i--)
+        {
+            InsectData bug = datasFromFight[i];
+
+            // 只处理死掉的虫子
+            if (bug.insectHP <= 0)
+            {
+              
+                if (bug.insectLevel == 1)
+                {
+                    bug.GetSoData(Id_To_Insect_Dic.IdToInsectDic[bug.insectId]);
+                }
+               
+                else if (bug.insectLevel == 2)
+                {
+                   
+                    bug.GetSoData(Id_To_Insect_Dic.IdToInsectDic[bug.insectId]);
+                    bug.insectLevel = 1;
+
+                    
+                    GameObject newObj = GameObject.Instantiate(bug.gameObject);
+                    InsectData newBug = newObj.GetComponent<InsectData>();
+                    newBug.GetSoData(Id_To_Insect_Dic.IdToInsectDic[bug.insectId]);
+                    newBug.insectLevel = 1;
+
+                    
+                    datasFromFight.Add(newBug);
+                }
+            }
+        }
+
+        CageManager.Instance.ReplaceInsects(datasFromFight);
     }
 
     public void clearAllBroker()

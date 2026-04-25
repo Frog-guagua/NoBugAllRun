@@ -120,7 +120,8 @@ public class CageUI : MonoBehaviour
     }
 
     public void slotOnClick() // 处理点击逻辑
-    {
+    {   
+        
         levelUpUI.SetActive(true);
         CheckExpAndLevel();
         atk.text = CageManager.Instance.currentChosenData.insectAtk.ToString();
