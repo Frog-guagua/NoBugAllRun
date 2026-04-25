@@ -43,7 +43,7 @@ public class CatchingManager : MonoBehaviour
     [Header("限时")]
     public float count;
     private float _count;
-    public GameObject currentBug;
+    public InsectData currentBug;
     public GameObject panel;
     public int SuccessCount;
     public int failureCount;
@@ -58,7 +58,7 @@ public class CatchingManager : MonoBehaviour
     public List<GameObject> data2 = new List<GameObject>();
     public Button switchcase;
 
-    private static int time = 1;
+    private static int time = 0;
     // 确保场景中只有一个 CatchingManager 实例
     private void Awake()
     {
@@ -85,7 +85,7 @@ public class CatchingManager : MonoBehaviour
         doUpdate = true;
 
         // 根据 time 值决定生成 data1 还是 data2
-        List<GameObject> dataList = time == 1 ? data1 : data2;
+        List<GameObject> dataList = time == 0 ? data1 : data2;
 
         // 确保 pos 有足够的位置来放置数据
         int count = Mathf.Min(dataList.Count, pos.Count);
@@ -175,7 +175,8 @@ public class CatchingManager : MonoBehaviour
             catchFather.SetActive(true);
             catchBugDecision.StartCatchBug();
             counting.gameObject.SetActive(true);
-            currentBug = bug;
+            currentBug = bug.GetComponent<BugToCatch>();
+            
             canCatch = false;
         }
         else
@@ -186,7 +187,7 @@ public class CatchingManager : MonoBehaviour
 
     public void success()
     {
-        BugToCatch bugToCatch = currentBug.GetComponent<BugToCatch>();
+       
        startCount = false;
        hint.ShowHint(successful);
        _count = count;
@@ -195,8 +196,8 @@ public class CatchingManager : MonoBehaviour
 
        StartCoroutine(cancatching());
        panel.SetActive(true);
-       hp[0].text = "HP: " + bugToCatch.insectHP;
-       atk[0].text = "atk:" + bugToCatch.insectAtk;
+       hp[0].text = "HP: " + currentBug.insectHP;
+       atk[0].text = "atk:" +currentBug.insectAtk;
     }
 
     IEnumerator cancatching()

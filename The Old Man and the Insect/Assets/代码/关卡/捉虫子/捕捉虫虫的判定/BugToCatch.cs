@@ -54,7 +54,7 @@ public class BugToCatch : InsectData
         if (CatchingManager.canCatch)
         {
 
-
+          
             CatchingManager.Instance.startCatch(this.gameObject);
             this.gameObject.SetActive(false);
         }

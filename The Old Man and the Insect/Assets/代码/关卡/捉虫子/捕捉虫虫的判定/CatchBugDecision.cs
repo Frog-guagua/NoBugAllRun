@@ -344,8 +344,8 @@ public class CatchBugDecision : MonoBehaviour
     public void giveData()
     {
       
-        BugToCatch bugToCatch = Bug.GetComponent<BugToCatch>();
-        DataBroker.Instance.give_dataFromCatch(bugToCatch);
+       
+        DataBroker.Instance.give_dataFromCatch(CatchingManager.Instance.currentBug);
     }
 
     public IEnumerator waitToClose(float time)

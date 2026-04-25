@@ -53,12 +53,13 @@ public sealed class DataBroker
         
      
         
-
+            
 
         Debug.Log("同步");
 
         for (int i = datasFromCage.Count - 1; i >= 0; i--)
-        {
+        {   
+            
             if (datasFromCage[i].insectId == 0)
             {
                 datasFromCage.RemoveAt(i);
@@ -129,8 +130,9 @@ public sealed class DataBroker
     public void give_dataFromCatch(InsectData data)
     {
             CageManager.Instance.AddInsect(data);
-            Debug.Log(data.bugType);
+            Debug.Log(data.insectId);
             give_datasFromCage(CageManager.Instance.insectDataList);//抓虫专用
+            
        
        
     }
