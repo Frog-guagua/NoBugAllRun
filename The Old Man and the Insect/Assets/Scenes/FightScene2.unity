@@ -3601,6 +3601,7 @@ MonoBehaviour:
   DialogueManager: {fileID: 2053212704}
   GridManager: {fileID: 1753333528}
   HintManager: {fileID: 1760948600}
+  EndHintManager: {fileID: 1760948600}
   roundManager: {fileID: 2113263972}
   WaitingBugs: {fileID: 844024316}
   fightDataManager: {fileID: 1753333529}

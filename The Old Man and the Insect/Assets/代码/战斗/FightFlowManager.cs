@@ -40,7 +40,9 @@ public class FightFlowManager : MonoBehaviour
     private GridManager gridManager;
     private DialogueForFight dialogue;
     [SerializeField] GameObject HintManager;
+    [SerializeField] GameObject EndHintManager;
     private Hint hint;
+    private Hint endHint;
     [SerializeField]RoundManager roundManager;
     [SerializeField] GameObject WaitingBugs;
     private WaitingBug waitingBug;
@@ -95,6 +97,7 @@ public class FightFlowManager : MonoBehaviour
         
         dialogue = DialogueManager.GetComponent<DialogueForFight>();
         hint = HintManager.GetComponent<Hint>();
+        endHint = EndHintManager.GetComponent<Hint>();
         cameraShake = mainCamera.GetComponent<CamaraShake>();
     }
 
@@ -369,7 +372,10 @@ public class FightFlowManager : MonoBehaviour
         
         //呱：给小鼠老大传入 战斗后经验值
         DataBroker.experience += 4;
-
+        yield return ShowEndHint("战斗胜利");
+        yield return new WaitForSeconds(1f);
+        yield return ShowEndHint("经验值增加<b><color=#335EA4>4</color></b>点");
+        yield return new WaitForSeconds(2f);
         #endregion
 
         OnGame1 = false;
@@ -387,7 +393,6 @@ public class FightFlowManager : MonoBehaviour
         yield return null;
     }
     
- 
 
     //呱：大爷战斗
     IEnumerator Game2Flow()
@@ -821,6 +826,14 @@ public class FightFlowManager : MonoBehaviour
         hint.ShowHint(hintContent);
         yield return hint.WaitForClose();
     }
+    
+    public IEnumerator ShowEndHint(string hintContent)
+    {
+        AudioMgr.Instance.PlaySFX(hintEffect);
+        endHint.ShowHint(hintContent);
+        yield return hint.WaitForClose();
+    }
+
     
     private void PlayFightBGM()
     {
