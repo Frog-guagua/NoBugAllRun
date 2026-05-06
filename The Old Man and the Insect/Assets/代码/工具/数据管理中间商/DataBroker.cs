@@ -78,7 +78,7 @@ public sealed class DataBroker
 
     
     public void give_datasFromFight(List<InsectData> datas)
-    {
+    {   Debug.Log("战斗后虫虫数量为"+datas.Count);
         datasFromFight.Clear();
         if (datas != null && datas.Count > 0)
         {
@@ -87,7 +87,8 @@ public sealed class DataBroker
 
         // 必须倒序遍历！！！遍历中添加元素不会卡死
         for (int i = datasFromFight.Count - 1; i >= 0; i--)
-        {
+        {   
+            
             InsectData bug = datasFromFight[i];
             
             // 只处理死掉的虫子

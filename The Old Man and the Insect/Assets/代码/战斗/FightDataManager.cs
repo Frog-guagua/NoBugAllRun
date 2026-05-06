@@ -259,7 +259,10 @@ public class FightDataManager : MonoBehaviour
     }
 
     public static  void DeliverData()
-    {
+    {   
+        Debug.Log(FightFlowManager.OnGame2);
+        Debug.Log(FightFlowManager.OnGame3);
+        Debug.Log("传递数量为"+DeliverBugs.Count);
         DataBroker.Instance.give_datasFromFight(DeliverBugs);
     }
 
@@ -364,8 +367,8 @@ public class FightDataManager : MonoBehaviour
             SetEnemyBugs(copy);
            
             //呱：实验用数据
-            TestBug();
-            //InitMyBugsFromData(DataBroker.Instance.datasFromCage);
+            //TestBug();
+            InitMyBugsFromData(DataBroker.Instance.datasFromCage);
         }
         
     }

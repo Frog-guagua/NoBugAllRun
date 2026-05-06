@@ -62,6 +62,7 @@ public class Before2Mgr: MonoBehaviour
     public void btnonclick()
     {
         FightFlowManager.OnGame2 = true;
+        FightFlowManager.OnGame3 = false;
         btn.gameObject.SetActive(false);
         Bag.canOpenBag = false;
         canleave = true;
