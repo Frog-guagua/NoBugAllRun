@@ -64,6 +64,7 @@ public class Event2 : MonoBehaviour
         if (canChange && Input.GetMouseButton(0))
         {
             Debug.Log("切换下一关");
+            Transition.Instance.SwitchSceneWithFade("FlowerShop");
             canChange=false;
         }
     }

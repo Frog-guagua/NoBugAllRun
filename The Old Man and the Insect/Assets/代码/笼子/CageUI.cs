@@ -145,6 +145,7 @@ public class CageUI : MonoBehaviour
     public void setInactive() { 
         this.gameObject.SetActive(false);
         PlayerMove.canMove = true;
+        confirmPanel.SetActive(false);
     }
 
     public void hpLevelUp()//升级点击事件

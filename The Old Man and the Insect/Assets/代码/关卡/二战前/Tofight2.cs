@@ -20,7 +20,7 @@ public class Tofight2 : MonoBehaviour
         if (Before2Mgr.canleave==true)
         {   
             Debug.Log("下一关");
-           // Transition.Instance.SwitchSceneWithFade("");
+           Transition.Instance.SwitchSceneWithFade("Choose2");
           
         }
     }
