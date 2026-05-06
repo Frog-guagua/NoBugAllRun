@@ -8,7 +8,7 @@ public class cagetest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(test());
+     StartCoroutine(test());
     }
 
     IEnumerator test()
@@ -20,8 +20,7 @@ public class cagetest : MonoBehaviour
         CageUI.Instance.setInactive();
         CageManager.Instance.AddInsect(insectData);
         CageManager.Instance.AddInsect(insectData);
-        CageManager.Instance.AddInsect(insectData);
-        CageManager.Instance.AddInsect(insectData);
+       
         
     }
     // Update is called once per frame
