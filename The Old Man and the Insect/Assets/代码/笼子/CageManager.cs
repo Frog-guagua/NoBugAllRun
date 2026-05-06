@@ -103,12 +103,8 @@ public sealed class CageManager : MonoBehaviour
     public void AddInsect(InsectDataSO insectData) //这是一个重载，可以直接传so文件。
         //后续如果方便的话可能会将所有等级数据全部写成so
     {
-        if (insectDataList.Count >= 8)
-        {
-            Debug.Log("虫虫装不下了");
-        }
-        else
-        {
+        
+       
             InsectData data = new InsectData();
 
             data.insectId = insectData.insectId;
@@ -128,7 +124,7 @@ public sealed class CageManager : MonoBehaviour
                     return;
                 }
             }
-        }
+        
 
     }
 

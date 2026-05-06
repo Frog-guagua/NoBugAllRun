@@ -53,4 +53,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BeforeBoss.unity
     guid: ef716cd4e2846ce46b8ea14064f5da77
+  - enabled: 1
+    path: Assets/Scenes/FightScene3.unity
+    guid: 296de12b2c24e78438a95811551c2dbd
   m_configObjects: {}
