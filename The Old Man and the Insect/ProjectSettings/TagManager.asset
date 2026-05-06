@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Cage
   - EnemyBug
+  - Hint2
+  - Button
   layers:
   - Default
   - TransparentFX

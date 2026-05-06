@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 464470510}
   m_Layer: 5
   m_Name: Button
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -356,7 +356,6 @@ MonoBehaviour:
   flowerData: {fileID: 11400000, guid: fd6371ed5c0ea8e46b9c51866af86d0b, type: 2}
   hint: {fileID: 1862890862}
   btn: {fileID: 464470510}
-  SecondIn: 0
   hint1: 1
   hint2: 2
   finishflower1: {fileID: 11400000, guid: 199d95cfe764b63499d6c78b915a2c0f, type: 2}
@@ -1060,6 +1059,10 @@ PrefabInstance:
     - target: {fileID: 8287125269939744694, guid: f492cbc60d8cc5249939d26be37f9e8d, type: 3}
       propertyPath: m_Name
       value: hint2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8287125269939744694, guid: f492cbc60d8cc5249939d26be37f9e8d, type: 3}
+      propertyPath: m_TagString
+      value: Hint2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

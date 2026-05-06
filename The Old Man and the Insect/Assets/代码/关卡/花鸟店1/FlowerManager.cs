@@ -8,7 +8,7 @@ public class FlowerManager : MonoBehaviour
     public DialogueData flowerData;
     public Hint hint;
     public Button btn;
-    public bool SecondIn=false;
+    public static bool SecondIn=false;
     public string hint1;
     private bool canShowHint2=false;
     public string hint2;
@@ -51,7 +51,7 @@ public class FlowerManager : MonoBehaviour
         else
         {
             _instance = this;
-            DontDestroyOnLoad(gameObject); // 保证实例不会被销毁
+         
         }
     }
 
@@ -128,6 +128,10 @@ public class FlowerManager : MonoBehaviour
 
     public void setshopbtn()
     {
+        if (btn == null)
+        {
+           btn=GameObject.FindGameObjectsWithTag("Button")[0].GetComponent<Button>();
+        }
         btn.gameObject.SetActive(true);
     }
 
@@ -148,6 +152,10 @@ public class FlowerManager : MonoBehaviour
     IEnumerator showhint2()
     {
         yield return new WaitForSeconds(1f);
+        if (hint == null)
+        {
+            hint=GameObject.FindGameObjectsWithTag("Hint2")[0].GetComponent<Hint>();
+        }
         hint.ShowHint(hint2);
     }
 

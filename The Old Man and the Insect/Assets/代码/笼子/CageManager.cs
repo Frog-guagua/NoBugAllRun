@@ -103,24 +103,33 @@ public sealed class CageManager : MonoBehaviour
     public void AddInsect(InsectDataSO insectData) //这是一个重载，可以直接传so文件。
         //后续如果方便的话可能会将所有等级数据全部写成so
     {
-        InsectData data = new InsectData();
-        data.insectId = insectData.insectId;
-        data.insectAtk = insectData.insectAtk;
-        data.insectHP = insectData.insectHP;
-       data.bugType = insectData.bugType;
-        data.description = insectData.description;
-        
-        data.insectImage = insectData.insectImage;
-       data.insectLevel = insectData.insectLevel;
-        foreach (var kvp in insectInCage)
+        if (insectDataList.Count >= 8)
         {
-            if (kvp.Value.insectId == 0) // 假设 insectId 为 0 表示空格子
+            Debug.Log("虫虫装不下了");
+        }
+        else
+        {
+            InsectData data = new InsectData();
+
+            data.insectId = insectData.insectId;
+            data.insectAtk = insectData.insectAtk;
+            data.insectHP = insectData.insectHP;
+            data.bugType = insectData.bugType;
+            data.description = insectData.description;
+
+            data.insectImage = insectData.insectImage;
+            data.insectLevel = insectData.insectLevel;
+            foreach (var kvp in insectInCage)
             {
-                insectInCage[kvp.Key] = data;
-                refreshSlot(kvp.Key);
-                return;
+                if (kvp.Value.insectId == 0) // 假设 insectId 为 0 表示空格子
+                {
+                    insectInCage[kvp.Key] = data;
+                    refreshSlot(kvp.Key);
+                    return;
+                }
             }
         }
+
     }
 
     // 删除昆虫

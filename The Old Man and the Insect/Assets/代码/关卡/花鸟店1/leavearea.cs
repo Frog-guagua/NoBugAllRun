@@ -19,14 +19,18 @@ public class leavearea : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (FlowerManager.Instance.canleave)
+        if (FlowerManager.Instance.canleave&&FlowerManager.SecondIn==false)
         {   
             FlowerManager.Instance.canstartflow=true;
-            FlowerManager.Instance.SecondIn = true;
+            FlowerManager.SecondIn = true;
             FlowerManager.Instance.canleave = false;
             //临时
             Transition.Instance.SwitchSceneWithFade("BeforeFight2");
           
+        }
+        if(FlowerManager.Instance.canleave&&FlowerManager.SecondIn==true)
+        {
+            Transition.Instance.SwitchSceneWithFade("BeforeBoss");
         }
     }
 }
