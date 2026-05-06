@@ -53,7 +53,7 @@ public class BeforeBossMgr : MonoBehaviour
     public void OnClick()
     {   
         secondin = true;
-      //  Transition.Instance.SwitchSceneWithFade("");
+      Transition.Instance.SwitchSceneWithFade("FightScene3");
       btn.SetActive(false);
     }
 }
