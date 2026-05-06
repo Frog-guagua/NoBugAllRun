@@ -867,11 +867,13 @@ public class FightFlowManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         waitingBug.myBugCount = 0;              
         waitingBug.CountMyBugs();  
+        //呱：这是让F虫索敌
         yield return waitingBug.FindRival(9);
         int movedIndexF = waitingBug.lastMovedGridIndex;
         Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
         
         
+        //呱：这是让D虫索敌
         yield return waitingBug.FindRival(8);
         Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
         waitingBug.GetComponent<WaitingBug>().myBugCount = 0;
@@ -925,6 +927,7 @@ public class FightFlowManager : MonoBehaviour
       
         //呱：把E虫虫放在 第11格
         waitingBug.BugUp(3,10);
+        
         //呱：把D虫虫放在 上一个D虫虫的身后
         waitingBug.BugUp(2,movedIndexD+4);
 
@@ -977,7 +980,7 @@ public class FightFlowManager : MonoBehaviour
         movedIndexD = waitingBug.lastMovedGridIndex;
 
         int movedIndexE = 0;
-        yield return waitingBug.FindRival(movedIndexE);
+        yield return waitingBug.FindRival(10);
         Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
         waitingBug.GetComponent<WaitingBug>().myBugCount = 0;
         
@@ -1134,7 +1137,7 @@ public class FightFlowManager : MonoBehaviour
         dialogue.background.SetActive(true);
         yield return ShowDialogueHint("李大爷:老马小心！这虫儿不对劲，开始耍阴的了！");
         yield return Speak(3,"什么阴招？","这是我这虫儿斗性上来了","越斗越猛！");
-        yield return StartCoroutine(ShowHint("章节Boss特殊机制「<b><color=#335EA4>后期发力</color></b>」：\n从该回合开始，敌方场上的蛐蛐每回合+1点攻击，永久叠加 "));
+        yield return StartCoroutine(ShowHint("章节Boss特殊机制[<b><color=#335EA4>后期发力</color></b>]：\n从该回合开始，敌方场上的蛐蛐每回合+1点攻击，永久叠加 "));
         
         ReleseCage();
         
@@ -1171,24 +1174,9 @@ public class FightFlowManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         waitingBug.myBugCount = 0;              
         waitingBug.CountMyBugs();  
-        yield return waitingBug.FindRival(movedIndexF);
-        movedIndexF = waitingBug.lastMovedGridIndex;
-        Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
-        
-        
-        yield return waitingBug.FindRival(movedIndexD);
-        Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
-        waitingBug.GetComponent<WaitingBug>().myBugCount = 0;
-        
-        movedIndexD = waitingBug.lastMovedGridIndex;
-
-   
-        yield return waitingBug.FindRival(movedIndexE);
-        Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
-        waitingBug.GetComponent<WaitingBug>().myBugCount = 0;
-        
-        movedIndexE = waitingBug.lastMovedGridIndex;
-        
+        yield return waitingBug.FindRival(8);
+        yield return waitingBug.FindRival(9);
+        yield return waitingBug.FindRival(10);
         yield return waitingBug.FindRival(11);
         //呱：放大相机 聚焦在战局上面
         mainCamera.GetComponent<CameraFocus>().enabled = true;
@@ -1234,6 +1222,7 @@ public class FightFlowManager : MonoBehaviour
         while (true)
         {
             
+            
              #region 敌方虫虫增强
 
         waitingBug.HightenBugs();
@@ -1262,25 +1251,13 @@ public class FightFlowManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         waitingBug.myBugCount = 0;              
         waitingBug.CountMyBugs();  
-        yield return waitingBug.FindRival(movedIndexF);
-        movedIndexF = waitingBug.lastMovedGridIndex;
-        Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
+      
         
-        
-        yield return waitingBug.FindRival(movedIndexD);
-        Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
-        waitingBug.GetComponent<WaitingBug>().myBugCount = 0;
-        
-        movedIndexD = waitingBug.lastMovedGridIndex;
-
-   
-        yield return waitingBug.FindRival(movedIndexE);
-        Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
-        waitingBug.GetComponent<WaitingBug>().myBugCount = 0;
-        
-        movedIndexE = waitingBug.lastMovedGridIndex;
-        
+        yield return waitingBug.FindRival(8);
+        yield return waitingBug.FindRival(9);
+        yield return waitingBug.FindRival(10);
         yield return waitingBug.FindRival(11);
+        
         //呱：放大相机 聚焦在战局上面
         mainCamera.GetComponent<CameraFocus>().enabled = true;
      
@@ -1319,6 +1296,8 @@ public class FightFlowManager : MonoBehaviour
         }
 
         #endregion
+        
+       
         yield return new WaitForSeconds(1.5f);
         }
         yield return null;
