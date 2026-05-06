@@ -3599,6 +3599,7 @@ MonoBehaviour:
   GridManager: {fileID: 1753333528}
   HintManager: {fileID: 1760948600}
   EndHintManager: {fileID: 1760948600}
+  DialougeHintManager: {fileID: 18672249}
   roundManager: {fileID: 2113263972}
   WaitingBugs: {fileID: 844024316}
   fightDataManager: {fileID: 1753333529}

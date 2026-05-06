@@ -107,7 +107,7 @@ public class Draggable : MonoBehaviour
             
             //呱：调用正式对局的逻辑
             if(FightFlowManager.OnGame2)roundManager.FormolRound(nowBug);
-            
+            if(FightFlowManager.OnGame3)roundManager.FormolRound(nowBug);
            
            
             StopDrag();

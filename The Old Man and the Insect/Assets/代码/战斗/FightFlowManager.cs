@@ -41,8 +41,10 @@ public class FightFlowManager : MonoBehaviour
     private DialogueForFight dialogue;
     [SerializeField] GameObject HintManager;
     [SerializeField] GameObject EndHintManager;
+    [SerializeField] GameObject DialougeHintManager;
     private Hint hint;
     private Hint endHint;
+    private Hint dialogueHint;
     [SerializeField]RoundManager roundManager;
     [SerializeField] GameObject WaitingBugs;
     private WaitingBug waitingBug;
@@ -98,6 +100,8 @@ public class FightFlowManager : MonoBehaviour
         dialogue = DialogueManager.GetComponent<DialogueForFight>();
         hint = HintManager.GetComponent<Hint>();
         endHint = EndHintManager.GetComponent<Hint>();
+        dialogueHint = DialougeHintManager.GetComponent<Hint>();
+        
         cameraShake = mainCamera.GetComponent<CamaraShake>();
     }
 
@@ -807,6 +811,12 @@ public class FightFlowManager : MonoBehaviour
         //呱：————————————————Round1—————————————————————
         #region 旁人对话
 
+        yield return new WaitForSeconds(1.5f);
+        yield return ShowDialogueHint("窃窃私语A:又有好戏看了……");
+        yield return new WaitForSeconds(0.5f);
+        yield return ShowDialogueHint("李四爷：义父加油，咬死他的虫！");
+        yield return new WaitForSeconds(0.5f);
+        yield return ShowDialogueHint("窃窃私语B：诶？你们有没有感觉这老人瞧着有些眼熟，\n想不起来在哪见过了……");
         
 
         #endregion
@@ -907,7 +917,7 @@ public class FightFlowManager : MonoBehaviour
         }
 
         #endregion
-        
+        yield return new WaitForSeconds(1.5f);
         //呱：————————————————Round2—————————————————————
         
         #region 上虫
@@ -1010,7 +1020,7 @@ public class FightFlowManager : MonoBehaviour
         }
 
         #endregion
-        
+        yield return new WaitForSeconds(1.5f);
         //呱：————————————————Round3—————————————————————
         
         #region 上虫
@@ -1115,13 +1125,14 @@ public class FightFlowManager : MonoBehaviour
         }
 
         #endregion
-        
+        yield return new WaitForSeconds(1.5f);
         //呱：————————————————Round4—————————————————————
         
         #region 对话
 
         yield return new WaitForSeconds(fadeTime);
         dialogue.background.SetActive(true);
+        yield return ShowDialogueHint("李大爷:老马小心！这虫儿不对劲，开始耍阴的了！");
         yield return Speak(3,"什么阴招？","这是我这虫儿斗性上来了","越斗越猛！");
         yield return StartCoroutine(ShowHint("章节Boss特殊机制「<b><color=#335EA4>后期发力</color></b>」：\n从该回合开始，敌方场上的蛐蛐每回合+1点攻击，永久叠加 "));
         
@@ -1217,7 +1228,7 @@ public class FightFlowManager : MonoBehaviour
         }
 
         #endregion
-        
+        yield return new WaitForSeconds(1.5f);
         //呱：————————————————Round ? —————————————————————
 
         while (true)
@@ -1308,6 +1319,7 @@ public class FightFlowManager : MonoBehaviour
         }
 
         #endregion
+        yield return new WaitForSeconds(1.5f);
         }
         yield return null;
     }
@@ -1359,7 +1371,14 @@ public class FightFlowManager : MonoBehaviour
     {
         AudioMgr.Instance.PlaySFX(hintEffect);
         endHint.ShowHint(hintContent);
-        yield return hint.WaitForClose();
+        yield return endHint.WaitForClose();
+    }
+
+    public IEnumerator ShowDialogueHint(string dialogueContent)
+    {
+        AudioMgr.Instance.PlaySFX(hintEffect);
+        dialogueHint.ShowHint(dialogueContent);
+        yield return  dialogueHint.WaitForClose();
     }
 
     

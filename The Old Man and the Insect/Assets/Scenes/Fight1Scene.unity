@@ -834,6 +834,7 @@ MonoBehaviour:
   GridManager: {fileID: 1177911834}
   HintManager: {fileID: 147952369}
   EndHintManager: {fileID: 1673305440}
+  DialougeHintManager: {fileID: 312580207}
   roundManager: {fileID: 1833460377}
   WaitingBugs: {fileID: 898175936}
   fightDataManager: {fileID: 1117266356}
@@ -1784,7 +1785,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38ef98215cca8a40a3eaefdb91f9187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  insectId: 2
   insectHP: 2
   insectAtk: 2
   insectLevel: 1
@@ -1815,7 +1815,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38ef98215cca8a40a3eaefdb91f9187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  insectId: 1
   insectHP: 2
   insectAtk: 1
   insectLevel: 1
@@ -2839,7 +2838,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38ef98215cca8a40a3eaefdb91f9187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  insectId: 1
   insectHP: 2
   insectAtk: 1
   insectLevel: 1
@@ -6677,7 +6675,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38ef98215cca8a40a3eaefdb91f9187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  insectId: 1
   insectHP: 2
   insectAtk: 1
   insectLevel: 1
@@ -9416,7 +9413,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38ef98215cca8a40a3eaefdb91f9187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  insectId: 1
   insectHP: 2
   insectAtk: 2
   insectLevel: 1
@@ -10526,7 +10522,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38ef98215cca8a40a3eaefdb91f9187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  insectId: 2
   insectHP: 2
   insectAtk: 2
   insectLevel: 1
