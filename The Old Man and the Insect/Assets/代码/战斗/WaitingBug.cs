@@ -125,6 +125,23 @@ public class WaitingBug : MonoBehaviour
             }
         }
     }
+
+
+    //呱：这是专门写给boss战的 敌方虫虫增强的函数
+    public void HightenBugs()
+    {
+        for (int i = 8; i < 16; i++)
+        {
+            if (GridManager.Grids[i].bugOnGrid != null)
+            {
+                GameObject temp = GridManager.Grids[i].bugOnGrid;
+                temp.transform.GetComponentInParent<InsectData>().insectAtk += 1;
+                StartCoroutine(Shake(0.5f, 0.25f, temp));
+                UpdateBugUI(temp.transform.GetComponentInParent<InsectData>());
+                
+            }
+        }
+    }
     
     
     
@@ -304,6 +321,26 @@ public IEnumerator FindRival(int GridIndex)
         }
   
         WaitingBugs[bugIndex].transform.localPosition = originalPos;
+       
+       
+    }
+     IEnumerator Shake(float duration, float strength,GameObject bug)
+    {
+        float timeCount = 0.0f;
+        Vector3 originalPos = bug.transform.position;
+        while (timeCount < duration)
+        {
+
+            
+            //呱：古法抖动 还得是随机数
+            float x = Random.Range(-1f, 1f) * strength;
+            float y = Random.Range(-1f, 1f) * strength;
+          bug.transform.localPosition = originalPos + new Vector3(x, y, 0);
+            timeCount += Time.deltaTime;
+            yield return null;
+        }
+  
+        bug.transform.localPosition = originalPos;
        
        
     }

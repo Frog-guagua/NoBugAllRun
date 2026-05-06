@@ -1118,8 +1118,197 @@ public class FightFlowManager : MonoBehaviour
         
         //呱：————————————————Round4—————————————————————
         
+        #region 对话
+
+        yield return new WaitForSeconds(fadeTime);
+        dialogue.background.SetActive(true);
+        yield return Speak(3,"什么阴招？","这是我这虫儿斗性上来了","越斗越猛！");
+        yield return StartCoroutine(ShowHint("章节Boss特殊机制「<b><color=#335EA4>后期发力</color></b>」：\n从该回合开始，敌方场上的蛐蛐每回合+1点攻击，永久叠加 "));
+        
+        ReleseCage();
+        
+        AbacusAnim.Finsined = false;
+        temp = FightDataManager.ActionPoints;
+        yield return new WaitUntil(() =>FightDataManager.ActionPoints!=temp);
+        #endregion
+
+        #region 敌方虫虫增强
+
+        waitingBug.HightenBugs();
+        yield return new WaitForSeconds(1f);
+
+        #endregion
+        
+        #region 结算
+        
+        abacus.GetComponent<Collider2D>().enabled = true;  
+        while (!AbacusAnim.Finsined)
+        {
+            if (FightDataManager.ActionPoints == 0)
+            {
+                BanCage();
+            }
+        
+            yield return new WaitForSeconds(1.5f);
+            
+        }
         
         
+        yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
+        yield return new WaitForSeconds(0.3f);
+        waitingBug.CountMyBugs();
+        yield return new WaitForSeconds(0.1f);
+        waitingBug.myBugCount = 0;              
+        waitingBug.CountMyBugs();  
+        yield return waitingBug.FindRival(movedIndexF);
+        movedIndexF = waitingBug.lastMovedGridIndex;
+        Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
+        
+        
+        yield return waitingBug.FindRival(movedIndexD);
+        Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
+        waitingBug.GetComponent<WaitingBug>().myBugCount = 0;
+        
+        movedIndexD = waitingBug.lastMovedGridIndex;
+
+   
+        yield return waitingBug.FindRival(movedIndexE);
+        Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
+        waitingBug.GetComponent<WaitingBug>().myBugCount = 0;
+        
+        movedIndexE = waitingBug.lastMovedGridIndex;
+        
+        yield return waitingBug.FindRival(11);
+        //呱：放大相机 聚焦在战局上面
+        mainCamera.GetComponent<CameraFocus>().enabled = true;
+     
+        abacus.GetComponent<Collider2D>().enabled = false;
+        
+        cameraFocus.LetCameraFocus();
+        
+        AudioMgr.Instance.PlaySFX(FightEffect);
+        yield return GetComponent<BattleResover>().BattleResolve();
+        AbacusAnim.Finsined = false;
+        if (!DataBroker.WinGame2&&GetComponent<BattleResover>().Nobug)
+        {
+            GetComponent<BattleResover>().Nobug = false;
+            DataBroker.WinGame3= false;
+            DataBroker.reputation = 0;
+            yield return ShowHint("战斗失败");
+            yield return ShowHint("声誉值<b><color=#335EA4>清零</color></b>");
+            cameraFocus.LetCameraFocus();
+            yield return new WaitForSeconds(1.5f);
+            OnGame3 = false;
+            FightDataManager.DeliverData();
+            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
+        }
+        else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
+        {
+            GetComponent<BattleResover>().Nobug = false;
+            DataBroker.WinGame3= true;
+            DataBroker.experience += 10;
+            yield return ShowHint("战斗胜利");
+            yield return ShowHint("经验值增加<b><color=#335EA4>10</color></b>点");
+            cameraFocus.LetCameraFocus();
+            yield return new WaitForSeconds(1.5f);
+            OnGame3 = false;
+            FightDataManager.DeliverData();
+            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
+        }
+
+        #endregion
+        
+        //呱：————————————————Round ? —————————————————————
+
+        while (true)
+        {
+            
+             #region 敌方虫虫增强
+
+        waitingBug.HightenBugs();
+        yield return new WaitForSeconds(1f);
+
+        #endregion
+        
+             #region 结算
+        
+        abacus.GetComponent<Collider2D>().enabled = true;  
+        while (!AbacusAnim.Finsined)
+        {
+            if (FightDataManager.ActionPoints == 0)
+            {
+                BanCage();
+            }
+        
+            yield return new WaitForSeconds(1.5f);
+            
+        }
+        
+        
+        yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
+        yield return new WaitForSeconds(0.3f);
+        waitingBug.CountMyBugs();
+        yield return new WaitForSeconds(0.1f);
+        waitingBug.myBugCount = 0;              
+        waitingBug.CountMyBugs();  
+        yield return waitingBug.FindRival(movedIndexF);
+        movedIndexF = waitingBug.lastMovedGridIndex;
+        Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
+        
+        
+        yield return waitingBug.FindRival(movedIndexD);
+        Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
+        waitingBug.GetComponent<WaitingBug>().myBugCount = 0;
+        
+        movedIndexD = waitingBug.lastMovedGridIndex;
+
+   
+        yield return waitingBug.FindRival(movedIndexE);
+        Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
+        waitingBug.GetComponent<WaitingBug>().myBugCount = 0;
+        
+        movedIndexE = waitingBug.lastMovedGridIndex;
+        
+        yield return waitingBug.FindRival(11);
+        //呱：放大相机 聚焦在战局上面
+        mainCamera.GetComponent<CameraFocus>().enabled = true;
+     
+        abacus.GetComponent<Collider2D>().enabled = false;
+        
+        cameraFocus.LetCameraFocus();
+        
+        AudioMgr.Instance.PlaySFX(FightEffect);
+        yield return GetComponent<BattleResover>().BattleResolve();
+        AbacusAnim.Finsined = false;
+        if (!DataBroker.WinGame2&&GetComponent<BattleResover>().Nobug)
+        {
+            GetComponent<BattleResover>().Nobug = false;
+            DataBroker.WinGame3= false;
+            DataBroker.reputation = 0;
+            yield return ShowHint("战斗失败");
+            yield return ShowHint("声誉值<b><color=#335EA4>清零</color></b>");
+            cameraFocus.LetCameraFocus();
+            yield return new WaitForSeconds(1.5f);
+            OnGame3 = false;
+            FightDataManager.DeliverData();
+            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
+        }
+        else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
+        {
+            GetComponent<BattleResover>().Nobug = false;
+            DataBroker.WinGame3= true;
+            DataBroker.experience += 10;
+            yield return ShowHint("战斗胜利");
+            yield return ShowHint("经验值增加<b><color=#335EA4>10</color></b>点");
+            cameraFocus.LetCameraFocus();
+            yield return new WaitForSeconds(1.5f);
+            OnGame3 = false;
+            FightDataManager.DeliverData();
+            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
+        }
+
+        #endregion
+        }
         yield return null;
     }
 

@@ -46,7 +46,7 @@ public class FightDataManager : MonoBehaviour
     //呱： 这个用来 根据传入的虫虫数据 来自动生成虫虫
     public void TestBug()
     {
-        List<InsectData> tempBugs = new List<InsectData>(7); 
+        List<InsectData> tempBugs = new List<InsectData>(8); 
         Random random = new Random();
 
         for (int i = 0; i < 8; i++)
