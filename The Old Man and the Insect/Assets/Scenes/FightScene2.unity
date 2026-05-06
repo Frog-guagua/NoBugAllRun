@@ -578,7 +578,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38ef98215cca8a40a3eaefdb91f9187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  insectId: 2
   insectHP: 2
   insectAtk: 1
   insectLevel: 1
@@ -2889,7 +2888,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38ef98215cca8a40a3eaefdb91f9187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  insectId: 2
   insectHP: 2
   insectAtk: 1
   insectLevel: 1
@@ -3552,7 +3550,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38ef98215cca8a40a3eaefdb91f9187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  insectId: 2
   insectHP: 2
   insectAtk: 1
   insectLevel: 1
@@ -3877,7 +3874,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38ef98215cca8a40a3eaefdb91f9187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  insectId: 1
   insectHP: 2
   insectAtk: 1
   insectLevel: 1
@@ -14842,7 +14838,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38ef98215cca8a40a3eaefdb91f9187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  insectId: 2
   insectHP: 2
   insectAtk: 1
   insectLevel: 1
@@ -15444,7 +15439,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38ef98215cca8a40a3eaefdb91f9187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  insectId: 1
   insectHP: 2
   insectAtk: 1
   insectLevel: 1
@@ -15604,7 +15598,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38ef98215cca8a40a3eaefdb91f9187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  insectId: 1
   insectHP: 2
   insectAtk: 1
   insectLevel: 1

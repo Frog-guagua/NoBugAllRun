@@ -40,7 +40,7 @@ public class FightDataManager : MonoBehaviour
     
     public static int ActionPoints = DataBroker.actionValue;
 
-
+    private static List<InsectData> DeliverBugs = new List<InsectData>();
     
     
     //呱： 这个用来 根据传入的虫虫数据 来自动生成虫虫
@@ -118,12 +118,18 @@ public class FightDataManager : MonoBehaviour
         }
 
         //DataBroker.Instance.give_datasFromCage(tempBugs);
-        InitMyBugsFromData(DataBroker.Instance.datasFromCage);
+        //InitMyBugsFromData(DataBroker.Instance.datasFromCage);
+        InitMyBugsFromData(tempBugs);
     }
 
     public void InitMyBugsFromData(List<InsectData> experimentData)
     {
-       
+        for (int i = 0; i < experimentData.Count; i++)
+        {
+            Debug.Log(experimentData.Count);
+            DeliverBugs.Add(experimentData[i]);
+        }
+
         Debug.Log("——准备初始化虫虫——");
         for (int i = 0; i < experimentData.Count; i++)
         {
@@ -251,8 +257,11 @@ public class FightDataManager : MonoBehaviour
         //呱：给小鼠老大传虫虫
         DataBroker.Instance.give_datasFromFight(PostFightBugs);
     }
-    
-    
+
+    public static  void DeliverData()
+    {
+        DataBroker.Instance.give_datasFromFight(DeliverBugs);
+    }
 
     
     public void UpdateFightBugAtIndex(int index, InsectData bug)
@@ -347,6 +356,16 @@ public class FightDataManager : MonoBehaviour
             SetEnemyBugs(copy);
            
             InitMyBugsFromData(DataBroker.Instance.datasFromCage);
+        }
+        
+        if (FightFlowManager.OnGame3)
+        {
+            List<InsectData> copy = new List<InsectData>(enemyBugs);
+            SetEnemyBugs(copy);
+           
+            //呱：实验用数据
+            TestBug();
+            //InitMyBugsFromData(DataBroker.Instance.datasFromCage);
         }
         
     }
