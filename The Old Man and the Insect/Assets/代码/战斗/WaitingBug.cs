@@ -60,7 +60,7 @@ public class WaitingBug : MonoBehaviour
                     //呱：放置在 前排的位置上
                     WaitingBugs[BugIndex].transform.position = GridManager.Grids[realIndex].matchedPos+offset;
                     GridManager.Grids[realIndex].isOccupied = true;
-                    GridManager.Grids[GridIndex].bugOnGrid = WaitingBugs[BugIndex];
+                    GridManager.Grids[realIndex].bugOnGrid = WaitingBugs[BugIndex];
                     Debug.Log($"把{WaitingBugs[BugIndex].name}放在了{realIndex}上");
                 }
                 //呱：如果前方有虫 
@@ -177,6 +177,7 @@ public IEnumerator FindRival(int GridIndex)
             myBugCount--;
             lastMovedGridIndex = GridIndex;
             Debug.Log($"FindRival: 找到正前方敌人，格子 {forwardIndex}");
+           
             yield break;
         }
     }
@@ -189,6 +190,7 @@ public IEnumerator FindRival(int GridIndex)
         int frontIndex = i + 4;
         if (frontIndex < GridManager.Grids.Length && GridManager.Grids[frontIndex].bugOnGrid == null)
         {
+            Debug.Log("成功索敌");
             myBugCount--;
             lastMovedGridIndex = frontIndex;
             targetGridIndex = frontIndex;

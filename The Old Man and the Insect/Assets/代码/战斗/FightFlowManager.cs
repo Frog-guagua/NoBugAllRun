@@ -870,6 +870,8 @@ public class FightFlowManager : MonoBehaviour
         //呱：这是让F虫索敌
         yield return waitingBug.FindRival(9);
         int movedIndexF = waitingBug.lastMovedGridIndex;
+        
+        Debug.Log($"这是第一回合：F虫在索敌后的位置为：{movedIndexF}");
         Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
         
         
@@ -879,7 +881,7 @@ public class FightFlowManager : MonoBehaviour
         waitingBug.GetComponent<WaitingBug>().myBugCount = 0;
         
         int movedIndexD = waitingBug.lastMovedGridIndex;
-        
+        Debug.Log($"这是第一回合：D虫在索敌后的位置为：{movedIndexD}");
         
         //呱：放大相机 聚焦在战局上面
         mainCamera.GetComponent<CameraFocus>().enabled = true;
@@ -891,35 +893,12 @@ public class FightFlowManager : MonoBehaviour
         AudioMgr.Instance.PlaySFX(FightEffect);
         yield return GetComponent<BattleResover>().BattleResolve();
         AbacusAnim.Finsined = false;
-        if (!DataBroker.WinGame2&&GetComponent<BattleResover>().Nobug)
-        {
-            GetComponent<BattleResover>().Nobug = false;
-            DataBroker.WinGame3= false;
-            DataBroker.reputation = 0;
-            yield return ShowHint("战斗失败");
-            yield return ShowHint("声誉值<b><color=#335EA4>清零</color></b>");
-            cameraFocus.LetCameraFocus();
-            yield return new WaitForSeconds(1.5f);
-            OnGame3 = false;
-            FightDataManager.DeliverData();
-            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
-        }
-        else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
-        {
-            GetComponent<BattleResover>().Nobug = false;
-            DataBroker.WinGame3= true;
-            DataBroker.experience += 10;
-            yield return ShowHint("战斗胜利");
-            yield return ShowHint("经验值增加<b><color=#335EA4>10</color></b>点");
-            cameraFocus.LetCameraFocus();
-            yield return new WaitForSeconds(1.5f);
-            OnGame3 = false;
-            FightDataManager.DeliverData();
-            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
-        }
-
+       
         #endregion
+       
         yield return new WaitForSeconds(1.5f);
+        FightDataManager.ActionPoints = DataBroker.actionValue;
+        actionPoint.UpdatePoints(FightDataManager.ActionPoints);;
         //呱：————————————————Round2—————————————————————
         
         #region 上虫
@@ -943,13 +922,19 @@ public class FightFlowManager : MonoBehaviour
         ReleseCage();
         
         AbacusAnim.Finsined = false;
-        temp = FightDataManager.ActionPoints;
-        yield return new WaitUntil(() =>FightDataManager.ActionPoints!=temp);
+        
+        Debug.Log("卡在这儿！");
+        
+        Debug.Log("五");
         #endregion
         
         #region 结算
         
-        abacus.GetComponent<Collider2D>().enabled = true;  
+        AbacusAnim.Finsined = false;
+       
+        abacus.GetComponent<Collider2D>().enabled = true;
+        yield return new WaitUntil(() => AbacusAnim.Finsined == true);
+        Debug.Log("——————————算盘自由！————————");
         while (!AbacusAnim.Finsined)
         {
             if (FightDataManager.ActionPoints == 0)
@@ -969,22 +954,28 @@ public class FightFlowManager : MonoBehaviour
         waitingBug.myBugCount = 0;              
         waitingBug.CountMyBugs();  
         yield return waitingBug.FindRival(movedIndexF);
-        movedIndexF = waitingBug.lastMovedGridIndex;
-        Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
         
+        movedIndexF = waitingBug.lastMovedGridIndex;
+        Debug.Log($"这是第二回合：F虫在索敌后的位置为：{movedIndexF}");
+  
+        int movedIndexE = 0;
+        yield return waitingBug.FindRival(10);
+     
+        waitingBug.GetComponent<WaitingBug>().myBugCount = 0;
+        
+        
+        movedIndexE = waitingBug.lastMovedGridIndex;
+        Debug.Log($"这是第二回合：E虫在索敌后的位置为：{movedIndexE}");
         
         yield return waitingBug.FindRival(movedIndexD);
-        Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
+     
         waitingBug.GetComponent<WaitingBug>().myBugCount = 0;
         
         movedIndexD = waitingBug.lastMovedGridIndex;
+        Debug.Log($"这是第二回合：D虫在索敌后的位置为：{movedIndexD}");
 
-        int movedIndexE = 0;
-        yield return waitingBug.FindRival(10);
-        Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
-        waitingBug.GetComponent<WaitingBug>().myBugCount = 0;
         
-        movedIndexE = waitingBug.lastMovedGridIndex;
+        
         //呱：放大相机 聚焦在战局上面
         mainCamera.GetComponent<CameraFocus>().enabled = true;
      
@@ -995,35 +986,13 @@ public class FightFlowManager : MonoBehaviour
         AudioMgr.Instance.PlaySFX(FightEffect);
         yield return GetComponent<BattleResover>().BattleResolve();
         AbacusAnim.Finsined = false;
-        if (!DataBroker.WinGame2&&GetComponent<BattleResover>().Nobug)
-        {
-            GetComponent<BattleResover>().Nobug = false;
-            DataBroker.WinGame3= false;
-            DataBroker.reputation = 0;
-            yield return ShowHint("战斗失败");
-            yield return ShowHint("声誉值<b><color=#335EA4>清零</color></b>");
-            cameraFocus.LetCameraFocus();
-            yield return new WaitForSeconds(1.5f);
-            OnGame3 = false;
-            FightDataManager.DeliverData();
-            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
-        }
-        else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
-        {
-            GetComponent<BattleResover>().Nobug = false;
-            DataBroker.WinGame3= true;
-            DataBroker.experience += 10;
-            yield return ShowHint("战斗胜利");
-            yield return ShowHint("经验值增加<b><color=#335EA4>10</color></b>点");
-            cameraFocus.LetCameraFocus();
-            yield return new WaitForSeconds(1.5f);
-            OnGame3 = false;
-            FightDataManager.DeliverData();
-            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
-        }
+        
 
         #endregion
+       
         yield return new WaitForSeconds(1.5f);
+        FightDataManager.ActionPoints = DataBroker.actionValue;
+        actionPoint.UpdatePoints(FightDataManager.ActionPoints);;
         //呱：————————————————Round3—————————————————————
         
         #region 上虫
@@ -1046,13 +1015,13 @@ public class FightFlowManager : MonoBehaviour
         ReleseCage();
         
         AbacusAnim.Finsined = false;
-        temp = FightDataManager.ActionPoints;
-        yield return new WaitUntil(() =>FightDataManager.ActionPoints!=temp);
+
         #endregion
         
         #region 结算
         
         abacus.GetComponent<Collider2D>().enabled = true;  
+        yield return new WaitUntil(() => AbacusAnim.Finsined == true);
         while (!AbacusAnim.Finsined)
         {
             if (FightDataManager.ActionPoints == 0)
@@ -1071,6 +1040,8 @@ public class FightFlowManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         waitingBug.myBugCount = 0;              
         waitingBug.CountMyBugs();  
+        
+        yield return waitingBug.FindRival(11);
         yield return waitingBug.FindRival(movedIndexF);
         movedIndexF = waitingBug.lastMovedGridIndex;
         Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
@@ -1089,7 +1060,8 @@ public class FightFlowManager : MonoBehaviour
         
         movedIndexE = waitingBug.lastMovedGridIndex;
         
-        yield return waitingBug.FindRival(11);
+        
+       
         //呱：放大相机 聚焦在战局上面
         mainCamera.GetComponent<CameraFocus>().enabled = true;
      
@@ -1111,6 +1083,7 @@ public class FightFlowManager : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
             OnGame3 = false;
             FightDataManager.DeliverData();
+            StopFightBGM();
             Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
         else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
@@ -1124,11 +1097,15 @@ public class FightFlowManager : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
             OnGame3 = false;
             FightDataManager.DeliverData();
+            StopFightBGM();
             Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
 
         #endregion
+        
         yield return new WaitForSeconds(1.5f);
+        FightDataManager.ActionPoints = DataBroker.actionValue;
+        actionPoint.UpdatePoints(FightDataManager.ActionPoints);;
         //呱：————————————————Round4—————————————————————
         
         #region 对话
@@ -1142,8 +1119,7 @@ public class FightFlowManager : MonoBehaviour
         ReleseCage();
         
         AbacusAnim.Finsined = false;
-        temp = FightDataManager.ActionPoints;
-        yield return new WaitUntil(() =>FightDataManager.ActionPoints!=temp);
+        
         #endregion
 
         #region 敌方虫虫增强
@@ -1156,6 +1132,7 @@ public class FightFlowManager : MonoBehaviour
         #region 结算
         
         abacus.GetComponent<Collider2D>().enabled = true;  
+        yield return new WaitUntil(() => AbacusAnim.Finsined == true);
         while (!AbacusAnim.Finsined)
         {
             if (FightDataManager.ActionPoints == 0)
@@ -1174,10 +1151,13 @@ public class FightFlowManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         waitingBug.myBugCount = 0;              
         waitingBug.CountMyBugs();  
-        yield return waitingBug.FindRival(8);
-        yield return waitingBug.FindRival(9);
-        yield return waitingBug.FindRival(10);
         yield return waitingBug.FindRival(11);
+        yield return waitingBug.FindRival(10);
+        yield return waitingBug.FindRival(9);
+        yield return waitingBug.FindRival(8);
+       
+        
+        
         //呱：放大相机 聚焦在战局上面
         mainCamera.GetComponent<CameraFocus>().enabled = true;
      
@@ -1199,6 +1179,7 @@ public class FightFlowManager : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
             OnGame3 = false;
             FightDataManager.DeliverData();
+            StopFightBGM();
             Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
         else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
@@ -1212,11 +1193,15 @@ public class FightFlowManager : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
             OnGame3 = false;
             FightDataManager.DeliverData();
+            StopFightBGM();
             Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
 
         #endregion
+    
         yield return new WaitForSeconds(1.5f);
+        FightDataManager.ActionPoints = DataBroker.actionValue;
+        actionPoint.UpdatePoints(FightDataManager.ActionPoints);;
         //呱：————————————————Round ? —————————————————————
 
         while (true)
@@ -1233,6 +1218,7 @@ public class FightFlowManager : MonoBehaviour
              #region 结算
         
         abacus.GetComponent<Collider2D>().enabled = true;  
+        yield return new WaitUntil(() => AbacusAnim.Finsined == true);
         while (!AbacusAnim.Finsined)
         {
             if (FightDataManager.ActionPoints == 0)
@@ -1253,10 +1239,11 @@ public class FightFlowManager : MonoBehaviour
         waitingBug.CountMyBugs();  
       
         
-        yield return waitingBug.FindRival(8);
-        yield return waitingBug.FindRival(9);
-        yield return waitingBug.FindRival(10);
         yield return waitingBug.FindRival(11);
+        yield return waitingBug.FindRival(10);
+        yield return waitingBug.FindRival(9);
+        yield return waitingBug.FindRival(8);
+
         
         //呱：放大相机 聚焦在战局上面
         mainCamera.GetComponent<CameraFocus>().enabled = true;
@@ -1279,6 +1266,7 @@ public class FightFlowManager : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
             OnGame3 = false;
             FightDataManager.DeliverData();
+            StopFightBGM();
             Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
         else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
@@ -1292,13 +1280,17 @@ public class FightFlowManager : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
             OnGame3 = false;
             FightDataManager.DeliverData();
+            StopFightBGM();
             Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
 
         #endregion
         
        
+        
         yield return new WaitForSeconds(1.5f);
+        FightDataManager.ActionPoints = DataBroker.actionValue;
+        actionPoint.UpdatePoints(FightDataManager.ActionPoints);;
         }
         yield return null;
     }
