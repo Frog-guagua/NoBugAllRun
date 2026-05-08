@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/PersistantScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
+    path: Assets/Scenes/BeforeStart.unity
+    guid: db7a9437c02d153458bfa70602990a36
+  - enabled: 1
     path: Assets/Scenes/StartMenu.unity
     guid: f741b15b910f7b94981687a0157f2de0
   - enabled: 1
