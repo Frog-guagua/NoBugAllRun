@@ -142,8 +142,32 @@ public class WaitingBug : MonoBehaviour
             }
         }
     }
-    
-    
+
+
+    public void CheckBugOnWhichGrid()
+    {
+        for (int i = 8; i < 16; i++)
+        {
+            if(GridManager.Grids[i].bugOnGrid == null) continue;
+            
+            Debug.Log(GridManager.Grids[i].bugOnGrid.name + "在"+$"第{i+1}格上");
+        }
+    }
+
+    public int FindE()
+    {
+        for (int i = 8; i < 16; i++)
+        {
+            if(GridManager.Grids[i].bugOnGrid == null) continue;
+
+            if (GridManager.Grids[i].bugOnGrid.name == "E")
+            {
+                return i;
+            }
+        }
+
+        return 10;
+    }
     
 public IEnumerator FindRival(int GridIndex)
 {
@@ -167,11 +191,12 @@ public IEnumerator FindRival(int GridIndex)
 
 
 
-    // 1. 检查正前方（同一列，向下 +4）是否有我方虫子
+    // 1. 检查正前方（同一列，向下 -4）是否有我方虫子
     int forwardIndex = GridIndex - 4;
     if (forwardIndex < GridManager.Grids.Length)
     {
         GameObject targetBug = GridManager.Grids[forwardIndex].bugOnGrid;
+        
         if (targetBug != null)
         {
             myBugCount--;

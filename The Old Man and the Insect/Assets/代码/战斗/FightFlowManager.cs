@@ -899,6 +899,9 @@ public class FightFlowManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         FightDataManager.ActionPoints = DataBroker.actionValue;
         actionPoint.UpdatePoints(FightDataManager.ActionPoints);;
+        
+        waitingBug.CheckBugOnWhichGrid();
+        
         //呱：————————————————Round2—————————————————————
         
         #region 上虫
@@ -909,6 +912,9 @@ public class FightFlowManager : MonoBehaviour
         
         //呱：把D虫虫放在 上一个D虫虫的身后
         waitingBug.BugUp(2,movedIndexD+4);
+        Debug.Log("____________Round2_____________");
+        waitingBug.CheckBugOnWhichGrid();
+        Debug.Log("_________________________");
 
         #endregion
         
@@ -993,6 +999,7 @@ public class FightFlowManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         FightDataManager.ActionPoints = DataBroker.actionValue;
         actionPoint.UpdatePoints(FightDataManager.ActionPoints);;
+        waitingBug.CheckBugOnWhichGrid();
         //呱：————————————————Round3—————————————————————
         
         #region 上虫
@@ -1001,8 +1008,10 @@ public class FightFlowManager : MonoBehaviour
         //呱：把A虫虫放在 第12格
         waitingBug.BugUp(5,11);
         //呱：把E虫虫放在 上一个E虫虫的身后
-        waitingBug.BugUp(4,movedIndexE+4);
-
+        waitingBug.BugUp(4,waitingBug.FindE()+4);
+        Debug.Log("____________Round3_____________");
+        waitingBug.CheckBugOnWhichGrid();
+        Debug.Log("_________________________");
         #endregion
         
         #region 对话
@@ -1049,14 +1058,14 @@ public class FightFlowManager : MonoBehaviour
         
         yield return waitingBug.FindRival(movedIndexD);
         Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
-        waitingBug.GetComponent<WaitingBug>().myBugCount = 0;
+       
         
         movedIndexD = waitingBug.lastMovedGridIndex;
 
    
         yield return waitingBug.FindRival(movedIndexE);
         Debug.Log( waitingBug.GetComponent<WaitingBug>().myBugCount);
-        waitingBug.GetComponent<WaitingBug>().myBugCount = 0;
+        
         
         movedIndexE = waitingBug.lastMovedGridIndex;
         
@@ -1106,6 +1115,9 @@ public class FightFlowManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         FightDataManager.ActionPoints = DataBroker.actionValue;
         actionPoint.UpdatePoints(FightDataManager.ActionPoints);;
+        Debug.Log("_________________________");
+        waitingBug.CheckBugOnWhichGrid();
+        Debug.Log("_________________________");
         //呱：————————————————Round4—————————————————————
         
         #region 对话
@@ -1151,10 +1163,14 @@ public class FightFlowManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         waitingBug.myBugCount = 0;              
         waitingBug.CountMyBugs();  
+        yield return waitingBug.FindRival(movedIndexE);
+        yield return waitingBug.FindRival(movedIndexD);
+        yield return waitingBug.FindRival(movedIndexF);
+        yield return waitingBug.FindRival(8);
         yield return waitingBug.FindRival(11);
         yield return waitingBug.FindRival(10);
         yield return waitingBug.FindRival(9);
-        yield return waitingBug.FindRival(8);
+   
        
         
         
