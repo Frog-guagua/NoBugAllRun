@@ -58,7 +58,7 @@ public class CatchingManager : MonoBehaviour
     public List<GameObject> data2 = new List<GameObject>();
     public Button switchcase;
 
-    private static int time = 0;
+    
     // 确保场景中只有一个 CatchingManager 实例
     private void Awake()
     {
@@ -85,7 +85,7 @@ public class CatchingManager : MonoBehaviour
         doUpdate = true;
 
         // 根据 time 值决定生成 data1 还是 data2
-        List<GameObject> dataList = time == 0 ? data1 : data2;
+        List<GameObject> dataList = DataBroker.catchTime == 0 ? data1 : data2;
 
         // 确保 pos 有足够的位置来放置数据
         int count = Mathf.Min(dataList.Count, pos.Count);
@@ -119,7 +119,7 @@ public class CatchingManager : MonoBehaviour
             
         }
 
-        time++;
+        
     }
 
     // Update is called once per frame
@@ -149,13 +149,13 @@ public class CatchingManager : MonoBehaviour
             }
         }
 
-        if (SuccessCount >= 3&&time==1)
+        if (SuccessCount >= 3&&DataBroker.catchTime==1)
         {
             switchcase.gameObject.SetActive(true);
             cancontinue=false;
         }
 
-        if (SuccessCount >= 4 && time > 1)
+        if (SuccessCount >= 4 && DataBroker.catchTime > 1)
         {
             switchcase.gameObject.SetActive(true);
             cancontinue=false;

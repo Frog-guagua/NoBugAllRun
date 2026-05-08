@@ -1084,7 +1084,7 @@ public class FightFlowManager : MonoBehaviour
             OnGame3 = false;
             FightDataManager.DeliverData();
             StopFightBGM();
-            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
+            Transition.Instance.SwitchSceneWithFade("BeforeBoss");
         }
         else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
         {
@@ -1098,7 +1098,7 @@ public class FightFlowManager : MonoBehaviour
             OnGame3 = false;
             FightDataManager.DeliverData();
             StopFightBGM();
-            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
+            Transition.Instance.SwitchSceneWithFade("BeforeBoss");
         }
 
         #endregion
@@ -1267,7 +1267,7 @@ public class FightFlowManager : MonoBehaviour
             OnGame3 = false;
             FightDataManager.DeliverData();
             StopFightBGM();
-            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
+            Transition.Instance.SwitchSceneWithFade("BeforeBoss");
         }
         else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
         {
@@ -1281,7 +1281,7 @@ public class FightFlowManager : MonoBehaviour
             OnGame3 = false;
             FightDataManager.DeliverData();
             StopFightBGM();
-            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
+            Transition.Instance.SwitchSceneWithFade("BeforeBoss");
         }
 
         #endregion

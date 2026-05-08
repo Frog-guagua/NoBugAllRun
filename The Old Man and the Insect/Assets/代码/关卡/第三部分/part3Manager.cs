@@ -16,7 +16,7 @@ public class part3Manager : MonoBehaviour
     public Vector2 leftAndDown_DoorRange;
     public Vector2 rightAndUp_DoorRange;
     private bool isswitch=false;
-
+    public DialogueData Data;
    private static int getInHutong1Count = 1;
     // Start is called before the first frame update
     void Start()
@@ -27,6 +27,7 @@ public class part3Manager : MonoBehaviour
         {
             Debug.Log("对话与动画");
             Debug.Log(DataBroker.Instance.datasFromFight.Count);
+            DialogueManager.Instance.StartDialogue(Data);
             for (int i = 0; i < DataBroker.Instance.datasFromFight.Count; i++)
             {
                 Debug.Log("当前种类"+DataBroker.Instance.datasFromFight[i].bugType);

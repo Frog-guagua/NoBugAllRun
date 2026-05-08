@@ -750,6 +750,7 @@ MonoBehaviour:
   btn: {fileID: 1944758384}
   leftAndDown_DoorRange: {x: -0.39, y: 3.86}
   rightAndUp_DoorRange: {x: 1.71, y: 5.16}
+  Data: {fileID: 11400000, guid: 39b1f37cf148c564f901d7b5d0d2f524, type: 2}
 --- !u!212 &1779481767
 SpriteRenderer:
   m_ObjectHideFlags: 0

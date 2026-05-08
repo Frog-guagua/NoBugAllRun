@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: "\u82B1\u9E1F\u5E97\u4E00\u522B1"
   m_EditorClassIdentifier: 
   dialogueList:
-  - speakerName: 
+  - speakerName: "\u6234\u94B1"
     speakerSprite: {fileID: 0}
-    content: 
+    content: "\u6162\u8D70\uFF0C\u60A8\u5185\u3002"
     Shake: 0
     canContinue: 1

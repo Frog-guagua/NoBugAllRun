@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: "\u4E8C\u6218\u524D"
   m_EditorClassIdentifier: 
   dialogueList:
-  - speakerName: 3
+  - speakerName: "\u674E\u56DB\u7237"
     speakerSprite: {fileID: 0}
-    content: 2
+    content: "\u542C\u8BF4\u4F60\u521A\u521A\u6597\u86D0\u86D0\u8D62\u4E86\u5F20\u4E09\u7237\uFF1F\u5F20\u4E09\u90A3\u5C0F\u5B50\u8138\u90FD\u8F93\u7EFF\u4E86\uFF0C\u56DE\u5934\u5C31\u627E\u6211\u6765\u2018\u8BA8\u4E2A\u8BF4\u6CD5\u2019\u3002"
     Shake: 0
     canContinue: 1
-  - speakerName: 3
+  - speakerName: "\u674E\u56DB\u7237"
     speakerSprite: {fileID: 0}
-    content: 4
+    content: "\u90A3\u5C0F\u5B50\u53EF\u8BF4\u4E86\uFF0C\u4F60\u8FD9\u866B\u8981\u4E48\u662F\u5582\u4E86\u836F\uFF0C\u8981\u4E48\u5C31\u662F\u800D\u4E86\u8BC8\uFF01\u4ECA\u513F\u4E2A\uFF0C\u5F97\u8BA9\u6211\u4EEC\u9A8C\u9A8C\uFF01"
     Shake: 0
     canContinue: 1

@@ -26,6 +26,7 @@ public class Event1Mgr : MonoBehaviour
     {   
         hint = hintobj.GetComponent<Hint>();
         StartCoroutine(Event1());
+        DataBroker.catchTime++;
     }
 
     // Update is called once per frame

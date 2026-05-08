@@ -12,7 +12,8 @@ public class Before2Mgr: MonoBehaviour
     private static bool canContinue=true;
     public Button btn;
     public static bool canleave=false;
-
+    public DialogueData win;
+    public DialogueData lose;
    
     
 
@@ -27,11 +28,11 @@ public class Before2Mgr: MonoBehaviour
             Debug.Log("对话与动画");
             if (DataBroker.WinGame2)
             {
-                Debug.Log("你赢了");
+               // DialogueManager.Instance.StartDialogue(win);
             }
             else
             {
-                Debug.Log("菜就多练");
+               // DialogueManager.Instance.StartDialogue(lose);
             }
         }
     }

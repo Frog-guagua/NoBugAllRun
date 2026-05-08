@@ -26,8 +26,9 @@ public class BeginEffect : MonoBehaviour
             SetObjectAlpha(obj, 0f);
             obj.SetActive(true);   
         }
-
         StartCoroutine(PlaySequence());
+        
+       
     }
 
     IEnumerator PlaySequence()
@@ -47,7 +48,7 @@ public class BeginEffect : MonoBehaviour
         }
 
        
-        SceneManager.LoadScene(nextSceneName);
+        Transition.Instance.SwitchSceneWithFade(nextSceneName);
     }
 
     IEnumerator FadeObject(GameObject obj, float startAlpha, float endAlpha, float duration)

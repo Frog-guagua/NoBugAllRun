@@ -13,7 +13,7 @@ public class Event2 : MonoBehaviour
     public string desciption1;
     public string desciption2;
     public string desciption3;
-
+    public InsectDataSO DataSo;
     public Animator ani;
     // 获取单例实例的属性
     public static Event2 Instance
@@ -70,8 +70,8 @@ public class Event2 : MonoBehaviour
     }
     public void button1()
     {
-        DataBroker.actionValue += 1;
-        DataBroker.experience += 2;
+        DataBroker.actionValue += 2;
+        CageManager.Instance.AddInsect(DataSo);
         Debug.Log(DataBroker.experience);
         Debug.Log(DataBroker.actionValue);
         DialogueManager.Instance.canContinue=true;
@@ -85,7 +85,8 @@ public class Event2 : MonoBehaviour
     public void button2()
     {
         DataBroker.actionValue += 1;
-        DataBroker.experience += 4;
+        DataBroker.reputation += 4;
+        CageManager.Instance.AddInsect(DataSo);
         Debug.Log(DataBroker.experience);
         Debug.Log(DataBroker.actionValue);
         DialogueManager.Instance.canContinue=true;
@@ -98,7 +99,7 @@ public class Event2 : MonoBehaviour
     public void button3()
     {
         DataBroker.actionValue += 1;
-        DataBroker.reputation += 6;
+        CageManager.Instance.AddInsect(DataSo);
         Debug.Log(DataBroker.experience);
         Debug.Log(DataBroker.reputation);
         DialogueManager.Instance.canContinue=true;

@@ -15,7 +15,7 @@ public sealed class DataBroker
     //呱 ： 注意 默认值 是输掉战斗拉
     public static bool WinGame2;
     public static bool WinGame3;
-    
+    public static int catchTime=1;
     public static int reputation ;//声望
     //严肃背诵单词
     public List<InsectData> datasToCatch1 = new List<InsectData>();

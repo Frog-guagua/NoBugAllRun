@@ -8,6 +8,8 @@ public class BeforeBossMgr : MonoBehaviour
     public static bool secondin=false;
     public DialogueData dialogueData;
     public GameObject btn;
+    public DialogueData win;
+    public DialogueData lose;
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -27,12 +29,12 @@ public class BeforeBossMgr : MonoBehaviour
         {
             if (DataBroker.WinGame3 == true)
             {
-                Debug.Log("何苦如此，仅仅为求一败？");
+                DialogueManager.Instance.StartDialogue(win);
             }
 
             if (DataBroker.WinGame3 == false)
             {
-                Debug.Log("无妨，我的结局，亦是你的宿命");
+                DialogueManager.Instance.StartDialogue(lose);
             }
         }
     }
