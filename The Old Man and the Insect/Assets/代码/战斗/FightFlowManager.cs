@@ -376,6 +376,11 @@ public class FightFlowManager : MonoBehaviour
 
         fdm.UpdateAllDisplay();
         yield return StartCoroutine(ShowHint("别担心，战斗下场的蛐蛐会<b><color=#335EA4>重置属性</color></b>回到你的笼子里，\n在下一场战斗中还会见到它的"));
+        
+        int formal = DataBroker.experience;
+        yield return SizeScale(Win);
+        UpdateWinEndUI(formal,4);
+       
         yield return  new WaitForSeconds(0.5f);
         count = 0;
         StartFight = true;
@@ -503,31 +508,6 @@ public class FightFlowManager : MonoBehaviour
         AudioMgr.Instance.PlaySFX(FightEffect);
         yield return GetComponent<BattleResover>().BattleResolve();
         AbacusAnim.Finsined = false;
-        if (!DataBroker.WinGame2&&GetComponent<BattleResover>().Nobug)
-        {
-            GetComponent<BattleResover>().Nobug = false;
-            DataBroker.WinGame2 = false;
-            DataBroker.reputation -= 6;
-            yield return ShowHint("战斗失败");
-            yield return ShowHint("声誉值减少<b><color=#335EA4>6</color></b>点");
-            cameraFocus.LetCameraFocus();
-            yield return new WaitForSeconds(1.5f);
-            OnGame2 = false;
-            FightDataManager.DeliverData();
-            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
-        }
-        else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
-        {
-            GetComponent<BattleResover>().Nobug = false;
-            DataBroker.experience += 6;
-            yield return ShowHint("战斗胜利");
-            yield return ShowHint("经验值增加<b><color=#335EA4>6</color></b>点");
-            cameraFocus.LetCameraFocus();
-            yield return new WaitForSeconds(1.5f);
-            OnGame2 = false;
-            FightDataManager.DeliverData();
-            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
-        }
 
         #endregion
             
@@ -601,9 +581,11 @@ public class FightFlowManager : MonoBehaviour
         if ((!DataBroker.WinGame2 )&& GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
+            //呱：处理失败结算 UI
+            int formal = DataBroker.reputation;
+            yield return SizeScale(Lose);
+            UpdateLoseEndUI(formal,6);
             DataBroker.reputation -= 6;
-            yield return ShowHint("战斗失败");
-            yield return ShowHint("声誉值减少<b><color=#335EA4>6</color></b>点");
             cameraFocus.LetCameraFocus();
             yield return new WaitForSeconds(1.5f);
             OnGame2 = false;
@@ -613,9 +595,12 @@ public class FightFlowManager : MonoBehaviour
         else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
+            //呱：处理胜利结算 UI
+            int formal = DataBroker.experience;
+            yield return SizeScale(Win);
+            UpdateWinEndUI(formal,6);
             DataBroker.experience += 6;
-            yield return ShowHint("战斗胜利");
-            yield return ShowHint("经验值增加<b><color=#335EA4>6</color></b>点");
+       
             cameraFocus.LetCameraFocus();
             yield return new WaitForSeconds(1.5f);
             OnGame2 = false;
@@ -694,9 +679,11 @@ public class FightFlowManager : MonoBehaviour
         if ((!DataBroker.WinGame2 )&& GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
+            //呱：处理失败结算 UI
+            int formal = DataBroker.reputation;
+            yield return SizeScale(Lose);
+            UpdateLoseEndUI(formal,6);
             DataBroker.reputation -= 6;
-            yield return ShowHint("战斗失败");
-            yield return ShowHint("声誉值减少<b><color=#335EA4>6</color></b>点");
             cameraFocus.LetCameraFocus();
             yield return new WaitForSeconds(1.5f);
             OnGame2 = false;
@@ -706,9 +693,12 @@ public class FightFlowManager : MonoBehaviour
         else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
+            //呱：处理胜利结算 UI
+            int formal = DataBroker.experience;
+            yield return SizeScale(Win);
+            UpdateWinEndUI(formal,6);
             DataBroker.experience += 6;
-            yield return ShowHint("战斗胜利");
-            yield return ShowHint("经验值增加<b><color=#335EA4>6</color></b>点");
+       
             cameraFocus.LetCameraFocus();
             yield return new WaitForSeconds(1.5f);
             OnGame2 = false;
@@ -789,10 +779,11 @@ public class FightFlowManager : MonoBehaviour
         if ((!DataBroker.WinGame2 )&& GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
+            //呱：处理失败结算 UI
+            int formal = DataBroker.reputation;
+            yield return SizeScale(Lose);
+            UpdateLoseEndUI(formal,6);
             DataBroker.reputation -= 6;
-            DataBroker.reputation -= 6;
-            yield return ShowHint("战斗失败");
-            yield return ShowHint("声誉值减少<b><color=#335EA4>6</color></b>点");
             cameraFocus.LetCameraFocus();
             yield return new WaitForSeconds(1.5f);
             OnGame2 = false;
@@ -802,9 +793,12 @@ public class FightFlowManager : MonoBehaviour
         else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
+            //呱：处理胜利结算 UI
+            int formal = DataBroker.experience;
+            yield return SizeScale(Win);
+            UpdateWinEndUI(formal,6);
             DataBroker.experience += 6;
-            yield return ShowHint("战斗胜利");
-            yield return ShowHint("经验值增加<b><color=#335EA4>6</color></b>点");
+       
             cameraFocus.LetCameraFocus();
             yield return new WaitForSeconds(1.5f);
             OnGame2 = false;
@@ -964,12 +958,11 @@ public class FightFlowManager : MonoBehaviour
 
        #endregion
 
-        waitingBug.CheckBugOnWhichGrid();
         
         
         
         //呱：————————————————Round2—————————————————————
-      
+        RoundManager.ReleaseGrids();
         #region 对话
 
         //呱:依旧是解禁这个对话背景  开始对话
@@ -1071,7 +1064,7 @@ public class FightFlowManager : MonoBehaviour
 
         #endregion
         
-        waitingBug.CheckBugOnWhichGrid();
+        
         
         
         
@@ -1173,10 +1166,7 @@ public class FightFlowManager : MonoBehaviour
         actionPoint.UpdatePoints(FightDataManager.ActionPoints);;
 
         #endregion
-        
-        Debug.Log("_________________________");
-        waitingBug.CheckBugOnWhichGrid();
-        Debug.Log("_________________________");
+  
         
         
         
