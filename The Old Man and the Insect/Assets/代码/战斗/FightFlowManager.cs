@@ -907,6 +907,10 @@ public class FightFlowManager : MonoBehaviour
         //呱：这里考虑到玩家可以不上虫就结算 所以对话一结束就开放了算盘的权限
         abacus.GetComponent<Collider2D>().enabled = true;  
         
+        //呱：只要算盘被触发 那么开始结算 
+        yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
+       
+        
         //呱：如果行动点归零 那么将无法打开笼子
         while (!AbacusAnim.Finsined)
         {
@@ -917,9 +921,7 @@ public class FightFlowManager : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
         
-        //呱：只要算盘被触发 那么开始结算 
-        yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
-        yield return new WaitForSeconds(0.3f);
+        
         
         //呱：及时关闭算盘 防止误触
         abacus.GetComponent<Collider2D>().enabled = false;
@@ -927,6 +929,7 @@ public class FightFlowManager : MonoBehaviour
         
         //呱：关掉笼子 防止误触
         BanCage();
+        RoundManager.ReleaseGrids();
         
         //呱：这边先统计一下我方虫子 方便敌方进行数量判断
         //   如果我方没有虫子 那么FindRival内部直接返回 不进行索敌
@@ -1031,6 +1034,7 @@ public class FightFlowManager : MonoBehaviour
         
         //呱：禁用算盘 防止误触
         abacus.GetComponent<Collider2D>().enabled = false;
+        AbacusAnim.Finsined = false;
 
         //呱：禁用笼子 防止误触
         BanCage();
@@ -1138,6 +1142,7 @@ public class FightFlowManager : MonoBehaviour
 
         //呱：禁用算盘 防止误触
         abacus.GetComponent<Collider2D>().enabled = false;
+        AbacusAnim.Finsined = false;
         
         //呱：禁用笼子 防止误触
         BanCage();
@@ -1235,6 +1240,7 @@ public class FightFlowManager : MonoBehaviour
         
         //呱：禁用算盘 防止误触
         abacus.GetComponent<Collider2D>().enabled = false;  
+        AbacusAnim.Finsined = false;
         
         //呱：禁用笼子 防止误触
         BanCage();
@@ -1313,6 +1319,7 @@ public class FightFlowManager : MonoBehaviour
         
                  //呱：禁用算盘 防止误触
                  abacus.GetComponent<Collider2D>().enabled = false;  
+                 AbacusAnim.Finsined = false;
         
                  //呱：禁用笼子 防止误触
                  BanCage();
