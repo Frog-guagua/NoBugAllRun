@@ -92,6 +92,7 @@ public class LevelStateManager : MonoBehaviour
     
     private Hint hint2;
     public GameObject liu;
+    public static bool canquit = false;
     void Start()
     {
         door.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -153,6 +154,7 @@ public class LevelStateManager : MonoBehaviour
                 case LevelState.guide2:
                     hint2.ShowHint(guide2);
                     Debug.Log("进入 guide2");
+                    canquit = true;
                     break;
                 case LevelState.guide3:
                     hint2.ShowHint(guide3);
