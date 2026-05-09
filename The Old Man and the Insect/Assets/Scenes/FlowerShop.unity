@@ -356,8 +356,8 @@ MonoBehaviour:
   flowerData: {fileID: 11400000, guid: fd6371ed5c0ea8e46b9c51866af86d0b, type: 2}
   hint: {fileID: 1862890862}
   btn: {fileID: 464470510}
-  hint1: 1
-  hint2: 2
+  hint1: "\u5728\u8FD9\u91CC\uFF0C\u4F60\u53EF\u4EE5\u7528\u7ECF\u9A8C\u4E3A\u86D0\u86D0\u5347\u7EA7\u52A0\u70B9\u3002"
+  hint2: "\u4E0D\u540C\u86D0\u86D0\u5C5E\u6027\u4E0D\u540C\uFF0C\u9AD8\u7B49\u86D0\u86D0\u6D88\u8017\u66F4\u591A\u7ECF\u9A8C\u3002\u5C1D\u8BD5\u8BA9\u4ED6\u4EEC\u6210\u957F\u5427"
   finishflower1: {fileID: 11400000, guid: 199d95cfe764b63499d6c78b915a2c0f, type: 2}
   finishflower2: {fileID: 11400000, guid: 00eac277966282847aa7bac48c1833c0, type: 2}
   flowerData2: {fileID: 11400000, guid: 29840fef61f8e4e40ba29f0dd34fa872, type: 2}
@@ -1046,7 +1046,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 670388106094608467, guid: f492cbc60d8cc5249939d26be37f9e8d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 197
+      value: 323
       objectReference: {fileID: 0}
     - target: {fileID: 670388106094608467, guid: f492cbc60d8cc5249939d26be37f9e8d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1062,7 +1062,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3776766911999714926, guid: f492cbc60d8cc5249939d26be37f9e8d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -270
+      value: -458
       objectReference: {fileID: 0}
     - target: {fileID: 8287125269939744694, guid: f492cbc60d8cc5249939d26be37f9e8d, type: 3}
       propertyPath: m_Name

@@ -149,13 +149,13 @@ public class CatchingManager : MonoBehaviour
             }
         }
 
-        if (SuccessCount >= 3&&DataBroker.catchTime==1)
+        if (SuccessCount >= 3&&DataBroker.catchTime==0)
         {
             switchcase.gameObject.SetActive(true);
             cancontinue=false;
         }
 
-        if (SuccessCount >= 4 && DataBroker.catchTime > 1)
+        if (SuccessCount >= 4 && DataBroker.catchTime > 0)
         {
             switchcase.gameObject.SetActive(true);
             cancontinue=false;
@@ -218,6 +218,7 @@ public class CatchingManager : MonoBehaviour
     }
     public void switchscene()
     {
+        DataBroker.catchTime++;
         Transition.Instance.SwitchSceneWithFade("FlowerShop");
         Bag.canOpenBag = false;
     }

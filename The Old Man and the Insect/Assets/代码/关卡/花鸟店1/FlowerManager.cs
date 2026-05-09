@@ -140,7 +140,7 @@ public class FlowerManager : MonoBehaviour
         CageUI.Instance.setAct();
         if (SecondIn == false)
         {
-            hint.ShowHint(hint1);
+            CageManager.Instance.hint.ShowHint(hint1);
             canShowHint2 = true;
             
         }
@@ -152,11 +152,9 @@ public class FlowerManager : MonoBehaviour
     IEnumerator showhint2()
     {
         yield return new WaitForSeconds(1f);
-        if (hint == null)
-        {
-            hint=GameObject.FindGameObjectsWithTag("Hint2")[0].GetComponent<Hint>();
-        }
-        hint.ShowHint(hint2);
+       
+
+        CageManager.Instance.hint.ShowHint(hint2);
     }
 
    
