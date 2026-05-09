@@ -174,26 +174,32 @@ public class WaitingBug : MonoBehaviour
 public IEnumerator FindRival(int GridIndex)
 {
    
+    //呱：这里是想用 场上玩家方虫虫 的数量 
+    //   来判断 是否还需要索敌
+    //   我们会在索敌前就统计一次虫虫的数量 所以不用担心
     if (myBugCount == 0)
     {
+        //呱：如果是 在玩家没有虫虫了以后 依旧尝试索敌
+        //   那么就原地传送（哇
+        //   所在格子索引不改变 直接返回
         lastMovedGridIndex = GridIndex;
         yield break;
     }
     
-    Debug.Log(GridIndex);
+    //呱：保存这个索引上对应的bugOnGrid
     GameObject currentBug = GridManager.Grids[GridIndex].bugOnGrid;
+    
+    
+    //呱：如果索引GridIndex指向的格子上没有敌方虫虫 就返回
     if (currentBug == null)
     {
         Debug.Log($" 是空哒！！");
         yield break;
     }
-    
-    // 默认不移动时，最后位置就是当前格子
-    
 
+    #region 【1】检查 有没有 前方没有我方虫虫的 敌方虫虫
 
-
-    // 1. 检查正前方（同一列，向下 -4）是否有我方虫子
+    // 呱： 1. 检查敌方虫虫的正前方（同一列，向下 -4） 是否有我方虫子
     int forwardIndex = GridIndex - 4;
     if (forwardIndex < GridManager.Grids.Length)
     {
@@ -201,6 +207,8 @@ public IEnumerator FindRival(int GridIndex)
         
         if (targetBug != null)
         {
+            //呱：如果敌方虫虫前面有我方虫 我们就核销一只我方虫 
+            //    而且此敌方虫虫不用索敌
             myBugCount--;
             lastMovedGridIndex = GridIndex;
             Debug.Log($"FindRival: 找到正前方敌人，格子 {forwardIndex}");
@@ -209,7 +217,11 @@ public IEnumerator FindRival(int GridIndex)
         }
     }
 
-    // 2. 没有正前方敌人，遍历我方前排（索引 4-7）
+    #endregion
+
+    #region 【2】检查 我方虫虫 是不是前面都已经有 敌方虫虫了
+
+    //呱： 2. 没有正前方敌人，遍历我方虫虫前排（索引 4-7）
     int targetGridIndex = -1;
     for (int i = 4; i < 8; i++)
     {
@@ -224,13 +236,26 @@ public IEnumerator FindRival(int GridIndex)
             break;
         }
     }
-  
+
+    #endregion
+
+    #region 如果 敌方虫虫数量>我方虫虫
+
+    //呱：这里是我方虫虫都有对应的敌方虫虫了 所以这个敌方虫虫就不用索敌了
+    //   所以我们的处理依旧是原地tp
     if (targetGridIndex == -1)
     {
         targetGridIndex = GridIndex;
-       
+        lastMovedGridIndex = GridIndex;
+        
+        //呱：直接赋0 让这个敌方虫虫后面的敌方虫虫都不用索敌了
+        myBugCount = 0;
         yield break;
     }
+
+    #endregion
+  
+    //————————————————————后面就是需要索敌进行的一些动作——————————————————
 
     // 3. 平滑移动
     Vector3 startPos = currentBug.transform.position;
