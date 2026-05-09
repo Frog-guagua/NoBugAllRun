@@ -101,19 +101,22 @@ public class CageUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if(LevelStateManager.canquit)
         {
-            if (DataBroker.experience > 0)
-            {
-                confirmPanel.SetActive(true);
-            }
 
-            else
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                
-                QuitCage();
-           
+                if (DataBroker.experience > 0)
+                {
+                    confirmPanel.SetActive(true);
+                }
+
+                else
+                {
+
+                    QuitCage();
+
+                }
             }
         }
         

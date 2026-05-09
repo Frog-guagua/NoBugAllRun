@@ -9,6 +9,7 @@ public class cagetest : MonoBehaviour
     void Start()
     {
      StartCoroutine(test());
+     LevelStateManager.canquit=true;
     }
 
     IEnumerator test()
