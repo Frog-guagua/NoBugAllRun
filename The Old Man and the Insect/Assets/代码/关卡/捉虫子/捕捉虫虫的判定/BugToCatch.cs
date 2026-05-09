@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class BugToCatch : InsectData
 {
-
+    
+    public bool cancatch = true;
     public InsectDataSO data;
     public SpriteRenderer spriteRenderer;
     
@@ -51,12 +52,35 @@ public class BugToCatch : InsectData
 
     public void OnMouseDown()
     {
-        if (CatchingManager.canCatch)
+        if (CatchingManager.canCatch&&cancatch)
         {
 
           
             CatchingManager.Instance.startCatch(this.gameObject);
             this.gameObject.SetActive(false);
+            CatchingManager.Instance.callNocatch();
         }
+    }
+
+    void canNotcatch()
+    {
+        cancatch = false;
+    }
+
+    void canCatch()
+    {
+        cancatch = true;
+    }
+
+    private void OnEnable()
+    {
+        CatchingManager.cancatch+=canCatch;
+        CatchingManager.nocatch+=canNotcatch;
+    }
+
+    void OnDisable()
+    {
+        CatchingManager.cancatch-=canCatch;
+        CatchingManager.nocatch-=canNotcatch;
     }
 }

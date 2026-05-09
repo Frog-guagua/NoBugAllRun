@@ -291,7 +291,7 @@ public class CatchBugDecision : MonoBehaviour
                 CatchingManager.Instance.success();
                 
                 
-                StartCoroutine(waitToClose(1f));
+                StartCoroutine(waitToClose(2f));
 
 
             }
@@ -371,6 +371,6 @@ public class CatchBugDecision : MonoBehaviour
         
         this.enabled = true;
         father.SetActive(false);
-        
+        CatchingManager.Instance.callCancatch();
     }
 }

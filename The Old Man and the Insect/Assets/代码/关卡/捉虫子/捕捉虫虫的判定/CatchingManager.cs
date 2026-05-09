@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -34,6 +36,11 @@ public class CatchingManager : MonoBehaviour
     public static bool canCatch = true;
     private bool cancontinue=true;
     
+    
+    public static event Action cancatch;
+    public static event Action nocatch;
+   public void callCancatch(){cancatch?.Invoke();}
+   public void callNocatch(){nocatch?.Invoke();}
     public string successful = "success";
     public string failure = "fail";
     public TextMeshProUGUI counting;
