@@ -289,7 +289,7 @@ public class CatchBugDecision : MonoBehaviour
                 giveData();//存入虫虫数据
                 
                 CatchingManager.Instance.success();
-                Debug.Log("虫虫到手");
+                
                 
                 StartCoroutine(waitToClose(1f));
 
@@ -343,9 +343,17 @@ public class CatchBugDecision : MonoBehaviour
 
     public void giveData()
     {
-      
-       
-        DataBroker.Instance.give_dataFromCatch(CatchingManager.Instance.currentBug);
+
+        if (CageManager.Instance.checkcount() > 7)
+        {
+            return;
+        }
+        else
+        {
+            DataBroker.Instance.give_dataFromCatch(CatchingManager.Instance.currentBug);
+        }
+
+        
     }
 
     public IEnumerator waitToClose(float time)

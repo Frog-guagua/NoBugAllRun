@@ -100,7 +100,7 @@ public class CatchingManager : MonoBehaviour
                pos[i].transform
             );
 
-            
+            dataInstance.GetComponent<SpriteRenderer>().sortingOrder = -100;
             BugToCatch bugToCatch = dataInstance.GetComponent<BugToCatch>();
             if (bugToCatch == null)
             {
@@ -169,7 +169,8 @@ public class CatchingManager : MonoBehaviour
     public void startCatch(GameObject  bug)
     {
         if (cancontinue)
-        {
+        {   
+            bug.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 100;
             _count = count;
             catchBugDecision.BugToCatch = bug;
             catchFather.SetActive(true);
@@ -186,18 +187,28 @@ public class CatchingManager : MonoBehaviour
     }
 
     public void success()
-    {
-       
-       startCount = false;
-       hint.ShowHint(successful);
-       _count = count;
-       counting.gameObject.SetActive(false);
-       SuccessCount++;
+    {   
+        startCount = false;
 
-       StartCoroutine(cancatching());
-       panel.SetActive(true);
-       hp[0].text = "HP: " + currentBug.insectHP;
-       atk[0].text = "atk:" +currentBug.insectAtk;
+            
+        _count = count;
+        counting.gameObject.SetActive(false);
+        SuccessCount++;
+
+        StartCoroutine(cancatching());
+        if (CageManager.Instance.checkcount() > 7)
+        {   
+            hint.ShowHint("虫虫数量已达上限（8只）无法获得更多");
+            return;
+        }
+        else
+        {
+            
+            hint.ShowHint(successful);
+            panel.SetActive(true);
+            hp[0].text = "HP: " + currentBug.insectHP;
+            atk[0].text = "atk:" + currentBug.insectAtk;
+        }
     }
 
     IEnumerator cancatching()
@@ -216,6 +227,13 @@ public class CatchingManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
          
         currentBugs = new List<GameObject>(GameObject.FindGameObjectsWithTag("EnemyBug"));
+        int count = 8 - CageManager.Instance.checkcount();
+        if (currentBugs.Count > count)
+        {   
+            hint.ShowHint("虫虫数量已达上限（8只）无法获得更多");
+            Debug.Log("装满了不能抓");
+            currentBugs.RemoveRange(count, currentBugs.Count - count);
+        }
         panel.SetActive(true);
         for(int i=0;i<currentBugs.Count;i++)
         {

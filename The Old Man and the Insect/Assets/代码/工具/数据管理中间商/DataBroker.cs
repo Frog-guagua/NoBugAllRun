@@ -130,12 +130,21 @@ public sealed class DataBroker
 
     public void give_dataFromCatch(InsectData data)
     {
-            CageManager.Instance.AddInsect(data);
-            Debug.Log("抓住的id为"+data.insectId);
-            give_datasFromCage(CageManager.Instance.insectDataList);//抓虫专用
-            
-       
-       
+
+            int count = CageManager.Instance.checkcount();
+            if (count >= 8)
+            {    
+                give_datasFromCage(CageManager.Instance.insectDataList);
+                Debug.Log("装满了不能抓");
+            }
+            else
+            {
+                CageManager.Instance.AddInsect(data);
+                Debug.Log("抓住的id为" + data.insectId);
+                give_datasFromCage(CageManager.Instance.insectDataList); //抓虫专用
+
+
+            }
     }
 
 }

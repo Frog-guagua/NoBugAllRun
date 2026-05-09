@@ -34,7 +34,7 @@ public sealed class CageManager : MonoBehaviour
 
     #endregion
 
-   
+    public Hint hint;
 
     public Dictionary<int, InsectData> insectInCage = new Dictionary<int, InsectData>();
     
@@ -88,14 +88,23 @@ public sealed class CageManager : MonoBehaviour
 
     // 增加昆虫
     public void AddInsect(InsectData insectData)
-    {
-        foreach (var kvp in insectInCage)
+    {   
+        if (checkcount() > 7)
+        {   
+            cageFull();
+            Debug.Log("装满了");
+            return;
+        }
+        else
         {
-            if (kvp.Value.insectId == 0) //  insectId 为 0 表示空格子
+            foreach (var kvp in insectInCage)
             {
-                insectInCage[kvp.Key] = insectData;
-                refreshSlot(kvp.Key);
-                return;
+                if (kvp.Value.insectId == 0) //  insectId 为 0 表示空格子
+                {
+                    insectInCage[kvp.Key] = insectData;
+                    refreshSlot(kvp.Key);
+                    return;
+                }
             }
         }
     }
@@ -103,9 +112,17 @@ public sealed class CageManager : MonoBehaviour
     public void AddInsect(InsectDataSO insectData) //这是一个重载，可以直接传so文件。
         //后续如果方便的话可能会将所有等级数据全部写成so
     {
-        
-       
+        if (checkcount() > 7)
+        {   
+            cageFull();
+            Debug.Log("装满了");
+            return;
+        }
+
+        else
+        {
             InsectData data = new InsectData();
+
 
             data.insectId = insectData.insectId;
             data.insectAtk = insectData.insectAtk;
@@ -124,7 +141,7 @@ public sealed class CageManager : MonoBehaviour
                     return;
                 }
             }
-        
+        }
 
     }
 
@@ -185,5 +202,22 @@ public sealed class CageManager : MonoBehaviour
            insectInCage[i] = newInsects[i];
         }
     }
-    
+
+    public int checkcount()
+    {   
+        int count = 0;
+        foreach (var insect in insectInCage.Values)
+        {
+            if (insect.insectId != 0)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public void cageFull()
+    {
+        hint.ShowHint("虫虫数量已达上限（8只），无法继续获得");
+    }
 }

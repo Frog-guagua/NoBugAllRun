@@ -18,8 +18,8 @@ public class cagetest : MonoBehaviour
         CageUI.Instance.setAct();
         yield return new WaitForSeconds(0.4f);
         CageUI.Instance.setInactive();
-        CageManager.Instance.AddInsect(insectData);
-        CageManager.Instance.AddInsect(insectData);
+      //  CageManager.Instance.AddInsect(insectData);
+       // CageManager.Instance.AddInsect(insectData);
        
         
     }
@@ -38,5 +38,6 @@ public class cagetest : MonoBehaviour
         {
             Debug.Log(DataBroker.Instance.datasFromFight[i].insectLevel);
         }
+        CageManager.Instance.AddInsect(insectData);
     }
 }
