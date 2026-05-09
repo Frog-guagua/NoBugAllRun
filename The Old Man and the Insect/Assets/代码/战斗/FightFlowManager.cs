@@ -482,6 +482,8 @@ public class FightFlowManager : MonoBehaviour
         
         yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
         yield return new WaitForSeconds(0.3f);
+        AbacusAnim.Finsined = false;
+        
         waitingBug.CountMyBugs();
         yield return new WaitForSeconds(0.1f);
         waitingBug.myBugCount = 0;              // 重置计数器
@@ -507,7 +509,7 @@ public class FightFlowManager : MonoBehaviour
         
         AudioMgr.Instance.PlaySFX(FightEffect);
         yield return GetComponent<BattleResover>().BattleResolve();
-        AbacusAnim.Finsined = false;
+       
 
         #endregion
             
@@ -543,6 +545,7 @@ public class FightFlowManager : MonoBehaviour
 
         
         yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
+        AbacusAnim.Finsined = false;
         BanCage();
         yield return new WaitForSeconds(0.3f);
         waitingBug.CountMyBugs();
@@ -642,6 +645,7 @@ public class FightFlowManager : MonoBehaviour
 
         
         yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
+         AbacusAnim.Finsined = false;
         BanCage();
         yield return new WaitForSeconds(0.3f);
         waitingBug.CountMyBugs();
