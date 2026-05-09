@@ -321,8 +321,23 @@ public class RoundManager : MonoBehaviour
       
         
     }
+
+    //呱：为Boss战虫虫重合问题打的补丁
+    public static void BanGrids()
+    {
+       GridManager.Grids[2].gridObject.GetComponent<Collider2D>().enabled = false; 
+       GridManager.Grids[3].gridObject.GetComponent<Collider2D>().enabled = false; 
+       GridManager.Grids[6].gridObject.GetComponent<Collider2D>().enabled = false; 
+       GridManager.Grids[7].gridObject.GetComponent<Collider2D>().enabled = false; 
+    }
     
-    
+    public static void ReleaseGrids()
+    {
+        GridManager.Grids[2].gridObject.GetComponent<Collider2D>().enabled = true; 
+        GridManager.Grids[3].gridObject.GetComponent<Collider2D>().enabled = true; 
+        GridManager.Grids[6].gridObject.GetComponent<Collider2D>().enabled = true; 
+        GridManager.Grids[7].gridObject.GetComponent<Collider2D>().enabled = true; 
+    }
 
     //呱：用来检测前面格子 有没有虫子 没有就自动前移
     private bool NoFrontBug(Grid nowGrid , out int index)

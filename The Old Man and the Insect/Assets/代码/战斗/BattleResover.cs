@@ -157,6 +157,7 @@ public class BattleResover : MonoBehaviour
             Debug.Log("玩家失败！");
             Nobug = true;
             DataBroker.WinGame2 = false;
+            DataBroker.WinGame3 = false;
             yield break;
         }
         if (!hasEnemyBug)
@@ -164,6 +165,7 @@ public class BattleResover : MonoBehaviour
             Debug.Log("玩家胜利！");
             Nobug = true;
             DataBroker.WinGame2 = true;
+            DataBroker.WinGame3 = true;
             yield break;
         }
 

@@ -38,7 +38,7 @@ public class Hint : MonoBehaviour
     [SerializeField] RectTransform hiddenPosTarget;
     [SerializeField] RectTransform shownPosTarget;
 
-    private float duration = 1f;
+    private float duration = 0.75f;
     private RectTransform rectTransform;
     private bool isShowing = false;
     private Coroutine currentAnim = null;

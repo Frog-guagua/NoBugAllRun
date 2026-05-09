@@ -169,6 +169,8 @@ public class WaitingBug : MonoBehaviour
         return 10;
     }
     
+    
+    //呱：此函数为敌方索敌使用的
 public IEnumerator FindRival(int GridIndex)
 {
    
