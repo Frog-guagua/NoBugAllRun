@@ -1286,6 +1286,9 @@ public class FightFlowManager : MonoBehaviour
                  //呱：增强是每一轮都要增强的
                  waitingBug.HightenBugs();
                  yield return new WaitForSeconds(1f);
+                 
+                 //呱：在上虫之后 解禁笼子
+                 ReleseCage();
 
              #endregion
         
