@@ -468,6 +468,7 @@ public class FightFlowManager : MonoBehaviour
    
 
         abacus.GetComponent<Collider2D>().enabled = true;  
+        yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
         while (!AbacusAnim.Finsined)
         {
             if (FightDataManager.ActionPoints == 0)
@@ -480,7 +481,7 @@ public class FightFlowManager : MonoBehaviour
         }
         
         
-        yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
+        
         yield return new WaitForSeconds(0.3f);
         AbacusAnim.Finsined = false;
         
@@ -509,7 +510,21 @@ public class FightFlowManager : MonoBehaviour
         
         AudioMgr.Instance.PlaySFX(FightEffect);
         yield return GetComponent<BattleResover>().BattleResolve();
+        if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
+        {
+            GetComponent<BattleResover>().Nobug = false;
+            //呱：处理胜利结算 UI
+            int formal = DataBroker.experience;
+            yield return SizeScale(Win);
+            UpdateWinEndUI(formal,6);
+            DataBroker.experience += 6;
        
+            cameraFocus.LetCameraFocus();
+            yield return new WaitForSeconds(1.5f);
+            OnGame2 = false;
+            FightDataManager.DeliverData();
+            Transition.Instance.SwitchSceneWithFade("BeforeFight2");
+        }
 
         #endregion
             
@@ -532,6 +547,7 @@ public class FightFlowManager : MonoBehaviour
         ReleseCage();
         
         abacus.GetComponent<Collider2D>().enabled = true;
+        yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
         while (!AbacusAnim.Finsined)
         {
             if (FightDataManager.ActionPoints == 0)
@@ -544,7 +560,7 @@ public class FightFlowManager : MonoBehaviour
         }
 
         
-        yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
+       
         AbacusAnim.Finsined = false;
         BanCage();
         yield return new WaitForSeconds(0.3f);
@@ -632,6 +648,7 @@ public class FightFlowManager : MonoBehaviour
         AbacusAnim.Finsined = false;
         
         abacus.GetComponent<Collider2D>().enabled = true;
+        yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
         while (!AbacusAnim.Finsined)
         {
             if (FightDataManager.ActionPoints == 0)
@@ -643,9 +660,7 @@ public class FightFlowManager : MonoBehaviour
             
         }
 
-        
-        yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
-         AbacusAnim.Finsined = false;
+        AbacusAnim.Finsined = false;
         BanCage();
         yield return new WaitForSeconds(0.3f);
         waitingBug.CountMyBugs();
