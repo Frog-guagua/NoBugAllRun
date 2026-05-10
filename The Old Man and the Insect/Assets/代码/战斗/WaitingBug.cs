@@ -154,20 +154,21 @@ public class WaitingBug : MonoBehaviour
         }
     }
 
-    public int FindE()
+    public int FindA()
     {
         for (int i = 8; i < 16; i++)
         {
             if(GridManager.Grids[i].bugOnGrid == null) continue;
 
-            if (GridManager.Grids[i].bugOnGrid.name == "E")
+            if (GridManager.Grids[i].bugOnGrid.name == "A")
             {
                 return i;
             }
         }
 
-        return 10;
+        return 11;
     }
+    
     
     
     //呱：此函数为敌方索敌使用的

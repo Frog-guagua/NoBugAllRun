@@ -968,6 +968,10 @@ public class FightFlowManager : MonoBehaviour
         //呱：担心玩家被打死了
         yield return CheckLose();
         
+        //呱：担心开关被打开了 手动关闭
+        GetComponent<BattleResover>().Nobug = false;
+        DataBroker.WinGame3= false;
+        
         #endregion
 
         #region 刷新行动点
@@ -1076,6 +1080,10 @@ public class FightFlowManager : MonoBehaviour
         
         //呱：担心玩家被打死了
         yield return CheckLose();
+        
+        //呱：担心开关被打开了 手动关闭
+        GetComponent<BattleResover>().Nobug = false;
+        DataBroker.WinGame3= false;
         
         #endregion
 
@@ -1251,6 +1259,7 @@ public class FightFlowManager : MonoBehaviour
         waitingBug.CountMyBugs();  
         
         //呱：检查每个前排 让每个前排去索敌
+        yield return waitingBug.FindRival(waitingBug.FindA());
         yield return waitingBug.FindRival(8);
         yield return waitingBug.FindRival(11);
         yield return waitingBug.FindRival(10);
@@ -1319,7 +1328,7 @@ public class FightFlowManager : MonoBehaviour
         
                  //呱：禁用算盘 防止误触
                  abacus.GetComponent<Collider2D>().enabled = false;  
-                 AbacusAnim.Finsined = false;
+                 
         
                  //呱：禁用笼子 防止误触
                  BanCage();
@@ -1330,6 +1339,7 @@ public class FightFlowManager : MonoBehaviour
                  waitingBug.CountMyBugs();  
       
                 //呱：让敌方前排每一个都尝试索敌
+                yield return waitingBug.FindRival(waitingBug.FindA());
                  yield return waitingBug.FindRival(11);
                  yield return waitingBug.FindRival(10);
                  yield return waitingBug.FindRival(9);
