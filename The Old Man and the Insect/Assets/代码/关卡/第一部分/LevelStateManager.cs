@@ -15,7 +15,8 @@ public enum LevelState
     guide2,
     guide3,
     leavinghouse,
-    switchscene
+    switchscene,
+    secondin
 }
 
 public class LevelStateManager : MonoBehaviour
@@ -46,8 +47,8 @@ public class LevelStateManager : MonoBehaviour
     [Header("开始播放开门动画到开启对话的延迟时间")]
     public float Delay_Before_dia = 2f;
 
-    private LevelState currentState;
-    private LevelState lastState;
+    public static LevelState currentState;
+    private static LevelState lastState;
 
     public AudioClip bgm;
     public GameObject player;
@@ -93,13 +94,15 @@ public class LevelStateManager : MonoBehaviour
     private Hint hint2;
     public GameObject liu;
     public static bool canquit = false;
-    void Start()
-    {
-        door.transform.rotation = Quaternion.Euler(0, 0, 0);
-        hint = hintobj.GetComponent<Hint>();
-        doorshake = door.GetComponent<ObjectShake>();
-        hint2 = hintobj2.GetComponent<Hint>();
+    [Header("二次进入")] 
+    public DialogueData beforeopendoor2;
 
+    public GameObject wang;
+    public DialogueData afteropoen2;
+    public GameObject liudaye;
+    public static bool secondin = false;
+    void Start()
+    {   
         if (_instance != null && _instance != this)
         {
             Destroy(gameObject);
@@ -108,14 +111,33 @@ public class LevelStateManager : MonoBehaviour
         {
             _instance = this;
         }
-
+        door.transform.rotation = Quaternion.Euler(0, 0, 0);
+        hint = hintobj.GetComponent<Hint>();
+        doorshake = door.GetComponent<ObjectShake>();
+        hint2 = hintobj2.GetComponent<Hint>();
+        
+       
         AudioMgr.Instance.PlayBGM(bgm);
         AudioMgr.Instance.PlaySFX(birdsound);
+        if (secondin == false)
+        {
 
-        currentState = LevelState.OnEnterGame;
-        lastState = LevelState.OnEnterGame;
+            currentState = LevelState.OnEnterGame;
+            lastState = LevelState.OnEnterGame;
 
-        StartCoroutine(DelayToSwitchState(LevelState.KnockingDoor, 2.5f));
+            StartCoroutine(DelayToSwitchState(LevelState.KnockingDoor, 2.5f));
+        }
+
+        if (secondin)
+        {   currentState = LevelState.secondin;
+            lastState = LevelState.secondin;
+            liudaye.SetActive(true);
+            secondin=true;
+            afterKnock = false;
+            liu.SetActive(false);
+            wang.SetActive(true);
+            
+        }
     }
 
     void Update()
@@ -130,7 +152,15 @@ public class LevelStateManager : MonoBehaviour
                     break;
 
                 case LevelState.dialogue:
-                    DialogueManager.Instance.StartDialogue(dia2, diaEnd);
+                    if (secondin == false)
+                    {
+                        DialogueManager.Instance.StartDialogue(dia2, diaEnd);
+                    }
+                    else
+                    {
+                        DialogueManager.Instance.StartDialogue(afteropoen2);
+                    }
+
                     break;
 
                 case LevelState.openDoorAnm:
@@ -163,7 +193,10 @@ public class LevelStateManager : MonoBehaviour
                 case LevelState.leavinghouse:
                     break;
                 case LevelState.switchscene :
+                    secondin = true;
                     Transition.Instance.SwitchSceneWithFade("HuTong0");
+                    
+                  
                     break;
             }
 
@@ -251,7 +284,15 @@ public class LevelStateManager : MonoBehaviour
     {
         AudioMgr.Instance.PlaySFX(KnockingSound);
         yield return new WaitForSeconds(Delay_Before_Knocking);
-        DialogueManager.Instance.StartDialogue(dia1);
+
+        if (secondin==false)
+        {
+            DialogueManager.Instance.StartDialogue(dia1);
+        }
+        else
+        {
+            DialogueManager.Instance.StartDialogue(beforeopendoor2);
+        }
         yield return new WaitForSeconds(1f);
         afterKnock = true;
     }
@@ -268,7 +309,9 @@ public class LevelStateManager : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         door.transform.rotation = Quaternion.Euler(0, 80, 0);
         yield return new WaitForSeconds(Delay_Before_dia);
+       
         SwitchState(LevelState.dialogue);
+        
     }
 
     void diaEnd()

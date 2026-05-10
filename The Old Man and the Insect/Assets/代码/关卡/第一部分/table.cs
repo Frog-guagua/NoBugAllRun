@@ -18,10 +18,19 @@ public class table : MonoBehaviour
     private bool isset = false;
     public static bool tableact=false;
     public GameObject cage;
+
+    private void Start()
+    {
+        if (LevelStateManager.secondin)
+        {
+            cage.SetActive(true);
+        }
+    }
+
     void Update()
     {   
        
-        if (Vector2.Distance(player.position, transform.position) <= dis)
+        if (Vector2.Distance(player.position, transform.position) <= dis&&LevelStateManager.secondin==false)
         {
             if (cageOn==false&&tableact)
             {

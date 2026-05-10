@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Example
   m_EditorClassIdentifier: 
   dialogueList:
-  - speakerName: 
+  - speakerName: 2
     speakerSprite: {fileID: 0}
-    content: 
+    content: 2
     Shake: 0
     canContinue: 1
-  - speakerName: 
+  - speakerName: 1
     speakerSprite: {fileID: 0}
-    content: 
+    content: 1
     Shake: 0
-    canContinue: 0
+    canContinue: 1
