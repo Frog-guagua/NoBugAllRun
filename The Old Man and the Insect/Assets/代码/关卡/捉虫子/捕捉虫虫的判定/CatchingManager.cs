@@ -58,6 +58,7 @@ public class CatchingManager : MonoBehaviour
     private bool doUpdate = true;
     public List<TextMeshProUGUI> hp = new List<TextMeshProUGUI>();
     public List<TextMeshProUGUI> atk = new List<TextMeshProUGUI>();
+    public List<TextMeshProUGUI> name = new List<TextMeshProUGUI>();
     private List<GameObject> currentBugs;
 
     public List<GameObject> pos = new List<GameObject>();
@@ -138,7 +139,7 @@ public class CatchingManager : MonoBehaviour
             if (_count > 0)
             {
                 _count-=Time.deltaTime;
-                counting.text = "Count: " + _count.ToString();
+                counting.text = "倒计时 " + _count.ToString();
             }
             else
             {
@@ -146,7 +147,7 @@ public class CatchingManager : MonoBehaviour
                 startCount = false;
                 catchBugDecision.StartCatch = false;
                 catchBugDecision.canCatchBug = false;
-                counting.text = "Count finished!";
+                counting.text = "倒计时结束！";
                
                 StartCoroutine(catchBugDecision.waitToClose(1f));
                 counting.gameObject.SetActive(false);
@@ -213,8 +214,9 @@ public class CatchingManager : MonoBehaviour
             
             hint.ShowHint(successful);
             panel.SetActive(true);
-            hp[0].text = "HP: " + currentBug.insectHP;
-            atk[0].text = "atk:" + currentBug.insectAtk;
+            hp[1].text = "生命值：" + currentBug.insectHP;
+            atk[1].text = "攻击力：" + currentBug.insectAtk;
+            name[1].text=currentBug.name;
         }
     }
 
@@ -247,8 +249,9 @@ public class CatchingManager : MonoBehaviour
         {
             InsectData data= currentBugs[i].GetComponent<BugToCatch>();
             data.gameObject.SetActive(false);
-            hp[i].text = "hp:" + data.insectHP;
-            atk[i].text = "atk:" + data.insectAtk;
+            hp[i].text = "生命值：" + data.insectHP;
+            atk[i].text = "攻击力：" + data.insectAtk;
+            name[i].text=data.name;
             DataBroker.Instance.give_dataFromCatch(data);
         }
         switchcase.gameObject.SetActive(true);
