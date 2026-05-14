@@ -1,30 +1,3 @@
-%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c83d79d798568942a08f4d3426d13ae, type: 3}
-  m_Name: "\u5173\u53611"
-  m_EditorClassIdentifier: 
-  dialogueList:
-  - speakerName: "\u5C0F\u5B69\u9E3D"
-    speakerSprite: {fileID: 21300000, guid: a7e4fc7b875302c4cb6962eb81dea4fe, type: 3}
-    content: "\u545C\u545C\u545C\uFF0C\u6211\u7684\u86D0\u86D0\u2026\u2026\u545C\u545C\u545C\u545C\u2026\u2026."
-    Shake: 0
-    canContinue: 1
-  - speakerName: "\u5F20\u4E09\u7237"
-    speakerSprite: {fileID: 21300000, guid: 564c8270d0f24b84b89d5b82d82fe7a1, type: 3}
-    content: "\u83DC\u5C31\u591A\u7EC3\uFF0C\u62FF\u6765\u5427\u4F60\u54C8\u54C8\u54C8\u54C8\u54C8\u2026\u2026.\uFF01\uFF01\uFF01"
-    Shake: 0
-    canContinue: 1
-  - speakerName: "\u5F20\u4E09\u7237"
-    speakerSprite: {fileID: 21300000, guid: 564c8270d0f24b84b89d5b82d82fe7a1, type: 3}
-    content: "\u55EF\uFF1F\u90A3\u8FB9\u7684\u8001\u5934\u513F\uFF0C\u770B\u4EC0\u4E48\u770B\uFF1F"
-    Shake: 0
-    canContinue: 1
+version https://git-lfs.github.com/spec/v1
+oid sha256:ea8f0b9773d89cf1d8b8e20043678c0ea4883f281ccb468bac2a1e4cf2c35c09
+size 1265

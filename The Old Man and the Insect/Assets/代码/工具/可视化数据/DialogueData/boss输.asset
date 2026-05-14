@@ -1,30 +1,3 @@
-%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c83d79d798568942a08f4d3426d13ae, type: 3}
-  m_Name: "boss\u8F93"
-  m_EditorClassIdentifier: 
-  dialogueList:
-  - speakerName: "\u738B\u8001\u6C49"
-    speakerSprite: {fileID: 0}
-    content: "\u4F60\u8FD9\u866B\u8FD8\u662F\u4E0D\u884C\u554A\uFF0C\u7ED9\u6211\u7684\u86D0\u86D0\u513F\u5F53\u9972\u6599\u90FD\u4E0D\u591F\u683C\uFF0C\u6015\u662F\u5403\u4E86\u51C6\u8981\u62C9\u809A\u5B50\uFF0C\u4E5F\u5C31\u4F60\u81EA\u5DF1\u5E26\u56DE\u53BB\u800D\u800D\u5427\u3002"
-    Shake: 0
-    canContinue: 1
-  - speakerName: "\u5218\u5927\u7237"
-    speakerSprite: {fileID: 0}
-    content: "\u8001\u9A6C\u4F60\u522B\u5F80\u5FC3\u91CC\u53BB\uFF0C\u4E0D\u5C31\u662F\u8F93\u4E86\u4E00\u5C40\u561B\uFF01\u90A3\u8001\u738B\u5934\u7684\u866B\u672C\u5C31\u5201\u94BB\uFF0C\u4E0B\u6B21\u54B1\u597D\u597D\u51C6\u5907\uFF0C\u80AF\u5B9A\u80FD\u8D62\u56DE\u6765\uFF01"
-    Shake: 0
-    canContinue: 1
-  - speakerName: "\u5218\u5927\u7237"
-    speakerSprite: {fileID: 0}
-    content: "\u6765\u65E5\u65B9\u957F\uFF0C\u738B\u8001\u6C49\u6211\u4EEC\u8D70\u7740\u77A7\uFF01"
-    Shake: 0
-    canContinue: 1
+version https://git-lfs.github.com/spec/v1
+oid sha256:8ecf89e220a9d782f11df234cb52b937734ecf79332080dd0e0f7ace8d3c6238
+size 1416

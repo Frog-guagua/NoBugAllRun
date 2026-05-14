@@ -1,25 +1,3 @@
-%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c83d79d798568942a08f4d3426d13ae, type: 3}
-  m_Name: Example
-  m_EditorClassIdentifier: 
-  dialogueList:
-  - speakerName: 2
-    speakerSprite: {fileID: 0}
-    content: 2
-    Shake: 0
-    canContinue: 1
-  - speakerName: 1
-    speakerSprite: {fileID: 0}
-    content: 1
-    Shake: 0
-    canContinue: 1
+version https://git-lfs.github.com/spec/v1
+oid sha256:23dd7316659e3d702c1490253ed62b50dd1fe32412f5803e68e0aec78d9bc1d7
+size 631
