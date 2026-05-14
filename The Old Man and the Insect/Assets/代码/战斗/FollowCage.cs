@@ -17,6 +17,8 @@ public class FollowCage : MonoBehaviour
     private Vector3 CagePosition = new Vector3(0f, 0f, 0f);
     private Vector3 CageNowScale = new Vector3(0.1f, 0.1f, 0.1f);
     private Vector3 CageNowPosition = new Vector3(0f, 0f, 0f);
+    
+    [SerializeField] private float extraScale = 1.6f;   // 额外放大倍数，可在 Inspector 中调整
 
     void Start()
     {
@@ -53,8 +55,8 @@ public class FollowCage : MonoBehaviour
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(
                 new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f)
             );
-    
-            Collider2D hit = Physics2D.OverlapPoint(mouseWorldPos);
+            int layerMask = LayerMask.GetMask("Bug");
+            Collider2D hit = Physics2D.OverlapPoint(mouseWorldPos, layerMask);
     
             CageNowPosition = Cage.position;
             CageNowScale = Cage.localScale;
@@ -82,9 +84,9 @@ public class FollowCage : MonoBehaviour
         
         // 缩放跟随：虫子缩放 = 笼子缩放 × 初始比例因子
         transform.localScale = new Vector3(
-            Cage.localScale.x * localScaleFactor.x,
-            Cage.localScale.y * localScaleFactor.y,
-            Cage.localScale.z * localScaleFactor.z
+            Cage.localScale.x * localScaleFactor.x*extraScale,
+            Cage.localScale.y * localScaleFactor.y*extraScale,
+            Cage.localScale.z * localScaleFactor.z*extraScale
         );
     }
 }

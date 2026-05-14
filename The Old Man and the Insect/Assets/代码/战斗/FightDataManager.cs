@@ -227,7 +227,7 @@ public class FightDataManager : MonoBehaviour
             //呱：刷新标签ui
             if (i<tagDatas.Count&&tagDatas[i]!=null)
             {
-                tagDatas[i].text = $"{FightBugData.insectHP}\n{FightBugData.insectAtk}";
+                tagDatas[i].text = $"{FightBugData.insectHP}\n\n{FightBugData.insectAtk}";
             }
 
             if (i < myBugNames.Count && myBugNames[i] != null)
