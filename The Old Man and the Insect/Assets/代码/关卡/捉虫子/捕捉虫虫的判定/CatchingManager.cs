@@ -216,7 +216,7 @@ public class CatchingManager : MonoBehaviour
             panel.SetActive(true);
             hp[1].text = "生命值：" + currentBug.insectHP;
             atk[1].text = "攻击力：" + currentBug.insectAtk;
-            name[1].text=currentBug.name;
+            name[1].text=currentBug.Name;
         }
     }
 
@@ -251,7 +251,7 @@ public class CatchingManager : MonoBehaviour
             data.gameObject.SetActive(false);
             hp[i].text = "生命值：" + data.insectHP;
             atk[i].text = "攻击力：" + data.insectAtk;
-            name[i].text=data.name;
+            name[i].text=data.Name;
             DataBroker.Instance.give_dataFromCatch(data);
         }
         switchcase.gameObject.SetActive(true);

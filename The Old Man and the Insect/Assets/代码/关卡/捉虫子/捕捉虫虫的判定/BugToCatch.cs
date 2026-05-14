@@ -30,7 +30,7 @@ public class BugToCatch : InsectData
 
         if (data == null)
         {
-            Debug.LogError($"{nameof(BugToCatch)}({name}) 的 {nameof(data)} 为空，无法调用 {nameof(GetSoData)}。请检查预制体/列表引用是否真的绑定了 InsectDataSO。", this);
+            Debug.LogError($"{nameof(BugToCatch)}({Name}) 的 {nameof(data)} 为空，无法调用 {nameof(GetSoData)}。请检查预制体/列表引用是否真的绑定了 InsectDataSO。", this);
             return;
         }
 

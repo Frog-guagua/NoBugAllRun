@@ -235,7 +235,7 @@ private IEnumerator ApplyDamageByIndex()
     List<Coroutine> deathRoutines = new List<Coroutine>();
     foreach (var bug in allMyBugs)
     {
-        if (bug.name == "对手虫A左")
+        if (bug.Name == "对手虫A左")
         {
             if (FightDataManager.ActionPoints == 1)
             {
@@ -253,7 +253,7 @@ private IEnumerator ApplyDamageByIndex()
 
         }
         
-        if (bug.name == "战斗虫A")
+        if (bug.Name == "战斗虫A")
         {
             if (FightDataManager.ActionPoints == 1)
             {
@@ -270,7 +270,7 @@ private IEnumerator ApplyDamageByIndex()
             }
 
         }
-        Debug.Log($"{bug.name} {bug.insectHP} {bug.insectAtk}");
+        Debug.Log($"{bug.Name} {bug.insectHP} {bug.insectAtk}");
         if (bug != null && bug.insectHP <= 0 && bug.gameObject.activeSelf)
             deathRoutines.Add(StartCoroutine(ShakeAndFade(bug.gameObject)));
     }
@@ -278,7 +278,7 @@ private IEnumerator ApplyDamageByIndex()
     
     foreach (var bug in allEnemyBugs)
     { 
-        if (bug.name == "战斗虫A")
+        if (bug.Name == "战斗虫A")
         {
             if (FightDataManager.ActionPoints == 1)
             {
@@ -295,7 +295,7 @@ private IEnumerator ApplyDamageByIndex()
 
         }
         
-        if (bug != null && bug.insectHP <= 0 && bug.gameObject.activeSelf&&bug.name != "战斗虫A")
+        if (bug != null && bug.insectHP <= 0 && bug.gameObject.activeSelf&&bug.Name != "战斗虫A")
             deathRoutines.Add(StartCoroutine(ShakeAndFade(bug.gameObject)));
         
     }

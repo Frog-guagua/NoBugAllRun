@@ -15,6 +15,10 @@ public class FightDataManager : MonoBehaviour
     [SerializeField]  List<GameObject>  myBugs = new List<GameObject>();
     [SerializeField]public List<TextMeshProUGUI> fightBugDatas = new List<TextMeshProUGUI>(); 
     
+    [Header("己方虫虫名字")]
+    [SerializeField]  List<TextMeshProUGUI> myBugNames = new List<TextMeshProUGUI>();
+    
+    
     //呱： 这是鼠鼠主人给的 虫虫数据
     /// <summary>
     /// 传入的虫虫数据
@@ -178,6 +182,7 @@ public class FightDataManager : MonoBehaviour
                         Debug.Log("A虫虫图片准备中");
                         Idle_SR.sprite = IdleBugSprites[0];
                         Fight_SR.sprite = FightBugSprites[0];
+                        
                         break;
                     
                     case  E_BugType.B:
@@ -222,7 +227,12 @@ public class FightDataManager : MonoBehaviour
             //呱：刷新标签ui
             if (i<tagDatas.Count&&tagDatas[i]!=null)
             {
-                tagDatas[i].text = $"{FightBugData.insectHP}   {FightBugData.insectAtk}";
+                tagDatas[i].text = $"{FightBugData.insectHP}\n{FightBugData.insectAtk}";
+            }
+
+            if (i < myBugNames.Count && myBugNames[i] != null)
+            {
+                myBugNames[i].text = $"{IdleBugData.Name}";
             }
         }
         
@@ -420,7 +430,7 @@ public class FightDataManager : MonoBehaviour
         {
             if (myFightBugs[i] != null)
             {
-                Debug.Log($"虫子[{i}] 名称：{myFightBugs[i].name}, HP={myFightBugs[i].insectHP}, ATK={myFightBugs[i].insectAtk}");
+                Debug.Log($"虫子[{i}] 名称：{myFightBugs[i].Name}, HP={myFightBugs[i].insectHP}, ATK={myFightBugs[i].insectAtk}");
             }
             else
             {

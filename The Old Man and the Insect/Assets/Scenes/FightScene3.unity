@@ -804,7 +804,6 @@ MonoBehaviour:
   insectLevel: 1
   isCompound: 0
   insectImage: {fileID: 0}
-  description: 
   AtkUpConsumpution: 1
   HpUpConsumption: 1
 --- !u!1 &117516656
@@ -961,7 +960,6 @@ MonoBehaviour:
   insectLevel: 1
   isCompound: 0
   insectImage: {fileID: 0}
-  description: 
   AtkUpConsumpution: 1
   HpUpConsumption: 1
 --- !u!1 &190091666
@@ -2966,7 +2964,6 @@ MonoBehaviour:
   insectLevel: 1
   isCompound: 0
   insectImage: {fileID: 0}
-  description: 
   AtkUpConsumpution: 1
   HpUpConsumption: 1
 --- !u!1 &544214801
@@ -7377,7 +7374,6 @@ MonoBehaviour:
   insectLevel: 1
   isCompound: 0
   insectImage: {fileID: 0}
-  description: 
   AtkUpConsumpution: 1
   HpUpConsumption: 1
 --- !u!1 &1145773877
@@ -8497,7 +8493,6 @@ MonoBehaviour:
   insectLevel: 1
   isCompound: 0
   insectImage: {fileID: 0}
-  description: 
   AtkUpConsumpution: 1
   HpUpConsumption: 1
 --- !u!1 &1241144477
@@ -15808,6 +15803,7 @@ MonoBehaviour:
   - {fileID: 513129271}
   - {fileID: 31673620}
   - {fileID: 705754986}
+  myBugNames: []
   bugs: []
   myFightBugs: []
   enemyDatas:
@@ -16725,7 +16721,6 @@ MonoBehaviour:
   insectLevel: 1
   isCompound: 0
   insectImage: {fileID: 0}
-  description: 
   AtkUpConsumpution: 1
   HpUpConsumption: 1
 --- !u!1 &1819584383
@@ -17987,7 +17982,6 @@ MonoBehaviour:
   insectLevel: 1
   isCompound: 0
   insectImage: {fileID: 0}
-  description: 
   AtkUpConsumpution: 1
   HpUpConsumption: 1
 --- !u!1001 &1898528311

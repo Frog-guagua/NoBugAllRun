@@ -64,12 +64,12 @@ public class BattleResover : MonoBehaviour
                 {
                     damageMap[enemy] = damageMap.GetValueOrDefault(enemy) + myBug.insectAtk;
                     UpdateBugUI(enemy);
-                    Debug.Log($"{myBug.name} 击中 {enemy.name}");
+                    Debug.Log($"{myBug.Name} 击中 {enemy.Name}");
                 }
             }
             else
             {
-                Debug.Log($"{myBug.name} 未击中，起点 {origin}，射线向上 {rayDistance}，命中物体：{(hit.collider ? hit.collider.name : "无")}");
+                Debug.Log($"{myBug.Name} 未击中，起点 {origin}，射线向上 {rayDistance}，命中物体：{(hit.collider ? hit.collider.name : "无")}");
             }
         }
 
@@ -86,19 +86,19 @@ public class BattleResover : MonoBehaviour
                 if (myBug != null)
                 {
                     damageMap[myBug] = damageMap.GetValueOrDefault(myBug) + enemyBug.insectAtk;
-                    Debug.Log($"{enemyBug.name} 击中 {myBug.name}");
+                    Debug.Log($"{enemyBug.Name} 击中 {myBug.Name}");
                 }
             }
             else
             {
-                Debug.Log($"{enemyBug.name} 未击中，起点 {origin}，射线向下 {rayDistance}，命中物体：{(hit.collider ? hit.collider.name : "无")}");
+                Debug.Log($"{enemyBug.Name} 未击中，起点 {origin}，射线向下 {rayDistance}，命中物体：{(hit.collider ? hit.collider.name : "无")}");
             }
         }
         // 3. 统一扣血
         foreach (var kvp in damageMap)
         {
             kvp.Key.insectHP -= kvp.Value;
-            Debug.Log($"{kvp.Key.name} 受到 {kvp.Value} 伤害，剩余 HP：{kvp.Key.insectHP}");
+            Debug.Log($"{kvp.Key.Name} 受到 {kvp.Value} 伤害，剩余 HP：{kvp.Key.insectHP}");
         }
 
         // 4. 刷新所有虫子头顶的 UI
