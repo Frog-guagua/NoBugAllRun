@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: B
   m_EditorClassIdentifier: 
   insectId: 2
-  insectName: B1
+  insectName: "\u9F3B\u6D95\u6CE1"
   insectHP: 2
   insectAtk: 2
   insectLevel: 1
   bugType: 1
-  description: 
+  description: "\u5657\u3001\u5657\u53FD\xB7\xB7\xB7\u5438\u6E9C"
   insectImage: {fileID: -721430565, guid: df6c9b4fcaa7f374f8b02db52a9033f2, type: 3}
   insectSound: {fileID: 8300000, guid: 689533254b52a634dba83262dbd84b37, type: 3}

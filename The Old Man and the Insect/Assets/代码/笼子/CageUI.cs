@@ -23,6 +23,8 @@ public class CageUI : MonoBehaviour
     public Image im3;
     public Button hpUpbtn;
     public Button atkUpbtn;
+    public TextMeshProUGUI description;
+    public TextMeshProUGUI name;
     // 私有构造函数，防止外部直接调用构造函数
     private CageUI() { }
     private bool hasBeenActivated = false;
@@ -130,7 +132,9 @@ public class CageUI : MonoBehaviour
         atk.text = CageManager.Instance.currentChosenData.insectAtk.ToString();
         hp.text = CageManager.Instance.currentChosenData.insectHP.ToString();
         Debug.Log(CageManager.Instance.currentChosenData.insectAtk.ToString());
-        experience.text ="exp:"+DataBroker.experience.ToString();
+        experience.text ="当前经验"+DataBroker.experience.ToString();
+        name.text=CageManager.Instance.currentChosenData.name.ToString();
+        description.text=CageManager.Instance.currentChosenData.description.ToString();
     }
 
     public void setAct() { 
