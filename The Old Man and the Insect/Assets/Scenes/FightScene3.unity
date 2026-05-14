@@ -4510,6 +4510,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1418338700}
     m_Modifications:
+    - target: {fileID: 339733835323497149, guid: 0d3d0d93ab53b134ca4c73c83d2bfe3e, type: 3}
+      propertyPath: m_TagString
+      value: Bugs
+      objectReference: {fileID: 0}
     - target: {fileID: 578789197680322836, guid: 0d3d0d93ab53b134ca4c73c83d2bfe3e, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.6546293
@@ -6938,6 +6942,10 @@ PrefabInstance:
     - target: {fileID: 6548523615809736936, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
       propertyPath: m_Name
       value: "\u5B8C\u7F8E\u866B\u866B\u8BA1\u5212 (1)"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112050767746094102, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
+      propertyPath: m_TagString
+      value: Bugs
       objectReference: {fileID: 0}
     - target: {fileID: 7568228584329416629, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
       propertyPath: m_Size.x

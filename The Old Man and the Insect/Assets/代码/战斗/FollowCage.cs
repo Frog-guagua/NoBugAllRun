@@ -8,7 +8,8 @@ public class FollowCage : MonoBehaviour
     [SerializeField] GameObject Tag;
 
     private Vector3 localPositionOffset;  
-    private Vector3 localScaleOffset;     
+    private Vector3 localScaleOffset;
+    private Vector3 mousePos;
 
     void Start()
     {
@@ -20,7 +21,7 @@ public class FollowCage : MonoBehaviour
             else
                 Debug.LogError("FollowCage: 未找到名为 'Cage' 的物体，请检查场景中的笼子物体名称。");
         }
-            Tag.SetActive(false);
+        Tag.SetActive(false);
             localPositionOffset = transform.position - Cage.position;
             
             localScaleOffset = new Vector3(
@@ -28,20 +29,43 @@ public class FollowCage : MonoBehaviour
                 transform.localScale.y / Cage.localScale.y,
                 transform.localScale.z / Cage.localScale.z
             );
+            
+           
         
+    }
+
+    void Update()
+    {
+       
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(
+            new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f)
+        );
+    
+       
+        Collider2D hit = Physics2D.OverlapPoint(mouseWorldPos);
+    
+        if (hit != null && hit.CompareTag("Bugs"))
+        {
+           
+            if (hit.transform.childCount > 0)
+            {
+                GameObject child = hit.transform.GetChild(0).gameObject;
+               
+                child.SetActive(true);
+            }
+           
+        }
+        else
+        {
+           Tag.SetActive(false);
+        }
     }
 
     void LateUpdate()
     {
        
-        if (CageZoom.CageHasZoomed)
-        {
-            Tag.SetActive(true);
-        }
-        else
-        {
-            Tag.SetActive(false);
-        }
+       
+    
         
         transform.position = Cage.position + localPositionOffset;
         

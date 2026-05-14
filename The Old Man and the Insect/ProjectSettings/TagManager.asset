@@ -8,6 +8,7 @@ TagManager:
   - EnemyBug
   - Hint2
   - Button
+  - Bugs
   layers:
   - Default
   - TransparentFX

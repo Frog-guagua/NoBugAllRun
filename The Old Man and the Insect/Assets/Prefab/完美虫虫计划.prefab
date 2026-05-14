@@ -5493,7 +5493,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 241576434948858135, guid: 061c4cf30ba47f94b92f92932233ab37, type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 476011737037267108, guid: 061c4cf30ba47f94b92f92932233ab37, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5506,6 +5506,10 @@ PrefabInstance:
     - target: {fileID: 643711065562954420, guid: 061c4cf30ba47f94b92f92932233ab37, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 643711065562954420, guid: 061c4cf30ba47f94b92f92932233ab37, type: 3}
+      propertyPath: m_TagString
+      value: Bugs
       objectReference: {fileID: 0}
     - target: {fileID: 1279480073213518852, guid: 061c4cf30ba47f94b92f92932233ab37, type: 3}
       propertyPath: m_Layer
@@ -5670,12 +5674,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38ef98215cca8a40a3eaefdb91f9187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  insectId: 1
   insectHP: 2
   insectAtk: 1
   insectLevel: 1
   isCompound: 0
-  bugType: 0
   insectImage: {fileID: 0}
   description: 
   AtkUpConsumpution: 1
@@ -5722,12 +5724,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38ef98215cca8a40a3eaefdb91f9187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  insectId: 1
   insectHP: 2
   insectAtk: 1
   insectLevel: 1
   isCompound: 0
-  bugType: 0
   insectImage: {fileID: 0}
   description: 
   AtkUpConsumpution: 1

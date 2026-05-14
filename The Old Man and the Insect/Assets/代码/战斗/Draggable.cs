@@ -154,6 +154,7 @@ public class Draggable : MonoBehaviour
         {
             // 没点中自己，也要恢复碰撞体
             if (cageButtonCollider != null) cageButtonCollider.enabled = true;
+            isDragging = false;
         }
     }
 
