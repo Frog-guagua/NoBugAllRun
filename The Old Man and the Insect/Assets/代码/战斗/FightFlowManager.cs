@@ -882,7 +882,7 @@ public class FightFlowManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         yield return ShowDialogueHint("李四爷：义父加油，咬死他的虫！");
         yield return new WaitForSeconds(0.5f);
-        yield return ShowDialogueHint("窃窃私语B：诶？你们有没有感觉这老人瞧着有些眼熟，\n想不起来在哪见过了……");
+        yield return ShowDialogueHint("窃窃私语B：？你们有没有感觉这老人瞧着有些眼熟，\n想不起来在哪见过了……");
         
 
         #endregion
