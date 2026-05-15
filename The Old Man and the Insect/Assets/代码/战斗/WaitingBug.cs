@@ -82,7 +82,7 @@ public class WaitingBug : MonoBehaviour
                         WaitingBugs[BugIndex].transform.GetChild(0).gameObject.SetActive(true);
                         
                  
-                        StartCoroutine(MoveAndDisable(targetPos, WaitingBugs[BugIndex], moveCurveForLevelUp));
+                        StartCoroutine(MoveAndDisable(targetPos, WaitingBugs[BugIndex], moveCurveForLevelUp,GridManager.Grids[realIndex-4].bugOnGrid));
                         //if (!needCompound) return;
 
                     }
@@ -107,7 +107,19 @@ public class WaitingBug : MonoBehaviour
         }
            
         WaitingBugs[BugIndex].GetComponent<Collider2D>().enabled = true;
+        Color color = new Color();
+        color.a = 0;
+        Vector3 bugNowPos = WaitingBugs[BugIndex].transform.position;
+        
+        WaitingBugs[BugIndex].GetComponent<SpriteRenderer>().color = color;
         WaitingBugs[BugIndex].GetComponent<SpriteRenderer>().enabled = true;
+        
+        SpriteRenderer sr = WaitingBugs[BugIndex].GetComponent<SpriteRenderer>();
+        sr.color = Color.white;         
+
+        
+        StartCoroutine(UpBugAnime(WaitingBugs[BugIndex], bugNowPos, 1f));
+        
         WaitingBugs[BugIndex].transform.GetChild(0).gameObject.SetActive(true);
 
         
@@ -285,7 +297,7 @@ public IEnumerator FindRival(int GridIndex)
     Debug.Log($"FindRival: 虫子从格子 {GridIndex} 移动到格子 {targetGridIndex}");
     yield return null;
 }    
-    IEnumerator MoveAndDisable(Vector3 endPos, GameObject fightBug,AnimationCurve curve)
+    IEnumerator MoveAndDisable(Vector3 endPos, GameObject fightBug,AnimationCurve curve,GameObject targetBug)
     {
    
         yield return Move(endPos, fightBug,curve);
@@ -298,7 +310,9 @@ public IEnumerator FindRival(int GridIndex)
             Destroy(fightBug);
            
             Camera.main.GetComponent<CamaraShake>().ShakeStart(0.5f,0.3f);
-            
+            Color color = new Color();
+            color = Color.red;
+            StartCoroutine(ColorTransition.FadeToColor(targetBug, color));
             yield return new WaitForSeconds(levelUpSound.length+0.5f);
             needCompound = false;
             levelUpParticles.Stop();
@@ -405,5 +419,110 @@ public IEnumerator FindRival(int GridIndex)
         TextMeshProUGUI tmp = bug.GetComponentInChildren<TextMeshProUGUI>();
         if (tmp != null)
             tmp.text = $"{bug.insectHP}\n\n\n{bug.insectAtk}";
+    }
+
+    IEnumerator UpBugAnime(GameObject obj, Vector3 endPos, float duration)
+    {
+        SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
+       
+
+        // 初始透明度设为 0
+        Color startColor = sr.color;
+        startColor.a = 0f;
+        sr.color = startColor;
+
+        float newY = endPos.y;
+        newY += 1;
+        
+        
+        Vector3 startPos = new Vector3(endPos.x+0.2f, newY, endPos.z);
+        
+        // 设置起始位置
+        obj.transform.position = startPos;
+
+        float elapsed = 0f;
+       
+        ParticleSystem ps = obj.transform.GetChild(1).GetComponent<ParticleSystem>();
+        ps.gameObject.SetActive(true);
+        ps.Play();
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+
+            // 透明度插值
+            Color newColor = sr.color;
+            newColor.a = Mathf.Lerp(0f, 1f, t);
+            sr.color = newColor;
+
+            // 位置插值
+            obj.transform.position = Vector3.Lerp(startPos, endPos, t);
+
+            yield return null;
+        }
+
+        Destroy(ps.gameObject);
+        // 确保最终完全可见且位置精确
+        Color finalColor = sr.color;
+        finalColor.a = 1f;
+        sr.color = finalColor;
+        obj.transform.position = endPos;
+    }
+}
+
+public static class ColorTransition
+{
+
+    public static IEnumerator FadeToColor(GameObject obj, Color targetColor, float duration = 0.3f)
+    {
+        if (obj == null) yield break;
+
+        // 获取当前颜色
+        Color currentColor = Color.white;
+        bool hasRenderer = false;
+
+        // 1. 尝试 UI Image
+        
+            SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
+            if (sr != null)
+            {
+                currentColor = sr.color;
+                hasRenderer = true;
+            }
+            // 3. 尝试普通 Renderer（3D物体，需材质支持透明度）
+            else
+            {
+                Renderer rend = obj.GetComponent<Renderer>();
+                if (rend != null && rend.material != null)
+                {
+                    currentColor = rend.material.color;
+                    hasRenderer = true;
+                }
+            }
+        
+
+        if (!hasRenderer)
+        {
+            Debug.LogWarning($"物体 {obj.name} 没有可用的 Image/SpriteRenderer/Renderer 组件，无法渐变颜色");
+            yield break;
+        }
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            Color newColor = Color.Lerp(currentColor, targetColor, t);
+
+          
+            if (obj.GetComponent<SpriteRenderer>() != null) obj.GetComponent<SpriteRenderer>().color = newColor;
+            else if (obj.GetComponent<Renderer>() != null) obj.GetComponent<Renderer>().material.color = newColor;
+
+            yield return null;
+        }
+
+        // 确保最终颜色精确
+        if (obj.GetComponent<SpriteRenderer>() != null) obj.GetComponent<SpriteRenderer>().color = targetColor;
+        
     }
 }
