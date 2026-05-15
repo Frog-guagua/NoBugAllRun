@@ -7,7 +7,8 @@ public sealed class DataBroker
     // 单例实例
     private static readonly DataBroker _instance = new DataBroker();
     
-    
+    public bool canBeginCatch = false;
+    public bool canEndCatch = true;
     private DataBroker()
     {
     }

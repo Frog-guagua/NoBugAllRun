@@ -18,7 +18,31 @@ public class DialogueManager : MonoBehaviour
     public Image speakerSpriteImg;
     public TMP_Text contentText;
     public GameObject dialogueUI;
+    
+    [Header("正常对话ui")]
+    public GameObject dialogueUI1;
 
+    public TMP_Text speakername;
+    
+    public TMP_Text content;
+    [Header("事件专用")]
+    public GameObject dialogueUI2;
+    public TMP_Text speakername2;
+    public TMP_Text content2;
+    public void switchUI_tem()
+    {
+        dialogueUI=dialogueUI2;
+        speakerNameText=speakername2;
+        contentText=content2;
+       
+    }
+
+    public void switchUI_1()
+    {
+        dialogueUI=dialogueUI1;
+        speakerNameText=speakername;
+        contentText=content;
+    }
     [Header("Typewriter")]//打字机效果
     public float typeWriterSpeed = 0.05f;
 
@@ -29,6 +53,8 @@ public class DialogueManager : MonoBehaviour
     private Action currentact;
     
     public bool canContinue=true;
+    
+    
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -83,7 +109,16 @@ public class DialogueManager : MonoBehaviour
        
         
         speakerNameText.text = sentence.speakerName;
-        speakerSpriteImg.sprite = sentence.speakerSprite;
+
+        if (sentence.speakerSprite != null)
+        {
+            speakerSpriteImg.sprite = sentence.speakerSprite;
+        }
+        else
+        {
+            speakerSpriteImg.gameObject.SetActive(false);
+        }
+
         canContinue=sentence.canContinue;
         if (sentence.Shake)
         {
@@ -109,6 +144,7 @@ public class DialogueManager : MonoBehaviour
         {
             NextSentence();//鼠标点击切换下一句
         }
+        
     }
 
     private void NextSentence()
@@ -117,7 +153,7 @@ public class DialogueManager : MonoBehaviour
         PlayCurrentSentence();
     }
 
-    private void EndDialogue(Action endAct)//关闭面板,执行结束对话操作
+    public void EndDialogue(Action endAct)//关闭面板,执行结束对话操作
     {
         isDialoguePlaying = false;
         isSentenceFinish = false;

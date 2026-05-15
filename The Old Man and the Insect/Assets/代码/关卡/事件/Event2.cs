@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,8 @@ public class Event2 : MonoBehaviour
     public string desciption3;
     public InsectDataSO DataSo;
     public Animator ani;
+
+    public DialogueData data;
     // 获取单例实例的属性
     public static Event2 Instance
     {
@@ -36,6 +39,14 @@ public class Event2 : MonoBehaviour
     
     public DialogueData event2;
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Player" && canChange)
+        {
+            Transition.Instance.SwitchSceneWithFade("FlowerShop");
+        }
+    }
+
     // 确保在场景中只有一个Event2实例
     void Awake()
     {
@@ -52,22 +63,16 @@ public class Event2 : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    {   
+        data.dialogueList[0].canContinue=false;
         PlayerMove.canMove=false;
         ani.SetBool("canMove", true);
         StartCoroutine(flow());
+        DialogueManager.Instance.switchUI_tem();
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (canChange && Input.GetMouseButton(0))
-        {
-            Debug.Log("切换下一关");
-            Transition.Instance.SwitchSceneWithFade("FlowerShop");
-            canChange=false;
-        }
-    }
+    
     public void button1()
     {
         DataBroker.actionValue += 2;
@@ -79,6 +84,9 @@ public class Event2 : MonoBehaviour
         hint.ShowHint(desciption1);
         canChange=true; 
         PlayerMove.canMove=true;
+        DialogueManager.Instance.EndDialogue(null);
+        DialogueManager.Instance.switchUI_1();
+        data.dialogueList[0].canContinue=true;
         
     }
 
@@ -94,6 +102,9 @@ public class Event2 : MonoBehaviour
         hint.ShowHint(desciption2);
         canChange=true;
         PlayerMove.canMove=true;
+        DialogueManager.Instance.EndDialogue(null);
+        DialogueManager.Instance.switchUI_1();
+        data.dialogueList[0].canContinue=true;
     }
 
     public void button3()
@@ -107,13 +118,15 @@ public class Event2 : MonoBehaviour
         hint.ShowHint(desciption3);
         canChange=true;
         PlayerMove.canMove=true;
-        
+        DialogueManager.Instance.EndDialogue(null);
+        DialogueManager.Instance.switchUI_1();
+        data.dialogueList[0].canContinue=true;
     }
 
     IEnumerator flow()
     {
       
-        yield return new WaitForSeconds(4.8f);
+        yield return new WaitForSeconds(3.7f);
         ani.enabled=false;
         DialogueManager.Instance.StartDialogue(event2,setfather);
        
@@ -121,7 +134,8 @@ public class Event2 : MonoBehaviour
     }
 
     void setfather()
-    {
+    {   
+        DialogueManager.Instance.StartDialogue(data);
         btnFather.SetActive(true);
     }
 }
