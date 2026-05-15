@@ -12,6 +12,7 @@ public class BeforeBossMgr : MonoBehaviour
     public DialogueData win;
     public DialogueData lose;
     private static bool canFight = true;
+    public GameObject Obj;
     public Transform player;
     void Awake()
     {
@@ -66,12 +67,14 @@ public class BeforeBossMgr : MonoBehaviour
         FightFlowManager.OnGame3 = true;
         FightFlowManager.OnGame2=false;
         btn.SetActive(true);
+        Obj.SetActive(true);
     }
 
     public void OnClick()
     {   
         secondin = true;
       Transition.Instance.SwitchSceneWithFade("FightScene3");
+      
       btn.SetActive(false);
     }
 }

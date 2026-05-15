@@ -12,8 +12,7 @@ public class Before2Mgr: MonoBehaviour
     private static bool canContinue=true;
     public Button btn;
     public static bool canleave=false;
-    public DialogueData win;
-    public DialogueData lose;
+    public GameObject obj;
    
     
 
@@ -58,6 +57,7 @@ public class Before2Mgr: MonoBehaviour
     public void setbtn()
     {
         btn.gameObject.SetActive(true);
+        obj.SetActive(true);
     }
 
     public void btnonclick()

@@ -39,12 +39,12 @@ public class Bag : MonoBehaviour
             return;
 
         // 用 GetKeyDown 【只响应按下瞬间】，不会连触发
-        if (Input.GetKeyDown(KeyCode.B) && canOpenBag)
-        {   
-           ;
-            lastPressTime = Time.time; // 记录按下时间
-            ToggleBag(); // 开关背包
-        }
+       // if (Input.GetKeyDown(KeyCode.B) && canOpenBag)
+       // {   
+        //   ;
+         //   lastPressTime = Time.time; // 记录按下时间
+         //   ToggleBag(); // 开关背包
+       // }
     }
 
     /// <summary>

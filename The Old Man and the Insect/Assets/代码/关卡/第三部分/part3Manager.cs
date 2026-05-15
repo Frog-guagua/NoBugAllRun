@@ -12,7 +12,7 @@ public class part3Manager : MonoBehaviour
     private static bool canContinue=true;
     public Button btn;
     public static bool canleave=false;
-
+    public GameObject obj;
     public Vector2 leftAndDown_DoorRange;
     public Vector2 rightAndUp_DoorRange;
     private bool isswitch=false;
@@ -65,6 +65,7 @@ public class part3Manager : MonoBehaviour
     public void setbtn()
     {
         btn.gameObject.SetActive(true);
+        obj.SetActive(true);
     }
 
     public void btnonclick()

@@ -9,13 +9,14 @@ public class Hutong0 : MonoBehaviour
     public string str;
     public GameObject player;
     public Vector2 leftAndDown_DoorRange, rightAndUp_DoorRange;
-    private bool isswitch=false;
+    private bool isswitch = false;
 
     public Hint hint;
+
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(gethint());
+
         AudioMgr.Instance.PlayBGM(clip);
     }
 
@@ -23,19 +24,14 @@ public class Hutong0 : MonoBehaviour
     void Update()
     {
         if (player.transform.position.x > leftAndDown_DoorRange.x
-               && player.transform.position.x < rightAndUp_DoorRange.x
-               && player.transform.position.y > leftAndDown_DoorRange.y
-               && player.transform.position.y < rightAndUp_DoorRange.y
-              &&isswitch==false)
+            && player.transform.position.x < rightAndUp_DoorRange.x
+            && player.transform.position.y > leftAndDown_DoorRange.y
+            && player.transform.position.y < rightAndUp_DoorRange.y
+            && isswitch == false)
         {
             Transition.Instance.SwitchSceneWithFade("HuTong1");
             isswitch = true;
         }
     }
-
-    IEnumerator gethint()
-    {
-        yield return new WaitForSeconds(1);
-        hint.ShowHint(str);
-    }
 }
+    

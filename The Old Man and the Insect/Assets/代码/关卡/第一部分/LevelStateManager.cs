@@ -152,6 +152,8 @@ public class LevelStateManager : MonoBehaviour
                     break;
 
                 case LevelState.dialogue:
+                    PlayerMove playerMove = player.GetComponent<PlayerMove>();
+                    playerMove.switchback();
                     if (secondin == false)
                     {
                         DialogueManager.Instance.StartDialogue(dia2, diaEnd);

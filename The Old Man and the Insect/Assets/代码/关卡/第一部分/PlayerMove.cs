@@ -47,6 +47,9 @@ public class PlayerMove : MonoBehaviour
     // 用于在 Update 和 FixedUpdate 之间传递输入
     private Vector2 moveInput;
 
+    // 呱：MoveY 平滑过渡缓存，避免参数瞬间跳变导致动画硬切
+    private float currentMoveY = 0f;
+
     void Start()
     {
         #region 初始化玩家组件 数据
@@ -106,6 +109,14 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    public void switchback()
+    {
+        playerAnimator.SetBool("IsMoving", false);
+        playerAnimator.SetBool("IsSide", false);
+        playerAnimator.SetFloat("MoveY", 1f);
+        playerAnimator.Play("主角背面待机");
+        playerAnimator.Update(0);
+    }
     void Update()
     { 
         PosUpdate();
@@ -158,17 +169,18 @@ public class PlayerMove : MonoBehaviour
         // 更新动画状态
         playerAnimator.SetBool("IsMoving", IsMove);
 
-        // 根据移动方向更新玩家状态和朝向
+        // 呱：AD 绝对优先于 WS。只要有左右输入，永远判定为侧面；只有无左右输入时才判定正面/背面
         if (IsMove)
         {
-            // 左右优先，还是上下优先？这里保持原逻辑：只要有左右输入就覆盖上下输入的状态
             if (horizontal != 0)
             {
+                // 呱：只要有 A/D 输入，优先切到侧面状态，覆盖上下
                 playerState = horizontal > 0 ? E_PlayerState.TowardsRight : E_PlayerState.TowardsLeft;
                 SetSideTowards(playerState);
             }
             else if (vertical != 0)
             {
+                // 呱：没有左右输入时，才根据 W/S 判定正面/背面
                 playerState = vertical > 0 ? E_PlayerState.Back : E_PlayerState.Front;
             }
 
@@ -176,12 +188,30 @@ public class PlayerMove : MonoBehaviour
             bool isSide = (playerState == E_PlayerState.TowardsLeft || playerState == E_PlayerState.TowardsRight);
             playerAnimator.SetBool("IsSide", isSide);
 
-            float moveY = 0f;
+            float targetMoveY = 0f;
             if (playerState == E_PlayerState.Back)
-                moveY = 1f;
+                targetMoveY = 1f;
             else if (playerState == E_PlayerState.Front)
-                moveY = -1f;
-            playerAnimator.SetFloat("MoveY", moveY);
+                targetMoveY = -1f;
+
+            // 呱：平滑过渡 MoveY，避免前后/侧面切换时参数跳变导致动画硬切
+            currentMoveY = Mathf.MoveTowards(currentMoveY, targetMoveY, 10f * Time.deltaTime);
+            playerAnimator.SetFloat("MoveY", currentMoveY);
+        }
+        else
+        {
+            // 呱：停止时同步参数，确保进入正确的待机状态
+            bool isSide = (playerState == E_PlayerState.TowardsLeft || playerState == E_PlayerState.TowardsRight);
+            playerAnimator.SetBool("IsSide", isSide);
+
+            float targetMoveY = 0f;
+            if (playerState == E_PlayerState.Back)
+                targetMoveY = 1f;
+            else if (playerState == E_PlayerState.Front)
+                targetMoveY = -1f;
+
+            currentMoveY = Mathf.MoveTowards(currentMoveY, targetMoveY, 10f * Time.deltaTime);
+            playerAnimator.SetFloat("MoveY", currentMoveY);
         }
     }
 
