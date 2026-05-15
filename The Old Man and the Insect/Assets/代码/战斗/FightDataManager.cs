@@ -157,6 +157,7 @@ public class FightDataManager : MonoBehaviour
             Debug.Log(FightBug.name);
            
             GameObject IdleBug = myBugs[i].transform.GetChild(1).gameObject;
+            IdleBug.transform.localScale = new Vector3(0.334212452f,0.334212452f,0.334212452f);
             InsectData IdleBugData = IdleBug.GetComponent<InsectData>();
             Debug.Log(IdleBug.name);
 

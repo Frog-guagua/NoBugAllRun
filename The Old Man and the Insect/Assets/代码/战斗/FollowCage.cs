@@ -18,7 +18,7 @@ public class FollowCage : MonoBehaviour
     private Vector3 CageNowScale = new Vector3(0.1f, 0.1f, 0.1f);
     private Vector3 CageNowPosition = new Vector3(0f, 0f, 0f);
     
-    [SerializeField] private float extraScale = 1.6f;   // 额外放大倍数，可在 Inspector 中调整
+    [SerializeField] private float extraScale = 1f;   // 额外放大倍数，可在 Inspector 中调整
 
     void Start()
     {

@@ -17965,7 +17965,8 @@ MonoBehaviour:
   - {fileID: 374473953}
   - {fileID: 7840126}
   - {fileID: 1054241109}
-  offset: {x: 0.25, y: 0.3, z: 0}
+  enemyOffset: {x: 0, y: 0, z: 0}
+  myOffset: {x: 0, y: 0, z: 0}
 --- !u!4 &1486010893
 Transform:
   m_ObjectHideFlags: 0
