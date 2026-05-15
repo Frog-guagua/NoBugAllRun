@@ -206,6 +206,8 @@ public class FightFlowManager : MonoBehaviour
         #region 准备
 
         PrepareForFight();
+        
+        bugs[1].GetComponent<Collider2D>().enabled = false;
 
         #endregion
         
@@ -309,12 +311,13 @@ public class FightFlowManager : MonoBehaviour
 
         #region 大爷放虫
 
+        
          waitingBug.BugUp(0,0);
         yield return new WaitForSeconds(0.3f);
         ActionPoint actionPoint = FindObjectOfType<ActionPoint>();
         FightDataManager.ActionPoints = 2;
         actionPoint.UpdatePoints(FightDataManager.ActionPoints);;
-        
+        bugs[1].GetComponent<Collider2D>().enabled = true;
         
         #endregion
 

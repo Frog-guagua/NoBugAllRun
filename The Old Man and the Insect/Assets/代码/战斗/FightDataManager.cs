@@ -338,6 +338,7 @@ public class FightDataManager : MonoBehaviour
             enemyDatas[index].text = $"{enemyBug.insectHP}\n\n\n{enemyBug.insectAtk}";
             Debug.Log($"更新 enemyDatas[{index}] 成功");
         }
+        
     }
     
     void Start()
@@ -355,13 +356,14 @@ public class FightDataManager : MonoBehaviour
             foreach (InsectData bug in bugs)
             {
                 if (i < tagDatas.Count)
-                    tagDatas[i].text = $"{bug.insectHP}  {bug.insectAtk}";
+                    tagDatas[i].text = $"{bug.insectHP}\n\n{bug.insectAtk}";
                 myFightBugs[i] = bugs[i];   
                 // 改用 fightBugDatas 显示战斗数据
                 if (i < fightBugDatas.Count)
                     fightBugDatas[i].text = $"{bug.insectHP}\n\n\n{bug.insectAtk}";
                 i++;
             }
+            
         }
 
         if (FightFlowManager.OnGame2)
@@ -465,7 +467,7 @@ public class FightDataManager : MonoBehaviour
                 bug.gameObject.SetActive(false);
             }
             if (i < tagDatas.Count)
-                tagDatas[i].text = $"{bug.insectHP}  {bug.insectAtk}";
+                tagDatas[i].text = $"{bug.insectHP}\n\n{bug.insectAtk}";
             i++;
         }
         for (; i < tagDatas.Count; i++)

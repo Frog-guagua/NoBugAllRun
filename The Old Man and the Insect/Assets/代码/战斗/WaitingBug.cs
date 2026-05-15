@@ -441,10 +441,15 @@ public IEnumerator FindRival(int GridIndex)
         obj.transform.position = startPos;
 
         float elapsed = 0f;
+
+        
+        if (!FightFlowManager.OnGame1)
+        {
+            ParticleSystem ps = obj.transform.GetChild(1).GetComponent<ParticleSystem>();
+            ps.gameObject.SetActive(true);
+            ps.Play(); 
+        }
        
-        ParticleSystem ps = obj.transform.GetChild(1).GetComponent<ParticleSystem>();
-        ps.gameObject.SetActive(true);
-        ps.Play();
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
@@ -461,7 +466,12 @@ public IEnumerator FindRival(int GridIndex)
             yield return null;
         }
 
-        Destroy(ps.gameObject);
+        if (!FightFlowManager.OnGame1)
+        {
+            ParticleSystem ps = obj.transform.GetChild(1).GetComponent<ParticleSystem>();
+            Destroy(ps.gameObject);
+        }
+        
         // 确保最终完全可见且位置精确
         Color finalColor = sr.color;
         finalColor.a = 1f;

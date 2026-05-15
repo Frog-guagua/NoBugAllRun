@@ -233,6 +233,7 @@ private IEnumerator ApplyDamageByIndex()
     foreach (var bug in allMyBugs)
     {
         if (bug != null) UpdateBugUI(bug);
+        
     }
     // 更新敌方虫子 UI
     foreach (var bug in allEnemyBugs)
@@ -270,12 +271,14 @@ private IEnumerator ApplyDamageByIndex()
                 bug.insectAtk = 2;
                 bug.insectLevel = 2;
                 UpdateBugUI(bug);
+                yield break;
             }
             else
             {
                 bug.insectHP = 1;
                 bug.insectAtk = 1;
                 UpdateBugUI(bug);
+                yield break;
             }
 
         }
@@ -294,12 +297,14 @@ private IEnumerator ApplyDamageByIndex()
                 bug.insectHP = 2;
                 bug.insectAtk = 2;
                 UpdateBugUI(bug);
+                yield break;
             }
             else
             {
                 bug.insectHP = 1;
                 bug.insectAtk = 1;
                 UpdateBugUI(bug);
+                yield break;
             }
 
         }
