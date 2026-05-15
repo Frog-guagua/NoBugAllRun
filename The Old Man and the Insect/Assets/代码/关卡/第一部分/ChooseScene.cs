@@ -20,6 +20,7 @@ public class ChooseScene : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if(other.tag == "Player")
         Transition.Instance.SwitchSceneWithFade(sceneName);
     }
 }
