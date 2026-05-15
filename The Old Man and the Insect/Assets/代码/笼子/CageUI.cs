@@ -161,7 +161,7 @@ public class CageUI : MonoBehaviour
         this.hp.text=CageManager.Instance.currentChosenData.LetHPUp().ToString();
         Debug.Log( CageManager.Instance.currentChosenData.HpUpConsumption);
         CheckExpAndLevel(); 
-        experience.text ="exp:"+DataBroker.experience.ToString();
+        experience.text ="当前经验:"+DataBroker.experience.ToString();
         
     }
     public void atkLevelUp()
@@ -170,7 +170,7 @@ public class CageUI : MonoBehaviour
         this.atk.text=CageManager.Instance.currentChosenData.LetAtkUp().ToString();
         Debug.Log( CageManager.Instance.currentChosenData.AtkUpConsumpution);
         CheckExpAndLevel(); 
-        experience.text ="exp:"+DataBroker.experience.ToString();
+        experience.text ="当前经验:"+DataBroker.experience.ToString();
     }
 
     public void CheckExpAndLevel()
