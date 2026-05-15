@@ -144,6 +144,7 @@ public class DialogueManager : MonoBehaviour
         {
             NextSentence();//鼠标点击切换下一句
         }
+        
     }
 
     private void NextSentence()
@@ -152,7 +153,7 @@ public class DialogueManager : MonoBehaviour
         PlayCurrentSentence();
     }
 
-    public void EndDialogue(Action endAct=null)//关闭面板,执行结束对话操作
+    public void EndDialogue(Action endAct)//关闭面板,执行结束对话操作
     {
         isDialoguePlaying = false;
         isSentenceFinish = false;

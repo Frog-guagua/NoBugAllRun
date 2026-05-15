@@ -11,9 +11,7 @@ public class CageSlot : MonoBehaviour
     public Button btn;
     public InsectData Data=new InsectData();
     private Image img;
-    public GameObject tag;
-    public TextMeshProUGUI hp;
-    public TextMeshProUGUI atk;
+   
     // Start is called before the first frame update
     void Start()
     {   
@@ -27,15 +25,12 @@ public class CageSlot : MonoBehaviour
     {
         if (Data.insectId != 0)
         {
-            tag.SetActive(true);
-            hp.text ="hp"+ Data.insectHP.ToString();
-            atk.text ="atk"+ Data.insectAtk.ToString();
-            img.color = new Color(img.color.r, img.color.g, img.color.b, 1f);
+            img.color = new Color(img.color.r, img.color.g, img.color.b, 255f);
             
         }
         else
         {
-            tag.SetActive(false);
+            
             img.color = new Color(img.color.r, img.color.g, img.color.b, 0f);
         }
         

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,8 @@ public class BeforeBossMgr : MonoBehaviour
     public GameObject btn;
     public DialogueData win;
     public DialogueData lose;
+    private static bool canFight = true;
+    public Transform player;
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -23,8 +26,7 @@ public class BeforeBossMgr : MonoBehaviour
     }
 
     void Start()
-    {   if(secondin==false)
-        StartCoroutine(flow());
+    {   
         if (secondin == true)
         {
             if (DataBroker.WinGame3 == true)
@@ -39,9 +41,23 @@ public class BeforeBossMgr : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (canFight == true&&other.tag=="Player")
+        {
+            StartCoroutine(flow());
+            canFight = false;
+        }
+    }
+
+    private void OnMouseDown()
+    {
+        
+    }
+
     IEnumerator flow()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         DialogueManager.Instance.StartDialogue(dialogueData, startFight);
     }
 

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI; // 新增：Image 所在命名空间
 using Random = UnityEngine.Random;
 //由于这里需要多次进入
 //于是给它改动了一点点
@@ -71,7 +72,7 @@ public class CatchBugDecision : MonoBehaviour
     [SerializeField]  float IncreaseSpeed = 0;
     [SerializeField]  float ReduceSpeed = 0;
     [SerializeField] float StandardCatchTime;
-    SpriteRenderer progressBar_SR;
+    Image progressBar_IMG; // 改：UI Image 裁切进度条
     private Vector3 _progressBarOriginalScale;
     private bool _progressBarScaleCached;
     private float ProgressBarOriginLength;
@@ -129,8 +130,11 @@ public class CatchBugDecision : MonoBehaviour
         HandZonePos = HandZone_RB.transform.position;
     
         //呱：初始化 进度条的图片 获取初始进度条长度
-        progressBar_SR = progressBar.GetComponent<SpriteRenderer>();
-        ProgressBarOriginLength = progressBar_SR.bounds.size.x;
+        progressBar_IMG = progressBar.GetComponent<Image>();
+        progressBar_IMG.type = Image.Type.Filled;
+        progressBar_IMG.fillMethod = Image.FillMethod.Horizontal;
+        progressBar_IMG.fillOrigin = 0; // 0 = Left
+        ProgressBarOriginLength = progressBar_IMG.rectTransform.rect.width;
         CacheProgressBarOriginalScaleIfNeeded();
         fullScaleX = _progressBarScaleCached ? _progressBarOriginalScale.x : progressBar.transform.localScale.x;
         #endregion
@@ -153,14 +157,7 @@ public class CatchBugDecision : MonoBehaviour
         CatchingManager.Instance.startCount = true;
         NowCatchTime = 0;
 
-        if (_progressBarScaleCached)
-        {
-            progressBar.transform.localScale = new Vector3(0f, _progressBarOriginalScale.y, _progressBarOriginalScale.z);
-        }
-        else
-        {
-            progressBar.transform.localScale = new Vector3(0f, 1f, 1f);
-        }
+        progressBar_IMG.fillAmount = 0f; // 改：Image Filled 初始空条
         CatchingManager.Instance.startCount = true;
     }
 
@@ -268,9 +265,7 @@ public class CatchBugDecision : MonoBehaviour
     void ProgressBarManage()
     {
         float progress = NowCatchTime / StandardCatchTime;
-        Vector3 scale = progressBar.transform.localScale;
-        scale.x = progress*fullScaleX;  
-        progressBar.transform.localScale = scale;
+        progressBar_IMG.fillAmount = progress; // 改：直接控制裁切比例
     }
     
     //呱：累计时间的函数 用来判定是否抓捕成功
@@ -281,9 +276,7 @@ public class CatchBugDecision : MonoBehaviour
             NowCatchTime += Time.deltaTime * IncreaseSpeed;
             if (NowCatchTime >= StandardCatchTime&&canCatchBug)
             {
-                Vector3 scale = progressBar.transform.localScale;
-                scale.x = fullScaleX;
-                progressBar.transform.localScale = scale;
+                progressBar_IMG.fillAmount = 1f; // 改：满条
                 enabled = false;
                 //呱：这样就结束了
                 giveData();//存入虫虫数据
@@ -291,7 +284,7 @@ public class CatchBugDecision : MonoBehaviour
                 CatchingManager.Instance.success();
                 
                 
-                StartCoroutine(waitToClose(2f));
+                StartCoroutine(waitToClose(0.7f));
 
 
             }
@@ -367,6 +360,7 @@ public class CatchBugDecision : MonoBehaviour
         StartCatch = false;
         isMoving = false;
         NowCatchTime = 0;
+        progressBar_IMG.fillAmount = 0f; // 改：重置空条
        
         
         this.enabled = true;

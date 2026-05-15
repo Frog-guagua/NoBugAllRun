@@ -20,6 +20,15 @@ public class PlayerMove : MonoBehaviour
     private Animator playerAnimator;
     public static bool canMove = true;
 
+    [Header("主角初始面朝向")] public E_FirstPlayerState firststate;
+    public enum E_FirstPlayerState
+    {
+        front,
+        back,
+        towardsLeft,
+        towardsRight
+    }
+    
     // 2D 刚体组件
     private Rigidbody2D rb;
 
@@ -62,6 +71,39 @@ public class PlayerMove : MonoBehaviour
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         rb.interpolation = RigidbodyInterpolation2D.Interpolate;
         #endregion
+
+        switch (firststate)
+        {
+            case E_FirstPlayerState.front:
+                playerAnimator.SetBool("IsMoving", false);
+                playerAnimator.SetBool("IsSide", false);
+                playerAnimator.SetFloat("MoveY", -1f);
+                playerAnimator.Play("主角正面待机");
+                playerAnimator.Update(0);
+                break;
+            case E_FirstPlayerState.back:
+                playerAnimator.SetBool("IsMoving", false);
+                playerAnimator.SetBool("IsSide", false);
+                playerAnimator.SetFloat("MoveY", 1f);
+                playerAnimator.Play("主角背面待机");
+                playerAnimator.Update(0);
+                break;
+            case E_FirstPlayerState.towardsLeft:
+                playerAnimator.SetBool("IsMoving", false);
+                playerAnimator.SetBool("IsSide", true);
+                playerAnimator.SetFloat("MoveY", 0f);
+                playerAnimator.Play("主角侧面待机");
+                playerAnimator.Update(0);
+                break;
+            case E_FirstPlayerState.towardsRight:
+                playerAnimator.SetBool("IsMoving", false);
+                playerAnimator.SetBool("IsSide", true);
+                playerAnimator.SetFloat("MoveY", 0f);
+                playerAnimator.Play("主角侧面待机");
+                playerAnimator.Update(0);
+                this.gameObject.transform.localScale = new Vector3(-1f, 1f, 1f);
+                break;
+        }
     }
 
     void Update()

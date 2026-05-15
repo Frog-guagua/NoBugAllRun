@@ -54,18 +54,18 @@ public class CatchingManager : MonoBehaviour
     public GameObject panel;
     public int SuccessCount;
     public int failureCount;
-    
+    private bool canshowsuccess=true;
     private bool doUpdate = true;
     public List<TextMeshProUGUI> hp = new List<TextMeshProUGUI>();
     public List<TextMeshProUGUI> atk = new List<TextMeshProUGUI>();
     public List<TextMeshProUGUI> name = new List<TextMeshProUGUI>();
     private List<GameObject> currentBugs;
-
+    
     public List<GameObject> pos = new List<GameObject>();
     public List<GameObject> data1 = new List<GameObject>();
     public List<GameObject> data2 = new List<GameObject>();
-    public Button switchcase;
-
+   // public Button switchcase;
+    bool canswitch = false;
     
     // 确保场景中只有一个 CatchingManager 实例
     private void Awake()
@@ -149,7 +149,7 @@ public class CatchingManager : MonoBehaviour
                 catchBugDecision.canCatchBug = false;
                 counting.text = "倒计时结束！";
                
-                StartCoroutine(catchBugDecision.waitToClose(1f));
+                StartCoroutine(catchBugDecision.waitToClose(0.7f));
                 counting.gameObject.SetActive(false);
                 hint.ShowHint(failure);
                 StartCoroutine(cancatching());
@@ -157,20 +157,31 @@ public class CatchingManager : MonoBehaviour
             }
         }
 
-        if (SuccessCount >= 3&&DataBroker.catchTime==0)
+        if (SuccessCount >= 3&&DataBroker.catchTime==0&&canshowsuccess)
         {
-            switchcase.gameObject.SetActive(true);
+            canshowsuccess = false;
+            hint.ShowHint("其他虫虫跑掉了！");
             cancontinue=false;
+            canswitch=true;
         }
-
-        if (SuccessCount >= 4 && DataBroker.catchTime > 0)
+    
+        if (SuccessCount >= 4 && DataBroker.catchTime > 0&&canshowsuccess)
         {
-            switchcase.gameObject.SetActive(true);
+            canshowsuccess = false;
+            hint.ShowHint("其他虫虫跑掉了！");
+            canswitch=true;
             cancontinue=false;
         }
         if(failureCount >= 4&&doUpdate)
-        {
+        {   
+            
             StartCoroutine(givebug());
+        }
+
+        if (Input.GetMouseButtonDown(0) && canswitch)
+        {   
+            DataBroker.catchTime++;
+            Transition.Instance.SwitchSceneWithFade("BeforeCatch");
         }
     }
 
@@ -234,7 +245,7 @@ public class CatchingManager : MonoBehaviour
 
     IEnumerator givebug()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
          
         currentBugs = new List<GameObject>(GameObject.FindGameObjectsWithTag("EnemyBug"));
         int count = 8 - CageManager.Instance.checkcount();
@@ -254,7 +265,8 @@ public class CatchingManager : MonoBehaviour
             name[i].text=data.Name;
             DataBroker.Instance.give_dataFromCatch(data);
         }
-        switchcase.gameObject.SetActive(true);
+        hint.ShowHint("抓住了剩下的虫虫！");
+        canswitch = true;
         cancontinue=false;
         doUpdate = false;
     }

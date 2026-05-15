@@ -77,7 +77,7 @@ public class Event1Mgr : MonoBehaviour
         canChange=true;
         diadata_lastsentence.dialogueList[0].canContinue=true;
         leave.SetActive(true);
-        DialogueManager.Instance.EndDialogue();
+        DialogueManager.Instance.EndDialogue(null);
         DialogueManager.Instance.switchUI_1();
     }
 
@@ -93,7 +93,7 @@ public class Event1Mgr : MonoBehaviour
         canChange=true;
         diadata_lastsentence.dialogueList[0].canContinue=true;
         leave.SetActive(true);
-        DialogueManager.Instance.EndDialogue();
+        DialogueManager.Instance.EndDialogue(null);
         DialogueManager.Instance.switchUI_1();
     }
 
@@ -109,7 +109,7 @@ public class Event1Mgr : MonoBehaviour
         canChange=true;
         diadata_lastsentence.dialogueList[0].canContinue=true;
         leave.SetActive(true);
-        DialogueManager.Instance.EndDialogue();
+        DialogueManager.Instance.EndDialogue(null);
         DialogueManager.Instance.switchUI_1();
     }
 }
