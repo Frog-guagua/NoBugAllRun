@@ -10,6 +10,7 @@ public class cagetest : MonoBehaviour
     {
      StartCoroutine(test());
      LevelStateManager.canquit=true;
+     DataBroker.catchTime++;
     }
 
     IEnumerator test()

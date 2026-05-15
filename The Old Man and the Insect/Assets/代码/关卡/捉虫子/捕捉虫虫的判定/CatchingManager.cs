@@ -8,7 +8,9 @@ using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class CatchingManager : MonoBehaviour
-{   
+{
+    public TextMeshProUGUI text0;
+    public GameObject bugfather;
     public bool firsttime=true;
     bool firsttimestart=false;
     public AudioClip audio;
@@ -49,16 +51,28 @@ public class CatchingManager : MonoBehaviour
     public float count;
     private float _count;
     public InsectData currentBug;
-    public GameObject panel;
+    
     public int SuccessCount;
     public int failureCount;
     private bool canshowsuccess=true;
     private bool doUpdate = true;
-    public List<TextMeshProUGUI> hp = new List<TextMeshProUGUI>();
-    public List<TextMeshProUGUI> atk = new List<TextMeshProUGUI>();
-    public List<TextMeshProUGUI> name = new List<TextMeshProUGUI>();
-    private List<GameObject> currentBugs;
     
+    public GameObject panel;
+    private List<TextMeshProUGUI> hp = new List<TextMeshProUGUI>();
+    private List<TextMeshProUGUI> atk = new List<TextMeshProUGUI>();
+    private List<TextMeshProUGUI> name = new List<TextMeshProUGUI>();
+    [Header("第一波")] public GameObject panel1;
+    public List<TextMeshProUGUI>hp1=new List<TextMeshProUGUI>();
+    public List<TextMeshProUGUI> atk1=new List<TextMeshProUGUI>();
+    public List<TextMeshProUGUI> name1=new List<TextMeshProUGUI>();
+    public List<SpriteRenderer>sprites1=new List<SpriteRenderer>();
+    [Header("第二波")] public GameObject panel2;
+    public List<TextMeshProUGUI>hp2=new List<TextMeshProUGUI>();
+    public List<TextMeshProUGUI> atk2=new List<TextMeshProUGUI>();
+    public List<TextMeshProUGUI> name2=new List<TextMeshProUGUI>();
+    public List<SpriteRenderer>sprites2=new List<SpriteRenderer>();
+    private List<GameObject> currentBugs;
+    private List<SpriteRenderer> bugs = new List<SpriteRenderer>();
     public List<GameObject> pos = new List<GameObject>();
     public List<GameObject> data1 = new List<GameObject>();
     public List<GameObject> data2 = new List<GameObject>();
@@ -97,6 +111,25 @@ public class CatchingManager : MonoBehaviour
         // =============================
 
         List<GameObject> dataList = DataBroker.catchTime == 0 ? data1 : data2;
+
+        if (DataBroker.catchTime == 0)
+        {
+            panel = panel1;
+            atk = atk1;
+            hp=hp1;
+            name=name1;
+            bugs = sprites1;
+
+        }
+        else
+        {
+            panel = panel2;
+            atk = atk2;
+            hp=hp2;
+            name=name2;
+            bugs = sprites2;
+        }
+        
         int count = Mathf.Min(dataList.Count, pos.Count);
 
         for (int i = 0; i < count; i++)
@@ -144,7 +177,7 @@ public class CatchingManager : MonoBehaviour
                 counting.text = "倒计时结束！";
                 StartCoroutine(catchBugDecision.waitToClose(1f));
                 counting.gameObject.SetActive(false);
-                hint.ShowHint(failure);
+                StartCoroutine(showhint(failure));
                 StartCoroutine(cancatching());
                 failureCount++;
             }
@@ -153,7 +186,7 @@ public class CatchingManager : MonoBehaviour
         if (SuccessCount >= 3 && DataBroker.catchTime==0 && canshowsuccess)
         {
             canshowsuccess = false;
-            hint.ShowHint("其他虫虫跑掉了！");
+            StartCoroutine(showhint("其他虫虫跑掉了！"));
             cancontinue = false;
             // === 修改：不再单独放行，改为统一结算 ===
             SettleAllBugs();
@@ -163,7 +196,7 @@ public class CatchingManager : MonoBehaviour
         if (SuccessCount >= 4 && DataBroker.catchTime > 0 && canshowsuccess)
         {
             canshowsuccess = false;
-            hint.ShowHint("其他虫虫跑掉了！");
+            StartCoroutine(showhint ("其他虫虫跑掉了！"));
             cancontinue = false;
             // === 修改：不再单独放行，改为统一结算 ===
             SettleAllBugs();
@@ -219,7 +252,7 @@ public class CatchingManager : MonoBehaviour
         }
         else
         {
-            hint.ShowHint(failure);
+            StartCoroutine(showhint (failure));
         }
     }
 
@@ -232,7 +265,7 @@ public class CatchingManager : MonoBehaviour
         StartCoroutine(cancatching());
         
         // === 修改：不再立即弹面板，而是暂存到列表 ===
-        hint.ShowHint(successful);
+        StartCoroutine(showhint(successful));
         if (currentBug != null)
         {
             caughtBugs.Add(currentBug);
@@ -271,20 +304,22 @@ public class CatchingManager : MonoBehaviour
         }
         
         SettleAllBugs();
-        hint.ShowHint("抓住了剩下的虫虫！");
+        StartCoroutine(showhint ("抓住了剩下的虫虫！"));
     }
     // ====================================
 
     // === 新增：统一结算方法 ===
     void SettleAllBugs()
     {
+        string names="";
+        bugfather.SetActive(false);
         if (hasSettled) return;
         hasSettled = true;
         
         int availableSlots = 8 - CageManager.Instance.checkcount();
         if (caughtBugs.Count > availableSlots)
         {
-            hint.ShowHint("虫虫数量已达上限（8只）无法获得更多");
+            StartCoroutine(showhint("虫虫数量已达上限（8只）无法获得更多"));
             caughtBugs.RemoveRange(availableSlots, caughtBugs.Count - availableSlots);
         }
         
@@ -295,13 +330,17 @@ public class CatchingManager : MonoBehaviour
             {
                 if (caughtBugs[i].insectId != 0)
                 {
-                    hp[i].text = "生命值：" + caughtBugs[i].insectHP;
-                    atk[i].text = "攻击力：" + caughtBugs[i].insectAtk;
+                    hp[i].text = caughtBugs[i].insectHP.ToString();
+                    atk[i].text =  caughtBugs[i].insectAtk.ToString();
                     name[i].text = caughtBugs[i].Name;
+                    bugs[i].sprite = caughtBugs[i].insectImage;
                     DataBroker.Instance.give_dataFromCatch(caughtBugs[i]);
                     caughtBugs[i].gameObject.SetActive(false);
+                    names+=caughtBugs[i].Name+"  ";
                 }
+                
             }
+            text0.text = "你捉住了："+names;
         }
         
         canswitch = true;
@@ -309,4 +348,10 @@ public class CatchingManager : MonoBehaviour
         doUpdate = false;
     }
     // ==========================
+    public IEnumerator showhint(string text)
+    {
+        hint.ShowHint(text);
+        yield return new WaitForSeconds(1f);
+        hint.HideHint();
+    }
 }
