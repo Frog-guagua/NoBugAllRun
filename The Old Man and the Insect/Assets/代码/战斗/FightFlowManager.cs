@@ -921,7 +921,7 @@ public class FightFlowManager : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
         
-        
+        yield return new WaitForSeconds(0.5f);
         
         //呱：及时关闭算盘 防止误触
         abacus.GetComponent<Collider2D>().enabled = false;
@@ -1036,6 +1036,8 @@ public class FightFlowManager : MonoBehaviour
             
         }
         
+        yield return new WaitForSeconds(0.5f);
+        
         //呱：禁用算盘 防止误触
         abacus.GetComponent<Collider2D>().enabled = false;
         AbacusAnim.Finsined = false;
@@ -1147,6 +1149,9 @@ public class FightFlowManager : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
             
         }
+        
+        
+        yield return new WaitForSeconds(0.5f);
 
         //呱：禁用算盘 防止误触
         abacus.GetComponent<Collider2D>().enabled = false;
@@ -1246,6 +1251,8 @@ public class FightFlowManager : MonoBehaviour
             
         }
         
+        yield return new WaitForSeconds(0.5f);
+        
         //呱：禁用算盘 防止误触
         abacus.GetComponent<Collider2D>().enabled = false;  
         AbacusAnim.Finsined = false;
@@ -1326,6 +1333,8 @@ public class FightFlowManager : MonoBehaviour
             
                  }
         
+                 yield return new WaitForSeconds(0.5f);
+                 
                  //呱：禁用算盘 防止误触
                  abacus.GetComponent<Collider2D>().enabled = false;  
                  

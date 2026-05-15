@@ -24,7 +24,8 @@ public class GridManager : MonoBehaviour
     //呱：格子物体和 格子压缩包数组
     public GameObject[] grids = new GameObject[16];
     public static Grid[] Grids = new Grid[16];
-    [SerializeField]  Vector3 offset;
+    [SerializeField]  Vector3 enemyOffset;
+    [SerializeField]  Vector3 myOffset;
  
     void Start()
     {
@@ -33,7 +34,15 @@ public class GridManager : MonoBehaviour
         {
             Grids[i].gridObject = grids[i];
             Grids[i].index = i;
-            Grids[i].matchedPos = grids[i].transform.position + offset;
+            if (i >= 0 && i < 8)
+            {
+                Grids[i].matchedPos = grids[i].transform.position + myOffset;
+            }
+            else
+            {
+                Grids[i].matchedPos = grids[i].transform.position + enemyOffset;
+            }
+           
             
             //呱：格子 初始默认为 没有虫虫在上面
             Grids[i].isOccupied = false;
