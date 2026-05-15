@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 //于是给它改动了一点点
 public class CatchBugDecision : MonoBehaviour
 {   
+    public Transform targettrs;
     #region 移动区域
 
     //[移动区域] ：用来获取人和虫子移动的 限定长度 
@@ -142,9 +143,9 @@ public class CatchBugDecision : MonoBehaviour
         #region 设定初始位置
         //呱：设定虫虫初始位置 随机
         Y = BugZonePos.y;
-        BugZonePos =
-            new Vector2
-                (Random.Range(MovingZoneLeftPosX + BugZoneLength, MovingZoneRightPosX - BugZoneLength), Y);
+        BugZonePos.x=transform.position.x;
+        BugZonePos.y=transform.position.y;
+         
  
         //呱：设定手初始位置 固定
         HandZonePos = 
@@ -284,7 +285,7 @@ public class CatchBugDecision : MonoBehaviour
                 CatchingManager.Instance.success();
                 
                 
-                StartCoroutine(waitToClose(0.7f));
+                StartCoroutine(waitToClose(1f));
 
 
             }
@@ -357,6 +358,9 @@ public class CatchBugDecision : MonoBehaviour
             Destroy(Bug);
             Bug = null;
         }
+        grassController.Instance.MoveFromRight();
+        yield return new WaitForSeconds(0.6f);
+       
         StartCatch = false;
         isMoving = false;
         NowCatchTime = 0;
@@ -364,7 +368,9 @@ public class CatchBugDecision : MonoBehaviour
        
         
         this.enabled = true;
-        father.SetActive(false);
+        
+        
         CatchingManager.Instance.callCancatch();
+        father.SetActive(false);
     }
 }
