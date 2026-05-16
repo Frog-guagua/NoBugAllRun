@@ -479,6 +479,7 @@ public class FightFlowManager : MonoBehaviour
 
         abacus.GetComponent<Collider2D>().enabled = true;  
         yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
+        BanCage();
         while (!AbacusAnim.Finsined)
         {
             if (FightDataManager.ActionPoints == 0)
@@ -560,7 +561,7 @@ public class FightFlowManager : MonoBehaviour
         
         if(FightDataManager.ActionPoints == 0) BanCage();
         yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
-       
+        BanCage();
 
        
         AbacusAnim.Finsined = false;
