@@ -418,7 +418,7 @@ public IEnumerator FindRival(int GridIndex)
         if (bug == null) return;
         TextMeshProUGUI tmp = bug.GetComponentInChildren<TextMeshProUGUI>();
         if (tmp != null)
-            tmp.text = $"{bug.insectHP}\n\n\n{bug.insectAtk}";
+            tmp.text = $"{bug.insectHP}\n\n{bug.insectAtk}";
     }
 
     IEnumerator UpBugAnime(GameObject obj, Vector3 endPos, float duration)
