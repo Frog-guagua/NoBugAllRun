@@ -165,7 +165,7 @@ public class LevelStateManager : MonoBehaviour
                     }
                     else
                     {
-                        DialogueManager.Instance.StartDialogue(afteropoen2);
+                        DialogueManager.Instance.StartDialogue(afteropoen2,switchend);
                     }
 
                     break;
@@ -261,6 +261,10 @@ public class LevelStateManager : MonoBehaviour
         }
     }
 
+    void switchend()
+    {
+        Transition.Instance.SwitchSceneWithFade("EndScene");
+    }
     IEnumerator EnableGuideClickAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);

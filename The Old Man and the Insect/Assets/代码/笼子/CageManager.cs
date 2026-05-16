@@ -220,4 +220,9 @@ public sealed class CageManager : MonoBehaviour
     {
         hint.ShowHint("虫虫数量已达上限（8只），无法继续获得");
     }
+
+    public void showhi(string str)
+    {
+        hint.ShowHint(str);
+    }
 }

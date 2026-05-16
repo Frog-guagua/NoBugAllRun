@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 using UnityEngine.UI;
 public class Before2Mgr: MonoBehaviour
 {   
-    public float distance=3;
+    public float distance=4;
     public Transform player;
     public DialogueData dialogue;
     private static bool canContinue=true;
@@ -22,6 +22,10 @@ public class Before2Mgr: MonoBehaviour
     {   
         Debug.Log(DataBroker.Instance.datasFromCage.Count);
         Bag.canOpenBag = true;
+        if (getInCount == 1)
+        {
+            CageManager.Instance.showhi("靠近对话");
+        }
         if (getInCount > 1)
         {   
             Debug.Log("对话与动画");

@@ -16,10 +16,16 @@ public class Hutong0 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        
         AudioMgr.Instance.PlayBGM(clip);
+        StartCoroutine(flow());
     }
 
+    IEnumerator flow()
+    {
+        yield return new WaitForSeconds(0.7f);
+        hint.ShowHint("前进");
+    }
     // Update is called once per frame
     void Update()
     {

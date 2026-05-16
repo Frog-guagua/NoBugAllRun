@@ -40,6 +40,10 @@ public class BeforeBossMgr : MonoBehaviour
                 DialogueManager.Instance.StartDialogue(lose);
             }
         }
+        else
+        {
+            CageManager.Instance.showhi("靠近对话");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -58,7 +62,7 @@ public class BeforeBossMgr : MonoBehaviour
 
     IEnumerator flow()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         DialogueManager.Instance.StartDialogue(dialogueData, startFight);
     }
 

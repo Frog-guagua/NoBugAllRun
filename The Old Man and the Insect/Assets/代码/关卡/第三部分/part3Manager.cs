@@ -17,15 +17,20 @@ public class part3Manager : MonoBehaviour
     public Vector2 rightAndUp_DoorRange;
     private bool isswitch=false;
     public DialogueData Data;
+    public Hint hint;
    private static int getInHutong1Count = 1;
     // Start is called before the first frame update
     void Start()
     {   
         Debug.Log(DataBroker.Instance.datasFromCage.Count);
         Bag.canOpenBag = true;
+        if (getInHutong1Count == 1)
+        {
+            StartCoroutine(flow());
+        }
         if (getInHutong1Count > 1)
         {
-            Debug.Log("对话与动画");
+            Debug.Log("对话与动画，记得加引导");
             Debug.Log(DataBroker.Instance.datasFromFight.Count);
             DialogueManager.Instance.StartDialogue(Data);
             for (int i = 0; i < DataBroker.Instance.datasFromFight.Count; i++)
@@ -35,6 +40,11 @@ public class part3Manager : MonoBehaviour
         }
     }
 
+    IEnumerator flow()
+    {
+        yield return new WaitForSeconds(0.7f);
+        hint.ShowHint("靠近对话（点击）");
+    }
     // Update is called once per frame
     void Update()
     {
