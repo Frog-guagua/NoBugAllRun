@@ -520,19 +520,19 @@ public class FightFlowManager : MonoBehaviour
         
         AudioMgr.Instance.PlaySFX(FightEffect);
         yield return GetComponent<BattleResover>().BattleResolve();
-        if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
+        if ((!DataBroker.WinGame2 )&& GetComponent<BattleResover>().Nobug)
         {
             GetComponent<BattleResover>().Nobug = false;
-            //呱：处理胜利结算 UI
-            int formal = DataBroker.experience;
-            yield return SizeScale(Win);
-            UpdateWinEndUI(formal,6);
-            DataBroker.experience += 6;
-       
+            //呱：处理失败结算 UI
+            int formal = DataBroker.reputation;
+            yield return SizeScale(Lose);
+            UpdateLoseEndUI(formal,6);
+            DataBroker.reputation -= 6;
            
             yield return new WaitForSeconds(1.5f);
             OnGame2 = false;
             FightDataManager.DeliverData();
+            roundManager.deliverMyBugDataToCage();
             Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
 
