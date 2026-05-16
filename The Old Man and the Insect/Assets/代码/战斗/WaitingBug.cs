@@ -181,7 +181,20 @@ public class WaitingBug : MonoBehaviour
         return 11;
     }
     
-    
+    public int FindD()
+    {
+        for (int i = 8; i < 16; i++)
+        {
+            if(GridManager.Grids[i].bugOnGrid == null) continue;
+
+            if (GridManager.Grids[i].bugOnGrid.name == "D")
+            {
+                return i;
+            }
+        }
+
+        return 11;
+    }
     
     //呱：此函数为敌方索敌使用的
 public IEnumerator FindRival(int GridIndex)

@@ -269,10 +269,22 @@ public class FightDataManager : MonoBehaviour
         DataBroker.Instance.give_datasFromFight(PostFightBugs);
     }
 
+    public static void DeliverData(List<InsectData> BugsToDeliver)
+    {   
+       
+        List<InsectData> PostFightBugs = new List<InsectData>();
+        for (int i = 0; i < BugsToDeliver.Count; i++)
+        {
+            PostFightBugs.Add(BugsToDeliver[i]);
+            Debug.Log("给出虫虫种类为"+BugsToDeliver[i].bugType);
+        }
+       
+        //呱：给小鼠老大传虫虫
+        DataBroker.Instance.give_datasFromFight(PostFightBugs);
+    }
     public static  void DeliverData()
     {   
-        Debug.Log(FightFlowManager.OnGame2);
-        Debug.Log(FightFlowManager.OnGame3);
+        
         Debug.Log("传递数量为"+DeliverBugs.Count);
         DataBroker.Instance.give_datasFromFight(DeliverBugs);
     }

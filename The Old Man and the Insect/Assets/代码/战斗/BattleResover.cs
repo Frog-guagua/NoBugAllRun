@@ -54,7 +54,7 @@ public class BattleResover : MonoBehaviour
         foreach (var myBug in myFrontBugs)
         {
             if (myBug == null) continue;
-            Vector2 origin = (Vector2)myBug.transform.position + Vector2.up * 0.8f;
+            Vector2 origin = (Vector2)myBug.transform.position + Vector2.up * 2f;
             RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.up, rayDistance, targetLayer);
 
             if (hit.collider != null && hit.collider.gameObject != myBug.gameObject)
@@ -116,6 +116,7 @@ public class BattleResover : MonoBehaviour
                 InsectData bug = bugObj.GetComponent<InsectData>();
                 if (bug != null && bug.insectHP <= 0)
                 {
+                    bug.isDied = true;
                     deathRoutines.Add(StartCoroutine(ShakeAndFade(bugObj)));
                     GridManager.Grids[i].bugOnGrid = null;
                     GridManager.Grids[i].isOccupied = false;

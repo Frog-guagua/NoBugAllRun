@@ -834,6 +834,7 @@ MonoBehaviour:
   insectAtk: 1
   insectLevel: 1
   isCompound: 0
+  isDied: 0
   insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
@@ -5741,6 +5742,7 @@ MonoBehaviour:
   insectAtk: 1
   insectLevel: 1
   isCompound: 0
+  isDied: 0
   insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
@@ -11158,7 +11160,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8292778445896964409, guid: d39877946fdce314ebb88f757147d346, type: 3}
       propertyPath: m_LocalScale.y
-      value: -1.0924978
+      value: 1.092498
       objectReference: {fileID: 0}
     - target: {fileID: 8292778445896964409, guid: d39877946fdce314ebb88f757147d346, type: 3}
       propertyPath: m_LocalScale.z
@@ -12764,6 +12766,7 @@ MonoBehaviour:
   insectAtk: 1
   insectLevel: 1
   isCompound: 0
+  isDied: 0
   insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
@@ -19239,6 +19242,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1293974266389330306, guid: d39877946fdce314ebb88f757147d346, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -0.005553826
+      objectReference: {fileID: 0}
     - target: {fileID: 2091657996514354728, guid: d39877946fdce314ebb88f757147d346, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -5
@@ -19393,7 +19400,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8292778445896964409, guid: d39877946fdce314ebb88f757147d346, type: 3}
       propertyPath: m_LocalScale.y
-      value: -1.0924978
+      value: 1.092498
       objectReference: {fileID: 0}
     - target: {fileID: 8292778445896964409, guid: d39877946fdce314ebb88f757147d346, type: 3}
       propertyPath: m_LocalScale.z
@@ -24983,7 +24990,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8292778445896964409, guid: d39877946fdce314ebb88f757147d346, type: 3}
       propertyPath: m_LocalScale.y
-      value: -1.0924978
+      value: 1.092498
       objectReference: {fileID: 0}
     - target: {fileID: 8292778445896964409, guid: d39877946fdce314ebb88f757147d346, type: 3}
       propertyPath: m_LocalScale.z
@@ -31340,6 +31347,7 @@ MonoBehaviour:
   insectAtk: 1
   insectLevel: 1
   isCompound: 0
+  isDied: 0
   insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
@@ -31985,6 +31993,7 @@ MonoBehaviour:
   insectAtk: 1
   insectLevel: 1
   isCompound: 0
+  isDied: 0
   insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
@@ -45455,6 +45464,7 @@ MonoBehaviour:
   insectAtk: 1
   insectLevel: 1
   isCompound: 0
+  isDied: 0
   insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
@@ -45625,7 +45635,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8292778445896964409, guid: d39877946fdce314ebb88f757147d346, type: 3}
       propertyPath: m_LocalScale.y
-      value: -1.0924978
+      value: 1.092498
       objectReference: {fileID: 0}
     - target: {fileID: 8292778445896964409, guid: d39877946fdce314ebb88f757147d346, type: 3}
       propertyPath: m_LocalScale.z
@@ -46537,6 +46547,7 @@ MonoBehaviour:
   insectAtk: 1
   insectLevel: 1
   isCompound: 0
+  isDied: 0
   insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
@@ -46764,7 +46775,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8292778445896964409, guid: d39877946fdce314ebb88f757147d346, type: 3}
       propertyPath: m_LocalScale.y
-      value: -1.0924978
+      value: 1.092498
       objectReference: {fileID: 0}
     - target: {fileID: 8292778445896964409, guid: d39877946fdce314ebb88f757147d346, type: 3}
       propertyPath: m_LocalScale.z
@@ -52926,7 +52937,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8292778445896964409, guid: d39877946fdce314ebb88f757147d346, type: 3}
       propertyPath: m_LocalScale.y
-      value: -1.0924978
+      value: 1.092498
       objectReference: {fileID: 0}
     - target: {fileID: 8292778445896964409, guid: d39877946fdce314ebb88f757147d346, type: 3}
       propertyPath: m_LocalScale.z
@@ -53076,6 +53087,7 @@ MonoBehaviour:
   insectAtk: 1
   insectLevel: 1
   isCompound: 0
+  isDied: 0
   insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
