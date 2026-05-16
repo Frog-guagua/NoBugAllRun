@@ -74,6 +74,9 @@ public class RoundManager : MonoBehaviour
     private bool needCompound;
     private ActionPoint actionPoint;
     private GameObject frontBug;
+    [SerializeField]GameObject spBug;
+    
+    [SerializeField] List<Sprite>  levelUpSprite = new List<Sprite>();
     
     void Start()
     {
@@ -182,6 +185,8 @@ public class RoundManager : MonoBehaviour
                    
                  
                parentTransform.gameObject.SetActive(false);
+               ChangeLevelUpSprite("A",spBug);
+               spBug.GetComponent<SpriteRenderer>().sprite = levelUpSprite[0];
                Debug.Log($"已禁用 {parentTransform.name}");
                
                
@@ -264,7 +269,7 @@ public class RoundManager : MonoBehaviour
                 GameObject Tag = nowBug.transform.GetChild(0).gameObject;
                 Transparent(Tag);
                 Debug.Log($"{nowBug.name}被放在了{realIndex}号格子上");
-                StartCoroutine(MoveAndDisable(targetPos, fightBug, nowBug,moveCurveToFront));
+                StartCoroutine(MoveAndDisable(targetPos, fightBug, nowBug,moveCurveToFront,realIndex));
                 
                 
             }
@@ -293,7 +298,7 @@ public class RoundManager : MonoBehaviour
                     Vector3 targetPos;
                     targetPos = GridManager.Grids[realIndex + 4].matchedPos;
                     Debug.Log($"{nowBug.name}被放在了{realIndex}号格子上");
-                    StartCoroutine(MoveAndDisable(targetPos, fightBug, nowBug,moveCurveForLevelUp));
+                    StartCoroutine(MoveAndDisable(targetPos, fightBug, nowBug,moveCurveForLevelUp,realIndex));
                     
                    
                 }
@@ -372,7 +377,7 @@ public class RoundManager : MonoBehaviour
         return false;
     }
 
-    IEnumerator MoveAndDisable(Vector3 endPos, GameObject fightBug, GameObject nowBug,AnimationCurve curve)
+    IEnumerator MoveAndDisable(Vector3 endPos, GameObject fightBug, GameObject nowBug,AnimationCurve curve,int realIndex)
     {
         
         yield return Move(endPos, fightBug,curve);
@@ -384,7 +389,9 @@ public class RoundManager : MonoBehaviour
             fightDataManager.UpdateBugUI(frontBug);
             levelUpParticles.Play();
             Destroy(fightBug);
+            GameObject fBug = GridManager.Grids[realIndex].bugOnGrid;
             
+            ChangeLevelUpSprite(fBug.GetComponent<InsectData>().bugType.ToString(),fBug);
            // GridManager.Grids[Draggable.nowGridIndex+4].bugOnGrid.GetComponent<ObjectShake>().ShakeStart(0.3f,0.1f);
            
            Camera.main.GetComponent<CamaraShake>().ShakeStart(0.5f,0.3f);
@@ -422,6 +429,37 @@ public class RoundManager : MonoBehaviour
                 Object.GetComponent<SpriteRenderer>().color.g,
                 Object.GetComponent<SpriteRenderer>().color.b, 0);
     }
-    
-    
+
+    private void ChangeLevelUpSprite(string levelUpSpriteName,GameObject nowBug)
+    {
+        SpriteRenderer sp = nowBug.GetComponent<SpriteRenderer>();
+        Color color = Color.cyan;
+        
+        switch (levelUpSpriteName)
+        {
+            case "A":
+                sp.sprite = levelUpSprite[0];
+                break;
+            case "B":
+               // sp.sprite = levelUpSprite[1];
+               sp.color = color;
+                break;
+            case "C":
+               //sp.sprite = levelUpSprite[3];
+               sp.color = color;
+                break;
+            case "D":
+               // sp.sprite = levelUpSprite[4];
+               sp.color = color;
+                break;
+            case "E":
+               // sp.sprite = levelUpSprite[5];
+               sp.color = color;
+                break;
+            case "F":
+              //  sp.sprite = levelUpSprite[6];
+              sp.color = color;
+                break;
+        }
+    }
 }

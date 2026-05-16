@@ -32188,6 +32188,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   levelUpParticles: {fileID: 1920300888}
   levelUpSound: {fileID: 8300000, guid: 0ff7d387fd9e72045a89e5e2395a6256, type: 3}
+  spBug: {fileID: 251369640}
+  levelUpSprite:
+  - {fileID: 21300000, guid: ed1c08d16bc193e43a1ff5e95ca137aa, type: 3}
 --- !u!4 &1241144479
 Transform:
   m_ObjectHideFlags: 0

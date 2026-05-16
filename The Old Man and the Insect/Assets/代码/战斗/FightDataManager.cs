@@ -301,7 +301,7 @@ public class FightDataManager : MonoBehaviour
             myFightBugs[index+2].insectLevel = 1;
             myFightBugs[index+2].isCompound = false;
             
-            fightBugDatas[index].text = $"3\n\n\n2";
+            fightBugDatas[index].text = $"3\n\n2";
             return;
             
         }
@@ -317,7 +317,7 @@ public class FightDataManager : MonoBehaviour
         }
         if (fightBugDatas[index] != null)
         {
-            fightBugDatas[index].text = $"{bug.insectHP}\n\n\n{bug.insectAtk}";
+            fightBugDatas[index].text = $"{bug.insectHP}\n\n{bug.insectAtk}";
             Debug.Log($"更新 fightBugDatas[{index}] 成功");
         }
         else
@@ -335,7 +335,7 @@ public class FightDataManager : MonoBehaviour
         }
         if (enemyDatas[index] != null)
         {
-            enemyDatas[index].text = $"{enemyBug.insectHP}\n\n\n{enemyBug.insectAtk}";
+            enemyDatas[index].text = $"{enemyBug.insectHP}\n\n{enemyBug.insectAtk}";
             Debug.Log($"更新 enemyDatas[{index}] 成功");
         }
         
@@ -400,7 +400,7 @@ public class FightDataManager : MonoBehaviour
                     InsectData data = bugObj.GetComponent<InsectData>();
                     if (data != null && i < fightBugDatas.Count)
                     {
-                        fightBugDatas[i].text = $"{data.insectHP}\n\n\n{data.insectAtk}";
+                        fightBugDatas[i].text = $"{data.insectHP}\n\n{data.insectAtk}";
                         
                     }
                     return;
