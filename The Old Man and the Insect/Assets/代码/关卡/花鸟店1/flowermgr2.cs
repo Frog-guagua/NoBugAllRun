@@ -105,9 +105,10 @@ public class flowermgr2 : MonoBehaviour
     }
     void switchscene()
     {   
-        getinTime++;
+       
         if (getinTime == 1)
-        {
+        {   
+            getinTime++;
             Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
         else

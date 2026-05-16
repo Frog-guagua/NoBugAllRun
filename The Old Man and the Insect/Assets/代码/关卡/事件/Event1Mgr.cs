@@ -79,11 +79,12 @@ public class Event1Mgr : MonoBehaviour
         DialogueManager.Instance.canContinue=true;
         btnFather.SetActive(false);
         hint.ShowHint(desciption1);
-        canChange=true;
+        
         diadata_lastsentence.dialogueList[0].canContinue=true;
         leave.SetActive(true);
        
         DialogueManager.Instance.StartDialogue(dataA,switchui);
+        PlayerMove.canMove=false;
       //  DialogueManager.Instance.switchUI_1();
     }
 
@@ -97,11 +98,12 @@ public class Event1Mgr : MonoBehaviour
         DialogueManager.Instance.canContinue=true;
         btnFather.SetActive(false);
         hint.ShowHint(desciption2);
-        canChange=true;
+      
         diadata_lastsentence.dialogueList[0].canContinue=true;
         leave.SetActive(true);
         
         DialogueManager.Instance.StartDialogue(dataB,switchui);
+        PlayerMove.canMove=false;
       //  DialogueManager.Instance.switchUI_1();
         
     }
@@ -116,16 +118,18 @@ public class Event1Mgr : MonoBehaviour
         DialogueManager.Instance.canContinue=true;
         btnFather.SetActive(false);
         hint.ShowHint(desciption3);
-        canChange=true;
+       
         diadata_lastsentence.dialogueList[0].canContinue=true;
         leave.SetActive(true);
         
         DialogueManager.Instance.StartDialogue(dataC,switchui);
+        PlayerMove.canMove=false;
      //   DialogueManager.Instance.switchUI_1();
     }
 
     void switchui()
-    {
+    {   
+        canChange=true;
         DialogueManager.Instance.switchUI_1();
     }
 }
