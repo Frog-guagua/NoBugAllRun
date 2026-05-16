@@ -360,7 +360,7 @@ public class FightDataManager : MonoBehaviour
                 myFightBugs[i] = bugs[i];   
                 // 改用 fightBugDatas 显示战斗数据
                 if (i < fightBugDatas.Count)
-                    fightBugDatas[i].text = $"{bug.insectHP}\n\n\n{bug.insectAtk}";
+                    fightBugDatas[i].text = $"{bug.insectHP}\n\n{bug.insectAtk}";
                 i++;
             }
             
@@ -421,7 +421,7 @@ public class FightDataManager : MonoBehaviour
         {
             if (fightBugDatas[i] != null)
             {
-                string newText = $"{myFightBugs[i].insectHP}\n\n\n{myFightBugs[i].insectAtk}";
+                string newText = $"{myFightBugs[i].insectHP}\n\n{myFightBugs[i].insectAtk}";
                 fightBugDatas[i].text = newText;
             
 
@@ -491,7 +491,7 @@ public class FightDataManager : MonoBehaviour
 
             if (i < enemyDatas.Count)
             {
-                enemyDatas[i].text = $"{bug.insectHP}\n\n\n{bug.insectAtk}"; 
+                enemyDatas[i].text = $"{bug.insectHP}\n\n{bug.insectAtk}"; 
                 enemyBugs[i].insectHP = bug.insectHP;
                 enemyBugs[i].insectAtk = bug.insectAtk;
             }
