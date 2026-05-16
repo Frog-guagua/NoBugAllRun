@@ -81,7 +81,7 @@ public class LevelStateManager : MonoBehaviour
     private Hint hint;
 
     [Header("弹窗1")]
-    public GameObject hintobj;
+   // public GameObject hintobj;
     public string GetCageStr = "getcage";
 
     [Header("弹窗2")]
@@ -114,7 +114,7 @@ public class LevelStateManager : MonoBehaviour
             _instance = this;
         }
         door.transform.rotation = Quaternion.Euler(0, 0, 0);
-        hint = hintobj.GetComponent<Hint>();
+        
         doorshake = door.GetComponent<ObjectShake>();
         hint2 = hintobj2.GetComponent<Hint>();
         
@@ -175,7 +175,7 @@ public class LevelStateManager : MonoBehaviour
                     break;
 
                 case LevelState.havingCage:
-                    hint.ShowHint(GetCageStr);
+                    hint2.ShowHint(GetCageStr);
                     table.tableact = true;
                     break;
 
