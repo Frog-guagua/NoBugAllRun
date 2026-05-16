@@ -5936,6 +5936,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 9121651461775259085, guid: 061c4cf30ba47f94b92f92932233ab37, type: 3}
+      propertyPath: spBug
+      value: 
+      objectReference: {fileID: 7112050767746094102}
+    - target: {fileID: 9121651461775259085, guid: 061c4cf30ba47f94b92f92932233ab37, type: 3}
+      propertyPath: levelUpSprite.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121651461775259085, guid: 061c4cf30ba47f94b92f92932233ab37, type: 3}
+      propertyPath: levelUpSprite.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: ed1c08d16bc193e43a1ff5e95ca137aa, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
