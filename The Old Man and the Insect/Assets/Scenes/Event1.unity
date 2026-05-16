@@ -235,7 +235,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -288, y: -77.241295}
+  m_AnchoredPosition: {x: -281, y: -77.241295}
   m_SizeDelta: {x: 453.474, y: 126.4223}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &162279467
@@ -655,7 +655,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "C\u5168\u6B3E\u62FF\u4E0B   \u4F60\u5927\u624B\u4E00\u6325\u5168\u6B3E\u62FF\u4E0B\uFF0C\u4E0D\u4E45\u5DF7\u5B50\u91CC\u4FBF\u6D41\u4F20\u5F00\u4F60\u8D22\u5927\u6C14\u7C97\u7684\u7F8E\u540D"
+  m_text: "C\u5168\u6B3E\u62FF\u4E0B   "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 566b0673444a89142a50229f4c67a2c0, type: 2}
   m_sharedMaterial: {fileID: 3108025286722707592, guid: 566b0673444a89142a50229f4c67a2c0, type: 2}
@@ -664,8 +664,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4291818494
+  m_fontColor: {r: 0.9960785, g: 0.95294124, b: 0.8117648, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1034,7 +1034,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: " A.\u626D\u5934\u5C31\u8D70   \u5728\u8FD9\u9A97\u5B50\u53CD\u5E94\u8FC7\u6765\u4E4B\u524D\uFF0C\u4F60\u8F6C\u5934\u5C31\u8D70"
+  m_text: " A.\u626D\u5934\u5C31\u8D70   "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 566b0673444a89142a50229f4c67a2c0, type: 2}
   m_sharedMaterial: {fileID: 3108025286722707592, guid: 566b0673444a89142a50229f4c67a2c0, type: 2}
@@ -1043,8 +1043,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4291818494
+  m_fontColor: {r: 0.9960785, g: 0.95294124, b: 0.8117648, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1882,7 +1882,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: " B.\u8BA8\u4EF7\u8FD8\u4EF7   \u6700\u7EC8\u4F60\u4EE587.99\u7684\u4EF7\u683C\u62FF\u4E0B\u4E86\u8FD9\u672C\u79D8\u7C4D\uFF0C\u771F\u662F\u53EF\u559C\u53EF\u8D3A"
+  m_text: " B.\u8BA8\u4EF7\u8FD8\u4EF7   "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 566b0673444a89142a50229f4c67a2c0, type: 2}
   m_sharedMaterial: {fileID: 3108025286722707592, guid: 566b0673444a89142a50229f4c67a2c0, type: 2}
@@ -1891,8 +1891,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4291818494
+  m_fontColor: {r: 0.9960785, g: 0.95294124, b: 0.8117648, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2013,6 +2013,9 @@ MonoBehaviour:
   desciption1: "\u3010\u884C\u52A8\u4E0A\u9650+1\u3011\u3010\u7ECF\u9A8C\u503C+2\u3011"
   desciption2: "\u3010\u884C\u52A8\u4E0A\u9650+1\u3011\u3010\u7ECF\u9A8C\u503C+4\u3011"
   desciption3: "\u3010\u884C\u52A8\u4E0A\u9650+1\u3011\u3010\u58F0\u671B\u503C+6\u3011"
+  dataA: {fileID: 11400000, guid: eb138a16ab502584d85970cc49d60d58, type: 2}
+  dataB: {fileID: 11400000, guid: 90321da1b6e329b418a635fa9641b07e, type: 2}
+  dataC: {fileID: 11400000, guid: 7a33ccbefb6cd924f81166146eb343bc, type: 2}
 --- !u!50 &1725290426
 Rigidbody2D:
   serializedVersion: 4
@@ -2095,11 +2098,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 498257806645716771, guid: f492cbc60d8cc5249939d26be37f9e8d, type: 3}
       propertyPath: m_fontSize
-      value: 30
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 498257806645716771, guid: f492cbc60d8cc5249939d26be37f9e8d, type: 3}
       propertyPath: m_fontSizeBase
-      value: 30
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 498257806645716771, guid: f492cbc60d8cc5249939d26be37f9e8d, type: 3}
       propertyPath: m_VerticalAlignment
@@ -2183,7 +2186,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 670388106094608467, guid: f492cbc60d8cc5249939d26be37f9e8d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 75.73779
+      value: 74
       objectReference: {fileID: 0}
     - target: {fileID: 670388106094608467, guid: f492cbc60d8cc5249939d26be37f9e8d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

@@ -16,6 +16,10 @@ public class Event1Mgr : MonoBehaviour
     public string desciption3="3";
     private bool canstart = true;
     private bool canChange=true;
+
+    public DialogueData dataA;
+    public DialogueData dataB;
+    public DialogueData dataC;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -67,6 +71,7 @@ public class Event1Mgr : MonoBehaviour
     }
     public void button1()
     {
+        DialogueManager.Instance.EndDialogue(null);
         DataBroker.actionValue += 1;
         DataBroker.experience += 2;
         Debug.Log(DataBroker.experience);
@@ -77,12 +82,14 @@ public class Event1Mgr : MonoBehaviour
         canChange=true;
         diadata_lastsentence.dialogueList[0].canContinue=true;
         leave.SetActive(true);
-        DialogueManager.Instance.EndDialogue(null);
-        DialogueManager.Instance.switchUI_1();
+       
+        DialogueManager.Instance.StartDialogue(dataA,switchui);
+      //  DialogueManager.Instance.switchUI_1();
     }
 
     public void button2()
     {
+        DialogueManager.Instance.EndDialogue(null);
         DataBroker.actionValue += 1;
         DataBroker.experience += 4;
         Debug.Log(DataBroker.experience);
@@ -93,12 +100,15 @@ public class Event1Mgr : MonoBehaviour
         canChange=true;
         diadata_lastsentence.dialogueList[0].canContinue=true;
         leave.SetActive(true);
-        DialogueManager.Instance.EndDialogue(null);
-        DialogueManager.Instance.switchUI_1();
+        
+        DialogueManager.Instance.StartDialogue(dataB,switchui);
+      //  DialogueManager.Instance.switchUI_1();
+        
     }
 
     public void button3()
     {
+        DialogueManager.Instance.EndDialogue(null);
         DataBroker.actionValue += 1;
         DataBroker.reputation += 6;
         Debug.Log(DataBroker.experience);
@@ -109,7 +119,13 @@ public class Event1Mgr : MonoBehaviour
         canChange=true;
         diadata_lastsentence.dialogueList[0].canContinue=true;
         leave.SetActive(true);
-        DialogueManager.Instance.EndDialogue(null);
+        
+        DialogueManager.Instance.StartDialogue(dataC,switchui);
+     //   DialogueManager.Instance.switchUI_1();
+    }
+
+    void switchui()
+    {
         DialogueManager.Instance.switchUI_1();
     }
 }
