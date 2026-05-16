@@ -32,7 +32,7 @@ public class CatchBugDecision : MonoBehaviour
     private float BugZoneLength = 0f;
     private Vector2 BugZonePos;
     private bool isMoving = false;
-    
+    bool firststay=true;
     
 
     #endregion
@@ -103,13 +103,14 @@ public class CatchBugDecision : MonoBehaviour
 
     public void StartCatchBug()
     {   
+        BugZone.transform.position = targettrs.position;
         StartCatch = true;
         enabled = true;
         canCatchBug = true;
         Bug = Instantiate(BugToCatch, BugZone.transform);
         Bug.transform.SetParent(BugZone.transform);
         Bug.transform.position = BugZonePos;
-    
+        firststay=true;
         #region 获取必要数据
         //呱：一开始先 获得左右端点的x坐标
         MovingZone_SR = MovingZone.GetComponent<SpriteRenderer>();
@@ -190,6 +191,15 @@ public class CatchBugDecision : MonoBehaviour
     void BugMove()
     {
         if (isMoving) return;
+        if (firststay)
+        {  
+            Debug.Log("等一下");
+            firststay = false;
+            isMoving = true;
+            StartCoroutine(BugStay());
+            return;
+           
+        }
         isMoving = true;
         float targetX = BugZonePos.x; 
         
@@ -225,22 +235,27 @@ public class CatchBugDecision : MonoBehaviour
     //呱：虫虫移动实现协程
     IEnumerator MoveToTarget(float targetX)
     {
-        Vector2 startPos = BugZone.transform.position;
-        float startX = startPos.x;
-        float duration = 0.3f; 
-        float t = 0f;
-        while (t < duration)
+        if (!firststay)
         {
-            t += Time.deltaTime;
-            float newX = Mathf.Lerp(startX, targetX, t / duration);
-            BugZone.transform.position = new Vector2(newX, Y);
-            yield return null;
-        }
-        
-        BugZone.transform.position = new Vector2(targetX, Y);
 
-        
-        StartCoroutine(BugStay());
+
+            Vector2 startPos = BugZone.transform.position;
+            float startX = startPos.x;
+            float duration = 0.3f;
+            float t = 0f;
+            while (t < duration)
+            {
+                t += Time.deltaTime;
+                float newX = Mathf.Lerp(startX, targetX, t / duration);
+                BugZone.transform.position = new Vector2(newX, Y);
+                yield return null;
+            }
+
+            BugZone.transform.position = new Vector2(targetX, Y);
+
+
+            StartCoroutine(BugStay());
+        }
     }
     
     //呱：手移动实现函数
@@ -280,7 +295,7 @@ public class CatchBugDecision : MonoBehaviour
                 progressBar_IMG.fillAmount = 1f; // 改：满条
                 enabled = false;
                 //呱：这样就结束了
-                giveData();//存入虫虫数据
+                
                 
                 CatchingManager.Instance.success();
                 

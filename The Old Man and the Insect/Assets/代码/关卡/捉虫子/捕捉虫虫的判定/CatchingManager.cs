@@ -311,38 +311,55 @@ public class CatchingManager : MonoBehaviour
     // === 新增：统一结算方法 ===
     void SettleAllBugs()
     {
-        string names="";
+        string names = "";
         bugfather.SetActive(false);
         if (hasSettled) return;
         hasSettled = true;
-        
-        int availableSlots = 8 - CageManager.Instance.checkcount();
-        if (caughtBugs.Count > availableSlots)
+    
+        int availableSlots = Mathf.Max(0, 8 - CageManager.Instance.checkcount());
+        bool isOverLimit = caughtBugs.Count > availableSlots;
+    
+        if (isOverLimit)
         {
             StartCoroutine(showhint("虫虫数量已达上限（8只）无法获得更多"));
-            caughtBugs.RemoveRange(availableSlots, caughtBugs.Count - availableSlots);
         }
-        
+    
         if (caughtBugs.Count > 0)
         {
             panel.SetActive(true);
-            for (int i = 0; i < caughtBugs.Count && i < hp.Count; i++)
+            int showCount = Mathf.Min(caughtBugs.Count, hp.Count);
+            int giveCount = Mathf.Min(caughtBugs.Count, availableSlots);
+        
+            for (int i = 0; i < showCount; i++)
             {
                 if (caughtBugs[i].insectId != 0)
                 {
                     hp[i].text = caughtBugs[i].insectHP.ToString();
-                    atk[i].text =  caughtBugs[i].insectAtk.ToString();
+                    atk[i].text = caughtBugs[i].insectAtk.ToString();
                     name[i].text = caughtBugs[i].Name;
                     bugs[i].sprite = caughtBugs[i].insectImage;
-                    DataBroker.Instance.give_dataFromCatch(caughtBugs[i]);
                     caughtBugs[i].gameObject.SetActive(false);
-                    names+=caughtBugs[i].Name+"  ";
-                }
                 
+                    if (i < giveCount)
+                    {
+                        DataBroker.Instance.give_dataFromCatch(caughtBugs[i]);
+                        names += caughtBugs[i].Name + "  ";
+                    }
+                }
             }
-            text0.text = "你捉住了："+names;
-        }
         
+            // === 修改：根据是否超上限拼接不同文案 ===
+            if (isOverLimit)
+            {
+                text0.text = "你捉住了：" + names + "（由于笼子只能装8只虫虫，你将多余虫虫放生）";
+            }
+            else
+            {
+                text0.text = "你捉住了：" + names;
+            }
+            // ======================================
+        }
+    
         canswitch = true;
         cancontinue = false;
         doUpdate = false;

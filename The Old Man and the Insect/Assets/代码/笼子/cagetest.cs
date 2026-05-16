@@ -10,7 +10,7 @@ public class cagetest : MonoBehaviour
     {
      StartCoroutine(test());
      LevelStateManager.canquit=true;
-     DataBroker.catchTime++;
+   //  DataBroker.catchTime++;
     }
 
     IEnumerator test()
@@ -40,6 +40,6 @@ public class cagetest : MonoBehaviour
         {
             Debug.Log(DataBroker.Instance.datasFromFight[i].insectLevel);
         }
-        CageManager.Instance.AddInsect(insectData);
+      CageManager.Instance.AddInsect(insectData);
     }
 }

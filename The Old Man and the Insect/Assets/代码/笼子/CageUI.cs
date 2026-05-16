@@ -133,7 +133,8 @@ public class CageUI : MonoBehaviour
         hp.text = CageManager.Instance.currentChosenData.insectHP.ToString();
         Debug.Log(CageManager.Instance.currentChosenData.insectAtk.ToString());
         experience.text ="当前经验"+DataBroker.experience.ToString();
-        name.text=CageManager.Instance.currentChosenData.Name.ToString();
+        name.text=CageManager.Instance.currentChosenData.Name.ToString()+"("+
+                  CageManager.Instance.currentChosenData.insectLevel+"级)";
         description.text=CageManager.Instance.currentChosenData.description.ToString();
     }
 
