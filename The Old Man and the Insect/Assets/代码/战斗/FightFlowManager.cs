@@ -65,7 +65,7 @@ public class FightFlowManager : MonoBehaviour
     private CameraFocus cameraFocus;
         
     [Header("虫虫们")]
-    [SerializeField]List<GameObject> bugs;
+    [SerializeField]List<GameObject> bugs = new List<GameObject>();
 
     [Header("算盘")] 
     [SerializeField] GameObject abacus;
@@ -150,6 +150,9 @@ public class FightFlowManager : MonoBehaviour
         //呱： 用来判断现在是 第几次游戏
         if (OnGame1)
         { 
+            bugs[1].GetComponent<Collider2D>().enabled = false;
+            Debug.Log(bugs[1].name);
+            Debug.Log(bugs[1].GetComponent<Collider2D>().enabled);
             onTeachingRound = true;
            StartCoroutine(Game1Flow());
            haveCheckedFightType = true;
@@ -204,13 +207,13 @@ public class FightFlowManager : MonoBehaviour
         
         
         #region 准备
-
+        Debug.Log(bugs[1].GetComponent<Collider2D>().enabled);
         PrepareForFight();
         
         bugs[1].GetComponent<Collider2D>().enabled = false;
-
+        bugs[1].GetComponent<Draggable>().enabled = false;
         #endregion
-        
+        Debug.Log(bugs[1].GetComponent<Collider2D>().enabled);
         //呱：————————————————Round1—————————————————————
         //呱：好的，对手大爷准备对话 
         #region 对话 
@@ -318,6 +321,7 @@ public class FightFlowManager : MonoBehaviour
         FightDataManager.ActionPoints = 2;
         actionPoint.UpdatePoints(FightDataManager.ActionPoints);;
         bugs[1].GetComponent<Collider2D>().enabled = true;
+        bugs[1].GetComponent<Draggable>().enabled = true;
         
         #endregion
 
