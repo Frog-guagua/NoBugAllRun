@@ -2170,6 +2170,10 @@ PrefabInstance:
       propertyPath: firststate
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 9111813959709200352, guid: b866038cecdd4f74485fd4a435d2b876, type: 3}
+      propertyPath: MovingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: c77269ee2a287604481d3c93ba358ede, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

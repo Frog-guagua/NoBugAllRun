@@ -222,7 +222,7 @@ public class FightDataManager : MonoBehaviour
             // 刷新对应的 UI（fightBugDatas）
             if (i < fightBugDatas.Count && fightBugDatas[i] != null)
             {
-                fightBugDatas[i].text = $"{FightBugData.insectHP}\n\n\n{FightBugData.insectAtk}";
+                fightBugDatas[i].text = $"{FightBugData.insectHP}\n\n{FightBugData.insectAtk}";
             }
 
             //呱：刷新标签ui
