@@ -270,8 +270,10 @@ public class FightFlowManager : MonoBehaviour
         mainCamera.GetComponent<CameraFocus>().enabled = true;
         yield return new WaitForSeconds(0.5f);
         abacus.GetComponent<Collider2D>().enabled = false;
+
+       yield return GetComponent<Fight1>().Round(1);
         
-        List<InsectData> enemyBugData = new List<InsectData>();
+       /* List<InsectData> enemyBugData = new List<InsectData>();
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("EnemyBug");
         foreach (var enemy in enemies)
         {
@@ -287,7 +289,7 @@ public class FightFlowManager : MonoBehaviour
         yield return gridManager.
             ExecuteBattle(new Vector3(0, 0.3f, 0), new Vector3(0, -0.3f, 0), 1f);
 
-        fdm.UpdateAllDisplay();
+        fdm.UpdateAllDisplay();*/
         
         bugs[1].GetComponent<SpriteRenderer>().color =
             new Color(1, 1, 1, 1f);
@@ -337,6 +339,7 @@ public class FightFlowManager : MonoBehaviour
 
 
         yield return new  WaitUntil(() => FightDataManager.ActionPoints == 1);
+        GetComponent<Fight1>().ChangeLevelUpSprite("A");
        
         cameraFocus.LetCameraFocus();
         ParticleSystem ps = particle.GetComponent<ParticleSystem>();
@@ -364,8 +367,8 @@ public class FightFlowManager : MonoBehaviour
         mainCamera.GetComponent<CameraFocus>().enabled = true;
         yield return new WaitForSeconds(0.5f);
         abacus.GetComponent<Collider2D>().enabled = false;
-        
-        enemyBugData = new List<InsectData>();
+        yield return GetComponent<Fight1>().Round(2);
+        /*enemyBugData = new List<InsectData>();
         enemies = GameObject.FindGameObjectsWithTag("EnemyBug");
         foreach (var enemy in enemies)
         {
@@ -381,7 +384,7 @@ public class FightFlowManager : MonoBehaviour
         yield return gridManager.
             ExecuteBattle(new Vector3(0, 0.3f, 0), new Vector3(0, -0.3f, 0), 1f);
 
-        fdm.UpdateAllDisplay();
+        fdm.UpdateAllDisplay();*/
         yield return StartCoroutine(ShowHint("别担心，战斗下场的蛐蛐会<b><color=#335EA4>重置属性</color></b>回到你的笼子里，\n在下一场战斗中还会见到它的"));
         
         int formal = DataBroker.experience;
@@ -397,7 +400,7 @@ public class FightFlowManager : MonoBehaviour
         #endregion
         
         yield return new WaitForSeconds(0.3f);
-        cameraFocus.LetCameraFocus();
+    
 
         #region 传值
 
@@ -1517,10 +1520,10 @@ public class FightFlowManager : MonoBehaviour
         {
             float percentage = time / scaleTime;
             time += Time.deltaTime;
-            scaleObj.transform.localScale = new  Vector3(1*percentage, 1*percentage, 1*percentage);
+            scaleObj.transform.localScale = new  Vector3(0.55805999f*percentage,0.55805999f*percentage,0.55805999f*percentage);
             yield return null;
         }
-        scaleObj.transform.localScale = new Vector3(1,1,1);
+        scaleObj.transform.localScale = new Vector3(0.55805999f,0.55805999f,0.55805999f);
     }
 
     void UpdateWinEndUI(int formal,int add)
