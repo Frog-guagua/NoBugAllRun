@@ -837,11 +837,11 @@ MonoBehaviour:
   guide2: "\u8BD5\u7740\u7528\u9F20\u6807\u70B9\u51FB\u86D0\u86D0\uFF0C\u53EF\u4EE5\u67E5\u770B\u4ED6\u4EEC\u7684\u72B6\u6001\u3002\uFF08Esc\u9000\u51FA\uFF09"
   guide3: "\u6216\u8BB8\u4F60\u9700\u8981\u53BB\u80E1\u540C\u7ED9\u4ED6\u4EEC\u4E70\u4E9B\u5403\u7684\uFF0C\u987A\u4FBF\u53BB\u627E\u5218\u5927\u7237\u3002"
   liu: {fileID: 1997793856}
-  beforeopendoor2: {fileID: 11400000, guid: d38bda3eb96def346a55565196ddf4de, type: 2}
+  beforeopendoor2: {fileID: 11400000, guid: 9976bc5c8d8c4704a85991f1fed4b61e, type: 2}
   night: {fileID: 21300000, guid: 96a244392430a2244a050ff57e313b1e, type: 3}
   whitespr: {fileID: 759544910}
   wang: {fileID: 1794333308}
-  afteropoen2: {fileID: 11400000, guid: d38bda3eb96def346a55565196ddf4de, type: 2}
+  afteropoen2: {fileID: 11400000, guid: 03fa59adf4a3a1a439e9d850bc64bde1, type: 2}
   liudaye: {fileID: 1587279259}
 --- !u!4 &423214230
 Transform:
@@ -993,7 +993,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: -10
   m_Sprite: {fileID: 21300000, guid: 1f4ca906683a78c4fb736a72af18983a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1980,7 +1980,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -9
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.1254902, g: 0.16078432, b: 0.25490198, a: 1}
   m_FlipX: 0
@@ -2023,7 +2023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1104b68d05e66744f9d200de86168642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dia: {fileID: 11400000, guid: d38bda3eb96def346a55565196ddf4de, type: 2}
+  dia: {fileID: 11400000, guid: 65c8ccff14653e04185976d75175a969, type: 2}
 --- !u!61 &1587279261
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2451,7 +2451,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 7ba289c86376c814dac3190cebded5cd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

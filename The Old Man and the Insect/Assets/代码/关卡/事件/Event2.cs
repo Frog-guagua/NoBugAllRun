@@ -16,7 +16,9 @@ public class Event2 : MonoBehaviour
     public string desciption3;
     public InsectDataSO DataSo;
     public Animator ani;
-
+    public DialogueData dataa;
+    public DialogueData datab;
+    public DialogueData datac;
     public DialogueData data;
     // 获取单例实例的属性
     public static Event2 Instance
@@ -64,6 +66,7 @@ public class Event2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {   
+        PlayerMove.canMove=false;
         data.dialogueList[0].canContinue=false;
         PlayerMove.canMove=false;
         ani.SetBool("canMove", true);
@@ -85,7 +88,7 @@ public class Event2 : MonoBehaviour
         canChange=true; 
         PlayerMove.canMove=true;
         DialogueManager.Instance.EndDialogue(null);
-        DialogueManager.Instance.switchUI_1();
+        DialogueManager.Instance.StartDialogue(dataa,switchui);
         data.dialogueList[0].canContinue=true;
         
     }
@@ -103,7 +106,7 @@ public class Event2 : MonoBehaviour
         canChange=true;
         PlayerMove.canMove=true;
         DialogueManager.Instance.EndDialogue(null);
-        DialogueManager.Instance.switchUI_1();
+        DialogueManager.Instance.StartDialogue(datab,switchui);
         data.dialogueList[0].canContinue=true;
     }
 
@@ -119,7 +122,7 @@ public class Event2 : MonoBehaviour
         canChange=true;
         PlayerMove.canMove=true;
         DialogueManager.Instance.EndDialogue(null);
-        DialogueManager.Instance.switchUI_1();
+        DialogueManager.Instance.StartDialogue(datac,switchui);
         data.dialogueList[0].canContinue=true;
     }
 
@@ -137,5 +140,10 @@ public class Event2 : MonoBehaviour
     {   
         DialogueManager.Instance.StartDialogue(data);
         btnFather.SetActive(true);
+    }
+
+    void switchui()
+    {
+        DialogueManager.Instance.switchUI_1();
     }
 }

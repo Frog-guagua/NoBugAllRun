@@ -24,7 +24,7 @@ public class DialogueManager : MonoBehaviour
 
     public Image img1;
     public TMP_Text speakername1;
-    
+    bool indiatem=false;
     public TMP_Text content1;
     [Header("事件专用")]
     public GameObject dialogueUI2;
@@ -39,6 +39,7 @@ public class DialogueManager : MonoBehaviour
         dialogueUI=dialogueUI2;
         speakerNameText=speakername2;
         contentText=content2;
+        indiatem=true;
        
     }
 
@@ -48,6 +49,7 @@ public class DialogueManager : MonoBehaviour
         speakerNameText=speakername1;
         contentText=content1;
         speakerSpriteImg = img1;
+        indiatem = false;
     }
 
     public void switchUI_Noimg()
@@ -55,6 +57,7 @@ public class DialogueManager : MonoBehaviour
         dialogueUI=dialogueUI3;
         speakerNameText=speakername3;
         contentText=content3;
+        indiatem = false;
     }
     [Header("Typewriter")]//打字机效果
     public float typeWriterSpeed = 0.05f;
@@ -92,16 +95,19 @@ public class DialogueManager : MonoBehaviour
         //传入目的对话的SO文件即可
     //endact是结束对话时触发的方法，没有就传个空的
     {
-        
-        switchUI_1();
-        foreach (var sentence in targetDialogueData.dialogueList)
+        if (!indiatem)
         {
-            if (sentence.speakerSprite == null)
+            switchUI_1();
+            foreach (var sentence in targetDialogueData.dialogueList)
             {
-                switchUI_Noimg();
-                break;
+                if (sentence.speakerSprite == null)
+                {
+                    switchUI_Noimg();
+                    break;
+                }
             }
         }
+
         if (isDialoguePlaying) return;//确保只有一段对话在执行
         currentDialogueData = targetDialogueData;
         isDialoguePlaying = true;//进入对话状态

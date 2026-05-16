@@ -261,8 +261,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4291752702
+  m_fontColor: {r: 0.9960785, g: 0.9490197, b: 0.8078432, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1086,8 +1086,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4291818494
+  m_fontColor: {r: 0.9960785, g: 0.95294124, b: 0.8117648, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1585,8 +1585,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4291818494
+  m_fontColor: {r: 0.9960785, g: 0.95294124, b: 0.8117648, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1767,6 +1767,9 @@ MonoBehaviour:
   desciption3: "\u3010\u884C\u52A8\u4E0A\u9650+1\u3011\u3010\u83B7\u5F97\u4E0D\u8D77\u773C\uFF082\u7EA7\uFF09\u3011"
   DataSo: {fileID: 11400000, guid: 1d8f11458b572dd49843480ebbb75db3, type: 2}
   ani: {fileID: 514038961}
+  dataa: {fileID: 11400000, guid: 44cc58ae4fab30745951d252ccfae662, type: 2}
+  datab: {fileID: 11400000, guid: 91c7495ecb0431048baca24babb53c26, type: 2}
+  datac: {fileID: 11400000, guid: 992107032861f7f409d7510cd1334d75, type: 2}
   data: {fileID: 11400000, guid: f62b96314662c704b8ee41a0913bba3b, type: 2}
   btnFather: {fileID: 1785440558}
   event2: {fileID: 11400000, guid: 083fc99a85a3fcd4ea25cb48e4e0ed2a, type: 2}
@@ -2084,11 +2087,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 498257806645716771, guid: f492cbc60d8cc5249939d26be37f9e8d, type: 3}
       propertyPath: m_fontSize
-      value: 32
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 498257806645716771, guid: f492cbc60d8cc5249939d26be37f9e8d, type: 3}
       propertyPath: m_fontSizeBase
-      value: 32
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 670388106094608467, guid: f492cbc60d8cc5249939d26be37f9e8d, type: 3}
       propertyPath: m_Pivot.x
