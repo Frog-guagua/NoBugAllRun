@@ -788,6 +788,7 @@ MonoBehaviour:
   insectAtk: 1
   insectLevel: 1
   isCompound: 0
+  isDied: 0
   insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
@@ -1565,8 +1566,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1364499511
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 02584a926f1e0ac4aa9e9686b68c59ff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2407,7 +2408,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.2751808, y: 0.83163095}
+  m_Offset: {x: 0.9587939, y: 1.4041104}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2418,7 +2419,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.544877, y: 6.4312644}
+  m_Size: {x: 4.177651, y: 5.2863054}
   m_EdgeRadius: 0
 --- !u!114 &386610259
 MonoBehaviour:
@@ -2449,8 +2450,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ball: {fileID: 1363286999}
   endSound: {fileID: 8300000, guid: 04196a96b1d64734f986e5ecaed9ba47, type: 3}
-  startPoint: {x: 8.188, y: -1.26, z: 0.02}
-  endPoint: {x: 8.809, y: -0.918, z: 0}
+  startPoint: {x: 8.188, y: -0.267, z: 0.02}
+  endPoint: {x: 8.679, y: -0.193, z: 0}
   speed: 5
 --- !u!1 &406056175 stripped
 GameObject:
@@ -2697,6 +2698,7 @@ MonoBehaviour:
   insectAtk: 1
   insectLevel: 1
   isCompound: 0
+  isDied: 0
   insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
@@ -8628,6 +8630,7 @@ MonoBehaviour:
   insectAtk: 1
   insectLevel: 1
   isCompound: 0
+  isDied: 0
   insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
@@ -8957,6 +8960,7 @@ MonoBehaviour:
   insectAtk: 1
   insectLevel: 1
   isCompound: 0
+  isDied: 0
   insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
@@ -24808,6 +24812,7 @@ MonoBehaviour:
   insectAtk: 1
   insectLevel: 1
   isCompound: 0
+  isDied: 0
   insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
@@ -25124,6 +25129,7 @@ MonoBehaviour:
   insectAtk: 1
   insectLevel: 1
   isCompound: 0
+  isDied: 0
   insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
@@ -30170,6 +30176,7 @@ MonoBehaviour:
   insectAtk: 1
   insectLevel: 1
   isCompound: 0
+  isDied: 0
   insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
@@ -30862,90 +30869,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1317124919
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1317124921}
-  - component: {fileID: 1317124920}
-  m_Layer: 0
-  m_Name: "\u6218\u6597-\u7B97\u76D8_0"
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!212 &1317124920
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1317124919}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 695504888, guid: d606e2f6dbbc31741acabe2ff722c18d, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 4.7799997, y: 7.7}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!4 &1317124921
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1317124919}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.56, y: -0.22, z: 0}
-  m_LocalScale: {x: 0.55314237, y: 0.55314237, z: 0.55314237}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1323206694
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31583,7 +31506,7 @@ Transform:
   m_GameObject: {fileID: 1363286998}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.0610005, y: -0.258, z: 0}
+  m_LocalPosition: {x: 1.9700004, y: -0.14000002, z: 0}
   m_LocalScale: {x: 0.9384002, y: 0.9384002, z: 0.9384003}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -33465,7 +33388,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u5495\u5495"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 566b0673444a89142a50229f4c67a2c0, type: 2}
   m_sharedMaterial: {fileID: 3108025286722707592, guid: 566b0673444a89142a50229f4c67a2c0, type: 2}
@@ -34307,7 +34230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7800135623768894273, guid: d39877946fdce314ebb88f757147d346, type: 3}
       propertyPath: m_Name
-      value: "\u5BF9\u624B\u866B\u866B D(4,1)"
+      value: D
       objectReference: {fileID: 0}
     - target: {fileID: 8225897344430546466, guid: d39877946fdce314ebb88f757147d346, type: 3}
       propertyPath: m_LocalScale.x
@@ -37258,7 +37181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalPos: {x: -0.19, y: 0.25}
-  goalSize: 2.5
+  goalSize: 3.5
   moveDuration: 0.3
   stayDuration: 1
   camara: {fileID: 2011898405}
@@ -38227,4 +38150,3 @@ SceneRoots:
   - {fileID: 24688739}
   - {fileID: 498498306}
   - {fileID: 1929496614}
-  - {fileID: 1317124921}

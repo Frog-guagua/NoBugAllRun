@@ -69,6 +69,7 @@ public class Fight1 : MonoBehaviour
             myData[0].insectAtk = 2;
             myData[0].insectHP = 2;
             myData[0].insectLevel = 2;
+            myData[2].isDied = true;
             myData[2].insectAtk = 2;
             myData[2].insectHP = 2;
         }

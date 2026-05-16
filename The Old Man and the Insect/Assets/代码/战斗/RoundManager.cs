@@ -401,8 +401,9 @@ public class RoundManager : MonoBehaviour
                 {
                     Debug.LogError("frontBug 缺少 InsectData 组件");
                 }
-            }
-           // GridManager.Grids[Draggable.nowGridIndex+4].bugOnGrid.GetComponent<ObjectShake>().ShakeStart(0.3f,0.1f);
+            } 
+            
+            // GridManager.Grids[Draggable.nowGridIndex+4].bugOnGrid.GetComponent<ObjectShake>().ShakeStart(0.3f,0.1f);
            
            Camera.main.GetComponent<CamaraShake>().ShakeStart(0.5f,0.3f);
            
@@ -471,5 +472,20 @@ public class RoundManager : MonoBehaviour
               sp.color = color;
                 break;
         }
+    }
+
+    public void deliverMyBugDataToCage()
+    {
+        List<InsectData> tempBugs = new List<InsectData>();
+        for (int i = 0; i < 8; i++)
+        {
+            if (GridManager.Grids[i].bugOnGrid != null)
+            {
+                tempBugs.Add(GridManager.Grids[i].bugOnGrid.GetComponent<InsectData>());
+                continue;
+            }
+        }
+        
+        if(tempBugs.Count > 0)FightDataManager.DeliverData(tempBugs);
     }
 }

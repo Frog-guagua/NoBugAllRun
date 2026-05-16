@@ -516,7 +516,7 @@ public class FightFlowManager : MonoBehaviour
      
         abacus.GetComponent<Collider2D>().enabled = false;
         
-        cameraFocus.LetCameraFocus();
+       
         
         AudioMgr.Instance.PlaySFX(FightEffect);
         yield return GetComponent<BattleResover>().BattleResolve();
@@ -529,7 +529,7 @@ public class FightFlowManager : MonoBehaviour
             UpdateWinEndUI(formal,6);
             DataBroker.experience += 6;
        
-            cameraFocus.LetCameraFocus();
+           
             yield return new WaitForSeconds(1.5f);
             OnGame2 = false;
             FightDataManager.DeliverData();
@@ -557,24 +557,16 @@ public class FightFlowManager : MonoBehaviour
         ReleseCage();
         
         abacus.GetComponent<Collider2D>().enabled = true;
+        
+        if(FightDataManager.ActionPoints == 0) BanCage();
         yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
-        while (!AbacusAnim.Finsined)
-        {
-            if (FightDataManager.ActionPoints == 0)
-            {
-                BanCage();
-            }
-        
-            yield return new WaitForSeconds(1.5f);
-            
-        }
+       
 
-        
        
         AbacusAnim.Finsined = false;
+        abacus.GetComponent<Collider2D>().enabled = false;
         BanCage();
-        yield return new WaitForSeconds(0.3f);
-        waitingBug.CountMyBugs();
+
         yield return new WaitForSeconds(0.1f);
         waitingBug.myBugCount = 0;              // 重置计数器
         waitingBug.CountMyBugs();  
@@ -588,19 +580,19 @@ public class FightFlowManager : MonoBehaviour
       
         
         
-        Debug.Log(movedIndex2);
+        Debug.Log(waitingBug.FindD());
        
    
-            yield return waitingBug.FindRival(movedIndex2);
+            yield return waitingBug.FindRival(waitingBug.FindD());
             
             movedIndex2 = waitingBug.lastMovedGridIndex;
-            Debug.Log(movedIndex2);
+            Debug.Log(waitingBug.FindD());
         
         //movedIndex2 = waitingBug.lastMovedGridIndex;
         //呱：放大相机 聚焦在战局上面
         mainCamera.GetComponent<CameraFocus>().enabled = true;
         yield return new WaitForSeconds(0.5f);
-        abacus.GetComponent<Collider2D>().enabled = false;
+       
   
         cameraFocus.LetCameraFocus();
      
@@ -615,10 +607,11 @@ public class FightFlowManager : MonoBehaviour
             yield return SizeScale(Lose);
             UpdateLoseEndUI(formal,6);
             DataBroker.reputation -= 6;
-            cameraFocus.LetCameraFocus();
+           
             yield return new WaitForSeconds(1.5f);
             OnGame2 = false;
             FightDataManager.DeliverData();
+             roundManager.deliverMyBugDataToCage();
             Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
         else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
@@ -630,10 +623,11 @@ public class FightFlowManager : MonoBehaviour
             UpdateWinEndUI(formal,6);
             DataBroker.experience += 6;
        
-            cameraFocus.LetCameraFocus();
+            
             yield return new WaitForSeconds(1.5f);
             OnGame2 = false;
             FightDataManager.DeliverData();
+            roundManager.deliverMyBugDataToCage();
             Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
 
@@ -689,7 +683,7 @@ public class FightFlowManager : MonoBehaviour
         Debug.Log(movedIndex2);
        
    
-            yield return waitingBug.FindRival(movedIndex2);
+            yield return waitingBug.FindRival(waitingBug.FindD());
             
             movedIndex2 = waitingBug.lastMovedGridIndex;
             Debug.Log(movedIndex2);
@@ -713,10 +707,11 @@ public class FightFlowManager : MonoBehaviour
             yield return SizeScale(Lose);
             UpdateLoseEndUI(formal,6);
             DataBroker.reputation -= 6;
-            cameraFocus.LetCameraFocus();
+            
             yield return new WaitForSeconds(1.5f);
             OnGame2 = false;
             FightDataManager.DeliverData();
+            roundManager.deliverMyBugDataToCage();
             Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
         else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
@@ -728,10 +723,11 @@ public class FightFlowManager : MonoBehaviour
             UpdateWinEndUI(formal,6);
             DataBroker.experience += 6;
        
-            cameraFocus.LetCameraFocus();
+          
             yield return new WaitForSeconds(1.5f);
             OnGame2 = false;
             FightDataManager.DeliverData();
+            roundManager.deliverMyBugDataToCage();
             Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
 
@@ -789,7 +785,7 @@ public class FightFlowManager : MonoBehaviour
         Debug.Log(movedIndex2);
        
    
-            yield return waitingBug.FindRival(movedIndex2);
+            yield return waitingBug.FindRival(waitingBug.FindD());
             
             movedIndex2 = waitingBug.lastMovedGridIndex;
             Debug.Log(movedIndex2);
@@ -817,6 +813,7 @@ public class FightFlowManager : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
             OnGame2 = false;
             FightDataManager.DeliverData();
+            roundManager.deliverMyBugDataToCage();
             Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
         else if(DataBroker.WinGame2&& GetComponent<BattleResover>().Nobug)
@@ -832,6 +829,7 @@ public class FightFlowManager : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
             OnGame2 = false;
             FightDataManager.DeliverData();
+            roundManager.deliverMyBugDataToCage();
             Transition.Instance.SwitchSceneWithFade("BeforeFight2");
         }
 
@@ -1505,6 +1503,8 @@ public class FightFlowManager : MonoBehaviour
             
             Transition.Instance.SwitchSceneWithFade("BeforeBoss");
         }
+        
+        roundManager.deliverMyBugDataToCage();
     }
     
     IEnumerator SizeScale(GameObject scaleObj)
