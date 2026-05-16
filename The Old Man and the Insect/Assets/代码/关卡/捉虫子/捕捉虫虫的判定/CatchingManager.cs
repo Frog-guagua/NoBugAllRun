@@ -189,7 +189,7 @@ public class CatchingManager : MonoBehaviour
             StartCoroutine(showhint("其他虫虫跑掉了！"));
             cancontinue = false;
             // === 修改：不再单独放行，改为统一结算 ===
-            SettleAllBugs();
+            StartCoroutine(SettleAllBugs());
             // =======================================
         }
     
@@ -199,13 +199,14 @@ public class CatchingManager : MonoBehaviour
             StartCoroutine(showhint ("其他虫虫跑掉了！"));
             cancontinue = false;
             // === 修改：不再单独放行，改为统一结算 ===
-            SettleAllBugs();
+            StartCoroutine(SettleAllBugs());
             // =======================================
         }
         
         if(failureCount >= 4 && doUpdate)
         {   
             StartCoroutine(givebug());
+            doUpdate = false;
         }
 
         if (Input.GetMouseButtonDown(0) && canswitch)
@@ -303,17 +304,17 @@ public class CatchingManager : MonoBehaviour
             }
         }
         
-        SettleAllBugs();
+        StartCoroutine(SettleAllBugs());
         StartCoroutine(showhint ("抓住了剩下的虫虫！"));
     }
     // ====================================
 
     // === 新增：统一结算方法 ===
-    void SettleAllBugs()
+   IEnumerator SettleAllBugs()
     {
         string names = "";
         bugfather.SetActive(false);
-        if (hasSettled) return;
+        if (hasSettled) yield break; 
         hasSettled = true;
     
         int availableSlots = Mathf.Max(0, 8 - CageManager.Instance.checkcount());
@@ -321,9 +322,9 @@ public class CatchingManager : MonoBehaviour
     
         if (isOverLimit)
         {
-            StartCoroutine(showhint("虫虫数量已达上限（8只）无法获得更多"));
+          //  StartCoroutine(showhint("虫虫数量已达上限（8只）无法获得更多"));
         }
-    
+        yield return new WaitForSeconds(1f);
         if (caughtBugs.Count > 0)
         {
             panel.SetActive(true);
@@ -336,7 +337,7 @@ public class CatchingManager : MonoBehaviour
                 {
                     hp[i].text = caughtBugs[i].insectHP.ToString();
                     atk[i].text = caughtBugs[i].insectAtk.ToString();
-                    name[i].text = caughtBugs[i].Name;
+                    name[i].text = caughtBugs[i].Name+"("+caughtBugs[i].insectLevel.ToString()+"级)";
                     bugs[i].sprite = caughtBugs[i].insectImage;
                     caughtBugs[i].gameObject.SetActive(false);
                 
@@ -351,11 +352,11 @@ public class CatchingManager : MonoBehaviour
             // === 修改：根据是否超上限拼接不同文案 ===
             if (isOverLimit)
             {
-                text0.text = "你捉住了：" + names + "（由于笼子只能装8只虫虫，你将多余虫虫放生）";
+                text0.text = "你获得了：" + names +"（由于笼子只能装8只虫虫，你将多余虫虫放生）";
             }
             else
             {
-                text0.text = "你捉住了：" + names;
+                text0.text = "你获得了：" + names;
             }
             // ======================================
         }

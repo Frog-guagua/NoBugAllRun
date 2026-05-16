@@ -97,6 +97,8 @@ public class LevelStateManager : MonoBehaviour
     [Header("二次进入")] 
     public DialogueData beforeopendoor2;
 
+    public Sprite night;
+    public GameObject whitespr;
     public GameObject wang;
     public DialogueData afteropoen2;
     public GameObject liudaye;
@@ -117,6 +119,7 @@ public class LevelStateManager : MonoBehaviour
         hint2 = hintobj2.GetComponent<Hint>();
         
        
+        
         AudioMgr.Instance.PlayBGM(bgm);
         AudioMgr.Instance.PlaySFX(birdsound);
         if (secondin == false)
@@ -129,7 +132,9 @@ public class LevelStateManager : MonoBehaviour
         }
 
         if (secondin)
-        {   currentState = LevelState.secondin;
+        {  
+            whitespr.GetComponent<SpriteRenderer>().sprite = night;
+            currentState = LevelState.secondin;
             lastState = LevelState.secondin;
             liudaye.SetActive(true);
             secondin=true;
