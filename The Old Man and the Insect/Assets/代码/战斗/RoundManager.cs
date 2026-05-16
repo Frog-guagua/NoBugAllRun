@@ -74,7 +74,7 @@ public class RoundManager : MonoBehaviour
     private bool needCompound;
     private ActionPoint actionPoint;
     private GameObject frontBug;
-    [SerializeField]GameObject spBug;
+    
     
     [SerializeField] List<Sprite>  levelUpSprite = new List<Sprite>();
     
@@ -185,8 +185,7 @@ public class RoundManager : MonoBehaviour
                    
                  
                parentTransform.gameObject.SetActive(false);
-               ChangeLevelUpSprite("A",spBug);
-               spBug.GetComponent<SpriteRenderer>().sprite = levelUpSprite[0];
+             
                Debug.Log($"已禁用 {parentTransform.name}");
                
                
@@ -389,9 +388,20 @@ public class RoundManager : MonoBehaviour
             fightDataManager.UpdateBugUI(frontBug);
             levelUpParticles.Play();
             Destroy(fightBug);
-            GameObject fBug = GridManager.Grids[realIndex].bugOnGrid;
+            if (frontBug != null)
+            {
+                fightDataManager.UpdateBugUI(frontBug);
             
-            ChangeLevelUpSprite(fBug.GetComponent<InsectData>().bugType.ToString(),fBug);
+                InsectData data = frontBug.GetComponent<InsectData>();
+                if (data != null)
+                {
+                    ChangeLevelUpSprite(data.bugType.ToString(), frontBug);
+                }
+                else
+                {
+                    Debug.LogError("frontBug 缺少 InsectData 组件");
+                }
+            }
            // GridManager.Grids[Draggable.nowGridIndex+4].bugOnGrid.GetComponent<ObjectShake>().ShakeStart(0.3f,0.1f);
            
            Camera.main.GetComponent<CamaraShake>().ShakeStart(0.5f,0.3f);

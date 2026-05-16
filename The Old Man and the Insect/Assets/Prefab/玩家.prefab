@@ -121,9 +121,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5306497dc7b2014db239ec9b477348a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovingSound: {fileID: 8300000, guid: 5f0913f4cb0bc3e46846d3b098098f54, type: 3}
+  MovingSound: {fileID: 8300000, guid: c77269ee2a287604481d3c93ba358ede, type: 3}
   PlayerMoveLength_X: 5
   PlayerMoveLength_Y: 5
+  firststate: 0
 --- !u!61 &6302583853090309295
 BoxCollider2D:
   m_ObjectHideFlags: 0

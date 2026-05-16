@@ -1146,8 +1146,7 @@ public class FightFlowManager : MonoBehaviour
         //呱：打开算盘 直到结算 
         abacus.GetComponent<Collider2D>().enabled = true;  
         yield return new WaitUntil(() => AbacusAnim.Finsined == true);
-        AbacusAnim.Finsined = false;
-        
+  
         //呱：行动点归零就强制关掉笼子
         while (!AbacusAnim.Finsined)
         {
@@ -1247,8 +1246,7 @@ public class FightFlowManager : MonoBehaviour
         //呱：解禁算盘 随时可以开始结算
         abacus.GetComponent<Collider2D>().enabled = true;  
         yield return new WaitUntil(() => AbacusAnim.Finsined == true);
-        AbacusAnim.Finsined = false;
-        
+
         //呱：如果行动点为0 禁用笼子
         while (!AbacusAnim.Finsined)
         {
@@ -1329,7 +1327,7 @@ public class FightFlowManager : MonoBehaviour
                  //呱：算盘解禁
                  abacus.GetComponent<Collider2D>().enabled = true;  
                  yield return new WaitUntil(() => AbacusAnim.Finsined == true);
-                 AbacusAnim.Finsined = false;
+                 
                  
                  //呱：如果行动点归零 就强制关闭笼子
                  while (!AbacusAnim.Finsined)
