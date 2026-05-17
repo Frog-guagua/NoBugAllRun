@@ -482,9 +482,20 @@ public class RoundManager : MonoBehaviour
             if (GridManager.Grids[i].bugOnGrid != null)
             {
                 tempBugs.Add(GridManager.Grids[i].bugOnGrid.GetComponent<InsectData>());
+                
                 continue;
             }
         }
+
+        if (BattleResover.diedBugs.Count != 0)
+        {
+            for (int i = 0; i < BattleResover.diedBugs.Count; i++)
+            {
+                tempBugs.Add(BattleResover.diedBugs[i]);
+            }
+            
+        }
+        
         
         if(tempBugs.Count > 0)FightDataManager.DeliverData(tempBugs);
         BattleResover.diedBugs.Clear();
