@@ -11,16 +11,16 @@ public class cagetest : MonoBehaviour
      StartCoroutine(test());
      LevelStateManager.canquit=true;
      LevelStateManager.secondin=true;
-     flowermgr2.getinTime++;
-
-     //  DataBroker.catchTime++;
+    
+    LevelStateManager.secondin=true;
+     DataBroker.catchTime++;
     }
 
     IEnumerator test()
     {   
         
         DataBroker.experience = 99;
-        DataBroker.reputation = 10;
+     //   DataBroker.reputation = 10;
         CageUI.Instance.setAct();
         yield return new WaitForSeconds(0.4f);
         CageUI.Instance.setInactive();

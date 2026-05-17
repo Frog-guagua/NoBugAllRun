@@ -1494,6 +1494,7 @@ MonoBehaviour:
   description1: "\u5728\u82B1\u9E1F\u5E97\uFF0C\u4F60\u53EF\u4EE5\u6D88\u8017\u7ECF\u9A8C\u4E3A\u866B\u866B\u52A0\u70B9"
   description2: "\u9AD8\u7B49\u7EA7\u7684\u866B\u866B\u9700\u8981\u66F4\u591A\u7ECF\u9A8C"
   description3: "\u70B9\u51FBEsc\u524D\u5F80\u4E0B\u4E00\u4E2A\u80E1\u540C"
+  bgm: {fileID: 8300000, guid: 089f5e3716053d04e8faae36ead8131c, type: 3}
 --- !u!1 &712562838
 GameObject:
   m_ObjectHideFlags: 0
@@ -1685,8 +1686,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -136478539
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a544bcd1110067b4c9f20ec369db1a75, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1708,7 +1709,7 @@ Transform:
   m_GameObject: {fileID: 849825995}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.88, y: -0.28, z: 0}
+  m_LocalPosition: {x: -9.62, y: -0.28, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3470,6 +3471,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1912619227}
         m_TargetAssemblyTypeName: StartAndEnd, Assembly-CSharp
         m_MethodName: SettingMenuOff
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 646293058}
+        m_TargetAssemblyTypeName: flowermgr2, Assembly-CSharp
+        m_MethodName: cancel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

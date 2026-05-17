@@ -17,7 +17,7 @@ public class Hutong0 : MonoBehaviour
     void Start()
     {
         
-        AudioMgr.Instance.PlayBGM(clip);
+      //  AudioMgr.Instance.PlayBGM(clip);
         StartCoroutine(flow());
     }
 

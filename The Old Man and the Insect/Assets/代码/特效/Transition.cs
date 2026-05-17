@@ -117,7 +117,8 @@ public class Transition : MonoBehaviour
     /// <param name="fadeInDuration"></param>
     /// <param name="fadeOutDuration"></param>
     public void SwitchSceneWithFade(string targetSceneName, float fadeInDuration = 0.6f, float fadeOutDuration = 0.6f)
-    {
+    {   
+       // AudioMgr.Instance.StopBGM();
         if (switchRoutine != null)
         {
             StopCoroutine(switchRoutine);

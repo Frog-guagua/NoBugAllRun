@@ -20,9 +20,13 @@ public class part3Manager : MonoBehaviour
     public Hint hint;
    private static int getInHutong1Count = 1;
    public Animator anim;
+
+   public AudioClip bgm;
     // Start is called before the first frame update
     void Start()
     {   
+       
+        AudioMgr.Instance.PlayBGM(bgm);
         Debug.Log(DataBroker.Instance.datasFromCage.Count);
         Bag.canOpenBag = true;
         if (getInHutong1Count == 1)
@@ -34,7 +38,7 @@ public class part3Manager : MonoBehaviour
             Debug.Log("对话与动画，记得加引导");
             Debug.Log(DataBroker.Instance.datasFromFight.Count);
             DialogueManager.Instance.StartDialogue(Data,startflow2);
-            player.transform.position = new Vector2(1.13f,-0.04f);
+            player.GetComponent<Rigidbody2D>().position = new Vector2(1.13f,-0.04f);
             
         }
     }
