@@ -13,7 +13,7 @@ public class cagetest : MonoBehaviour
      LevelStateManager.secondin=true;
     
     LevelStateManager.secondin=true;
-     DataBroker.catchTime++;
+  
     }
 
     IEnumerator test()
