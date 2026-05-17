@@ -487,5 +487,6 @@ public class RoundManager : MonoBehaviour
         }
         
         if(tempBugs.Count > 0)FightDataManager.DeliverData(tempBugs);
+        BattleResover.diedBugs.Clear();
     }
 }

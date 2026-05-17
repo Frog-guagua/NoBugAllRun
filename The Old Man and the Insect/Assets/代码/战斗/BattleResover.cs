@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 public class BattleResover : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class BattleResover : MonoBehaviour
 
     private Vector3 offset = Vector3.zero; // 如果你的格子位置有偏移，在这里设置
     public bool Nobug=false;
+
+    public static List<GameObject> diedBugs = new List<GameObject>();
+    
     /// <summary>
     /// 战斗结算主协程（攻击 + 死亡 + 胜负 + 后排前移）
     /// </summary>
@@ -132,6 +136,7 @@ public class BattleResover : MonoBehaviour
                 InsectData bug = bugObj.GetComponent<InsectData>();
                 if (bug != null && bug.insectHP <= 0)
                 {
+                    diedBugs.Add(bugObj);
                     deathRoutines.Add(StartCoroutine(ShakeAndFade(bugObj)));
                     GridManager.Grids[i].bugOnGrid = null;
                     GridManager.Grids[i].isOccupied = false;
