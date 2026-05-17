@@ -16,6 +16,7 @@ public class Fight1 : MonoBehaviour
 
     [SerializeField] static GameObject bug;
     [SerializeField]  Sprite Level2;
+ 
     
     // Start is called before the first frame update
     void Start()
@@ -69,9 +70,17 @@ public class Fight1 : MonoBehaviour
             myData[0].insectAtk = 2;
             myData[0].insectHP = 2;
             myData[0].insectLevel = 2;
+            myData[0].bugType = E_BugType.A;
             myData[2].isDied = true;
             myData[2].insectAtk = 2;
             myData[2].insectHP = 2;
+            myData[2].bugType = E_BugType.B;
+            List<InsectData> datas = new List<InsectData>();
+            datas.Add(myData[0]);
+            datas.Add(myData[2]);
+            DataBroker.Instance.give_datasFromFight(datas);
+            
+            
         }
     }
     
