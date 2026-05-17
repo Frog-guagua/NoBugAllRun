@@ -479,17 +479,9 @@ public class FightFlowManager : MonoBehaviour
 
         abacus.GetComponent<Collider2D>().enabled = true;  
         yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
+        AbacusAnim.Finsined = false;
         BanCage();
-        while (!AbacusAnim.Finsined)
-        {
-            if (FightDataManager.ActionPoints == 0)
-            {
-                BanCage();
-            }
-        
-            yield return new WaitForSeconds(1.5f);
-            
-        }
+      
         
         
         
@@ -544,9 +536,10 @@ public class FightFlowManager : MonoBehaviour
         #region 上虫
         yield return Speak(3,"哟呵","我就不信了","再来！");
         waitingBug.BugUp(2,movedIndex2+4);
-        yield return new WaitUntil(() => waitingBug.GetComponent<WaitingBug>().finishComposed == true);
+        DataBroker.WinGame2 = false;
+       // yield return new WaitUntil(() => waitingBug.GetComponent<WaitingBug>().finishComposed == true);
         yield return new WaitForSeconds(2f);
-        waitingBug.GetComponent<WaitingBug>().finishComposed=false;
+        //waitingBug.GetComponent<WaitingBug>().finishComposed=false;
         actionPoint = FindObjectOfType<ActionPoint>();
         FightDataManager.ActionPoints = DataBroker.actionValue;
         actionPoint.UpdatePoints(FightDataManager.ActionPoints);;
@@ -555,10 +548,12 @@ public class FightFlowManager : MonoBehaviour
 
         #region 结算
 
+        AbacusAnim.Finsined = false;
         ReleseCage();
-        
+        Debug.Log("准备打开算盘啦啦啦啦");
         abacus.GetComponent<Collider2D>().enabled = true;
-        
+        Debug.Log("我们来看看算盘打开了没有？");
+        Debug.Log(abacus.GetComponent<Collider2D>().enabled);
         if(FightDataManager.ActionPoints == 0) BanCage();
         yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
         BanCage();
@@ -653,17 +648,9 @@ public class FightFlowManager : MonoBehaviour
         AbacusAnim.Finsined = false;
         
         abacus.GetComponent<Collider2D>().enabled = true;
+        if(FightDataManager.ActionPoints == 0) BanCage();
         yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
-        while (!AbacusAnim.Finsined)
-        {
-            if (FightDataManager.ActionPoints == 0)
-            {
-                BanCage();
-            }
         
-            yield return new WaitForSeconds(1.5f);
-            
-        }
 
         AbacusAnim.Finsined = false;
         BanCage();
@@ -752,18 +739,9 @@ public class FightFlowManager : MonoBehaviour
 
         ReleseCage();
         AbacusAnim.Finsined = false;
-        
+        if(FightDataManager.ActionPoints == 0) BanCage();
         abacus.GetComponent<Collider2D>().enabled = true;
-        while (!AbacusAnim.Finsined)
-        {
-            if (FightDataManager.ActionPoints == 0)
-            {
-                BanCage();
-            }
-        
-            yield return new WaitForSeconds(1.5f);
-            
-        }
+     
 
         
         yield return new WaitUntil(()=> AbacusAnim.Finsined==true);
@@ -1547,7 +1525,7 @@ public class FightFlowManager : MonoBehaviour
 
     string RandomLoseEndSenten()
     {
-        int random =Random.Range(0,WinTest.Count);
+        int random =Random.Range(0,LoseTest.Count);
         return LoseTest[random];
     }
     

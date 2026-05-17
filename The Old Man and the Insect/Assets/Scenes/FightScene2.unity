@@ -789,7 +789,6 @@ MonoBehaviour:
   insectLevel: 1
   isCompound: 0
   isDied: 0
-  insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
 --- !u!1 &76182865 stripped
@@ -1228,8 +1227,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -136478539
-  m_SortingLayer: 1
+  m_SortingLayerID: 1364499511
+  m_SortingLayer: 2
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 64db82bdd8bbfb342b23e084067d7d33, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2408,7 +2407,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.9587939, y: 1.4041104}
+  m_Offset: {x: 1.0286144, y: 0.7710167}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2419,7 +2418,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.177651, y: 5.2863054}
+  m_Size: {x: 2.6329086, y: 6.552493}
   m_EdgeRadius: 0
 --- !u!114 &386610259
 MonoBehaviour:
@@ -2699,7 +2698,6 @@ MonoBehaviour:
   insectLevel: 1
   isCompound: 0
   isDied: 0
-  insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
 --- !u!1 &421050996
@@ -7888,6 +7886,14 @@ PrefabInstance:
       propertyPath: moveCurveForLevelUp.m_Curve.Array.data[2].outWeight
       value: 0.33333334
       objectReference: {fileID: 0}
+    - target: {fileID: 1507707693014646161, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507707693014646161, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1364499511
+      objectReference: {fileID: 0}
     - target: {fileID: 1721728218424037631, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
       propertyPath: cage
       value: 
@@ -8631,7 +8637,6 @@ MonoBehaviour:
   insectLevel: 1
   isCompound: 0
   isDied: 0
-  insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
 --- !u!1 &590850852
@@ -8961,7 +8966,6 @@ MonoBehaviour:
   insectLevel: 1
   isCompound: 0
   isDied: 0
-  insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
 --- !u!4 &729978987 stripped
@@ -24813,7 +24817,6 @@ MonoBehaviour:
   insectLevel: 1
   isCompound: 0
   isDied: 0
-  insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
 --- !u!1 &1136310485 stripped
@@ -25130,7 +25133,6 @@ MonoBehaviour:
   insectLevel: 1
   isCompound: 0
   isDied: 0
-  insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
 --- !u!1 &1170839075
@@ -30177,7 +30179,6 @@ MonoBehaviour:
   insectLevel: 1
   isCompound: 0
   isDied: 0
-  insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
 --- !u!114 &1212079007 stripped
@@ -30430,6 +30431,14 @@ PrefabInstance:
     - target: {fileID: 1498399178879638383, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
       propertyPath: moveCurveForLevelUp.m_Curve.Array.data[2].outWeight
       value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507707693014646161, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507707693014646161, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1364499511
       objectReference: {fileID: 0}
     - target: {fileID: 1721728218424037631, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
       propertyPath: cage
@@ -31012,6 +31021,14 @@ PrefabInstance:
     - target: {fileID: 1498399178879638383, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
       propertyPath: moveCurveForLevelUp.m_Curve.Array.data[2].outWeight
       value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507707693014646161, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507707693014646161, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1364499511
       objectReference: {fileID: 0}
     - target: {fileID: 1721728218424037631, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
       propertyPath: cage
@@ -31855,6 +31872,14 @@ PrefabInstance:
     - target: {fileID: 1498399178879638383, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
       propertyPath: moveCurveForLevelUp.m_Curve.Array.data[2].outWeight
       value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507707693014646161, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507707693014646161, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1364499511
       objectReference: {fileID: 0}
     - target: {fileID: 1721728218424037631, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
       propertyPath: cage
@@ -32800,6 +32825,14 @@ PrefabInstance:
     - target: {fileID: 1498399178879638383, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
       propertyPath: moveCurveForLevelUp.m_Curve.Array.data[2].outWeight
       value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507707693014646161, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507707693014646161, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1364499511
       objectReference: {fileID: 0}
     - target: {fileID: 1721728218424037631, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
       propertyPath: cage
@@ -35240,6 +35273,14 @@ PrefabInstance:
       propertyPath: moveCurveForLevelUp.m_Curve.Array.data[2].outWeight
       value: 0.33333334
       objectReference: {fileID: 0}
+    - target: {fileID: 1507707693014646161, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507707693014646161, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1364499511
+      objectReference: {fileID: 0}
     - target: {fileID: 1721728218424037631, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
       propertyPath: cage
       value: 
@@ -36199,6 +36240,14 @@ PrefabInstance:
     - target: {fileID: 1498399178879638383, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
       propertyPath: moveCurveForLevelUp.m_Curve.Array.data[2].outWeight
       value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507707693014646161, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507707693014646161, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1364499511
       objectReference: {fileID: 0}
     - target: {fileID: 1721728218424037631, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
       propertyPath: cage
@@ -38096,6 +38145,14 @@ PrefabInstance:
     - target: {fileID: 8272704043629155780, guid: 0d3d0d93ab53b134ca4c73c83d2bfe3e, type: 3}
       propertyPath: levelUpSprite.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8280319036339614522, guid: 0d3d0d93ab53b134ca4c73c83d2bfe3e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8280319036339614522, guid: 0d3d0d93ab53b134ca4c73c83d2bfe3e, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1364499511
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7853765842498819390, guid: 0d3d0d93ab53b134ca4c73c83d2bfe3e, type: 3}
