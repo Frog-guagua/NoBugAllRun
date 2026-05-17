@@ -10,7 +10,7 @@ public class DialogueData : ScriptableObject
     {
         public string speakerName;
         public Sprite speakerSprite;
-        [Multiline]public string content;
+        public string content;
         public bool Shake;
         public bool canContinue=true;
     }
