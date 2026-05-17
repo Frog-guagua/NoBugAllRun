@@ -33,7 +33,8 @@ public class part3Manager : MonoBehaviour
         {
             Debug.Log("对话与动画，记得加引导");
             Debug.Log(DataBroker.Instance.datasFromFight.Count);
-            DialogueManager.Instance.StartDialogue(Data);
+            DialogueManager.Instance.StartDialogue(Data,startflow2);
+            player.transform.position = new Vector2(1.13f,-0.04f);
             
         }
     }

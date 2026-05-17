@@ -1666,6 +1666,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settingMenu: {fileID: 646293054}
   beginBGM: {fileID: 0}
+  clickSFX: {fileID: 0}
 --- !u!1001 &578914229
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3626,6 +3627,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settingMenu: {fileID: 1217896688}
   beginBGM: {fileID: 0}
+  clickSFX: {fileID: 0}
 --- !u!1 &1251724261
 GameObject:
   m_ObjectHideFlags: 0
