@@ -35,6 +35,7 @@ public class Hutong0 : MonoBehaviour
             && player.transform.position.y < rightAndUp_DoorRange.y
             && isswitch == false)
         {
+            
             Transition.Instance.SwitchSceneWithFade("HuTong1");
             isswitch = true;
         }

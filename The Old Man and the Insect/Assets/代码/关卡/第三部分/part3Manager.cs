@@ -26,7 +26,7 @@ public class part3Manager : MonoBehaviour
     void Start()
     {   
        
-        AudioMgr.Instance.PlayBGM(bgm);
+        //AudioMgr.Instance.PlayBGM(bgm);
         Debug.Log(DataBroker.Instance.datasFromCage.Count);
         Bag.canOpenBag = true;
         if (getInHutong1Count == 1)
