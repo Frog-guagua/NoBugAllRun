@@ -19,6 +19,7 @@ public class part3Manager : MonoBehaviour
     public DialogueData Data;
     public Hint hint;
    private static int getInHutong1Count = 1;
+   public Animator anim;
     // Start is called before the first frame update
     void Start()
     {   
@@ -32,11 +33,9 @@ public class part3Manager : MonoBehaviour
         {
             Debug.Log("对话与动画，记得加引导");
             Debug.Log(DataBroker.Instance.datasFromFight.Count);
-            DialogueManager.Instance.StartDialogue(Data);
-            for (int i = 0; i < DataBroker.Instance.datasFromFight.Count; i++)
-            {
-                Debug.Log("当前种类"+DataBroker.Instance.datasFromFight[i].bugType);
-            }
+            DialogueManager.Instance.StartDialogue(Data,startflow2);
+            player.transform.position = new Vector2(1.13f,-0.04f);
+            
         }
     }
 
@@ -44,6 +43,19 @@ public class part3Manager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.7f);
         hint.ShowHint("靠近对话（点击）");
+    }
+
+    public void startflow2()
+    {
+        StartCoroutine(flow2());
+    }
+    IEnumerator flow2()
+    {
+        anim.SetBool("canLeave",true);
+        PlayerMove.canMove = false;
+        yield return new WaitForSeconds(2f);
+        PlayerMove.canMove = true;
+       hint.ShowHint("前往上方胡同");
     }
     // Update is called once per frame
     void Update()

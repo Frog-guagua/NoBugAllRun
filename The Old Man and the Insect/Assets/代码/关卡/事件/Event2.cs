@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Event2 : MonoBehaviour
@@ -20,6 +21,8 @@ public class Event2 : MonoBehaviour
     public DialogueData datab;
     public DialogueData datac;
     public DialogueData data;
+
+    private bool move=false;
     // 获取单例实例的属性
     public static Event2 Instance
     {
@@ -74,6 +77,13 @@ public class Event2 : MonoBehaviour
         DialogueManager.Instance.switchUI_tem();
     }
 
+    void Update()
+    {
+        if (move == false)
+        {
+            PlayerMove.canMove = false;
+        }
+    }
     // Update is called once per frame
     
     public void button1()
@@ -128,9 +138,10 @@ public class Event2 : MonoBehaviour
 
     IEnumerator flow()
     {
-      
+        
+        
         yield return new WaitForSeconds(3.7f);
-        ani.enabled=false;
+            // ani.enabled=false;
         DialogueManager.Instance.StartDialogue(event2,setfather);
        
         
@@ -142,8 +153,11 @@ public class Event2 : MonoBehaviour
         btnFather.SetActive(true);
     }
 
-    void switchui()
-    {
+    public void switchui()
+    {   
+        move=true;
+        Debug.Log("切换UI");
         DialogueManager.Instance.switchUI_1();
+        ani.SetBool("canOut",true);
     }
 }

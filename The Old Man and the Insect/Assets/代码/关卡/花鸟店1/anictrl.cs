@@ -15,7 +15,7 @@ public class anictrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Camera.main.ScreenToWorldPoint(Input.mousePosition).x < -3)
+        if (Camera.main.ScreenToWorldPoint(Input.mousePosition).x < -0.5)
         {
             canget = true;
             anim.SetBool("movein", true);
