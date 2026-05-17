@@ -2975,6 +2975,7 @@ MonoBehaviour:
   insectAtk: 2
   insectLevel: 1
   isCompound: 0
+  _bugType: 6
   isDied: 0
   AtkUpConsumpution: 1
   HpUpConsumption: 1
@@ -3028,6 +3029,7 @@ MonoBehaviour:
   insectAtk: 1
   insectLevel: 1
   isCompound: 0
+  _bugType: 0
   isDied: 0
   AtkUpConsumpution: 1
   HpUpConsumption: 1
@@ -3483,6 +3485,7 @@ MonoBehaviour:
   insectAtk: 1
   insectLevel: 1
   isCompound: 0
+  _bugType: 6
   isDied: 0
   AtkUpConsumpution: 1
   HpUpConsumption: 1
@@ -5205,6 +5208,7 @@ MonoBehaviour:
   insectAtk: 1
   insectLevel: 1
   isCompound: 0
+  _bugType: 6
   isDied: 0
   AtkUpConsumpution: 1
   HpUpConsumption: 1
@@ -7936,6 +7940,7 @@ MonoBehaviour:
   insectAtk: 2
   insectLevel: 1
   isCompound: 0
+  _bugType: 1
   isDied: 0
   AtkUpConsumpution: 1
   HpUpConsumption: 1
@@ -9428,6 +9433,7 @@ MonoBehaviour:
   insectAtk: 2
   insectLevel: 1
   isCompound: 0
+  _bugType: 6
   isDied: 0
   AtkUpConsumpution: 1
   HpUpConsumption: 1
@@ -12330,6 +12336,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -3.64
       objectReference: {fileID: 0}
+    - target: {fileID: 7967672800459542677, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
+      propertyPath: _bugType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8035239473585328184, guid: 211e624a66de63841b1ce55c9a92f7c1, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -71
@@ -12587,6 +12597,7 @@ MonoBehaviour:
   insectAtk: 1
   insectLevel: 1
   isCompound: 0
+  _bugType: 6
   isDied: 0
   AtkUpConsumpution: 1
   HpUpConsumption: 1

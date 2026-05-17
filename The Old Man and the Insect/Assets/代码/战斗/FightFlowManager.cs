@@ -539,7 +539,7 @@ public class FightFlowManager : MonoBehaviour
         DataBroker.WinGame2 = false;
        // yield return new WaitUntil(() => waitingBug.GetComponent<WaitingBug>().finishComposed == true);
         yield return new WaitForSeconds(2f);
-        //waitingBug.GetComponent<WaitingBug>().finishComposed=false;
+        //awaitingBug.GetComponent<WaitingBug>().finishComposed=false;
         actionPoint = FindObjectOfType<ActionPoint>();
         FightDataManager.ActionPoints = DataBroker.actionValue;
         actionPoint.UpdatePoints(FightDataManager.ActionPoints);;
