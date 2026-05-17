@@ -91,15 +91,16 @@ public sealed class DataBroker
         {   
             
             InsectData bug = datasFromFight[i];
-            
+            Debug.Log(bug.bugType);
             // 只处理死掉的虫子
-            if (bug.insectHP <= 0)
+            if (bug.insectHP <= 0||bug.isDied)
             {
               
                 if (bug.insectLevel == 1)
                 {
                     bug.GetSoData(Id_To_Insect_Dic.IdToInsectDic[bug.insectId]);
                     Debug.Log(bug.insectId);
+                    bug.isDied = false;
                 }
                
                 else if (bug.insectLevel == 2)
