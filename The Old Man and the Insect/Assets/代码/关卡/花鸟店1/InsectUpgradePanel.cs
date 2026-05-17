@@ -85,8 +85,8 @@ public class InsectUpgradePanel : MonoBehaviour
         if (data == null) return;
 
         nameLevelText.text = $"{data.Name}（Lv.{data.insectLevel}）";
-        atkText.text = $"ATK: {data.insectAtk}";
-        hpText.text = $"HP: {data.insectHP}";
+        atkText.text = $" {data.insectAtk}";
+        hpText.text = $" {data.insectHP}";
     }
 
     private void OnDestroy()

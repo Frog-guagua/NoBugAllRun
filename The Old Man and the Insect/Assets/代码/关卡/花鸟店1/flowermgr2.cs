@@ -5,7 +5,7 @@ using UnityEngine;
 public class flowermgr2 : MonoBehaviour
 {
     public static int getinTime = 1;
-    bool canchange = true;
+    bool canchange = false;
     public DialogueData data1;
     public DialogueData data2;
     public AudioClip Clip;
@@ -42,7 +42,8 @@ public class flowermgr2 : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)&&canchange)
-        {
+        {   
+            canchange = false;
             if (DataBroker.experience >0)
             {
                 panel.SetActive(true);
@@ -89,9 +90,11 @@ public class flowermgr2 : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         hint.ShowHint(description3);
+        canchange=true;
     }
     public void startdialogue()
     {   
+        panel.SetActive(false);
         canchange = false;
         if (getinTime == 1)
         {
