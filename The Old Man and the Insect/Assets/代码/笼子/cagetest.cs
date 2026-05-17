@@ -9,17 +9,17 @@ public class cagetest : MonoBehaviour
     void Start()
     {
      StartCoroutine(test());
-     LevelStateManager.canquit=true;
-     LevelStateManager.secondin=true;
+   LevelStateManager.canquit=true;
+    // LevelStateManager.secondin=true;
     
-    LevelStateManager.secondin=true;
+  //  LevelStateManager.secondin=true;
   
     }
 
     IEnumerator test()
     {   
         
-        DataBroker.experience = 99;
+     //   DataBroker.experience = 99;
      //   DataBroker.reputation = 10;
         CageUI.Instance.setAct();
         yield return new WaitForSeconds(0.4f);
@@ -39,11 +39,11 @@ public class cagetest : MonoBehaviour
         CageUI.Instance.setAct();
         
         print("test");
-        DataBroker.experience++;
-        for (int i = 0; i < DataBroker.Instance.datasFromFight.Count; i++)
-        {
-            Debug.Log(DataBroker.Instance.datasFromFight[i].insectLevel);
-        }
-      CageManager.Instance.AddInsect(insectData);
+      //  DataBroker.experience++;
+     //   for (int i = 0; i < DataBroker.Instance.datasFromFight.Count; i++)
+     //   {
+     //       Debug.Log(DataBroker.Instance.datasFromFight[i].insectLevel);
+     //   }
+     // CageManager.Instance.AddInsect(insectData);
     }
 }
