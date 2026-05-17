@@ -121,6 +121,8 @@ public class BattleResover : MonoBehaviour
                 if (bug != null && bug.insectHP <= 0)
                 {
                     bug.isDied = true;
+                    diedBugs.Add(bug);
+                    bug.isDied = true;
                     deathRoutines.Add(StartCoroutine(ShakeAndFade(bugObj)));
                     GridManager.Grids[i].bugOnGrid = null;
                     GridManager.Grids[i].isOccupied = false;
@@ -136,8 +138,7 @@ public class BattleResover : MonoBehaviour
                 InsectData bug = bugObj.GetComponent<InsectData>();
                 if (bug != null && bug.insectHP <= 0)
                 {
-                    bug.isDied = true;
-                    diedBugs.Add(bug);
+                    
                     deathRoutines.Add(StartCoroutine(ShakeAndFade(bugObj)));
                     GridManager.Grids[i].bugOnGrid = null;
                     GridManager.Grids[i].isOccupied = false;
