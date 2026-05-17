@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -224,5 +225,13 @@ public sealed class CageManager : MonoBehaviour
     public void showhi(string str)
     {
         hint.ShowHint(str);
+    }
+    public void exitGame()
+    {
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif 
     }
 }

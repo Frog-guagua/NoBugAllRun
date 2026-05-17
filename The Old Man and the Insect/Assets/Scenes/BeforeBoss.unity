@@ -833,7 +833,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4557003205902399513, guid: 2998825fed0030b4bb03abd047e104c1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1135,7 +1135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &941312981
 Transform:
   m_ObjectHideFlags: 0
@@ -1165,6 +1165,7 @@ GameObject:
   - component: {fileID: 1555587303}
   - component: {fileID: 1555587304}
   - component: {fileID: 1555587305}
+  - component: {fileID: 1555587306}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -2000,11 +2001,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1088228090528890872, guid: b866038cecdd4f74485fd4a435d2b876, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.51
+      value: -9.42
       objectReference: {fileID: 0}
     - target: {fileID: 1088228090528890872, guid: b866038cecdd4f74485fd4a435d2b876, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.021502443
+      value: -0.76
       objectReference: {fileID: 0}
     - target: {fileID: 1088228090528890872, guid: b866038cecdd4f74485fd4a435d2b876, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2160,6 +2161,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1555587306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1060863257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84b673e1da6c8e24a812708def54a650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgm: {fileID: 8300000, guid: 8969b73b07d2b324eaa9c349d2cd7daf, type: 3}
 --- !u!1 &1635530503
 GameObject:
   m_ObjectHideFlags: 0

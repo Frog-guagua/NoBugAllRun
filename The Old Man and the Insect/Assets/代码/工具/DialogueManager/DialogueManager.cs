@@ -145,7 +145,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            speakerSpriteImg.gameObject.SetActive(false);
+         //   speakerSpriteImg.gameObject.SetActive(false);
         }
 
         canContinue=sentence.canContinue;

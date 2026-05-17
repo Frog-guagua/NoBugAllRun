@@ -13,8 +13,8 @@ public class Before2Mgr: MonoBehaviour
     public Button btn;
     public static bool canleave=false;
     public GameObject obj;
-   
-    
+   public Animator anim;
+   private bool canquit=false;
 
    private static int getInCount = 1;
     // Start is called before the first frame update
@@ -30,12 +30,18 @@ public class Before2Mgr: MonoBehaviour
         {   
             Debug.Log("对话与动画");
             if (DataBroker.WinGame2)
-            {
+            {   
+                startwin();
                // DialogueManager.Instance.StartDialogue(win);
             }
             else
             {
-               // DialogueManager.Instance.StartDialogue(lose);
+                if (DataBroker.reputation<0)
+                {
+                    CageManager.Instance.showhi("在李四爷一行人的嘲笑中，你不禁开始怀疑起了自己....");
+                    canquit = true;
+                }
+                 // DialogueManager.Instance.StartDialogue(lose);
             }
         }
     }
@@ -43,11 +49,28 @@ public class Before2Mgr: MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        if (canquit == true&&Input.GetMouseButton(0))
+        {   
+            Debug.Log("退出游戏");
+            CageManager.Instance.exitGame();
+            canquit = false;
+        }
     }
-
-  
-
+    
+    public void startwin()
+    {
+        StartCoroutine(winflow());
+    }
+    IEnumerator winflow()
+    {   
+        anim.SetBool("canLeave",true);
+        player.GetComponent<Rigidbody2D>().position = new Vector2(1.2f,-2f);
+        
+        PlayerMove.canMove = false;
+        yield return new WaitForSeconds(4f);
+        PlayerMove.canMove = true;
+    }
+    
     void OnMouseDown()
     {
         if (Vector2.Distance(player.position, transform.position) <= 
@@ -57,7 +80,7 @@ public class Before2Mgr: MonoBehaviour
             canContinue = false;
         }
     }
-
+    
     public void setbtn()
     {
         btn.gameObject.SetActive(true);

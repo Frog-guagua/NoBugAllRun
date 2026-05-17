@@ -20,8 +20,11 @@ public class flowermgr2 : MonoBehaviour
     bool firststartflow=false;
     bool firststartflow2=false;
     bool firststartflow3=false;
+    public AudioClip bgm;
     void Start()
     {   
+        AudioMgr.Instance.StopBGM();
+        AudioMgr.Instance.PlayBGM(bgm);
         AudioMgr.Instance.PlaySFX(Clip);
         canchange = true;
         if (getinTime == 1)
@@ -35,9 +38,12 @@ public class flowermgr2 : MonoBehaviour
         }
     }
 
-   
 
-    
+
+    public void cancel()
+    {
+        canchange = true;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -108,7 +114,7 @@ public class flowermgr2 : MonoBehaviour
     }
     void switchscene()
     {   
-       
+       AudioMgr.Instance.StopBGM();
         DataBroker.Instance.give_datasFromCage(CageManager.Instance.insectDataList);
         if (getinTime == 1)
         {   

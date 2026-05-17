@@ -2112,6 +2112,7 @@ MonoBehaviour:
   Data: {fileID: 11400000, guid: 39b1f37cf148c564f901d7b5d0d2f524, type: 2}
   hint: {fileID: 1496654849}
   anim: {fileID: 997695578}
+  bgm: {fileID: 8300000, guid: 8969b73b07d2b324eaa9c349d2cd7daf, type: 3}
 --- !u!212 &1779481767
 SpriteRenderer:
   m_ObjectHideFlags: 0

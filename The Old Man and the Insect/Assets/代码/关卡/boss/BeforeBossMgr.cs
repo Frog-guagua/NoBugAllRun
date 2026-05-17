@@ -27,9 +27,10 @@ public class BeforeBossMgr : MonoBehaviour
     }
 
     void Start()
-    {   
+    {       
         if (secondin == true)
         {
+            player.GetComponent<Rigidbody2D>().position = new Vector2(-0.84f, 0.021f);
             if (DataBroker.WinGame3 == true)
             {
                 DialogueManager.Instance.StartDialogue(win);
@@ -37,7 +38,7 @@ public class BeforeBossMgr : MonoBehaviour
 
             if (DataBroker.WinGame3 == false)
             {
-                DialogueManager.Instance.StartDialogue(lose);
+                DialogueManager.Instance.StartDialogue(lose,CageManager.Instance.exitGame);
             }
         }
         else

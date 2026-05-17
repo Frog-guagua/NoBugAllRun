@@ -835,7 +835,6 @@ MonoBehaviour:
   insectLevel: 1
   isCompound: 0
   isDied: 0
-  insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
 --- !u!1 &87429481
@@ -5743,7 +5742,6 @@ MonoBehaviour:
   insectLevel: 1
   isCompound: 0
   isDied: 0
-  insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
 --- !u!1 &155774180
@@ -12767,7 +12765,6 @@ MonoBehaviour:
   insectLevel: 1
   isCompound: 0
   isDied: 0
-  insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
 --- !u!1 &544214801
@@ -31348,7 +31345,6 @@ MonoBehaviour:
   insectLevel: 1
   isCompound: 0
   isDied: 0
-  insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
 --- !u!61 &1127356865
@@ -31994,7 +31990,6 @@ MonoBehaviour:
   insectLevel: 1
   isCompound: 0
   isDied: 0
-  insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
 --- !u!61 &1205173152
@@ -45465,7 +45460,6 @@ MonoBehaviour:
   insectLevel: 1
   isCompound: 0
   isDied: 0
-  insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
 --- !u!61 &1809695730
@@ -46548,7 +46542,6 @@ MonoBehaviour:
   insectLevel: 1
   isCompound: 0
   isDied: 0
-  insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
 --- !u!61 &1884123313
@@ -53088,7 +53081,6 @@ MonoBehaviour:
   insectLevel: 1
   isCompound: 0
   isDied: 0
-  insectImage: {fileID: 0}
   AtkUpConsumpution: 1
   HpUpConsumption: 1
 --- !u!1660057539 &9223372036854775807

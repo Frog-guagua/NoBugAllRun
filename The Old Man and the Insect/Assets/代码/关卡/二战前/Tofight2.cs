@@ -17,7 +17,7 @@ public class Tofight2 : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (Before2Mgr.canleave==true)
+        if (Before2Mgr.canleave==true&&other.tag=="Player")
         {   
             Debug.Log("下一关");
            Transition.Instance.SwitchSceneWithFade("Choose2");
