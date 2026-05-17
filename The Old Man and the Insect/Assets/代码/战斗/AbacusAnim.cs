@@ -32,24 +32,24 @@ public class AbacusAnim : MonoBehaviour
         #region 第一套逻辑
 
         //呱 ：记录点击次数 + 判断点击次数为奇数还是偶数
-        clickCount++;
+        /*clickCount++;
         bool toEnd = (clickCount % 2 == 1); 
         
         //呱：根据判断 决定目标地点
-        Vector3 target = toEnd ? endPoint : startPoint;
+        Vector3 target = toEnd ? endPoint : startPoint;*/
 
         #endregion
         
         #region 第二套逻辑
-        /*
+        
         //呱： 记录点击的时候的位置
         Vector3 origionPos = ball.transform.position;
-        Vector3 targetPos = origionPos == startPoint? endPoint:startPoint;*/
+        Vector3 targetPos = origionPos == startPoint? endPoint:startPoint;
         
 
         #endregion
        
-        StartCoroutine(MoveTo(target));
+        StartCoroutine(MoveTo(targetPos));
     }
 
     
