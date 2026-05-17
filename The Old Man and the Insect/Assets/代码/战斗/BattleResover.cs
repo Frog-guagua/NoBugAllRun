@@ -138,11 +138,17 @@ public class BattleResover : MonoBehaviour
                 {
                     bug.isDied = true;
                     diedBugs.Add(bug);
+                    Debug.Log("死掉的虫虫是"+bug.bugType);
                     deathRoutines.Add(StartCoroutine(ShakeAndFade(bugObj)));
                     GridManager.Grids[i].bugOnGrid = null;
                     GridManager.Grids[i].isOccupied = false;
                 }
+                
                   
+            }
+            else
+            {
+                Debug.Log("obj是空");
             }
         }
         foreach (var routine in deathRoutines) yield return routine;
