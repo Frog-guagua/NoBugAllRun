@@ -109,6 +109,7 @@ public class flowermgr2 : MonoBehaviour
     void switchscene()
     {   
        
+        DataBroker.Instance.give_datasFromCage(CageManager.Instance.insectDataList);
         if (getinTime == 1)
         {   
             getinTime++;
