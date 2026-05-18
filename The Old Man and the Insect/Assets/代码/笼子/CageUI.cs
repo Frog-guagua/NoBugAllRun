@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CageUI : MonoBehaviour
@@ -62,7 +63,8 @@ public class CageUI : MonoBehaviour
             _instance = this;
             DontDestroyOnLoad(gameObject); // 保证实例不会被销毁
         }
-       
+
+        SceneManager.LoadScene("BeforeStart", LoadSceneMode.Additive);
         setInactive();
     }
 

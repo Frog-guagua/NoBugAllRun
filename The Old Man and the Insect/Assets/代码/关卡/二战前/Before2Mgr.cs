@@ -25,7 +25,7 @@ public class Before2Mgr: MonoBehaviour
         Bag.canOpenBag = true;
         if (getInCount == 1)
         {
-            CageManager.Instance.showhi("靠近对话");
+            CageManager.Instance.showhi("靠近对话(点击)");
         }
         if (getInCount > 1)
         {   
