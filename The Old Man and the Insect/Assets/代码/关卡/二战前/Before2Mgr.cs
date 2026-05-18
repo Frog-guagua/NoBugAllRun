@@ -15,11 +15,12 @@ public class Before2Mgr: MonoBehaviour
     public GameObject obj;
    public Animator anim;
    private bool canquit=false;
-
+    public AudioClip clip;
    private static int getInCount = 1;
     // Start is called before the first frame update
     void Start()
     {   
+        AudioMgr.Instance.PlayBGM(clip);
         Debug.Log(DataBroker.Instance.datasFromCage.Count);
         Bag.canOpenBag = true;
         if (getInCount == 1)

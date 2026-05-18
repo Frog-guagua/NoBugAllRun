@@ -34,7 +34,8 @@ public class part3Manager : MonoBehaviour
             StartCoroutine(flow());
         }
         if (getInHutong1Count > 1)
-        {
+        {   
+            AudioMgr.Instance.PlayBGM(bgm);
             Debug.Log("对话与动画，记得加引导");
             Debug.Log(DataBroker.Instance.datasFromFight.Count);
             DialogueManager.Instance.StartDialogue(Data,startflow2);
