@@ -5523,7 +5523,7 @@ MonoBehaviour:
   hintobj: {fileID: 1178278383}
   hint: {fileID: 1348283894}
   startCount: 0
-  count: 5
+  count: 8
   currentBug: {fileID: 0}
   SuccessCount: 0
   failureCount: 0
