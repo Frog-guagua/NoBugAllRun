@@ -90,13 +90,15 @@ public class part3Manager : MonoBehaviour
     }
 
     public void setbtn()
-    {
+    {   
+        PlayerMove.canMove = false;
         btn.gameObject.SetActive(true);
         obj.SetActive(true);
     }
 
     public void btnonclick()
-    {
+    {   
+        PlayerMove.canMove = true;
         FightFlowManager.OnGame1 = true;
         btn.gameObject.SetActive(false);
         Bag.canOpenBag = false;

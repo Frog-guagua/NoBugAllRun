@@ -83,13 +83,15 @@ public class Before2Mgr: MonoBehaviour
     }
     
     public void setbtn()
-    {
+    {   
+        PlayerMove.canMove = false;
         btn.gameObject.SetActive(true);
         obj.SetActive(true);
     }
 
     public void btnonclick()
-    {
+    {   
+        PlayerMove.canMove = true;
         FightFlowManager.OnGame2 = true;
         FightFlowManager.OnGame3 = false;
         btn.gameObject.SetActive(false);
